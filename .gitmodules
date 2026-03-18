@@ -1,0 +1,3 @@
+[submodule "pyhopper-web"]
+	path = pyhopper-web
+	url = https://github.com/ezzahiranass/pyhopper-web
