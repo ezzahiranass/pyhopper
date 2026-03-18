@@ -1,0 +1,281 @@
+mkdocs build --strict 2>&1 | findstr /V "INFO"
+  - reference\Components\Curve\Analysis\Closed.md
+  - reference\Components\Curve\Analysis\ControlPoints.md
+  - reference\Components\Curve\Analysis\ControlPolygon.md
+  - reference\Components\Curve\Analysis\Curvature.md
+  - reference\Components\Curve\Analysis\CurvatureGraph.md
+  - reference\Components\Curve\Analysis\CurveClosestPoint.md
+  - reference\Components\Curve\Analysis\CurveDomain.md
+  - reference\Components\Curve\Analysis\CurveFrame.md
+  - reference\Components\Curve\Analysis\CurveMiddle.md
+  - reference\Components\Curve\Analysis\CurveNearestObject.md
+  - reference\Components\Curve\Division\ContourEx.md
+  - reference\Components\Curve\Division\CurveContour.md
+  - reference\Components\Curve\Division\CurveFrames.md
+  - reference\Components\Curve\Division\DashPattern.md
+  - reference\Components\Curve\Division\DivideCurve.md
+  - reference\Components\Curve\Division\DivideDistance.md
+  - reference\Components\Curve\Division\DivideLength.md
+  - reference\Components\Curve\Division\HorizontalFrames.md
+  - reference\Components\Curve\Division\PerpFrames.md
+  - reference\Components\Curve\Division\Shatter.md
+  - reference\Components\Curve\Primitive\Circle.md
+  - reference\Components\Curve\Primitive\Cylinder.md
+  - reference\Components\Curve\Primitive\Line.md
+  - reference\Components\Curve\Primitive\Polygon.md
+  - reference\Components\Display\Colour\ColourCmyk.md
+  - reference\Components\Display\Colour\ColourHsl.md
+  - reference\Components\Display\Colour\ColourHsv.md
+  - reference\Components\Display\Colour\ColourLab.md
+  - reference\Components\Display\Colour\ColourLch.md
+  - reference\Components\Display\Dimensions\AlignedDimension.md
+  - reference\Components\Display\Dimensions\AngularDimension.md
+  - reference\Components\Display\Graphs\BarGraph.md
+  - reference\Components\Display\Graphs\Legend.md
+  - reference\Components\Display\Graphs\PieChart.md
+  - reference\Components\Display\Graphs\QuickGraph.md
+  - reference\Components\Display\Graphs\ValueTracker.md
+  - reference\Components\Display\Preview\CloudDisplay.md
+  - reference\Components\Display\Preview\CreateMaterial.md
+  - reference\Components\Display\Preview\CustomCurvePreview.md
+  - reference\Components\Display\Preview\CustomPreview.md
+  - reference\Components\Display\Vector\PointList.md
+  - reference\Components\Display\Vector\PointOrder.md
+  - reference\Components\Display\Vector\VectorDisplay.md
+  - reference\Components\Display\Vector\VectorDisplayEx.md
+  - reference\Components\Maths\Series.md
+  - reference\Components\Sets\Tree\Merge.md
+  - reference\Components\Transform\Move.md
+  - reference\Components\Transform\Rotate.md
+  - reference\Components\Vector\Vector\Amplitude.md
+  - reference\Components\Vector\Vector\Angle.md
+  - reference\Components\Vector\Vector\CrossProduct.md
+  - reference\Components\Vector\Vector\DeconstructVector.md
+  - reference\Components\Vector\Vector\Divide.md
+  - reference\Components\Vector\Vector\DotProduct.md
+  - reference\Components\Vector\Vector\Multiply.md
+  - reference\Components\Vector\Vector\Reverse.md
+  - reference\Components\Vector\Vector\Rotate.md
+  - reference\Components\Vector\Vector\UnitZ.md
+  - reference\Core\Atoms.md
+  - reference\Core\Branch.md
+  - reference\Core\Component.md
+  - reference\Core\DataTree.md
+  - reference\Core\Path.md
+  - reference\Utils\Adapters\native_adapter.md
+  - reference\Utils\Exporters\glb.md
+WARNING -  A reference to 'reference/reference/Core/Atoms.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Core/DataTree.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Core/Branch.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Core/Path.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Core/Component.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/Closed.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/ControlPoints.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/ControlPolygon.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/Curvature.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/CurvatureGraph.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/CurveClosestPoint.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/CurveDomain.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/CurveFrame.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/CurveMiddle.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Analysis/CurveNearestObject.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/ContourEx.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/CurveContour.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/CurveFrames.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/DashPattern.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/DivideCurve.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/DivideDistance.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/DivideLength.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/HorizontalFrames.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/PerpFrames.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Division/Shatter.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Primitive/Circle.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Primitive/Cylinder.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Primitive/Line.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Curve/Primitive/Polygon.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Colour/ColourCmyk.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Colour/ColourHsl.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Colour/ColourHsv.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Colour/ColourLab.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Colour/ColourLch.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Dimensions/AlignedDimension.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Dimensions/AngularDimension.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Graphs/BarGraph.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Graphs/Legend.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Graphs/PieChart.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Graphs/QuickGraph.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Graphs/ValueTracker.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Preview/CloudDisplay.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Preview/CreateMaterial.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Preview/CustomCurvePreview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Preview/CustomPreview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Vector/PointList.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Vector/PointOrder.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Vector/VectorDisplay.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Display/Vector/VectorDisplayEx.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Maths/Series.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Sets/Tree/Merge.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Transform/Move.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Transform/Rotate.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/Amplitude.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/Angle.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/CrossProduct.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/DeconstructVector.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/Divide.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/DotProduct.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/Multiply.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/Reverse.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/Rotate.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Components/Vector/Vector/UnitZ.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Utils/Adapters/native_adapter.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  A reference to 'reference/reference/Utils/Exporters/glb.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Core/Atoms.md', but the target 'reference/reference/Core/Atoms.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Core/DataTree.md', but the target 'reference/reference/Core/DataTree.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Core/Branch.md', but the target 'reference/reference/Core/Branch.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Core/Path.md', but the target 'reference/reference/Core/Path.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Core/Component.md', but the target 'reference/reference/Core/Component.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/Closed.md', but the target 'reference/reference/Components/Curve/Analysis/Closed.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/ControlPoints.md', but the target 'reference/reference/Components/Curve/Analysis/ControlPoints.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/ControlPolygon.md', but the target 'reference/reference/Components/Curve/Analysis/ControlPolygon.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/Curvature.md', but the target 'reference/reference/Components/Curve/Analysis/Curvature.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/CurvatureGraph.md', but the target 'reference/reference/Components/Curve/Analysis/CurvatureGraph.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/CurveClosestPoint.md', but the target 'reference/reference/Components/Curve/Analysis/CurveClosestPoint.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/CurveDomain.md', but the target 'reference/reference/Components/Curve/Analysis/CurveDomain.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/CurveFrame.md', but the target 'reference/reference/Components/Curve/Analysis/CurveFrame.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/CurveMiddle.md', but the target 'reference/reference/Components/Curve/Analysis/CurveMiddle.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Analysis/CurveNearestObject.md', but the target 'reference/reference/Components/Curve/Analysis/CurveNearestObject.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/ContourEx.md', but the target 'reference/reference/Components/Curve/Division/ContourEx.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/CurveContour.md', but the target 'reference/reference/Components/Curve/Division/CurveContour.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/CurveFrames.md', but the target 'reference/reference/Components/Curve/Division/CurveFrames.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/DashPattern.md', but the target 'reference/reference/Components/Curve/Division/DashPattern.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/DivideCurve.md', but the target 'reference/reference/Components/Curve/Division/DivideCurve.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/DivideDistance.md', but the target 'reference/reference/Components/Curve/Division/DivideDistance.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/DivideLength.md', but the target 'reference/reference/Components/Curve/Division/DivideLength.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/HorizontalFrames.md', but the target 'reference/reference/Components/Curve/Division/HorizontalFrames.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/PerpFrames.md', but the target 'reference/reference/Components/Curve/Division/PerpFrames.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Division/Shatter.md', but the target 'reference/reference/Components/Curve/Division/Shatter.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Primitive/Circle.md', but the target 'reference/reference/Components/Curve/Primitive/Circle.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Primitive/Cylinder.md', but the target 'reference/reference/Components/Curve/Primitive/Cylinder.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Primitive/Line.md', but the target 'reference/reference/Components/Curve/Primitive/Line.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Curve/Primitive/Polygon.md', but the target 'reference/reference/Components/Curve/Primitive/Polygon.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Colour/ColourCmyk.md', but the target 'reference/reference/Components/Display/Colour/ColourCmyk.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Colour/ColourHsl.md', but the target 'reference/reference/Components/Display/Colour/ColourHsl.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Colour/ColourHsv.md', but the target 'reference/reference/Components/Display/Colour/ColourHsv.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Colour/ColourLab.md', but the target 'reference/reference/Components/Display/Colour/ColourLab.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Colour/ColourLch.md', but the target 'reference/reference/Components/Display/Colour/ColourLch.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Dimensions/AlignedDimension.md', but the target 'reference/reference/Components/Display/Dimensions/AlignedDimension.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Dimensions/AngularDimension.md', but the target 'reference/reference/Components/Display/Dimensions/AngularDimension.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Graphs/BarGraph.md', but the target 'reference/reference/Components/Display/Graphs/BarGraph.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Graphs/Legend.md', but the target 'reference/reference/Components/Display/Graphs/Legend.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Graphs/PieChart.md', but the target 'reference/reference/Components/Display/Graphs/PieChart.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Graphs/QuickGraph.md', but the target 'reference/reference/Components/Display/Graphs/QuickGraph.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Graphs/ValueTracker.md', but the target 'reference/reference/Components/Display/Graphs/ValueTracker.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Preview/CloudDisplay.md', but the target 'reference/reference/Components/Display/Preview/CloudDisplay.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Preview/CreateMaterial.md', but the target 'reference/reference/Components/Display/Preview/CreateMaterial.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Preview/CustomCurvePreview.md', but the target 'reference/reference/Components/Display/Preview/CustomCurvePreview.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Preview/CustomPreview.md', but the target 'reference/reference/Components/Display/Preview/CustomPreview.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Vector/PointList.md', but the target 'reference/reference/Components/Display/Vector/PointList.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Vector/PointOrder.md', but the target 'reference/reference/Components/Display/Vector/PointOrder.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Vector/VectorDisplay.md', but the target 'reference/reference/Components/Display/Vector/VectorDisplay.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Display/Vector/VectorDisplayEx.md', but the target 'reference/reference/Components/Display/Vector/VectorDisplayEx.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Maths/Series.md', but the target 'reference/reference/Components/Maths/Series.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Sets/Tree/Merge.md', but the target 'reference/reference/Components/Sets/Tree/Merge.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Transform/Move.md', but the target 'reference/reference/Components/Transform/Move.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Transform/Rotate.md', but the target 'reference/reference/Components/Transform/Rotate.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/Amplitude.md', but the target 'reference/reference/Components/Vector/Vector/Amplitude.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/Angle.md', but the target 'reference/reference/Components/Vector/Vector/Angle.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/CrossProduct.md', but the target 'reference/reference/Components/Vector/Vector/CrossProduct.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/DeconstructVector.md', but the target 'reference/reference/Components/Vector/Vector/DeconstructVector.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/Divide.md', but the target 'reference/reference/Components/Vector/Vector/Divide.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/DotProduct.md', but the target 'reference/reference/Components/Vector/Vector/DotProduct.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/Multiply.md', but the target 'reference/reference/Components/Vector/Vector/Multiply.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/Reverse.md', but the target 'reference/reference/Components/Vector/Vector/Reverse.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/Rotate.md', but the target 'reference/reference/Components/Vector/Vector/Rotate.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Components/Vector/Vector/UnitZ.md', but the target 'reference/reference/Components/Vector/Vector/UnitZ.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Utils/Adapters/native_adapter.md', but the target 'reference/reference/Utils/Adapters/native_adapter.md' is not found among documentation files.
+WARNING -  Doc file 'reference/SUMMARY.md' contains a link 'reference/Utils/Exporters/glb.md', but the target 'reference/reference/Utils/Exporters/glb.md' is not found among documentation files.
+WARNING -  griffe: pyhopper\Components\Curve\Division\DivideCurve.py:14: No type or annotation for parameter 'curve'
+WARNING -  griffe: pyhopper\Components\Curve\Division\DivideCurve.py:14: Parameter 'curve' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Division\DivideCurve.py:15: No type or annotation for parameter 'count'
+WARNING -  griffe: pyhopper\Components\Curve\Division\DivideCurve.py:15: Parameter 'count' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Division\DivideCurve.py:18: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Curve\Division\DivideCurve.py:19: No type or annotation for returned value 2
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Circle.py:14: No type or annotation for parameter 'radius'
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Circle.py:14: Parameter 'radius' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Circle.py:15: No type or annotation for parameter 'plane'
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Circle.py:15: Parameter 'plane' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Circle.py:18: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Cylinder.py:14: No type or annotation for parameter 'radius'
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Cylinder.py:14: Parameter 'radius' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Cylinder.py:15: No type or annotation for parameter 'height'
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Cylinder.py:15: Parameter 'height' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Cylinder.py:18: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Line.py:14: No type or annotation for parameter 'start'
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Line.py:14: Parameter 'start' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Line.py:15: No type or annotation for parameter 'end'
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Line.py:15: Parameter 'end' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Line.py:18: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Polygon.py:15: No type or annotation for parameter 'points'
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Polygon.py:15: Parameter 'points' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Curve\Primitive\Polygon.py:18: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Maths\Series.py:11: No type or annotation for parameter 'start'
+WARNING -  griffe: pyhopper\Components\Maths\Series.py:11: Parameter 'start' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Maths\Series.py:12: No type or annotation for parameter 'step'
+WARNING -  griffe: pyhopper\Components\Maths\Series.py:12: Parameter 'step' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Maths\Series.py:13: No type or annotation for parameter 'count'
+WARNING -  griffe: pyhopper\Components\Maths\Series.py:13: Parameter 'count' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Maths\Series.py:16: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Sets\Tree\Merge.py:18: No type or annotation for parameter '*args'
+WARNING -  griffe: pyhopper\Components\Sets\Tree\Merge.py:18: Parameter '*args' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Sets\Tree\Merge.py:21: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Transform\Move.py:16: No type or annotation for parameter 'geometry'
+WARNING -  griffe: pyhopper\Components\Transform\Move.py:16: Parameter 'geometry' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Transform\Move.py:17: No type or annotation for parameter 'direction'
+WARNING -  griffe: pyhopper\Components\Transform\Move.py:17: Parameter 'direction' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Transform\Move.py:19: No type or annotation for parameter 'distance'
+WARNING -  griffe: pyhopper\Components\Transform\Move.py:19: Parameter 'distance' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Transform\Move.py:23: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:15: No type or annotation for parameter 'geometry'
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:15: Parameter 'geometry' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:16: No type or annotation for parameter 'axis'
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:16: Parameter 'axis' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:17: No type or annotation for parameter 'angle'
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:17: Parameter 'angle' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:18: No type or annotation for parameter 'center'
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:18: Parameter 'center' does not appear in the function signature
+WARNING -  griffe: pyhopper\Components\Transform\Rotate.py:21: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Vector\Vector\UnitZ.py:11: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Vector\Vector\UnitZ.py:31: No type or annotation for returned value 1
+WARNING -  griffe: pyhopper\Components\Vector\Vector\UnitZ.py:45: No type or annotation for returned value 1
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.DataTree.DataTree': ['concepts/data-tree/#pyhopper.Core.DataTree.DataTree', 'reference/Core/DataTree/#pyhopper.Core.DataTree.DataTree']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Component.Component': ['concepts/components/#pyhopper.Core.Component.Component', 'reference/Core/Component/#pyhopper.Core.Component.Component']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.Atoms.Atom': ['concepts/atoms/#pyhopper.Core.Atoms.Atom', 'reference/Core/Atoms/#pyhopper.Core.Atoms.Atom']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+WARNING -  mkdocs_autorefs: Multiple primary URLs found for 'pyhopper.Core.DataTree.DataTree': ['concepts/data-tree/#pyhopper.Core.DataTree.DataTree', 'reference/Core/DataTree/#pyhopper.Core.DataTree.DataTree']. Make sure to use unique headings, identifiers, or Markdown anchors (see our docs).
+
+Aborted with 213 warnings in strict mode!

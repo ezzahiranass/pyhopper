@@ -1,0 +1,11 @@
+d:
+cd D:\Apps\pyhopper
+conda activate flask_env
+mkdocs build --strict
+mkdocs serve
+
+
+d:
+cd D:\Apps\pyhopper
+conda activate flask_env
+python test_pyhopper.pyhopper

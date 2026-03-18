@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(wc -l /d/Apps/pyhopper/pyhopper/Components/Curve/Analysis/*.py)",
+      "Bash(wc -l /d/Apps/pyhopper/pyhopper/Components/Vector/Vector/*.py)",
+      "Bash(find /d/Apps/pyhopper/pyhopper -type f -exec ls -lh {})",
+      "Read(//d/Apps/pyhopper/pyhopper/**)"
+    ]
+  }
+}
