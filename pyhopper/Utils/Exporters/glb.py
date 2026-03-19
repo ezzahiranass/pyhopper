@@ -41,6 +41,40 @@ _CIRCLE_SEGS = 64
 
 def export_glb(tree: Any, filepath: str | FilePath) -> None:
     """Export *tree* (DataTree or plain list of Atoms) to a .glb file."""
+    builder = _GlbBuilder()
+    for atom in _iter_atoms(tree):
+        builder.add_atom(atom)
+
+    data = builder.build()
+    FilePath(filepath).write_bytes(data)
+
+
+def export_glb_with_manifest(
+    named_geometry: dict[str, Any],
+    filepath: str | FilePath,
+) -> list[dict[str, str]]:
+    """Export one GLB while preserving object-to-node provenance."""
+    builder = _GlbBuilder()
+    manifest: list[dict[str, str]] = []
+
+    for node_id, geometry in named_geometry.items():
+        local_index = 0
+        for atom in _iter_atoms(geometry):
+            object_name = f"{_safe_object_name(node_id)}_{local_index:03d}"
+            if builder.add_atom(atom, name=object_name):
+                manifest.append({
+                    "objectName": object_name,
+                    "nodeId": node_id,
+                })
+                local_index += 1
+
+    data = builder.build()
+    FilePath(filepath).write_bytes(data)
+    return manifest
+
+
+def _iter_atoms(tree: Any) -> list[Any]:
+    """Return a flat list of supported atoms from DataTree/list/scalar geometry."""
     from pyhopper.Core.Atoms import (
         AtomicCircle,
         AtomicCylinder,
@@ -58,24 +92,20 @@ def export_glb(tree: Any, filepath: str | FilePath) -> None:
     else:
         atoms = [tree]
 
-    builder = _GlbBuilder()
+    supported_atom_types = (
+        AtomicPolyline,
+        AtomicLine,
+        AtomicCylinder,
+        AtomicMesh,
+        AtomicPoint,
+        AtomicCircle,
+    )
+    return [atom for atom in atoms if isinstance(atom, supported_atom_types)]
 
-    for atom in atoms:
-        if isinstance(atom, AtomicPolyline):
-            builder.add_polyline(atom)
-        elif isinstance(atom, AtomicLine):
-            builder.add_line(atom)
-        elif isinstance(atom, AtomicCylinder):
-            builder.add_cylinder(atom)
-        elif isinstance(atom, AtomicMesh):
-            builder.add_mesh(atom)
-        elif isinstance(atom, AtomicPoint):
-            builder.add_point(atom)
-        elif isinstance(atom, AtomicCircle):
-            builder.add_circle(atom)
 
-    data = builder.build()
-    FilePath(filepath).write_bytes(data)
+def _safe_object_name(node_id: str) -> str:
+    slug = "".join(char if char.isalnum() else "_" for char in node_id).strip("_").lower()
+    return f"ph_{slug or 'node'}"
 
 
 class _GlbBuilder:
@@ -88,47 +118,77 @@ class _GlbBuilder:
         self._meshes: list[dict] = []
         self._nodes: list[dict] = []
 
-    def add_point(self, pt) -> None:
+    def add_atom(self, atom: Any, name: str | None = None) -> bool:
+        from pyhopper.Core.Atoms import (
+            AtomicCircle,
+            AtomicCylinder,
+            AtomicLine,
+            AtomicMesh,
+            AtomicPoint,
+            AtomicPolyline,
+        )
+
+        if isinstance(atom, AtomicPolyline):
+            self.add_polyline(atom, name=name)
+            return True
+        if isinstance(atom, AtomicLine):
+            self.add_line(atom, name=name)
+            return True
+        if isinstance(atom, AtomicCylinder):
+            self.add_cylinder(atom, name=name)
+            return True
+        if isinstance(atom, AtomicMesh):
+            return self.add_mesh(atom, name=name)
+        if isinstance(atom, AtomicPoint):
+            self.add_point(atom, name=name)
+            return True
+        if isinstance(atom, AtomicCircle):
+            self.add_circle(atom, name=name)
+            return True
+        return False
+
+    def add_point(self, pt, name: str | None = None) -> None:
         positions = [(pt.x, pt.y, pt.z)]
         acc_idx = self._add_vec3_accessor(positions)
-        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _POINTS})
+        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _POINTS}, name=name)
 
-    def add_polyline(self, poly) -> None:
+    def add_polyline(self, poly, name: str | None = None) -> None:
         if not poly.points:
             return
         positions = [(p.x, p.y, p.z) for p in poly.points]
         acc_idx = self._add_vec3_accessor(positions)
-        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP})
+        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP}, name=name)
 
-    def add_line(self, line) -> None:
+    def add_line(self, line, name: str | None = None) -> None:
         positions = [
             (line.start.x, line.start.y, line.start.z),
             (line.end.x, line.end.y, line.end.z),
         ]
         acc_idx = self._add_vec3_accessor(positions)
-        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP})
+        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP}, name=name)
 
-    def add_circle(self, circle) -> None:
+    def add_circle(self, circle, name: str | None = None) -> None:
         positions = _circle_points(circle, _CIRCLE_SEGS)
         acc_idx = self._add_vec3_accessor(positions)
-        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP})
+        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP}, name=name)
 
-    def add_mesh(self, mesh) -> None:
+    def add_mesh(self, mesh, name: str | None = None) -> bool:
         if not mesh.vertices or not mesh.faces:
-            return
+            return False
         positions = [(v.x, v.y, v.z) for v in mesh.vertices]
         indices = _triangulate_faces(mesh.faces)
         if not indices:
-            return
+            return False
         pos_acc = self._add_vec3_accessor(positions)
         idx_acc = self._add_index_accessor(indices)
         self._push_mesh({
             "attributes": {"POSITION": pos_acc},
             "indices": idx_acc,
             "mode": _TRIANGLES,
-        })
+        }, name=name)
+        return True
 
-    def add_cylinder(self, cyl) -> None:
+    def add_cylinder(self, cyl, name: str | None = None) -> None:
         positions, indices = _tessellate_cylinder(cyl, _CYLINDER_SEGS)
         pos_acc = self._add_vec3_accessor(positions)
         idx_acc = self._add_index_accessor(indices)
@@ -136,7 +196,7 @@ class _GlbBuilder:
             "attributes": {"POSITION": pos_acc},
             "indices": idx_acc,
             "mode": _TRIANGLES,
-        })
+        }, name=name)
 
     def _add_vec3_accessor(self, points: list[tuple[float, float, float]]) -> int:
         byte_offset = len(self._bin)
@@ -205,10 +265,13 @@ class _GlbBuilder:
         })
         return acc_idx
 
-    def _push_mesh(self, primitive: dict) -> None:
+    def _push_mesh(self, primitive: dict, name: str | None = None) -> None:
         mesh_idx = len(self._meshes)
         self._meshes.append({"primitives": [primitive]})
-        self._nodes.append({"mesh": mesh_idx})
+        node = {"mesh": mesh_idx}
+        if name:
+            node["name"] = name
+        self._nodes.append(node)
 
     def build(self) -> bytes:
         while len(self._bin) % 4 != 0:

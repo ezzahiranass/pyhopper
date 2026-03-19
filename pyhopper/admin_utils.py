@@ -42,6 +42,7 @@ def _serialize_component(tab: str, category: str, component_cls: type[Component]
     variadic_inputs = bool(getattr(component_cls, "variadic_inputs", False))
 
     return {
+        "component_key": f"{component_cls.__module__}.{component_cls.__name__}",
         "tab": tab,
         "category": category,
         "component": component_cls.__name__,

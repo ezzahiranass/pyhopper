@@ -5,7 +5,9 @@ from .DeconstructVector import DeconstructVector
 from .DotProduct import DotProduct
 from .Reverse import Reverse
 from .Rotate import Rotate
-from .UnitZ import UnitX, UnitY, UnitZ
+from .UnitX import UnitX
+from .UnitY import UnitY
+from .UnitZ import UnitZ
 from .Vector2Pt import Vector2Pt
 from .VectorLength import VectorLength
 from .VectorXYZ import VectorXYZ
