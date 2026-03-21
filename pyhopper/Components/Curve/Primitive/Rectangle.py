@@ -26,7 +26,7 @@ class Rectangle(Component):
     """
 
     inputs = [
-        InputParam("plane", AtomicPlane, Access.ITEM, default=None, optional=True),
+        InputParam("plane", AtomicPlane, Access.ITEM, default=AtomicPlane.world_xy()),
         InputParam("x_size", float, Access.ITEM, default=1.0),
         InputParam("y_size", float, Access.ITEM, default=1.0),
         InputParam("radius", float, Access.ITEM, default=0.0),
@@ -36,10 +36,7 @@ class Rectangle(Component):
         OutputParam("length", float),
     ]
 
-    def generate(self, plane=None, x_size=1.0, y_size=1.0, radius=0.0):
-        if plane is None:
-            plane = AtomicPlane.world_xy()
-
+    def generate(self, plane=AtomicPlane.world_xy(), x_size=1.0, y_size=1.0, radius=0.0):
         half_x = abs(float(x_size)) / 2.0
         half_y = abs(float(y_size)) / 2.0
         fillet = max(0.0, min(float(radius), half_x, half_y))

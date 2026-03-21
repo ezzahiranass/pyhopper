@@ -1,0 +1,2 @@
+these are utilities for making sure the data tree model and the typing are unified and tight.
+any conversions or additional patchings, exceptions needed to make the components function normally should be here

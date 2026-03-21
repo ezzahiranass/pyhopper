@@ -9,11 +9,9 @@ class Circle(Component):
 
     inputs = [
         InputParam("radius", float, Access.ITEM, default=1.0),
-        InputParam("plane", AtomicPlane, Access.ITEM, default=None, optional=True),
+        InputParam("plane", AtomicPlane, Access.ITEM, default=AtomicPlane.world_xy()),
     ]
     outputs = [OutputParam("circle")]
 
-    def generate(self, radius=1.0, plane=None):
-        if plane is None:
-            plane = AtomicPlane.world_xy()
+    def generate(self, radius=1.0, plane=AtomicPlane.world_xy()):
         return AtomicCircle(plane=plane, radius=float(radius))

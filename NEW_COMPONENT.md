@@ -170,6 +170,38 @@ Examples:
 - `Merge` is effectively tree-level
 - most transforms like `Move` and `Rotate` use `ITEM`
 
+### Never use `default=None` as a stand-in for a real default value
+
+If an input has a natural fallback (e.g. a plane that defaults to world XY, a
+domain that defaults to `[0, 1]`), set that real value directly in both
+`InputParam` and the `generate()` signature. Do not use `None` as a placeholder
+and then guard for it inside `generate()`.
+
+Do:
+
+```python
+InputParam("plane", AtomicPlane, Access.ITEM, default=AtomicPlane.world_xy()),
+
+def generate(self, plane=AtomicPlane.world_xy()):
+    ...
+```
+
+Do not:
+
+```python
+InputParam("plane", AtomicPlane, Access.ITEM, default=None, optional=True),
+
+def generate(self, plane=None):
+    if plane is None:
+        plane = AtomicPlane.world_xy()  # <-- bad
+```
+
+The only legitimate use of `default=None` is when `None` is a genuine sentinel
+that changes the component's behavior — for example, an optional projection
+plane where the absence of a plane means "skip the projection step entirely".
+In that case, keep `optional=True` as well so the pipeline does not raise when
+the input is missing.
+
 ---
 
 ## 7. Keep `generate()` stateless and side-effect-free

@@ -33,14 +33,12 @@ class CircleCNR(Component):
 
     inputs = [
         InputParam("center", AtomicPoint, Access.ITEM),
-        InputParam("normal", AtomicVector, Access.ITEM, default=None, optional=True),
+        InputParam("normal", AtomicVector, Access.ITEM, default=AtomicVector.unit_z()),
         InputParam("radius", float, Access.ITEM, default=1.0),
     ]
     outputs = [OutputParam("circle")]
 
-    def generate(self, center=None, normal=None, radius=1.0):
-        if normal is None:
-            normal = AtomicVector.unit_z()
+    def generate(self, center=None, normal=AtomicVector.unit_z(), radius=1.0):
         normal_unit = normal.unitize()
         x_axis = _orthonormal_x_axis(normal_unit)
         plane = AtomicPlane(origin=center, normal=normal_unit, x_axis=x_axis)

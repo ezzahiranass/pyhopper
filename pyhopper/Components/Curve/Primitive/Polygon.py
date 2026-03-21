@@ -36,7 +36,7 @@ class Polygon(Component):
     """
 
     inputs = [
-        InputParam("plane", AtomicPlane, Access.ITEM, default=None, optional=True),
+        InputParam("plane", AtomicPlane, Access.ITEM, default=AtomicPlane.world_xy()),
         InputParam("radius", float, Access.ITEM, default=1.0),
         InputParam("segments", int, Access.ITEM, default=6),
         InputParam("fillet_radius", float, Access.ITEM, default=0.0),
@@ -46,10 +46,7 @@ class Polygon(Component):
         OutputParam("length", float),
     ]
 
-    def generate(self, plane=None, radius=1.0, segments=6, fillet_radius=0.0):
-        if plane is None:
-            plane = AtomicPlane.world_xy()
-
+    def generate(self, plane=AtomicPlane.world_xy(), radius=1.0, segments=6, fillet_radius=0.0):
         segment_count = max(3, int(segments))
         polygon_radius = abs(float(radius))
         _ = max(0.0, float(fillet_radius))

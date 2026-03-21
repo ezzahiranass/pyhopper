@@ -11,6 +11,7 @@ Supported atoms
   AtomicMesh      -> triangle mesh (faces must be triangles or quads; quads split)
   AtomicPoint     -> POINTS primitive
   AtomicCircle    -> tessellated LINE_STRIP (36 segments)
+  AtomicSurface   -> tessellated triangle mesh
 
 Unknown atom types are silently skipped.
 """
@@ -37,6 +38,7 @@ _TRIANGLES = 4
 
 _CYLINDER_SEGS = 32
 _CIRCLE_SEGS = 64
+_SURFACE_SUBDIVS_PER_SPAN = {1: 1, 2: 16, 3: 12}
 
 
 def export_glb(tree: Any, filepath: str | FilePath) -> None:
@@ -76,12 +78,14 @@ def export_glb_with_manifest(
 def _iter_atoms(tree: Any) -> list[Any]:
     """Return a flat list of supported atoms from DataTree/list/scalar geometry."""
     from pyhopper.Core.Atoms import (
+        AtomicBrep,
         AtomicCircle,
         AtomicCylinder,
         AtomicLine,
         AtomicMesh,
         AtomicPoint,
         AtomicPolyline,
+        AtomicSurface,
     )
     from pyhopper.Core.DataTree import DataTree
 
@@ -99,6 +103,8 @@ def _iter_atoms(tree: Any) -> list[Any]:
         AtomicMesh,
         AtomicPoint,
         AtomicCircle,
+        AtomicSurface,
+        AtomicBrep,
     )
     return [atom for atom in atoms if isinstance(atom, supported_atom_types)]
 
@@ -120,12 +126,14 @@ class _GlbBuilder:
 
     def add_atom(self, atom: Any, name: str | None = None) -> bool:
         from pyhopper.Core.Atoms import (
+            AtomicBrep,
             AtomicCircle,
             AtomicCylinder,
             AtomicLine,
             AtomicMesh,
             AtomicPoint,
             AtomicPolyline,
+            AtomicSurface,
         )
 
         if isinstance(atom, AtomicPolyline):
@@ -145,6 +153,10 @@ class _GlbBuilder:
         if isinstance(atom, AtomicCircle):
             self.add_circle(atom, name=name)
             return True
+        if isinstance(atom, AtomicSurface):
+            return self.add_surface(atom, name=name)
+        if isinstance(atom, AtomicBrep):
+            return self.add_brep(atom, name=name)
         return False
 
     def add_point(self, pt, name: str | None = None) -> None:
@@ -197,6 +209,44 @@ class _GlbBuilder:
             "indices": idx_acc,
             "mode": _TRIANGLES,
         }, name=name)
+
+    def add_brep(self, brep, name: str | None = None) -> bool:
+        """Tessellate all Brep faces and emit them as a single merged mesh."""
+        all_positions: list[tuple[float, float, float]] = []
+        all_indices: list[int] = []
+
+        for face in brep.faces:
+            face_positions, face_indices = _tessellate_surface(face)
+            if not face_positions:
+                continue
+            offset = len(all_positions)
+            all_positions.extend(face_positions)
+            all_indices.extend(idx + offset for idx in face_indices)
+
+        if not all_positions or not all_indices:
+            return False
+
+        pos_acc = self._add_vec3_accessor(all_positions)
+        idx_acc = self._add_index_accessor(all_indices)
+        self._push_mesh({
+            "attributes": {"POSITION": pos_acc},
+            "indices": idx_acc,
+            "mode": _TRIANGLES,
+        }, name=name)
+        return True
+
+    def add_surface(self, surface, name: str | None = None) -> bool:
+        positions, indices = _tessellate_surface(surface)
+        if not positions or not indices:
+            return False
+        pos_acc = self._add_vec3_accessor(positions)
+        idx_acc = self._add_index_accessor(indices)
+        self._push_mesh({
+            "attributes": {"POSITION": pos_acc},
+            "indices": idx_acc,
+            "mode": _TRIANGLES,
+        }, name=name)
+        return True
 
     def _add_vec3_accessor(self, points: list[tuple[float, float, float]]) -> int:
         byte_offset = len(self._bin)
@@ -321,6 +371,154 @@ def _circle_points(circle, segments: int) -> list[tuple[float, float, float]]:
             cz + radius * (cos_t * xz + sin_t * yz),
         ))
     return points
+
+
+def _expand_knots(knots: tuple[float, ...], mults: tuple[int, ...]) -> tuple[float, ...]:
+    expanded = []
+    for knot, mult in zip(knots, mults):
+        expanded.extend([float(knot)] * int(mult))
+    return tuple(expanded)
+
+
+def _find_span(degree: int, knots: tuple[float, ...], control_point_count: int, parameter: float) -> int:
+    if parameter >= knots[control_point_count]:
+        return control_point_count - 1
+    if parameter <= knots[degree]:
+        return degree
+
+    low = degree
+    high = control_point_count
+    mid = (low + high) // 2
+    while parameter < knots[mid] or parameter >= knots[mid + 1]:
+        if parameter < knots[mid]:
+            high = mid
+        else:
+            low = mid
+        mid = (low + high) // 2
+    return mid
+
+
+def _basis_functions(span: int, parameter: float, degree: int, knots: tuple[float, ...]) -> list[float]:
+    basis = [0.0] * (degree + 1)
+    basis[0] = 1.0
+    left = [0.0] * (degree + 1)
+    right = [0.0] * (degree + 1)
+
+    for j in range(1, degree + 1):
+        left[j] = parameter - knots[span + 1 - j]
+        right[j] = knots[span + j] - parameter
+        saved = 0.0
+        for r in range(j):
+            denominator = right[r + 1] + left[j - r]
+            term = 0.0 if abs(denominator) < 1e-12 else basis[r] / denominator
+            basis[r] = saved + right[r + 1] * term
+            saved = left[j - r] * term
+        basis[j] = saved
+
+    return basis
+
+
+def _surface_point(surface, u: float, v: float) -> tuple[float, float, float]:
+    poles = surface.poles
+    weights = surface.weights
+    v_count = len(poles)
+    u_count = len(poles[0])
+
+    u_knots = _expand_knots(surface.u_knots, surface.u_mults)
+    v_knots = _expand_knots(surface.v_knots, surface.v_mults)
+    u_degree = max(1, min(int(surface.u_degree), u_count - 1))
+    v_degree = max(1, min(int(surface.v_degree), v_count - 1))
+
+    u_min = u_knots[u_degree]
+    u_max = u_knots[u_count]
+    v_min = v_knots[v_degree]
+    v_max = v_knots[v_count]
+
+    uu = max(u_min, min(u_max, u))
+    vv = max(v_min, min(v_max, v))
+
+    u_span = _find_span(u_degree, u_knots, u_count, uu)
+    v_span = _find_span(v_degree, v_knots, v_count, vv)
+    u_basis = _basis_functions(u_span, uu, u_degree, u_knots)
+    v_basis = _basis_functions(v_span, vv, v_degree, v_knots)
+
+    x = y = z = w = 0.0
+    for l in range(v_degree + 1):
+        row_index = v_span - v_degree + l
+        for k in range(u_degree + 1):
+            col_index = u_span - u_degree + k
+            point = poles[row_index][col_index]
+            weight = weights[row_index][col_index]
+            coeff = u_basis[k] * v_basis[l] * weight
+            x += coeff * point.x
+            y += coeff * point.y
+            z += coeff * point.z
+            w += coeff
+
+    if abs(w) < 1e-12:
+        return 0.0, 0.0, 0.0
+    return x / w, y / w, z / w
+
+
+def _surface_parameter_samples(knots: tuple[float, ...], mults: tuple[int, ...], degree: int) -> list[float]:
+    """Build parameter samples that respect knot span boundaries.
+
+    Each knot span gets subdivisions proportional to the degree so that
+    linear (degree-1) directions produce only the minimum needed samples
+    while curved spans get enough interior points.
+    """
+    full_knots = _expand_knots(knots, mults)
+    cp_count = len(full_knots) - degree - 1
+    start = full_knots[degree]
+    end = full_knots[cp_count]
+
+    if end <= start:
+        return [start, end]
+
+    # Collect unique knot values in the active range as span boundaries.
+    span_breaks = [start]
+    for k in full_knots[degree + 1:cp_count + 1]:
+        if k > span_breaks[-1]:
+            span_breaks.append(k)
+    if span_breaks[-1] < end:
+        span_breaks.append(end)
+
+    subdivs = _SURFACE_SUBDIVS_PER_SPAN.get(degree, max(6, degree * 2))
+
+    samples: list[float] = []
+    for i in range(len(span_breaks) - 1):
+        a, b = span_breaks[i], span_breaks[i + 1]
+        for j in range(subdivs):
+            samples.append(a + (b - a) * j / subdivs)
+    samples.append(span_breaks[-1])
+
+    return samples
+
+
+def _tessellate_surface(surface) -> tuple[list[tuple[float, float, float]], list[int]]:
+    if not surface.poles or len(surface.poles) < 2 or len(surface.poles[0]) < 2:
+        return [], []
+
+    u_samples = _surface_parameter_samples(surface.u_knots, surface.u_mults, surface.u_degree)
+    v_samples = _surface_parameter_samples(surface.v_knots, surface.v_mults, surface.v_degree)
+
+    positions = []
+    for vv in v_samples:
+        for uu in u_samples:
+            positions.append(_surface_point(surface, uu, vv))
+
+    width = len(u_samples)
+    height = len(v_samples)
+    indices = []
+    for row in range(height - 1):
+        for col in range(width - 1):
+            a = row * width + col
+            b = a + 1
+            c = a + width
+            d = c + 1
+            indices += [a, b, d, a, d, c]
+
+    return positions, indices
 
 
 def _tessellate_cylinder(cyl, segments: int) -> tuple[list[tuple[float, float, float]], list[int]]:

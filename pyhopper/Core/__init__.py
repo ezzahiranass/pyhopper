@@ -5,6 +5,7 @@ from .Atoms import (
     AtomicPoint, AtomicVector, AtomicPlane, AtomicInterval,
     AtomicLine, AtomicCircle, AtomicArc, AtomicPolyline, AtomicNurbsCurve,
     AtomicMesh, AtomicSurface, AtomicCylinder,
+    AtomicBrep, AtomicTransform,
 )
 from .DataTree import DataTree, MatchRule
 from .Component import Component, ComponentResult, Access, InputParam, OutputParam
@@ -15,6 +16,7 @@ __all__ = [
     "AtomicPoint", "AtomicVector", "AtomicPlane", "AtomicInterval",
     "AtomicLine", "AtomicCircle", "AtomicArc", "AtomicPolyline", "AtomicNurbsCurve",
     "AtomicMesh", "AtomicSurface", "AtomicCylinder",
+    "AtomicBrep", "AtomicTransform",
     "DataTree", "MatchRule",
     "Component", "ComponentResult", "Access", "InputParam", "OutputParam",
 ]

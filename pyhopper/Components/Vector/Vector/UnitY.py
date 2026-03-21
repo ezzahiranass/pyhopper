@@ -1,13 +1,17 @@
-"""UnitY - Returns a unit vector along the Y axis."""
+"""UnitY - Returns a vector along the Y axis scaled by a factor."""
 
 from pyhopper.Core.Atoms import AtomicVector
-from pyhopper.Core.Component import Component, OutputParam
+from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
+
 
 class UnitY(Component):
-    """Return a unit vector along the world Y axis ``(0, 1, 0)``."""
+    """Return a vector along the world Y axis scaled by *factor*."""
 
-    inputs = []
+    inputs = [
+        InputParam("factor", float, Access.ITEM, default=1.0),
+    ]
     outputs = [OutputParam("vector")]
 
-    def generate(self):
-        return AtomicVector.unit_y()
+    def generate(self, factor=1.0):
+        f = float(factor)
+        return AtomicVector(0.0, f, 0.0)
