@@ -1,0 +1,4 @@
+d:
+cd D:\Apps\pyhopper\archibot-web\api
+conda activate flask_env
+python app.py

@@ -1,0 +1,6 @@
+{
+  "slug": "junior_architect",
+  "title": "Junior Architect",
+  "description": "General architectural agent that can reason directly or delegate focused work like site analysis and drafting.",
+  "tools": ["site_analysis", "draft"]
+}
