@@ -116,7 +116,7 @@ def build_outputs(record: dict) -> list[dict]:
     for port in record["outputs"] or []:
         duplicate = seen[port["name"]] > 0
         seen[port["name"]] += 1
-        name = port_name_for(port["name"], record["name"], duplicate=duplicate)
+        name = port_name_for(port["name"], record["name"], duplicate=duplicate, output=True)
         if any(existing["name"] == name for existing in outputs):
             name = f"{name}_{seen[port['name']]}"
         outputs.append({

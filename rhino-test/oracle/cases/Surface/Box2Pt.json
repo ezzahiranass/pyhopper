@@ -1,0 +1,90 @@
+{
+ "component": "pyhopper.Components.Surface.Primitive.Box2Pt.Box2Pt",
+ "gh_guid": "2a43ef96-8f87-4892-8b94-237a47e8d3cf",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "world",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 3,
+     "z": 4
+    }
+   },
+   "compare": [
+    "Box"
+   ]
+  },
+  {
+   "name": "reversed_corners",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 3,
+     "z": 4
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Box"
+   ]
+  },
+  {
+   "name": "tilted_plane",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 3,
+     "z": 4
+    },
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    }
+   },
+   "compare": [
+    "Box"
+   ]
+  }
+ ]
+}

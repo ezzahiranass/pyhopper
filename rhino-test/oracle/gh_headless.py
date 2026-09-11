@@ -15,10 +15,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from oracle.support import load, to_arc, to_circle, to_line, to_nurbs_curve, to_plane, to_point, to_polyline, to_vector
+from oracle.support import load, to_arc, to_circle, to_line, to_nurbs_curve, to_nurbs_surface, to_plane, to_point, to_polyline, to_transform, to_vector
 
 from pyhopper.Core.Atoms import (
     AtomicArc,
+    AtomicBox,
+    AtomicBrep,
     AtomicCircle,
     AtomicInterval,
     AtomicLine,
@@ -27,6 +29,8 @@ from pyhopper.Core.Atoms import (
     AtomicPoint,
     AtomicPolyline,
     AtomicRectangle,
+    AtomicSurface,
+    AtomicTransform,
     AtomicVector,
 )
 from pyhopper.Core.DataTree import DataTree
@@ -108,6 +112,17 @@ def to_net(value: Any, *, reparametrize: bool = False):
         return to_vector(value)
     if isinstance(value, AtomicPlane):
         return to_plane(value)
+    if isinstance(value, AtomicBox):
+        half = (float(value.x_size) / 2.0, float(value.y_size) / 2.0, float(value.z_size) / 2.0)
+        return Rhino.Geometry.Box(to_plane(value.plane), *(Rhino.Geometry.Interval(-h, h) for h in half))
+    if isinstance(value, AtomicSurface):
+        return to_nurbs_surface(value)
+    if isinstance(value, AtomicBrep):
+        if value.face_count != 1 or not isinstance(value.faces[0], AtomicSurface):
+            raise TypeError("only single-face untrimmed breps convert to Grasshopper")
+        return to_nurbs_surface(value.faces[0])
+    if isinstance(value, AtomicTransform):
+        return to_transform(value)
     if isinstance(value, AtomicRectangle):
         # pyhopper rectangles are centred on their plane; Rhino's carry corner intervals
         half_x, half_y = float(value.x_size) / 2.0, float(value.y_size) / 2.0
@@ -144,6 +159,19 @@ def to_python(goo: Any):
         return AtomicPolyline(tuple(AtomicPoint(float(pt.X), float(pt.Y), float(pt.Z)) for pt in value))
     if isinstance(value, Rhino.Geometry.Curve):
         return curve_from_rhino(value)
+    if isinstance(value, Rhino.Geometry.Box):
+        plane = value.Plane
+        centre = plane.PointAt(value.X.Mid, value.Y.Mid, value.Z.Mid)
+        origin = AtomicPoint(float(centre.X), float(centre.Y), float(centre.Z))
+        return AtomicBox(AtomicPlane(origin, AtomicVector(float(plane.ZAxis.X), float(plane.ZAxis.Y), float(plane.ZAxis.Z)), AtomicVector(float(plane.XAxis.X), float(plane.XAxis.Y), float(plane.XAxis.Z))), float(value.X.Length), float(value.Y.Length), float(value.Z.Length))
+    if isinstance(value, Rhino.Geometry.Transform):
+        return AtomicTransform(tuple(float(getattr(value, f"M{row}{col}")) for row in range(4) for col in range(4)))
+    if isinstance(value, Rhino.Geometry.Brep):
+        if value.Faces.Count != 1:
+            raise TypeError(f"cannot convert a {value.Faces.Count}-face brep to a pyhopper atom")
+        return surface_from_rhino(value.Faces[0].ToNurbsSurface())
+    if isinstance(value, Rhino.Geometry.Surface):
+        return surface_from_rhino(value.ToNurbsSurface())
     if isinstance(value, Rhino.Geometry.Rectangle3d):
         plane = value.Plane
         centre = plane.PointAt(value.X.Mid, value.Y.Mid)
@@ -197,6 +225,37 @@ def curve_from_rhino(curve):
     if nurbs is None:
         raise TypeError(f"cannot convert {curve.GetType().FullName} to a pyhopper curve")
     return nurbs_from_rhino(nurbs)
+
+
+def surface_from_rhino(surface) -> AtomicSurface:
+    """RhinoCommon NurbsSurface -> AtomicSurface (poles[v][u], unique knots + multiplicities)."""
+    from pyhopper.Utils.Nurbs import collapse_knots, from_rhino_knots
+
+    u_count, v_count = surface.Points.CountU, surface.Points.CountV
+    poles = []
+    weights = []
+    for v in range(v_count):
+        row = []
+        row_weights = []
+        for u in range(u_count):
+            control = surface.Points.GetControlPoint(u, v)
+            location = control.Location
+            row.append(AtomicPoint(float(location.X), float(location.Y), float(location.Z)))
+            row_weights.append(float(control.Weight))
+        poles.append(tuple(row))
+        weights.append(tuple(row_weights))
+    u_knots, u_mults = collapse_knots(from_rhino_knots([float(surface.KnotsU[i]) for i in range(surface.KnotsU.Count)]))
+    v_knots, v_mults = collapse_knots(from_rhino_knots([float(surface.KnotsV[i]) for i in range(surface.KnotsV.Count)]))
+    return AtomicSurface(
+        poles=tuple(poles),
+        weights=tuple(weights),
+        u_knots=tuple(u_knots),
+        v_knots=tuple(v_knots),
+        u_mults=tuple(u_mults),
+        v_mults=tuple(v_mults),
+        u_degree=int(surface.Degree(0)),
+        v_degree=int(surface.Degree(1)),
+    )
 
 
 def to_python_arc(arc) -> AtomicArc:

@@ -1,0 +1,90 @@
+{
+ "component": "pyhopper.Components.Transform.Euclidian.Rotate3D.Rotate3D",
+ "gh_guid": "3dfb9a77-6e05-4016-9f20-94f78607d672",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "quarter_turn",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    },
+    "angle": 1.5707963267948966,
+    "center": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "axis": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 0,
+     "z": 1
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "defaults_quarter_turn_about_z",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "transform_only",
+   "inputs": {
+    "angle": 3.141592653589793
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "off_centre_axis",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "angle": 3.141592653589793,
+    "center": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    },
+    "axis": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  }
+ ]
+}

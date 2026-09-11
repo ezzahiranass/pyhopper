@@ -1,0 +1,73 @@
+{
+ "component": "pyhopper.Components.Surface.Primitive.PlaneSurface.PlaneSurface",
+ "gh_guid": "439a55a5-2f9e-4f66-9de2-32f24fec2ef5",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "custom_domains",
+   "inputs": {
+    "x_size": {
+     "type": "Interval",
+     "start": -1.0,
+     "end": 3.0
+    },
+    "y_size": {
+     "type": "Interval",
+     "start": 0.0,
+     "end": 2.0
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "defaults",
+   "inputs": {},
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "tilted",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "x_size": {
+     "type": "Interval",
+     "start": 0.0,
+     "end": 1.0
+    },
+    "y_size": {
+     "type": "Interval",
+     "start": 0.0,
+     "end": 2.0
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  }
+ ]
+}

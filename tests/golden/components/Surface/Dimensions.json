@@ -1,0 +1,243 @@
+{
+ "component": "pyhopper.Components.Surface.Analysis.Dimensions.Dimensions",
+ "gh_guid": "f241e42e-8983-4ed3-b869-621c07630b00",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "plane",
+   "inputs": {
+    "surface": {
+     "type": "Surface",
+     "poles": [
+      [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ],
+      [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 2,
+        "z": 0
+       }
+      ]
+     ],
+     "weights": [
+      [
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ],
+     "u_knots": [],
+     "v_knots": [],
+     "u_mults": [],
+     "v_mults": [],
+     "u_degree": 1,
+     "v_degree": 1,
+     "u_periodic": false,
+     "v_periodic": false
+    }
+   },
+   "expect": {
+    "u_dimension": {
+     "{0}": [
+      4.0
+     ]
+    },
+    "v_dimension": {
+     "{0}": [
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "curved_max_control_polygon",
+   "inputs": {
+    "surface": {
+     "type": "Surface",
+     "poles": [
+      [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 1
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ],
+      [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 2,
+        "z": 2
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 2,
+        "z": 0
+       }
+      ]
+     ],
+     "weights": [
+      [
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0
+      ]
+     ],
+     "u_knots": [],
+     "v_knots": [],
+     "u_mults": [],
+     "v_mults": [],
+     "u_degree": 2,
+     "v_degree": 1,
+     "u_periodic": false,
+     "v_periodic": false
+    }
+   },
+   "expect": {
+    "u_dimension": {
+     "{0}": [
+      5.656854249492381
+     ]
+    },
+    "v_dimension": {
+     "{0}": [
+      2.23606797749979
+     ]
+    }
+   }
+  },
+  {
+   "name": "curved2",
+   "inputs": {
+    "surface": {
+     "type": "Surface",
+     "poles": [
+      [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 6,
+        "y": 0,
+        "z": 0
+       }
+      ],
+      [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 1,
+        "z": 4
+       },
+       {
+        "type": "Point3d",
+        "x": 6,
+        "y": 1,
+        "z": 0
+       }
+      ]
+     ],
+     "weights": [
+      [
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0
+      ]
+     ],
+     "u_knots": [],
+     "v_knots": [],
+     "u_mults": [],
+     "v_mults": [],
+     "u_degree": 2,
+     "v_degree": 1,
+     "u_periodic": false,
+     "v_periodic": false
+    }
+   },
+   "expect": {
+    "u_dimension": {
+     "{0}": [
+      10.0
+     ]
+    },
+    "v_dimension": {
+     "{0}": [
+      4.123105625617661
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,199 @@
+{
+ "component": "pyhopper.Components.Intersect.Mathematical.LinePlane.LinePlane",
+ "gh_guid": "75d0442c-1aa3-47cf-bd94-457b42c16e9f",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "line": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": -1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    },
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    }
+   },
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "param_l": {
+     "{0}": [
+      0.25
+     ]
+    },
+    "param_p": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": -1.0,
+       "y": -2.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "beyond_segment",
+   "inputs": {
+    "line": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     }
+    },
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    }
+   },
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "param_l": {
+     "{0}": [
+      -1.0
+     ]
+    },
+    "param_p": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "parallel_emits_nothing",
+   "inputs": {
+    "line": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 1
+     }
+    },
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    }
+   },
+   "expect": {
+    "point": {
+     "{0}": []
+    },
+    "param_l": {
+     "{0}": []
+    },
+    "param_p": {
+     "{0}": []
+    }
+   }
+  }
+ ]
+}

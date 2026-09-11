@@ -1,0 +1,77 @@
+{
+ "component": "pyhopper.Components.Transform.Affine.Project.Project",
+ "gh_guid": "23285717-156c-468f-a691-b242488c06a6",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "point",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": 3
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "line_onto_tilted_plane",
+   "inputs": {
+    "geometry": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 2
+     }
+    },
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "transform_only",
+   "inputs": {},
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,156 @@
+{
+ "component": "pyhopper.Components.Transform.Euclidian.MoveToPlane.MoveToPlane",
+ "gh_guid": "4fe87ef8-49e4-4605-9859-87940d62e1de",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "point_above_moves_down",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": 3
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "point_below_moves_up",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": -3
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "straddling_line_moves_up",
+   "inputs": {
+    "geometry": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": -1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "above_disabled",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": 3
+    },
+    "above": false
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "below_disabled",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": -3
+    },
+    "below": false
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "straddling_counts_as_below",
+   "inputs": {
+    "geometry": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": -1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    },
+    "below": false
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "tilted_plane",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 5,
+     "z": 0
+    },
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    }
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  }
+ ]
+}
