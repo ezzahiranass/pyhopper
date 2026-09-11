@@ -5,20 +5,20 @@
 pyhopper brings the node-graph paradigm of [Grasshopper3D](https://www.rhino3d.com/6/new/grasshopper/) into pure Python. You define a model by composing *components* — each one a small, testable function that reads from and writes to **DataTrees** — just like wiring nodes on a Grasshopper canvas.
 
 ```python
+import math
 from pyhopper import (
-    CircleCmp, DivideCurve, Series, UnitZ,
-    Move, Rotate, Polygon, Merge,
+    CircleCmp, DivideCurve, Series, UnitZ, XYPlane,
+    Move, Rotate, Polyline, Merge,
 )
 
 base   = CircleCmp(radius=20)
-pts    = DivideCurve(base, count=12)
-z      = UnitZ()
-levels = Series(start=0, step=3.5, count=20)
-angles = Series(start=0, step=3,   count=20)
+pts    = DivideCurve(base, count=12)                   # 12 points on the circle
+levels = Series(start=0, step=3.5, count=20)           # 20 floor heights
+angles = Series(start=0, step=math.radians(3), count=20)
 
-floors  = Move(pts, z, levels.graft())
-twisted = Rotate(floors, axis=z, angle=angles.graft())
-polys   = Polygon(twisted)
+floors  = Move(pts, UnitZ(levels.graft()))             # one branch of 12 points per floor
+twisted = Rotate(floors, angles.graft(), XYPlane())    # twist each floor about world Z
+polys   = Polyline(twisted, closed=True)               # one closed outline per floor
 tower   = Merge(polys)
 ```
 

@@ -17,6 +17,7 @@ from pyhopper.Utils.Nurbs import (
     basis_row as _basis_row,
     curve_domain,
     curve_point,
+    curve_tangent,
     interpolation_knots as _interpolation_knots,
     solve_linear_system as _solve_nurbs_system,
 )
@@ -183,24 +184,9 @@ def curve_length(curve, tolerance: float = 1e-7) -> float:
     return nurbs_curve_length(as_nurbs_curve(curve), tolerance)
 
 
-def point_at_normalized_curve_length(
-    curve: AtomicNurbsCurve,
-    normalized_length: float,
-    tolerance: float = 1e-7,
-) -> AtomicPoint:
-    """Evaluate a NURBS curve at a normalized arc-length factor.
-
-    ``0.0`` returns the curve start and ``1.0`` returns the curve end. Values
-    outside that range are clamped so authored sliders cannot evaluate outside
-    the curve.
-    """
-    factor = min(1.0, max(0.0, float(normalized_length)))
+def _arc_length_table(curve: AtomicNurbsCurve, tolerance: float = 1e-7) -> tuple[list[tuple[float, AtomicPoint]], list[float]]:
+    """Adaptive (parameter, point) samples over every knot span plus cumulative chord lengths."""
     start, end = nurbs_curve_domain(curve)
-    if factor <= 0.0:
-        return evaluate_nurbs_curve(curve, start)
-    if factor >= 1.0:
-        return evaluate_nurbs_curve(curve, end)
-
     boundaries = sorted({start, end, *(knot for knot in curve.knots if start < knot < end)})
     samples: list[tuple[float, AtomicPoint]] = []
     for span_start, span_end in zip(boundaries, boundaries[1:]):
@@ -218,42 +204,97 @@ def point_at_normalized_curve_length(
     cumulative = [0.0]
     for (_, point_a), (_, point_b) in zip(samples, samples[1:]):
         cumulative.append(cumulative[-1] + _distance(point_a, point_b))
+    return samples, cumulative
 
-    total = cumulative[-1]
-    if total <= _TOLERANCE:
-        raise ValueError("Point On Curve requires a non-zero-length curve")
 
-    target = total * factor
+def _parameter_at_length(samples: list[tuple[float, AtomicPoint]], cumulative: list[float], target: float) -> float:
     sample_index = 1
     while sample_index < len(cumulative) - 1 and cumulative[sample_index] < target:
         sample_index += 1
-
     lower = sample_index - 1
     segment_length = cumulative[sample_index] - cumulative[lower]
     local = 0.0 if segment_length <= _TOLERANCE else (target - cumulative[lower]) / segment_length
-    parameter = samples[lower][0] + (samples[sample_index][0] - samples[lower][0]) * local
-    return evaluate_nurbs_curve(curve, parameter)
+    return samples[lower][0] + (samples[sample_index][0] - samples[lower][0]) * local
+
+
+def parameter_at_normalized_curve_length(
+    curve: AtomicNurbsCurve,
+    normalized_length: float,
+    tolerance: float = 1e-7,
+) -> float:
+    """Parameter at a normalized arc-length factor (0 = start, 1 = end, clamped)."""
+    factor = min(1.0, max(0.0, float(normalized_length)))
+    start, end = nurbs_curve_domain(curve)
+    if factor <= 0.0:
+        return start
+    if factor >= 1.0:
+        return end
+    samples, cumulative = _arc_length_table(curve, tolerance)
+    total = cumulative[-1]
+    if total <= _TOLERANCE:
+        raise ValueError("Point On Curve requires a non-zero-length curve")
+    return _parameter_at_length(samples, cumulative, total * factor)
+
+
+def point_at_normalized_curve_length(
+    curve: AtomicNurbsCurve,
+    normalized_length: float,
+    tolerance: float = 1e-7,
+) -> AtomicPoint:
+    """Evaluate a NURBS curve at a normalized arc-length factor.
+
+    ``0.0`` returns the curve start and ``1.0`` returns the curve end. Values
+    outside that range are clamped so authored sliders cannot evaluate outside
+    the curve.
+    """
+    return evaluate_nurbs_curve(curve, parameter_at_normalized_curve_length(curve, normalized_length, tolerance))
+
+
+def is_closed_nurbs_curve(curve: AtomicNurbsCurve, tolerance: float = 1e-9) -> bool:
+    """True when the curve start and end coincide (relative to the curve size)."""
+    start, end = nurbs_curve_domain(curve)
+    first = evaluate_nurbs_curve(curve, start)
+    last = evaluate_nurbs_curve(curve, end)
+    extent = max(1.0, *(abs(coordinate) for point in curve.control_points for coordinate in (point.x, point.y, point.z)))
+    return _distance(first, last) <= tolerance * extent
+
+
+def divide_nurbs_curve_by_count(
+    curve: AtomicNurbsCurve,
+    count: int,
+    tolerance: float = 1e-7,
+) -> tuple[list[AtomicPoint], list[AtomicVector], list[float]]:
+    """Divide a curve into *count* equal arc-length segments (Grasshopper Divide Curve).
+
+    Open curves yield ``count + 1`` division points; closed curves yield
+    ``count`` (the seam point is not repeated).
+    """
+    segments = int(count)
+    if segments < 1:
+        raise ValueError("Divide Curve requires at least one segment")
+    samples, cumulative = _arc_length_table(curve, tolerance)
+    total = cumulative[-1]
+    if total <= _TOLERANCE:
+        raise ValueError("Divide Curve requires a non-zero-length curve")
+    start, end = nurbs_curve_domain(curve)
+    closed = is_closed_nurbs_curve(curve)
+    point_count = segments if closed else segments + 1
+    parameters: list[float] = []
+    for index in range(point_count):
+        if index == 0:
+            parameters.append(start)
+        elif index == segments:
+            parameters.append(end)
+        else:
+            parameters.append(_parameter_at_length(samples, cumulative, total * index / segments))
+    points = [evaluate_nurbs_curve(curve, parameter) for parameter in parameters]
+    tangents = [nurbs_curve_tangent(curve, parameter) for parameter in parameters]
+    return points, tangents, parameters
 
 
 def nurbs_curve_tangent(curve: AtomicNurbsCurve, parameter: float) -> AtomicVector:
-    """Return a unit tangent using a stable local finite difference."""
-    start, end = nurbs_curve_domain(curve)
-    span = max(abs(end - start), 1.0)
-    epsilon = span * 1e-7
-    before = max(start, float(parameter) - epsilon)
-    after = min(end, float(parameter) + epsilon)
-    if after <= before:
-        raise ValueError("Cannot evaluate tangent on a zero-length curve domain")
-    point_before = evaluate_nurbs_curve(curve, before)
-    point_after = evaluate_nurbs_curve(curve, after)
-    tangent = AtomicVector(
-        point_after.x - point_before.x,
-        point_after.y - point_before.y,
-        point_after.z - point_before.z,
-    ).unitize()
-    if tangent.length == 0.0:
-        raise ValueError("Cannot evaluate tangent at a stationary curve point")
-    return tangent
+    """Return the unit tangent at *parameter* (analytic first derivative)."""
+    return curve_tangent(curve, parameter)
 
 
 def _adaptive_span_samples(

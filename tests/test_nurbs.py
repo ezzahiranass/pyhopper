@@ -37,7 +37,17 @@ from pyhopper.Utils.Curves import (
     nurbs_curve_tangent,
     point_at_normalized_curve_length,
 )
-from pyhopper.Utils.Nurbs import basis_functions, find_span
+from pyhopper.Utils.Nurbs import (
+    basis_functions,
+    curve_curvature,
+    curve_derivatives,
+    curve_frame,
+    curve_point,
+    curve_tangent,
+    find_span,
+    surface_derivatives,
+    surface_normal,
+)
 from pyhopper.Utils.Surfaces import evaluate_surface
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
 
@@ -161,6 +171,65 @@ class NurbsAnalyticTests(unittest.TestCase):
             for v in (0.1, 0.5, 0.9):
                 x, y, z = evaluate_surface(sphere, u, v)
                 self.assertAlmostEqual(math.sqrt(x * x + y * y + z * z), 1.5, places=9)
+
+
+class NurbsDerivativeTests(unittest.TestCase):
+    """Analytic derivatives (K1) against finite differences and closed-form geometry."""
+
+    def test_curve_derivatives_match_central_differences(self) -> None:
+        h = 1e-5
+        for name, curve in sample_curves().items():
+            start, end = nurbs_curve_domain(curve)
+            # Stay clear of interior knots: rational arcs are only C1 across their double knots,
+            # so a central difference straddling a knot cannot match the one-sided analytic value.
+            for t in (0.2, 0.55, 0.8):
+                u = start + (end - start) * t
+                with self.subTest(curve=name, t=t):
+                    point, (first, second) = curve_derivatives(curve, u, 2)
+                    before, after = curve_point(curve, u - h), curve_point(curve, u + h)
+                    for axis in "xyz":
+                        fd1 = (getattr(after, axis) - getattr(before, axis)) / (2 * h)
+                        fd2 = (getattr(after, axis) - 2 * getattr(point, axis) + getattr(before, axis)) / (h * h)
+                        self.assertAlmostEqual(getattr(first, axis), fd1, places=5)
+                        self.assertAlmostEqual(getattr(second, axis), fd2, places=3)
+
+    def test_circle_curvature_is_one_over_radius_and_points_inward(self) -> None:
+        curve = as_nurbs_curve(AtomicCircle(_plane(), 2.0))
+        for t in (0.0, 0.13, 0.5, 0.77, 1.0):
+            point, curvature, vector = curve_curvature(curve, t)
+            self.assertAlmostEqual(curvature, 0.5, places=10)
+            inward = (-point.x * vector.x - point.y * vector.y) / 2.0
+            self.assertAlmostEqual(inward, 0.5, places=10)
+            tangent = curve_tangent(curve, t)
+            self.assertAlmostEqual(tangent.x * point.x + tangent.y * point.y, 0.0, places=10)
+
+    def test_curve_frame_is_orthonormal_with_tangent_x_axis(self) -> None:
+        curve = sample_curves()["global_interpolation"]
+        for t in (0.1, 0.45, 0.9):
+            frame = curve_frame(curve, t)
+            tangent = curve_tangent(curve, t)
+            self.assertAlmostEqual(frame.x_axis.x * tangent.x + frame.x_axis.y * tangent.y + frame.x_axis.z * tangent.z, 1.0, places=9)
+            self.assertAlmostEqual(frame.normal.x * tangent.x + frame.normal.y * tangent.y + frame.normal.z * tangent.z, 0.0, places=9)
+        line = as_nurbs_curve(AtomicPolyline((AtomicPoint(0, 0, 0), AtomicPoint(3, 0, 0))))
+        straight = curve_frame(line, 0.5)
+        self.assertEqual((straight.x_axis.x, straight.x_axis.y, straight.x_axis.z), (1.0, 0.0, 0.0))
+
+    def test_sphere_normal_is_radial_including_poles(self) -> None:
+        sphere = sample_surfaces()["sphere"]
+        for u, v in ((0.1, 0.3), (0.6, 0.5), (0.0, 0.0), (0.5, 1.0), (0.25, 0.5)):
+            normal = surface_normal(sphere, u, v)
+            derivatives = surface_derivatives(sphere, u, v, 1)
+            point = derivatives.point
+            radius = math.sqrt(point.x ** 2 + point.y ** 2 + point.z ** 2)
+            self.assertAlmostEqual((normal.x * point.x + normal.y * point.y + normal.z * point.z) / radius, 1.0, places=9)
+
+    def test_ruled_surface_is_linear_in_v(self) -> None:
+        ruled = sample_surfaces()["ruled"]
+        derivatives = surface_derivatives(ruled, 0.3, 0.5, 2)
+        self.assertEqual((derivatives.dvv.x, derivatives.dvv.y, derivatives.dvv.z), (0.0, 0.0, 0.0))
+        self.assertIsNotNone(derivatives.duu)
+        first_only = surface_derivatives(ruled, 0.3, 0.5, 1)
+        self.assertIsNone(first_only.duu)
 
 
 if __name__ == "__main__":

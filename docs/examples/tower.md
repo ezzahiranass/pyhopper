@@ -4,9 +4,10 @@ A twisting tower with a columnar perimeter, a solid core, and a GLB export.
 This is the canonical pyhopper example — every concept from the framework appears here.
 
 ```python title="Examples/first_test.py"
+import math
 from pyhopper import (
-    CircleCmp, DivideCurve, Series, UnitZ,
-    Move, Rotate, Polygon, CylinderCmp, LineCmp,
+    CircleCmp, DivideCurve, Series, UnitZ, XYPlane,
+    Move, Rotate, Polyline, CylinderCmp, LineCmp,
     Merge,
 )
 from pyhopper.Utils.Exporters import export_glb
@@ -21,36 +22,35 @@ CORE_RADIUS  = 6.0   # m
 # ── 1. Base geometry ──────────────────────────────────────────────
 base_circle  = CircleCmp(radius=BASE_RADIUS)
 grid_points  = DivideCurve(base_circle, count=NUM_COLUMNS)
-# grid_points: {0} → [P0 … P11]  (12 points on a circle of r=20)
+# grid_points: {0} → [P0 … P11]  (12 points on a circle of r=20; closed curves
+# yield exactly `count` points, so the seam is not repeated)
 
-# ── 2. Unit vectors ───────────────────────────────────────────────
-z_vec = UnitZ()
-# z_vec: {0} → [Vector3d(0,0,1)]  — reused as a DataTree throughout
-
-# ── 3. Lift points to each floor level ───────────────────────────
+# ── 2. Lift points to each floor level ───────────────────────────
 levels       = Series(start=0, step=FLOOR_HEIGHT, count=NUM_FLOORS)
-floor_points = Move(grid_points, z_vec, levels.graft())
-# levels.graft(): {0;0}→[0]  {0;1}→[3.5]  …  {0;19}→[66.5]
-# floor_points:   20 branches × 12 pts = 240 Point3d
+lift_vectors = UnitZ(levels.graft())
+floor_points = Move(grid_points, lift_vectors)
+# levels.graft():  {0;0}→[0]  {0;1}→[3.5]  …  {0;19}→[66.5]
+# lift_vectors:    {0;0}→[(0,0,0)]  …  {0;19}→[(0,0,66.5)]
+# floor_points:    20 branches × 12 pts = 240 Point3d
 
-# ── 4. Rotate each floor ──────────────────────────────────────────
-angles         = Series(start=0, step=TWIST_DEG, count=NUM_FLOORS)
-rotated_floors = Rotate(floor_points, axis=z_vec, angle=angles.graft())
-# rotated_floors: same tree shape, points rotated per branch
+# ── 3. Rotate each floor ──────────────────────────────────────────
+angles         = Series(start=0, step=math.radians(TWIST_DEG), count=NUM_FLOORS)
+rotated_floors = Rotate(floor_points, angles.graft(), XYPlane())
+# rotated_floors: same tree shape, each floor turned about world Z (angles in radians)
 
-# ── 5. Close each floor into a polygon ───────────────────────────
-floor_polygons = Polygon(rotated_floors)
-# floor_polygons: 20 branches, 1 Polyline each
+# ── 4. Close each floor into an outline ──────────────────────────
+floor_polygons = Polyline(rotated_floors, closed=True)
+# floor_polygons: 20 branches, 1 closed Polyline each
 
-# ── 6. Vertical columns ───────────────────────────────────────────
-top_points = Move(grid_points, z_vec, FLOOR_HEIGHT * NUM_FLOORS)
+# ── 5. Vertical columns ───────────────────────────────────────────
+top_points = Move(grid_points, UnitZ(FLOOR_HEIGHT * NUM_FLOORS))
 columns    = LineCmp(grid_points, top_points)
 # columns: {0} → 12 Line atoms
 
-# ── 7. Central core ───────────────────────────────────────────────
-core = CylinderCmp(radius=CORE_RADIUS, height=FLOOR_HEIGHT * NUM_FLOORS)
+# ── 6. Central core ───────────────────────────────────────────────
+core = CylinderCmp(radius=CORE_RADIUS, length=FLOOR_HEIGHT * NUM_FLOORS)
 
-# ── 8. Merge and export ───────────────────────────────────────────
+# ── 7. Merge and export ───────────────────────────────────────────
 tower = Merge(floor_polygons, columns, core)
 export_glb(tower, "tower.glb")
 ```
@@ -60,26 +60,26 @@ export_glb(tower, "tower.glb")
 ## Data flow diagram
 
 ```
-CircleCmp(r=20)                 → {0}: [Circle]
+CircleCmp(r=20)                    → {0}: [Circle]
     │
-    └─ DivideCurve(n=12)        → {0}: [P0…P11]  12 pts
+    └─ DivideCurve(n=12)           → {0}: [P0…P11]  12 pts
            │
-           ├─ Move(z, levels↑)  ← levels = Series(0, 3.5, 20).graft()
-           │                    → {0;0}…{0;19}: [P0…P11] each  (240 pts)
+           ├─ Move(UnitZ(levels↑)) ← levels = Series(0, 3.5, 20).graft()
+           │                       → {0;0}…{0;19}: [P0…P11] each  (240 pts)
            │       │
-           │       └─ Rotate(z, angles↑)  ← angles = Series(0, 3°, 20).graft()
-           │                              → 240 rotated pts, same structure
+           │       └─ Rotate(angles↑, XYPlane)  ← angles = Series(0, 3°, 20).graft()
+           │                                    → 240 rotated pts, same structure
            │               │
-           │               └─ Polygon     → {0;0}…{0;19}: [Polyline]  (20 floors)
+           │               └─ Polyline(closed)  → {0;0}…{0;19}: [Polyline]  (20 floors)
            │
-           └─ Move(z, 70)       → {0}: [P0'…P11']  top pts
+           └─ Move(UnitZ(70))      → {0}: [P0'…P11']  top pts
                    │
-                   └─ LineCmp   → {0}: [L0…L11]  12 columns
+                   └─ LineCmp      → {0}: [L0…L11]  12 columns
 
-CylinderCmp(r=6, h=70)          → {0}: [Cylinder]
+CylinderCmp(r=6, length=70)        → {0}: [Surface]
 
-Merge(floors, columns, core)    → {0;0}…{0;19}: [Polyline]
-                                   {0}: [L0…L11, Cylinder]
+Merge(floors, columns, core)       → {0;0}…{0;19}: [Polyline]
+                                      {0}: [L0…L11, Surface]
     │
     └─ export_glb → tower.glb
 ```

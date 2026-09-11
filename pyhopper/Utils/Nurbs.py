@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from typing import Sequence
 
 from pyhopper.Core.Atoms import (
+    AtomicVector,
     AtomicNurbsCurve,
     AtomicPoint,
     AtomicSurface,
@@ -374,3 +375,274 @@ def span_parameter_samples(
         )
     samples.append(boundaries[-1])
     return samples
+
+
+# ── Derivatives (The NURBS Book A2.3, A3.6, A4.2, A4.4) ────────────
+
+
+def _binomial(n: int, k: int) -> int:
+    result = 1
+    for i in range(1, k + 1):
+        result = result * (n - k + i) // i
+    return result
+
+
+def basis_function_derivatives(
+    span: int,
+    parameter: float,
+    degree: int,
+    knots: Sequence[float],
+    order: int,
+) -> list[list[float]]:
+    """``ders[k][j]``: k-th derivative of the ``degree + 1`` non-zero basis functions (A2.3)."""
+    order = min(order, degree)
+    ndu = [[0.0] * (degree + 1) for _ in range(degree + 1)]
+    ndu[0][0] = 1.0
+    left = [0.0] * (degree + 1)
+    right = [0.0] * (degree + 1)
+    for j in range(1, degree + 1):
+        left[j] = parameter - knots[span + 1 - j]
+        right[j] = knots[span + j] - parameter
+        saved = 0.0
+        for r in range(j):
+            ndu[j][r] = right[r + 1] + left[j - r]
+            temp = 0.0 if abs(ndu[j][r]) <= TOLERANCE else ndu[r][j - 1] / ndu[j][r]
+            ndu[r][j] = saved + right[r + 1] * temp
+            saved = left[j - r] * temp
+        ndu[j][j] = saved
+
+    ders = [[0.0] * (degree + 1) for _ in range(order + 1)]
+    for j in range(degree + 1):
+        ders[0][j] = ndu[j][degree]
+
+    a = [[0.0] * (degree + 1) for _ in range(2)]
+    for r in range(degree + 1):
+        s1, s2 = 0, 1
+        a[0][0] = 1.0
+        for k in range(1, order + 1):
+            d = 0.0
+            rk = r - k
+            pk = degree - k
+            if r >= k:
+                denominator = ndu[pk + 1][rk]
+                a[s2][0] = 0.0 if abs(denominator) <= TOLERANCE else a[s1][0] / denominator
+                d = a[s2][0] * ndu[rk][pk]
+            j1 = 1 if rk >= -1 else -rk
+            j2 = k - 1 if r - 1 <= pk else degree - r
+            for j in range(j1, j2 + 1):
+                denominator = ndu[pk + 1][rk + j]
+                a[s2][j] = 0.0 if abs(denominator) <= TOLERANCE else (a[s1][j] - a[s1][j - 1]) / denominator
+                d += a[s2][j] * ndu[rk + j][pk]
+            if r <= pk:
+                denominator = ndu[pk + 1][r]
+                a[s2][k] = 0.0 if abs(denominator) <= TOLERANCE else -a[s1][k - 1] / denominator
+                d += a[s2][k] * ndu[r][pk]
+            ders[k][r] = d
+            s1, s2 = s2, s1
+
+    factor = float(degree)
+    for k in range(1, order + 1):
+        for j in range(degree + 1):
+            ders[k][j] *= factor
+        factor *= degree - k
+    return ders
+
+
+def _curve_homogeneous_derivatives(curve: AtomicNurbsCurve, parameter: float, order: int) -> list[list[float]]:
+    """``[x, y, z, w]`` of the homogeneous curve and its derivatives up to *order* (zeros beyond the degree)."""
+    start, end = curve_domain(curve)
+    value = min(end, max(start, float(parameter)))
+    point_count = len(curve.control_points)
+    degree = curve.degree
+    weights = curve.weights if len(curve.weights) == point_count else tuple(1.0 for _ in curve.control_points)
+    span = find_span(degree, curve.knots, point_count, value)
+    ders = basis_function_derivatives(span, value, degree, curve.knots, order)
+    result = [[0.0, 0.0, 0.0, 0.0] for _ in range(order + 1)]
+    for k in range(min(order, degree) + 1):
+        for local_index, basis_value in enumerate(ders[k]):
+            control_index = span - degree + local_index
+            point = curve.control_points[control_index]
+            weight = weights[control_index]
+            coefficient = basis_value * weight
+            result[k][0] += coefficient * point.x
+            result[k][1] += coefficient * point.y
+            result[k][2] += coefficient * point.z
+            result[k][3] += coefficient
+    return result
+
+
+def _rational_derivatives(homogeneous: list[list[float]], order: int) -> list[list[float]]:
+    """Rational derivatives from homogeneous ones (A4.2)."""
+    weight = homogeneous[0][3]
+    if abs(weight) < 1e-12:
+        raise ValueError("NURBS evaluation produced a zero rational weight")
+    derivatives: list[list[float]] = []
+    for k in range(order + 1):
+        value = list(homogeneous[k][:3])
+        for i in range(1, k + 1):
+            coefficient = _binomial(k, i) * homogeneous[i][3]
+            for axis in range(3):
+                value[axis] -= coefficient * derivatives[k - i][axis]
+        derivatives.append([component / weight for component in value])
+    return derivatives
+
+
+def curve_derivatives(curve: AtomicNurbsCurve, parameter: float, order: int = 2) -> tuple[AtomicPoint, list[AtomicVector]]:
+    """Point and the first *order* derivative vectors of a rational curve at *parameter*."""
+    homogeneous = _curve_homogeneous_derivatives(curve, parameter, order)
+    rational = _rational_derivatives(homogeneous, order)
+    point = AtomicPoint(*rational[0])
+    return point, [AtomicVector(*values) for values in rational[1:]]
+
+
+def curve_tangent(curve: AtomicNurbsCurve, parameter: float) -> AtomicVector:
+    """Unit tangent (first derivative direction) at *parameter*."""
+    _, (first,) = curve_derivatives(curve, parameter, 1)
+    magnitude = (first.x * first.x + first.y * first.y + first.z * first.z) ** 0.5
+    if magnitude <= TOLERANCE:
+        raise ValueError("Cannot evaluate tangent at a stationary curve point")
+    return AtomicVector(first.x / magnitude, first.y / magnitude, first.z / magnitude)
+
+
+def curve_curvature(curve: AtomicNurbsCurve, parameter: float) -> tuple[AtomicPoint, float, AtomicVector]:
+    """(point, curvature, curvature vector) - the vector points toward the centre of curvature."""
+    point, (first, second) = curve_derivatives(curve, parameter, 2)
+    speed_squared = first.x * first.x + first.y * first.y + first.z * first.z
+    if speed_squared <= TOLERANCE:
+        raise ValueError("Cannot evaluate curvature at a stationary curve point")
+    # k n = (a - (a.v / v.v) v) / v.v : the acceleration component normal to the velocity, scaled.
+    cross_x = first.y * second.z - first.z * second.y
+    cross_y = first.z * second.x - first.x * second.z
+    cross_z = first.x * second.y - first.y * second.x
+    curvature = (cross_x * cross_x + cross_y * cross_y + cross_z * cross_z) ** 0.5 / (speed_squared ** 1.5)
+    dot_va = first.x * second.x + first.y * second.y + first.z * second.z
+    vector = AtomicVector(
+        (second.x * speed_squared - first.x * dot_va) / (speed_squared * speed_squared),
+        (second.y * speed_squared - first.y * dot_va) / (speed_squared * speed_squared),
+        (second.z * speed_squared - first.z * dot_va) / (speed_squared * speed_squared),
+    )
+    return point, curvature, vector
+
+
+def curve_frame(curve: AtomicNurbsCurve, parameter: float):
+    """Curvature (Frenet) frame like Rhino ``Curve.FrameAt``: X = tangent, Y = curvature normal, Z = binormal.
+
+    On straight or inflection points the normal is undefined; the Y axis then
+    falls back to the openNURBS perpendicular of the tangent.
+    """
+    from pyhopper.Core.Atoms import AtomicPlane
+    from pyhopper.Utils.Vectors import cross, perpendicular, unit
+
+    point, _, vector = curve_curvature(curve, parameter)
+    tangent = curve_tangent(curve, parameter)
+    normal = unit(vector)
+    if normal.length == 0.0:
+        normal = perpendicular(tangent)
+    binormal = unit(cross(tangent, normal))
+    return AtomicPlane(origin=point, normal=binormal, x_axis=tangent)
+
+
+def _surface_homogeneous_derivatives(surface: AtomicSurface, u: float, v: float, order: int) -> list[list[list[float]]]:
+    """``S[k][l] = [x, y, z, w]`` homogeneous partial derivatives, k in u, l in v (A3.6)."""
+    v_count = len(surface.poles)
+    u_count = len(surface.poles[0])
+    u_knots, v_knots = expanded_surface_knots(surface)
+    u_degree, v_degree = surface_degrees(surface)
+    uu = max(u_knots[u_degree], min(u_knots[u_count], float(u)))
+    vv = max(v_knots[v_degree], min(v_knots[v_count], float(v)))
+    u_span = find_span(u_degree, u_knots, u_count, uu)
+    v_span = find_span(v_degree, v_knots, v_count, vv)
+    u_ders = basis_function_derivatives(u_span, uu, u_degree, u_knots, order)
+    v_ders = basis_function_derivatives(v_span, vv, v_degree, v_knots, order)
+
+    result = [[[0.0, 0.0, 0.0, 0.0] for _ in range(order + 1)] for _ in range(order + 1)]
+    for k in range(min(order, u_degree) + 1):
+        temp = [[0.0, 0.0, 0.0, 0.0] for _ in range(v_degree + 1)]
+        for s in range(v_degree + 1):
+            row = v_span - v_degree + s
+            for r in range(u_degree + 1):
+                column = u_span - u_degree + r
+                point = surface.poles[row][column]
+                weight = surface.weights[row][column]
+                coefficient = u_ders[k][r] * weight
+                temp[s][0] += coefficient * point.x
+                temp[s][1] += coefficient * point.y
+                temp[s][2] += coefficient * point.z
+                temp[s][3] += coefficient
+        for l in range(min(order - k, v_degree) + 1):
+            for s in range(v_degree + 1):
+                for axis in range(4):
+                    result[k][l][axis] += v_ders[l][s] * temp[s][axis]
+    return result
+
+
+@dataclass(frozen=True)
+class SurfaceDerivatives:
+    """Point and partial derivatives of a surface at (u, v); second order is ``None`` unless requested."""
+
+    point: AtomicPoint
+    du: AtomicVector
+    dv: AtomicVector
+    duu: AtomicVector | None = None
+    duv: AtomicVector | None = None
+    dvv: AtomicVector | None = None
+
+
+def surface_derivatives(surface: AtomicSurface, u: float, v: float, order: int = 1) -> SurfaceDerivatives:
+    """Rational partial derivatives up to *order* (1 or 2) at (u, v) (A4.4)."""
+    order = 2 if order >= 2 else 1
+    homogeneous = _surface_homogeneous_derivatives(surface, u, v, order)
+    weight = homogeneous[0][0][3]
+    if abs(weight) < 1e-12:
+        raise ValueError("Surface evaluation produced a zero rational weight")
+
+    skl: list[list[list[float] | None]] = [[None] * (order + 1) for _ in range(order + 1)]
+    for k in range(order + 1):
+        for l in range(order + 1 - k):
+            value = list(homogeneous[k][l][:3])
+            for j in range(1, l + 1):
+                coefficient = _binomial(l, j) * homogeneous[0][j][3]
+                for axis in range(3):
+                    value[axis] -= coefficient * skl[k][l - j][axis]
+            for i in range(1, k + 1):
+                coefficient = _binomial(k, i) * homogeneous[i][0][3]
+                for axis in range(3):
+                    value[axis] -= coefficient * skl[k - i][l][axis]
+                inner = [0.0, 0.0, 0.0]
+                for j in range(1, l + 1):
+                    inner_coefficient = _binomial(l, j) * homogeneous[i][j][3]
+                    for axis in range(3):
+                        inner[axis] += inner_coefficient * skl[k - i][l - j][axis]
+                for axis in range(3):
+                    value[axis] -= _binomial(k, i) * inner[axis]
+            skl[k][l] = [component / weight for component in value]
+
+    def vector(values):
+        return AtomicVector(*values)
+
+    return SurfaceDerivatives(
+        point=AtomicPoint(*skl[0][0]),
+        du=vector(skl[1][0]),
+        dv=vector(skl[0][1]),
+        duu=vector(skl[2][0]) if order >= 2 else None,
+        duv=vector(skl[1][1]) if order >= 2 else None,
+        dvv=vector(skl[0][2]) if order >= 2 else None,
+    )
+
+
+def surface_normal(surface: AtomicSurface, u: float, v: float) -> AtomicVector:
+    """Unit normal ``du x dv``; degenerate spots (poles, seams) are nudged toward the domain centre."""
+    from pyhopper.Utils.Vectors import cross, unit
+
+    (u_start, u_end), (v_start, v_end) = surface_domain(surface)
+    u_mid = 0.5 * (u_start + u_end)
+    v_mid = 0.5 * (v_start + v_end)
+    uu, vv = float(u), float(v)
+    for step in (0.0, 1e-6, 1e-4, 1e-3, 1e-2):
+        du_shift = step * (u_end - u_start) * (1.0 if uu <= u_mid else -1.0)
+        dv_shift = step * (v_end - v_start) * (1.0 if vv <= v_mid else -1.0)
+        derivatives = surface_derivatives(surface, uu + du_shift, vv + dv_shift, 1)
+        normal = cross(derivatives.du, derivatives.dv)
+        if normal.length > 1e-9:
+            return unit(normal)
+    raise ValueError("Surface normal is undefined at this parameter")
