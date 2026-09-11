@@ -155,11 +155,50 @@ class ItemMatchingTests(unittest.TestCase):
         result = _Pick(lists, tree({"0": [0], "1": [1]}))
         assert_tree_equal(self, result, {"0": ["a"], "1": ["d"], "2": ["f"]})
 
-    def test_multiple_item_iterations_with_list_results_create_sub_branches(self):
+    def test_list_results_of_item_iterating_components_land_in_the_iteration_sub_branch(self):
+        # Grasshopper's SetDataList rule: {path;iteration} whenever the component has an ITEM input,
+        # even for a single iteration
         two = _Repeat(tree(["x", "y"]), tree([1, 2]))
         assert_tree_equal(self, two, {"0;0": ["x", "y"], "0;1": ["x", "y", "x", "y"]})
         one = _Repeat(tree(["x", "y"]), tree([2]))
-        assert_tree_equal(self, one, {"0": ["x", "y", "x", "y"]})
+        assert_tree_equal(self, one, {"0;0": ["x", "y", "x", "y"]})
+        deep = _Repeat(tree({"3;1": ["x"]}), tree([2]))
+        assert_tree_equal(self, deep, {"3;1;0": ["x", "x"]})
+
+    def test_list_output_keeps_its_sub_branch_when_a_branch_runs_no_iteration(self):
+        # an empty required ITEM branch: LIST outputs keep {path;0}, ITEM outputs keep {path}
+        class _Both(Component):
+            inputs = [InputParam("count", int, Access.ITEM)]
+            outputs = [OutputParam("items", access=Access.LIST), OutputParam("total")]
+
+            def generate(self, count=0):
+                return list(range(count)), count
+
+        result = _Both(tree({"0": [], "1": [2]}))
+        assert_tree_equal(self, result.output("items"), {"0;0": [], "1;0": [0, 1]})
+        assert_tree_equal(self, result.output("total"), {"0": [], "1": [2]})
+
+    def test_no_output_on_a_list_output_keeps_the_iteration_sub_branch(self):
+        class _Maybe(Component):
+            inputs = [InputParam("count", int, Access.ITEM)]
+            outputs = [OutputParam("items", access=Access.LIST)]
+
+            def generate(self, count=0):
+                return Component.NO_OUTPUT if count < 0 else list(range(count))
+
+        assert_tree_equal(self, _Maybe(tree([-1, 2])), {"0;0": [], "0;1": [0, 1]})
+
+    def test_list_only_components_write_lists_into_the_branch_path(self):
+        # no ITEM input -> one call per branch -> Grasshopper keeps {path} (Mass Addition, Dispatch, Reverse List)
+        class _Doubled(Component):
+            inputs = [InputParam("list", None, Access.LIST)]
+            outputs = [OutputParam("items", access=Access.LIST)]
+
+            def generate(self, list=None):
+                return builtins_list(list or []) * 2
+
+        result = _Doubled(tree({"0": [1], "2;1": [], "5": [7, 8]}))
+        assert_tree_equal(self, result, {"0": [1, 1], "2;1": [], "5": [7, 8, 7, 8]})
 
     def test_empty_required_item_branch_is_preserved_as_empty_output(self):
         result = _Add(tree({"0": [1, 2], "1": []}), tree({"0": [10], "1": [20]}))
@@ -217,7 +256,7 @@ class OutputPlacementTests(unittest.TestCase):
         result = _Total(tree({"0": [], "1": [2, 3]}))
         # the silent output still records {0} as an empty branch even though the other output placed a list
         assert_tree_equal(self, result.output("total"), {"0": [], "1": [5]})
-        assert_tree_equal(self, result.output("partials"), {"0": [], "1": [2, 3]})
+        assert_tree_equal(self, result.output("partials"), {"0": [], "1": [2, 3]})  # LIST-only component: no iteration index
 
     def test_sub_branches_helper_paths(self):
         result = _Chunks(tree({"0": [1, 2, 3], "5": []}))
@@ -251,6 +290,7 @@ class BindingTests(unittest.TestCase):
         b = tree({"0": ["c1"], "1": ["d1", "d2"]})
         positional = _Weave([0], a, b)
         keyword = _Weave(pattern=[0], streams=[a, b])
+        # every input is LIST access: one call per branch, the list stays in the branch path (GH rule)
         assert_tree_equal(self, positional, {"0": ["a1", "c1"], "1": ["b1", "d1"]})
         assert_tree_equal(self, keyword, positional)
 

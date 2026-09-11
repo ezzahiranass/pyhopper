@@ -114,7 +114,14 @@ def build_outputs(record: dict) -> list[dict]:
         name = port_name_for(port["name"], record["name"], duplicate=duplicate)
         if any(existing["name"] == name for existing in outputs):
             name = f"{name}_{seen[port['name']]}"
-        outputs.append({"name": name, "hint": hint_for(port["type"]), "description": port["description"], "gh": port["name"], "nick": port["nickname"]})
+        outputs.append({
+            "name": name,
+            "hint": hint_for(port["type"]),
+            "access": port["access"].upper(),
+            "description": port["description"],
+            "gh": port["name"],
+            "nick": port["nickname"],
+        })
     return outputs
 
 
@@ -170,7 +177,12 @@ def render_module(record: dict, class_name: str, inputs: list[dict], outputs: li
         lines.append("    inputs = []")
     lines.append("    outputs = [")
     for port in outputs:
-        lines.append(f'        OutputParam("{port["name"]}", {port["hint"]}),' if port["hint"] != "None" else f'        OutputParam("{port["name"]}"),')
+        args = [f'"{port["name"]}"']
+        if port["hint"] != "None":
+            args.append(port["hint"])
+        if port["access"] != "ITEM":
+            args.append(f"access=Access.{port['access']}")
+        lines.append(f"        OutputParam({', '.join(args)}),")
     lines.append("    ]")
     if variadic:
         lines.append("    variadic_inputs = True")

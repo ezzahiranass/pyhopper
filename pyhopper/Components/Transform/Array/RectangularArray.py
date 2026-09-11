@@ -16,8 +16,8 @@ class RectangularArray(Component):
         InputParam("y_count", int, Access.ITEM, default=2),
     ]
     outputs = [
-        OutputParam("geometry"),
-        OutputParam("transform", AtomicTransform),
+        OutputParam("geometry", access=Access.LIST),
+        OutputParam("transform", AtomicTransform, access=Access.LIST),
     ]
 
     def generate(self, geometry=None, cell=AtomicRectangle(), x_count=2, y_count=2):

@@ -1,10 +1,11 @@
 """Grasshopper metadata contract: components that declare a gh_guid must match the GH dump.
 
 For every component with ``gh_guid``: display_name / nickname equal the Grasshopper
-record, the module path matches the Grasshopper tab and subcategory, and the declared
+record, the module path matches the Grasshopper tab and subcategory, the declared
 inputs are the Grasshopper inputs (mapped through ``Graph/naming.py``) followed by any
-pyhopper-only ``gh_extra_inputs``. The variadic last input absorbs Grasshopper's
-numbered stream ports.
+pyhopper-only ``gh_extra_inputs``, and the outputs carry Grasshopper's output access
+(item / list / tree) in Grasshopper order. The variadic last input absorbs
+Grasshopper's numbered stream ports.
 """
 
 from __future__ import annotations
@@ -89,6 +90,17 @@ class ComponentMetadataTests(unittest.TestCase):
                     self.assertEqual(tuple(name for name, _ in declared[-len(extra):]), extra, "gh_extra_inputs must be the trailing inputs")
                     declared = declared[: len(declared) - len(extra)]
                 self.assertEqual(declared, _expected_inputs(record))
+
+    def test_outputs_follow_the_grasshopper_access_modes(self) -> None:
+        for entry in self.entries:
+            record = self.dump[entry["gh_guid"]]
+            if record["outputs"] is None:
+                continue
+            component_cls = _resolve(entry["component_key"])
+            with self.subTest(component=entry["component_key"]):
+                declared = [param.access.value for param in component_cls.outputs]
+                expected = [GH_ACCESS_TO_PYHOPPER[port["access"]] for port in record["outputs"]]
+                self.assertEqual(declared, expected, "output access must match Grasshopper (item / list / tree), in order")
 
 
 if __name__ == "__main__":

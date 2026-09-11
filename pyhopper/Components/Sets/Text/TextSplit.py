@@ -12,7 +12,7 @@ class TextSplit(Component):
         InputParam("text", str, Access.ITEM),
         InputParam("separators", str, Access.ITEM),
     ]
-    outputs = [OutputParam("result", str)]
+    outputs = [OutputParam("result", str, access=Access.LIST)]
 
     def generate(self, text="", separators=""):
         if not separators:

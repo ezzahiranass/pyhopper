@@ -193,7 +193,10 @@ Inputs and outputs are part of the framework contract, not just UI metadata.
 When defining them:
 
 - use `InputParam(name, type_hint, access, default=..., optional=...)`
-- use `OutputParam(name, type_hint)` when you know the output type
+- use `OutputParam(name, type_hint, access=...)`; give the type when you know it
+  and declare `access=Access.LIST` for outputs that emit a list per call
+  (`Access.TREE` for whole trees) — Grasshopper's output access, which the
+  metadata test checks against the dump
 - choose `Access.ITEM`, `Access.LIST`, or `Access.TREE` intentionally
 - treat every non-`None` `type_hint` as an enforced runtime contract. The
   central type system coerces every incoming tree item before `generate()`
@@ -278,31 +281,39 @@ What `generate()` returns determines the output tree structure:
   Example: `Addition` returns a `float`. Input `{0}[1,2,3]` + `{0}[10,20,30]`
   produces `{0}[11, 22, 33]` — same branch, one output per input item.
 
-- **List** → items go into a sub-branch when multiple inputs are iterated.
-  Example: `Series` returns `[0.0, 1.0, ...]`. If the `count` input is
-  `{0}[3, 5]` (two items), the output is:
+- **List** → items go into the sub-branch `{path;iteration}` whenever the
+  component iterates items (it has at least one `Access.ITEM` input) — even
+  for a single iteration. Example: `Series` returns `[0.0, 1.0, ...]`. If the
+  `count` input is `{0}[3, 5]` (two items), the output is:
   ```
   {0;0} [0, 1, 2]        ← from count=3
   {0;1} [0, 1, 2, 3, 4]  ← from count=5
   ```
-  Each invocation's list gets its own sub-branch at `path;item_index`.
-  If only one item is iterated (e.g. `count` is a single `5`), the list
-  goes directly into the current branch `{0}[0, 1, 2, 3, 4]` — no
-  extra nesting.
+  and a single `count` of `5` gives `{0;0}[0, 1, 2, 3, 4]`. One curve at `{0}`
+  divides into points at `{0;0}`; a curve at `{3;1}` into `{3;1;0}`.
+  A component whose inputs are **all** `LIST`/`TREE` access runs once per
+  branch and writes its list straight into `{path}` (`Mass Addition` partial
+  results, `Dispatch`, `Weave`, `Reverse List`).
 
-This matches Grasshopper's behavior where `DA.SetDataList` auto-branches
-when there are multiple iterations per branch. When writing a new
-component, decide: does each invocation produce **one value** or
-**a collection of values**? Return a scalar for the former, a list for
-the latter. The framework handles the branching.
+This is exactly Grasshopper's `DA.SetDataList` rule (verified against
+Grasshopper 8 with the headless oracle), and it is what keeps a definition's
+tree depth stable: a slider going from 1 to 2 items adds a sibling branch,
+never a level. When writing a new component, decide: does each invocation
+produce **one value** or **a collection of values**? Return a scalar for the
+former, a list for the latter, and declare the latter with
+`OutputParam("points", AtomicPoint, access=Access.LIST)` (Grasshopper's output
+access, taken from the dump by the scaffold). The framework handles the
+branching.
 
 For **multi-output** components returning a tuple, each element is handled
 independently — some outputs can be scalars and others lists.
 
 - **`Component.NO_OUTPUT`** → nothing is emitted for this call. Use it for
   events that have no result (parallel lines in `Line | Line`, an
-  out-of-range index without wrap). The branch is still kept, empty, when no
-  call of the branch emitted anything.
+  out-of-range index without wrap). Topology survives per output: an ITEM
+  output keeps `{path}` as an empty branch when no call of the branch emitted
+  anything, a LIST output keeps its list path (`{path;iteration}` on an
+  item-iterating component) — the same empty branches Grasshopper leaves behind.
 
 - **`DataTree`** → merged by absolute path. Build it with
   `self.sub_branches(lists)` when the component partitions its input

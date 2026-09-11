@@ -24,7 +24,7 @@ class CullIndex(Component):
         InputParam("indices", int, Access.LIST, default=0),
         InputParam("wrap", bool, Access.ITEM, default=False),
     ]
-    outputs = [OutputParam("list")]
+    outputs = [OutputParam("list", access=Access.LIST)]
 
     def generate(self, list=None, indices=0, wrap=False):
         branch = list if isinstance(list, (tuple, builtins.list)) else [list]

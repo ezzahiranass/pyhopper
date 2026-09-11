@@ -53,8 +53,14 @@ class InputParam:
 
 @dataclass
 class OutputParam:
+    """An output port. ``access`` mirrors Grasshopper's output access: on a
+    component that iterates items, ``LIST`` outputs keep their
+    ``{path;iteration}`` sub-branch even when they emit nothing; ``ITEM`` and
+    ``TREE`` outputs keep the branch path."""
+
     name: str
     type_hint: type | TypeSpec | None = None
+    access: Access = Access.ITEM
 
 
 # ── Sentinels and iteration context ─────────────────────────────────
@@ -151,11 +157,18 @@ class Component:
     * ``self.iteration`` tells the current branch path, item index and count.
     * return ``Component.NO_OUTPUT`` (or use it as one tuple element) to emit
       nothing for this call.
-    * return a ``list`` to emit several items (they land in a sub-branch when
-      the branch runs more than one iteration, like Grasshopper's
-      ``SetDataList``).
+    * return a ``list`` to emit several items. Like Grasshopper's
+      ``SetDataList``, the list lands in the sub-branch ``{path;iteration}``
+      when the component iterates items (it has an ITEM input: one curve at
+      ``{0}`` divides into points at ``{0;0}``), and directly in ``{path}``
+      when every input is LIST or TREE access (Mass Addition's partial
+      results, Dispatch, Weave — one call per branch, no iteration index).
     * return a ``DataTree`` to place items at absolute paths; use
       ``self.sub_branches(lists)`` to build one under the current branch.
+
+    Declare ``OutputParam(..., access=Access.LIST)`` for outputs that emit
+    lists so an empty or silent iteration still leaves its list branch
+    behind, exactly as Grasshopper does.
     """
 
     inputs: list[InputParam] = []
@@ -214,15 +227,26 @@ class Component:
     def sub_branches(self, lists: Iterable[Iterable[Any]]) -> DataTree:
         """Build a tree with one branch per list under the current branch.
 
-        Branch ``k`` lands at ``{path;k}``, or ``{path;index;k}`` when the
-        current branch runs several item iterations.
+        Branch ``k`` lands at ``{path;k}`` for a component that runs once per
+        branch (LIST/TREE inputs only, like Partition List), or at
+        ``{path;index;k}`` under the iteration's own sub-branch when the
+        component iterates items.
         """
         context = self.iteration or IterationContext(Path.root())
-        base = context.path.append(context.index) if context.count > 1 else context.path
+        base = context.path.append(context.index) if self._iterates_items() else context.path
         branches: dict[Path, list[Any]] = {}
         for k, items in enumerate(lists):
             branches[base.append(k)] = list(items)
         return DataTree.from_branches(branches)
+
+    def _iterates_items(self) -> bool:
+        """True when an ITEM input makes the component iterate inside each branch.
+
+        Grasshopper appends the iteration index to list outputs only for such
+        components; a component whose inputs are all LIST/TREE access runs once
+        per branch and writes lists straight into the branch path.
+        """
+        return any(param.access == Access.ITEM for param in self.inputs)
 
     # ── Input binding ───────────────────────────────────────────────
 
@@ -322,10 +346,8 @@ class Component:
 
         if not bound.iterated:
             # Zero-input component, or every input is TREE access: one call at {0}.
-            placed = self._run_generate(tree_kwargs, Path.root(), 0, 1, collectors)
-            for collector, did_place in zip(collectors, placed):
-                if not did_place:
-                    collector.setdefault(Path.root(), [])
+            touched = self._run_generate(tree_kwargs, Path.root(), 0, 1, collectors)
+            self._keep_topology(Path.root(), collectors, touched)
             return self._build_result(collectors)
 
         principal = DataTree.principal([item.tree for item in bound.iterated])
@@ -362,7 +384,7 @@ class Component:
             indices = list(_iteration_indices([len(branch) for _, branch in active_items], self.match_rule))
 
         count = len(indices)
-        placed = [False] * len(collectors)
+        touched = [False] * len(collectors)
         for iteration_index, combo in enumerate(indices):
             values = list(list_values)
             for (item, branch), item_index in zip(active_items, combo):
@@ -372,13 +394,24 @@ class Component:
             target = path
             if self.match_rule == MatchRule.CROSS_REFERENCE and combo:
                 target = path.append(combo[0])
-            for output_index, did_place in enumerate(self._run_generate(kwargs, target, iteration_index, count, collectors)):
-                placed[output_index] = placed[output_index] or did_place
+            for output_index, did_touch in enumerate(self._run_generate(kwargs, target, iteration_index, count, collectors)):
+                touched[output_index] = touched[output_index] or did_touch
+        self._keep_topology(path, collectors, touched)
 
-        # Keep the branch topology per output: an empty or silent branch stays an empty branch.
-        for collector, did_place in zip(collectors, placed):
-            if not did_place:
-                collector.setdefault(path, [])
+    def _keep_topology(self, path: Path, collectors: list[dict[Path, list[Any]]], touched: list[bool]) -> None:
+        """An empty or silent branch stays a (sub-)branch, per output, like Grasshopper.
+
+        ITEM and TREE outputs keep ``{path}``; LIST outputs keep their list path —
+        ``{path;0}`` (the missing first iteration) on an item-iterating component,
+        ``{path}`` otherwise.
+        """
+        for out_param, collector, did_touch in zip(self.outputs, collectors, touched):
+            if not did_touch:
+                collector.setdefault(self._list_path(path, 0) if out_param.access == Access.LIST else path, [])
+
+    def _list_path(self, path: Path, index: int) -> Path:
+        """Where a list emitted at iteration ``index`` of ``path`` lands."""
+        return path.append(index) if self._iterates_items() else path
 
     @staticmethod
     def _group_values(values: Sequence[tuple[InputParam, Any, int | None]]) -> dict[str, Any]:
@@ -402,7 +435,7 @@ class Component:
         count: int,
         collectors: list[dict[Path, list[Any]]],
     ) -> list[bool]:
-        """Call generate() once and collect its outputs; one flag per output says whether it placed anything."""
+        """Call generate() once and collect its outputs; one flag per output says whether it touched its tree."""
         self.iteration = IterationContext(path, index, count)
         result = self.generate(**kwargs)
         return self._collect(result, path, index, count, collectors)
@@ -429,33 +462,41 @@ class Component:
         else:
             values = [result]
 
-        return [self._place_value(collector, path, index, count, value) for collector, value in zip(collectors, values)]
+        list_path = self._list_path(path, index)
+        return [
+            self._place_value(collector, path, list_path, value, out_param.access)
+            for out_param, collector, value in zip(self.outputs, collectors, values)
+        ]
 
     @staticmethod
     def _place_value(
         collector: dict[Path, list[Any]],
         path: Path,
-        index: int,
-        count: int,
+        list_path: Path,
         value: Any,
+        access: Access,
     ) -> bool:
-        """Route one generate() value into a collector.
+        """Route one generate() value into a collector; True when the tree was touched.
 
-        * ``NO_OUTPUT`` places nothing.
+        * ``NO_OUTPUT`` places nothing — except that a LIST-access output keeps
+          its empty list path (Grasshopper leaves the iteration's list branch
+          behind when a component emits nothing).
         * ``DataTree`` results are merged at their absolute paths.
-        * ``list`` results extend the branch, moving to ``{path;index}`` when
-          the branch runs more than one iteration.
-        * anything else is appended as a single item.
+        * ``list`` results go to ``list_path`` (``{path;iteration}`` on an
+          item-iterating component, ``{path}`` otherwise).
+        * anything else is appended as a single item at ``{path}``.
         """
         if value is NO_OUTPUT:
+            if access == Access.LIST:
+                collector.setdefault(list_path, [])
+                return True
             return False
         if isinstance(value, DataTree):
             for branch_path, branch in value.branches():
                 collector.setdefault(branch_path, []).extend(branch)
             return True
         if isinstance(value, list):
-            target = path.append(index) if count > 1 else path
-            collector.setdefault(target, []).extend(value)
+            collector.setdefault(list_path, []).extend(value)
             return True
         collector.setdefault(path, []).append(value)
         return True

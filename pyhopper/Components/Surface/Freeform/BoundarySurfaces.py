@@ -75,7 +75,7 @@ class BoundarySurfaces(Component):
     """
 
     inputs = [InputParam("edges", CURVE, Access.LIST)]
-    outputs = [OutputParam("surfaces", SURFACE)]
+    outputs = [OutputParam("surfaces", SURFACE, access=Access.LIST)]
 
     def generate(self, edges=None):
         if not edges:

@@ -54,13 +54,14 @@ class ListComponentTests(unittest.TestCase):
 
         result = SplitList(self.tree, indices)
 
-        self.assertEqual(result.paths, self.tree.paths)
-        self.assertEqual(list(result.branch(TreePath(0))), ["a", "b"])
-        self.assertEqual(list(result.list_b.branch(TreePath(0))), ["c", "d"])
-        self.assertEqual(list(result.branch(TreePath(2, 1))), [10])
-        self.assertEqual(list(result.list_b.branch(TreePath(2, 1))), [20, 30])
-        self.assertEqual(list(result.branch(TreePath(5))), [])
-        self.assertEqual(list(result.list_b.branch(TreePath(5))), [])
+        # list outputs land one level down, at {path;iteration} (Grasshopper's SetDataList rule)
+        self.assertEqual(result.paths, [path.append(0) for path in self.tree.paths])
+        self.assertEqual(list(result.branch(TreePath(0, 0))), ["a", "b"])
+        self.assertEqual(list(result.list_b.branch(TreePath(0, 0))), ["c", "d"])
+        self.assertEqual(list(result.branch(TreePath(2, 1, 0))), [10])
+        self.assertEqual(list(result.list_b.branch(TreePath(2, 1, 0))), [20, 30])
+        self.assertEqual(list(result.branch(TreePath(5, 0))), [])
+        self.assertEqual(list(result.list_b.branch(TreePath(5, 0))), [])
 
     def test_sub_list_preserves_paths_and_reports_indices(self):
         domains = DataTree.from_branches(
@@ -73,20 +74,20 @@ class ListComponentTests(unittest.TestCase):
 
         result = SubList(self.tree, domains, False)
 
-        self.assertEqual(result.paths, self.tree.paths)
-        self.assertEqual(list(result.branch(TreePath(0))), ["b", "c"])
-        self.assertEqual(list(result.index.branch(TreePath(0))), [1, 2])
-        self.assertEqual(list(result.branch(TreePath(2, 1))), [30, 20, 10])
-        self.assertEqual(list(result.index.branch(TreePath(2, 1))), [2, 1, 0])
-        self.assertEqual(list(result.branch(TreePath(5))), [])
-        self.assertEqual(list(result.index.branch(TreePath(5))), [])
+        self.assertEqual(result.paths, [path.append(0) for path in self.tree.paths])
+        self.assertEqual(list(result.branch(TreePath(0, 0))), ["b", "c"])
+        self.assertEqual(list(result.index.branch(TreePath(0, 0))), [1, 2])
+        self.assertEqual(list(result.branch(TreePath(2, 1, 0))), [30, 20, 10])
+        self.assertEqual(list(result.index.branch(TreePath(2, 1, 0))), [2, 1, 0])
+        self.assertEqual(list(result.branch(TreePath(5, 0))), [])
+        self.assertEqual(list(result.index.branch(TreePath(5, 0))), [])
 
     def test_sub_list_wraps_indices_per_branch(self):
         tree = DataTree.from_branches({TreePath(4, 2): ["a", "b", "c"]})
 
         result = SubList(tree, AtomicInterval(-1, 4), True)
 
-        self.assertEqual(result.paths, [TreePath(4, 2)])
+        self.assertEqual(result.paths, [TreePath(4, 2, 0)])
         self.assertEqual(result.all_items(), ["c", "a", "b", "c", "a", "b"])
         self.assertEqual(result.index.all_items(), [2, 0, 1, 2, 0, 1])
 
@@ -100,15 +101,16 @@ class ListComponentTests(unittest.TestCase):
         wrapped = ShiftList(self.tree, 1, True)
         unwrapped = ShiftList(self.tree, -1, False)
 
-        self.assertEqual(list(wrapped.branch(TreePath(0))), ["b", "c", "d", "a"])
-        self.assertEqual(list(wrapped.branch(TreePath(2, 1))), [20, 30, 10])
-        self.assertEqual(list(wrapped.branch(TreePath(5))), [])
-        self.assertEqual(list(unwrapped.branch(TreePath(0))), ["a", "b", "c"])
-        self.assertEqual(list(unwrapped.branch(TreePath(2, 1))), [10, 20])
+        self.assertEqual(list(wrapped.branch(TreePath(0, 0))), ["b", "c", "d", "a"])
+        self.assertEqual(list(wrapped.branch(TreePath(2, 1, 0))), [20, 30, 10])
+        self.assertEqual(list(wrapped.branch(TreePath(5, 0))), [])
+        self.assertEqual(list(unwrapped.branch(TreePath(0, 0))), ["a", "b", "c"])
+        self.assertEqual(list(unwrapped.branch(TreePath(2, 1, 0))), [10, 20])
 
     def test_reverse_list_preserves_paths(self):
         result = ReverseList(self.tree)
 
+        # LIST-only component: one call per branch, paths are kept (Grasshopper does the same)
         self.assertEqual(result.paths, self.tree.paths)
         self.assertEqual(list(result.branch(TreePath(0))), ["d", "c", "b", "a"])
         self.assertEqual(list(result.branch(TreePath(2, 1))), [30, 20, 10])
@@ -167,7 +169,7 @@ class PerInputAccessMigrationTests(unittest.TestCase):
         from pyhopper import CullIndex
 
         result = CullIndex(tree(["a", "b", "c", "d"]), tree([0, 5]), tree([True]))
-        assert_tree_equal(self, result, {"0": ["c", "d"]})
+        assert_tree_equal(self, result, {"0;0": ["c", "d"]})
 
     def test_shift_list_two_shifts_sub_branch(self):
         result = ShiftList(tree(["a", "b", "c"]), tree([1, 2]), True)

@@ -15,7 +15,7 @@ class Series(Component):
         InputParam("step", float, Access.ITEM, default=1.0),
         InputParam("count", int, Access.ITEM, default=10),
     ]
-    outputs = [OutputParam("series")]
+    outputs = [OutputParam("series", access=Access.LIST)]
 
     def generate(self, start=0.0, step=1.0, count=10):
         start_value = float(start)

@@ -6,10 +6,6 @@ from pyhopper.Core.TypeSystem import CURVE
 from pyhopper.Utils.Adapters.shapely_regions import region_difference
 
 
-def _branch_plane(planes) -> AtomicPlane:
-    return planes[0] if planes else AtomicPlane.world_xy()
-
-
 class RegionDifference(Component):
     """Subtract one branch of planar closed curve regions from another.
 
@@ -21,9 +17,9 @@ class RegionDifference(Component):
     inputs = [
         InputParam("curves_a", CURVE, Access.LIST),
         InputParam("curves_b", CURVE, Access.LIST),
-        InputParam("plane", AtomicPlane, Access.LIST, default=AtomicPlane.world_xy()),
+        InputParam("plane", AtomicPlane, Access.ITEM, default=AtomicPlane.world_xy()),
     ]
-    outputs = [OutputParam("result", CURVE)]
+    outputs = [OutputParam("result", CURVE, access=Access.LIST)]
 
-    def generate(self, curves_a=None, curves_b=None, plane=None):
-        return region_difference(curves_a or [], curves_b or [], _branch_plane(plane))
+    def generate(self, curves_a=None, curves_b=None, plane=AtomicPlane.world_xy()):
+        return region_difference(curves_a or [], curves_b or [], plane)

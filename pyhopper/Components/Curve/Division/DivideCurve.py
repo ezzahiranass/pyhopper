@@ -65,9 +65,9 @@ class DivideCurve(Component):
         InputParam("kinks", bool, Access.ITEM, default=False),
     ]
     outputs = [
-        OutputParam("points", AtomicPoint),
-        OutputParam("tangents", AtomicVector),
-        OutputParam("parameters", float),
+        OutputParam("points", AtomicPoint, access=Access.LIST),
+        OutputParam("tangents", AtomicVector, access=Access.LIST),
+        OutputParam("parameters", float, access=Access.LIST),
     ]
 
     def generate(self, curve=None, count=10, kinks=False):

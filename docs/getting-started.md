@@ -33,13 +33,14 @@ points = DivideCurve(circle, count=8)
 ```python
 from pyhopper import Series, UnitZ, Move
 
-levels  = Series(start=0, step=3.0, count=10)  # DataTree: 10 floats
+levels  = Series(start=0, step=3.0, count=10)  # DataTree {0;0}: 10 floats
 lifts   = UnitZ(levels.graft())                # 10 branches, one (0,0,height) vector each
 floors  = Move(points, lifts)
-# floors: 10 branches {0;0}…{0;9}, 8 Point3d each = 80 points
+# floors: 10 branches {0;0;0}…{0;0;9}, 8 Point3d each = 80 points
 ```
 
-`levels.graft()` turns the flat list of 10 heights into 10 **branches of 1 item each**,
+`Series` emits a *list*, and — as in Grasshopper — a list lands one level below its
+input branch, at `{0;0}`. `levels.graft()` then turns the 10 heights into 10 **branches of 1 item each**,
 and `UnitZ` scales its unit vector by whatever number it receives, so `lifts` holds one
 translation vector per floor. When `Move` sees 10 branches on one input and 1 branch on
 the other, it repeats the single branch for every step — producing one translated copy
@@ -76,11 +77,11 @@ Open the file in any glTF viewer (Babylon.js sandbox, Blender, three.js editor).
 ```
 CircleCmp(r=10)           → DataTree {0}: [Circle]
     ↓ DivideCurve(n=8)
-                           → DataTree {0}: [P0, P1, … P7]  (8 pts)
+                           → DataTree {0;0}: [P0, P1, … P7]  (8 pts — a list output, one level down)
     ↓ Move(UnitZ(levels.graft()))
-    levels = [0,3,6,…27]  → DataTree {0;0}…{0;9}: [P0…P7] per floor
+    levels = [0,3,6,…27]  → DataTree {0;0;0}…{0;0;9}: [P0…P7] per floor
     ↓ Polyline(closed=True)
-                           → DataTree {0;0}…{0;9}: [Polyline] per floor
+                           → DataTree {0;0;0}…{0;0;9}: [Polyline] per floor
 ```
 
 The tree structure is the memory of *where* data came from. When you graft, each

@@ -33,7 +33,7 @@ class MassAddition(Component):
     ]
     outputs = [
         OutputParam("result"),
-        OutputParam("partial_results"),
+        OutputParam("partial_results", access=Access.LIST),
     ]
 
     def generate(self, input=None):

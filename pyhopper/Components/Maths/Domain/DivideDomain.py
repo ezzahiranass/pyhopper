@@ -33,7 +33,7 @@ class DivideDomain(Component):
         InputParam("count", int, Access.ITEM, default=10),
     ]
     outputs = [
-        OutputParam("segments", AtomicInterval),
+        OutputParam("segments", AtomicInterval, access=Access.LIST),
     ]
 
     def generate(self, domain=AtomicInterval(0.0, 1.0), count=10):

@@ -49,3 +49,7 @@ loads the Grasshopper plug-in inside Rhino.Inside, feeds volatile data into a re
 its outputs) and compares against pyhopper. Keep the case inputs in sync with the golden fixtures with
 `scripts/sync_oracle_cases.py`; document deviations per case as `"gh": {"skip": "reason"}` and record
 the reason in the component's docstring `Notes:` (see `oracle/cases/README.md`).
+`test_oracle_solve_rules.py` pins the base-class placement rules (list outputs at `{path;iteration}`
+for item-iterating components, `{path}` for list-only ones, empty branches kept) to Grasshopper.
+`gh_probe.py` is the scratch tool for asking Grasshopper how a component behaves before implementing it:
+edit its `PROBES` list and run it with the rhino-test venv.

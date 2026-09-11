@@ -25,7 +25,7 @@ class ShiftList(Component):
         InputParam("shift", int, Access.ITEM, default=1),
         InputParam("wrap", bool, Access.ITEM, default=True),
     ]
-    outputs = [OutputParam("list")]
+    outputs = [OutputParam("list", access=Access.LIST)]
 
     def generate(self, list=None, shift=1, wrap=True):
         """Return the shifted incoming branch."""

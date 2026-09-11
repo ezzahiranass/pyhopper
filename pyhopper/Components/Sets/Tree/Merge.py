@@ -18,7 +18,7 @@ class Merge(Component):
     gh_guid = "3cadddef-1e2b-4c09-9390-0e8f78f7609f"
 
     inputs = [InputParam("data", None, Access.TREE, optional=True)]
-    outputs = [OutputParam("result")]
+    outputs = [OutputParam("result", access=Access.TREE)]
     variadic_inputs = True
 
     def generate(self, data=()):

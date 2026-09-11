@@ -24,7 +24,7 @@ class PartitionList(Component):
         InputParam("list", None, Access.LIST),
         InputParam("size", int, Access.LIST, default=2),
     ]
-    outputs = [OutputParam("chunks")]
+    outputs = [OutputParam("chunks", access=Access.TREE)]
 
     def generate(self, list=None, size=2):
         """Return the chunks of the incoming branch as sub-branches."""
