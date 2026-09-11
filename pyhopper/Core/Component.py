@@ -169,12 +169,29 @@ class Component:
     Declare ``OutputParam(..., access=Access.LIST)`` for outputs that emit
     lists so an empty or silent iteration still leaves its list branch
     behind, exactly as Grasshopper does.
+
+    Interactive components describe the data a person authors on the node
+    declaratively so the studio and the graph compiler never special-case a
+    class by name:
+
+    * ``settings_schema`` — call-time ``_settings`` (a slider's range and
+      rounding); the base class merges them with their defaults.
+    * ``authored_values`` — per-node values the compiler bakes into the
+      generated source (a toggle's state, a panel's text). Each spec is
+      ``{"type": float | int | bool | string | choice | list, "default": ...}``
+      plus optional ``choices``, ``min``, ``max`` and ``label``.
+    * ``authored_emit`` — the compiler strategy that turns authored values
+      into code (``"literal"``, ``"vector"``, ``"panel"``, ``"graph_mapper"``,
+      ``"settings"``). ``None`` means values that name an input are passed
+      as literals when that input is not wired.
     """
 
     inputs: list[InputParam] = []
     outputs: list[OutputParam] = [OutputParam("result")]
     match_rule: MatchRule = MatchRule.LONGEST_LIST
     settings_schema: dict[str, dict[str, Any]] = {}
+    authored_values: dict[str, dict[str, Any]] = {}
+    authored_emit: str | None = None
     variadic_inputs: bool = False
 
     # Optional Grasshopper-facing metadata (surfaced by the catalog).
@@ -211,6 +228,25 @@ class Component:
                 raise ValueError(f"{type(self).__name__} does not support setting '{key}'")
             normalized[key] = value
         return normalized
+
+    @classmethod
+    def authored_defaults(cls) -> dict[str, Any]:
+        """Default of every authored value, in declaration order."""
+        return {
+            key: spec.get("default")
+            for key, spec in cls.authored_values.items()
+            if isinstance(spec, dict) and "default" in spec
+        }
+
+    @classmethod
+    def validate_authored(cls, section: str, data: dict[str, Any]) -> list[tuple[str, str]]:
+        """Cross-field checks the schemas cannot express.
+
+        The graph compiler calls this once per node after the per-key type and
+        choice checks pass, with ``section`` ``"values"`` or ``"settings"``.
+        Return ``(key, message)`` pairs (an empty key addresses the section).
+        """
+        return []
 
     def generate(self, **kw: Any) -> Any:
         """Override in subclasses. Receives matched inputs as keyword args.

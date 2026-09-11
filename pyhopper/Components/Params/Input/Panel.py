@@ -56,6 +56,13 @@ class Panel(Component):
 
     inputs = [InputParam("data", None, Access.TREE, default=[])]
     outputs = [OutputParam("data", access=Access.TREE)]
+    # an unwired panel is a text source: its authored text is parsed into data
+    authored_values = {
+        "text": {"type": "string", "default": "", "label": "Text"},
+        "textAlign": {"type": "choice", "default": "left", "choices": ["left", "center", "right"], "label": "Text alignment"},
+        "multilineData": {"type": "bool", "default": False, "label": "One item per line"},
+    }
+    authored_emit = "panel"
 
     def generate(self, data=None):
         """Return the tree unchanged."""

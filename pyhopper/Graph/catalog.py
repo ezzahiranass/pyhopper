@@ -48,40 +48,26 @@ def serialize_output(param: OutputParam) -> dict[str, Any]:
     }
 
 
+def _schema(component_cls: type[Component], attribute: str) -> dict[str, Any]:
+    schema = getattr(component_cls, attribute, None)
+    return schema if isinstance(schema, dict) else {}
+
+
+def _schema_defaults(schema: dict[str, Any]) -> dict[str, Any]:
+    return {
+        key: _json_safe(spec.get("default"))
+        for key, spec in schema.items()
+        if isinstance(spec, dict) and "default" in spec
+    }
+
+
 def serialize_component(tab: str, category: str, component_cls: type[Component]) -> dict[str, Any]:
     inputs = [serialize_input(param) for param in getattr(component_cls, "inputs", [])]
     outputs = [serialize_output(param) for param in getattr(component_cls, "outputs", [])]
-    settings_schema = getattr(component_cls, "settings_schema", None)
+    settings_schema = _schema(component_cls, "settings_schema")
+    authored_values = _schema(component_cls, "authored_values")
     variadic_inputs = bool(getattr(component_cls, "variadic_inputs", False))
-    settings_defaults = {
-        key: _json_safe(spec.get("default"))
-        for key, spec in settings_schema.items()
-        if isinstance(spec, dict) and "default" in spec
-    } if isinstance(settings_schema, dict) else {}
-    initial_settings = dict(settings_defaults)
-    initial_values: dict[str, Any] = {}
-    component_name = component_cls.__name__
-
-    if component_name == "BooleanToggle":
-        initial_values = {"value": bool(getattr(component_cls, "DEFAULT_VALUE", False))}
-    elif component_name == "MDSlider":
-        initial_values = {
-            "x": float(getattr(component_cls, "DEFAULT_X", 0.5)),
-            "y": float(getattr(component_cls, "DEFAULT_Y", 0.5)),
-        }
-    elif component_name == "GraphMapper":
-        initial_values = dict(settings_defaults)
-        initial_settings = {}
-    elif component_name == "Panel":
-        initial_values = {
-            "text": "",
-            "textAlign": "left",
-            "multilineData": False,
-        }
-    elif component_name == "PointOnCurve":
-        initial_values = {
-            "parameter": settings_defaults.get("parameter", 0.5),
-        }
+    settings_defaults = _schema_defaults(settings_schema)
 
     return {
         "component_key": f"{component_cls.__module__}.{component_cls.__name__}",
@@ -93,10 +79,12 @@ def serialize_component(tab: str, category: str, component_cls: type[Component])
         "nickname": getattr(component_cls, "nickname", None) or component_cls.__name__,
         "gh_guid": getattr(component_cls, "gh_guid", None),
         "description": getdoc(component_cls) or "",
-        "settings_schema": _json_safe(settings_schema if isinstance(settings_schema, dict) else {}),
+        "settings_schema": _json_safe(settings_schema),
         "settings_defaults": settings_defaults,
-        "initial_settings": _json_safe(initial_settings),
-        "initial_values": _json_safe(initial_values),
+        "initial_settings": dict(settings_defaults),
+        "authored_values": _json_safe(authored_values),
+        "authored_emit": getattr(component_cls, "authored_emit", None),
+        "initial_values": _schema_defaults(authored_values),
         "input_count": len(inputs),
         "output_count": len(outputs),
         "variadic_inputs": variadic_inputs,

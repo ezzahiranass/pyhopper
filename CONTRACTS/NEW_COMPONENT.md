@@ -359,19 +359,41 @@ an existing atom already represents the concept.
 
 ## 10. Frontend metadata must stay declarative
 
-Some components may need frontend-specific rendering hints.
+Some components let a person author data on the node itself: a slider's
+value, a toggle's state, a panel's text. Declare that data on the class so the
+catalog, the studio and the graph compiler read one description instead of
+special-casing the class by name:
 
-That is acceptable only if:
-
-- the component still behaves as a normal `Component`
-- the solve model remains intact
-- frontend metadata is declarative and optional
+- `settings_schema` — call-time `_settings` (a slider's range and rounding).
+  The base class merges them with their defaults; `NumberSlider` reads
+  `self.settings` in `generate()`.
+- `authored_values` — per-node values the compiler bakes into the generated
+  source. Each spec is `{"type": ..., "default": ...}` with optional
+  `choices`, `min`, `max` and `label`; types are `float`, `int`, `bool`,
+  `string`, `choice` and `list`.
+- `authored_emit` — how the compiler turns authored values into code:
+  `"literal"` (one value → `DataTree.from_item(...)`), `"vector"` (`x`/`y`
+  → `AtomicVector`), `"panel"` (parsed text when unwired), `"graph_mapper"`,
+  `"settings"` (the settings dict travels as `_settings`). Leave it `None`
+  when an authored value simply names an input: the compiler passes it as a
+  keyword literal whenever that input has no wire (`PointOnCurve.parameter`).
+- `validate_authored(section, data)` — optional classmethod for rules the
+  schema cannot express (a minimum above a maximum); return `(key, message)`
+  pairs. The compiler calls it after the type and choice checks pass.
 
 Example:
 
-- `NumberSlider` is still a zero-input component with one `value` output
-- the web frontend may read `frontend_preset` and `frontend_config`
+- `NumberSlider` is still a zero-input component with one `value` output;
+  its `settings_schema` drives the node form and `authored_emit = "settings"`
+- `BooleanToggle` declares `authored_values = {"value": {"type": "bool", ...}}`
+  and `authored_emit = "literal"`
 - the component itself does not become a UI object
+
+The catalog exposes `settings_schema`, `settings_defaults`,
+`initial_settings`, `authored_values`, `authored_emit` and `initial_values`
+(the authored defaults). `tests/test_catalog.py` checks every spec against the
+shared vocabulary and `tests/test_compiled_source_golden.py` locks the emitted
+source.
 
 Frontend metadata must never replace:
 

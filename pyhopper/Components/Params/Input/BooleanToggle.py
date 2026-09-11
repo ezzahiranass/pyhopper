@@ -10,7 +10,8 @@ class BooleanToggle(Component):
 
     inputs = []
     outputs = [OutputParam("value", bool)]
-    settings_schema = {"value": {"type": "bool", "default": DEFAULT_VALUE}}
+    authored_values = {"value": {"type": "bool", "default": DEFAULT_VALUE, "label": "Value"}}
+    authored_emit = "literal"
 
     def generate(self) -> bool:
         return self.DEFAULT_VALUE

@@ -25,6 +25,10 @@ class PointOnCurve(Component):
         InputParam("parameter", float, Access.ITEM, default=DEFAULT_PARAMETER),
     ]
     outputs = [OutputParam("point", AtomicPoint)]
+    # the node's slider authors ``parameter``; unwired, it is passed as a literal
+    authored_values = {
+        "parameter": {"type": "float", "default": DEFAULT_PARAMETER, "min": 0.0, "max": 1.0, "label": "Parameter"},
+    }
 
     def generate(self, curve=None, parameter=DEFAULT_PARAMETER):
         """Return the point at the requested normalized curve length."""
