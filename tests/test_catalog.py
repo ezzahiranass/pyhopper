@@ -166,6 +166,14 @@ class CatalogSmokeTests(unittest.TestCase):
         series = by_name["Series"]
         self.assertEqual((series["authored_values"], series["authored_emit"], series["initial_values"]), ({}, None, {}))
 
+    def test_catalog_flags_inputs_that_accept_inline_literals(self) -> None:
+        by_name = {entry["component"]: entry for entry in self.entries}
+        self.assertEqual([port["literal"] for port in by_name["Series"]["inputs"]], [True, True, True])
+        self.assertEqual({port["name"]: port["literal"] for port in by_name["Polyline"]["inputs"]}, {"vertices": False, "closed": True})
+        # the variadic port never takes a literal even when it is primitive-typed
+        self.assertEqual([port["literal"] for port in by_name["MassAddition"]["inputs"]], [False])
+        self.assertEqual({port["name"]: port["literal"] for port in by_name["TextJoin"]["inputs"]}, {"text": True, "join": True})
+
     def test_generate_accepts_every_declared_input(self) -> None:
         for key, component_cls in self.classes.items():
             with self.subTest(component=key):

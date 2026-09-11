@@ -9,6 +9,7 @@ from typing import Any, Callable
 
 from pyhopper.Core.Component import Component, ComponentResult, InputParam, OutputParam
 from pyhopper.Core.DataTree import DataTree
+from pyhopper.Graph.catalog import literal_input_names
 from pyhopper.Utils.Exporters import export_glb_with_manifest
 
 
@@ -207,6 +208,12 @@ def _authored_schema(component_cls: type[Component] | None) -> dict[str, dict[st
     return schema if isinstance(schema, dict) else {}
 
 
+def _values_schema(component_cls: type[Component] | None) -> dict[str, dict[str, Any]]:
+    """Everything ``values`` may hold: inline literals on literal-capable inputs (a wire on the
+    same input wins), refined by the declared authored values."""
+    return {**literal_input_names(component_cls), **_authored_schema(component_cls)}
+
+
 def _settings_schema(component_cls: type[Component] | None) -> dict[str, dict[str, Any]]:
     schema = getattr(component_cls, "settings_schema", None) if component_cls is not None else None
     return schema if isinstance(schema, dict) else {}
@@ -263,7 +270,7 @@ def _validate_node_authoring(
         return
 
     before = len(errors)
-    authored = _authored_schema(component_cls)
+    values_schema = _values_schema(component_cls)
     if emit == "settings":
         # The settings dict reaches the constructor, so every key must be declared. Documents
         # from before slider settings existed stored the value under values[<primary output>].
@@ -275,11 +282,11 @@ def _validate_node_authoring(
                 errors.append(_error(f"{path}.values.{key}", "Slider values must be numeric"))
         _validate_against_schema(path, "settings", settings, _settings_schema(component_cls), errors, strict=True)
     else:
-        if authored:
-            _validate_against_schema(path, "values", values, authored, errors, strict=True)
+        if values_schema:
+            _validate_against_schema(path, "values", values, values_schema, errors, strict=True)
         else:
             for key in values:
-                errors.append(_error(f"{path}.values.{key}", f"{component_cls.__name__} does not declare authored values"))
+                errors.append(_error(f"{path}.values.{key}", f"{component_cls.__name__} has no authored values or literal inputs"))
         # settings the component never reads are ignored, declared ones must still type-check
         _validate_against_schema(path, "settings", settings, _settings_schema(component_cls), errors, strict=False)
 
@@ -301,15 +308,21 @@ class EmitContext:
 
     @property
     def schema(self) -> dict[str, dict[str, Any]]:
+        """Declared authored values (an emitter's own keys)."""
         return _authored_schema(self.node.component_cls)
+
+    @property
+    def values_schema(self) -> dict[str, dict[str, Any]]:
+        """Authored values plus literal-capable inputs — every key ``values`` may carry."""
+        return _values_schema(self.node.component_cls)
 
     def authored(self, key: str) -> Any:
         """The node's value for *key*, else the declared default."""
-        return self.node.values.get(key, self.schema.get(key, {}).get("default"))
+        return self.node.values.get(key, self.values_schema.get(key, {}).get("default"))
 
     def typed(self, key: str) -> Any:
         """``authored(key)`` coerced to the type the schema declares."""
-        return _coerce_to_schema(self.schema.get(key, {}), self.authored(key))
+        return _coerce_to_schema(self.values_schema.get(key, {}), self.authored(key))
 
     def wired(self, input_name: str) -> bool:
         return bool(self.incoming_by_port.get((self.node.node_id, input_name)))
@@ -654,6 +667,8 @@ def _validate_document(document: Any) -> tuple[str, dict[str, ResolvedNode], lis
                 continue
             if node.variadic_inputs and input_param.name == last_input_name:
                 continue
+            if input_param.name in node.values or input_param.name in _authored_schema(node.component_cls):
+                continue  # an inline literal or an authored value stands in for the wire
             errors.append(_error(f"nodes[{node.node_id}].inputs.{input_param.name}", f"Required input '{input_param.name}' is missing"))
 
     if errors:
@@ -708,8 +723,8 @@ def _generic_call(ctx: EmitContext, order_index: dict[str, int]) -> str:
                 keyword_arguments.append(f"{input_param.name}=[{streams}]")
         elif connected_edges:
             keyword_arguments.append(f"{input_param.name}={ctx.source(input_param.name)}")
-        elif input_param.name in authored:
-            # an authored value that names an input stands in for the missing wire
+        elif input_param.name in node.values or input_param.name in authored:
+            # an inline literal (or an authored value that names the input) stands in for the wire
             keyword_arguments.append(f"{input_param.name}={_literal_expression(ctx.typed(input_param.name))}")
     return f"{ctx.variable_name} = {class_name}({', '.join(keyword_arguments)})"
 

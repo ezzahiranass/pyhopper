@@ -395,6 +395,14 @@ The catalog exposes `settings_schema`, `settings_defaults`,
 shared vocabulary and `tests/test_compiled_source_golden.py` locks the emitted
 source.
 
+Inline literals need no declaration at all: every `float`, `int`, `bool` or
+`str` input that is not the variadic port accepts `values[<input>]` on a graph
+node (Grasshopper's "Set Data Item"). The catalog flags such ports with
+`"literal": true`, the compiler type-checks the value against the input and
+passes it as a keyword literal when the input has no wire — a wire always wins.
+Declare an `authored_values` spec for such an input only to refine it (a
+default, `min`/`max`, a label) — `PointOnCurve.parameter` does.
+
 Frontend metadata must never replace:
 
 - `inputs`
