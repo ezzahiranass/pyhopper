@@ -31,3 +31,16 @@ under pythonnet, so `Params` is reached through `GetType().GetProperty("Params")
   adding a component (NEW_COMPONENT.md: verify Grasshopper first).
 - `component_roadmap_plan.json` — those 799 joined with pyhopper's catalog: 117 covered, 679 candidates
   tiered (T1 safe now / T2 one infra item / T3 later / T4 not now) with batch and dependency tags.
+
+## Oracle suite (`oracle/`)
+Kernel-level comparisons against RhinoCommon: curve points/tangents/derivatives/curvature/
+length/`DivideByCount`, surface points/normals/derivatives, and every `AtomicTransform` factory.
+Runs only with the rhino-test venv (skips everywhere else):
+
+```
+rhino-test\.venv\Scripts\python -m unittest discover -s rhino-test/oracle -t rhino-test -v
+RHINO_ORACLE=1 scripts/check.sh      # or scripts\check.ps1 with $env:RHINO_ORACLE = "1"
+```
+Gotcha: RhinoCommon's 4-double `NurbsCurvePointList.SetPoint(i, x, y, z, w)` takes *homogeneous*
+coordinates; use the `(Point3d, weight)` overload for Euclidean control points (see `support.py`).
+`oracle/cases/` holds per-component case files written by `scripts/new_component.py`.
