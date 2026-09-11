@@ -26,9 +26,13 @@ class PyhopperComponentSetting(TypedDict, total=False):
 
 class PyhopperComponentDefinition(TypedDict, total=False):
     component_key: str
+    module: str
     tab: str
     category: str
     component: str
+    display_name: str
+    nickname: str
+    gh_guid: str | None
     description: str
     settings_schema: dict[str, PyhopperComponentSetting]
     settings_defaults: dict[str, Any]
