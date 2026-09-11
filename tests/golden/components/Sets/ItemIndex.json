@@ -1,0 +1,106 @@
+{
+ "component": "pyhopper.Components.Sets.List.ItemIndex.ItemIndex",
+ "gh_guid": "a759fd55-e6be-4673-8365-c28d5b52c6c0",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "found_and_missing",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "a"
+    ],
+    "item": [
+     "a",
+     "z",
+     "b"
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      0,
+      -1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "numbers_by_value",
+   "inputs": {
+    "list": [
+     1.0,
+     2.0,
+     3.0
+    ],
+    "item": [
+     2.0
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "type_sensitive",
+   "inputs": {
+    "list": [
+     1,
+     2.0,
+     true
+    ],
+    "item": [
+     2,
+     2.0,
+     1,
+     true
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      -1,
+      1,
+      0,
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "list": {
+     "0": [
+      "x",
+      "y"
+     ],
+     "1": [
+      "y"
+     ]
+    },
+    "item": "y"
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      0
+     ]
+    }
+   }
+  }
+ ]
+}

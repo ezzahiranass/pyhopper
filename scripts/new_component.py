@@ -53,6 +53,8 @@ Next steps
   5. Run:  .venv\\Scripts\\python -m unittest discover -s tests -t . -k {cls} -v
            .venv\\Scripts\\python -m unittest discover -s tests -t . -k catalog -k metadata -k naming
   6. Record every Grasshopper deviation in the class docstring `Notes:` section.
+  7. Check Grasshopper's persistent defaults with rhino-test\.venv\Scripts\python rhino-test\gh_defaults.py "<GH name>"
+     and probe unclear behaviour with rhino-test\gh_probe.py before deciding semantics.
 """
 
 
@@ -91,7 +93,9 @@ def build_inputs(record: dict) -> tuple[list[dict], bool]:
             variadic = True
         hint = hint_for(port["type"])
         optional = bool(port["optional"])
-        default = None if optional else DEFAULTS.get(hint)
+        # scalar type defaults only make sense for item ports; list/tree ports stay required
+        # (fill in Grasshopper's persistent default by hand: rhino-test/gh_defaults.py prints it)
+        default = None if optional or port["access"] != "item" else DEFAULTS.get(hint)
         ports.append({
             "name": name,
             "hint": hint,

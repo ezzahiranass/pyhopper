@@ -1,0 +1,150 @@
+{
+ "component": "pyhopper.Components.Sets.List.InsertItems.InsertItems",
+ "gh_guid": "e2039b07-d3f3-40f8-af88-d74fed238727",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "nulls": "keep",
+ "notes": "positions past the end are padded with nulls on both sides",
+ "cases": [
+  {
+   "name": "two_items",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c"
+    ],
+    "item": [
+     "X",
+     "Y"
+    ],
+    "indices": [
+     1,
+     3
+    ],
+    "wrap": false
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "same_index_keeps_order",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c"
+    ],
+    "item": [
+     "X",
+     "Y"
+    ],
+    "indices": [
+     1,
+     1
+    ],
+    "wrap": false
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "items_cycle_and_pad",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c"
+    ],
+    "item": [
+     "X"
+    ],
+    "indices": [
+     0,
+     2,
+     4
+    ],
+    "wrap": false
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "beyond_end_pads_with_none",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "item": [
+     "X"
+    ],
+    "indices": [
+     5
+    ],
+    "wrap": false
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "beyond_end_wraps",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "item": [
+     "X"
+    ],
+    "indices": [
+     5
+    ],
+    "wrap": true
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "negative_wraps_to_end",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c"
+    ],
+    "item": [
+     "X"
+    ],
+    "indices": [
+     -1
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "no_items_insert_none",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "indices": [
+     1
+    ],
+    "wrap": false
+   },
+   "compare": [
+    "List"
+   ]
+  }
+ ]
+}

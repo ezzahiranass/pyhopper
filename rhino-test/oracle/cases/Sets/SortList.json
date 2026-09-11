@@ -1,0 +1,69 @@
+{
+ "component": "pyhopper.Components.Sets.List.SortList.SortList",
+ "gh_guid": "6f93d366-919f-4dda-a35e-ba03dd62799b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "keys_only",
+   "inputs": {
+    "keys": [
+     3,
+     1,
+     2
+    ]
+   },
+   "compare": [
+    "Keys",
+    "Values A"
+   ]
+  },
+  {
+   "name": "with_values_stable",
+   "inputs": {
+    "keys": [
+     3.0,
+     1.0,
+     2.0,
+     1.0
+    ],
+    "values": [
+     [
+      "c",
+      "a1",
+      "b",
+      "a2"
+     ]
+    ]
+   },
+   "compare": [
+    "Keys",
+    "Values A"
+   ],
+   "gh": {
+    "skip": "the headless harness cannot feed the ZUI Values port (Grasshopper throws IndexOutOfRange)"
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "keys": {
+     "0": [
+      0.5,
+      -1,
+      10
+     ],
+     "1": [
+      2,
+      1
+     ]
+    }
+   },
+   "compare": [
+    "Keys",
+    "Values A"
+   ]
+  }
+ ]
+}

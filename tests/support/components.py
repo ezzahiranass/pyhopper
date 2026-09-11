@@ -32,13 +32,17 @@ def decode_input(spec: Any) -> Any:
     """Golden-file input -> Python value.
 
     Atom JSON objects become atoms, path-keyed dicts become DataTrees, lists
-    become single-branch trees (items decoded), scalars stay scalars.
+    become single-branch trees (items decoded), scalars stay scalars. A list of
+    lists (or of path-keyed dicts) is the spelling for a variadic port: one
+    tree per stream, e.g. ``"streams": [["a", "b"], ["x"]]``.
     """
     if is_tree_spec(spec):
         return spec_to_tree(spec)
     if isinstance(spec, dict) and isinstance(spec.get("type"), str):
         return item_from_json(spec)
     if isinstance(spec, list):
+        if spec and all(isinstance(item, list) or is_tree_spec(item) for item in spec):
+            return [decode_input(item) for item in spec]
         return DataTree.from_list([item_from_json(item) for item in spec])
     return spec
 

@@ -26,6 +26,9 @@ Optional knobs:
   deliberately places its output differently from Grasshopper (the base class
   follows Grasshopper's `{path;iteration}` rule for list outputs, so this is
   rare and must be explained in `notes`);
+- fixture `"nulls": "keep"` — compare Grasshopper nulls against pyhopper `None`
+  items instead of dropping them (components that keep index alignment, such as
+  Sift Pattern and Insert Items);
 - fixture `"notes"` — why a knob is set;
 - per case `"gh": {"skip": "reason"}` — a documented deviation; the case still
   runs in pyhopper but is not compared. Record the same reason in the

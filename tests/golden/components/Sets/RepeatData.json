@@ -1,0 +1,90 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.RepeatData.RepeatData",
+ "gh_guid": "c40dc145-9e36-4a69-ac1a-6d825c654993",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "repeat",
+   "inputs": {
+    "data": [
+     "a",
+     "b",
+     "c"
+    ],
+    "length": 7
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [
+      "a",
+      "b",
+      "c",
+      "a",
+      "b",
+      "c",
+      "a"
+     ]
+    }
+   }
+  },
+  {
+   "name": "truncate",
+   "inputs": {
+    "data": [
+     "a",
+     "b",
+     "c"
+    ],
+    "length": 2
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_and_empty",
+   "inputs": {
+    "data": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": []
+    },
+    "length": {
+     "0": [
+      0
+     ],
+     "1": [
+      3
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [],
+     "{1;0}": []
+    }
+   }
+  },
+  {
+   "name": "negative_raises",
+   "inputs": {
+    "data": [
+     "a"
+    ],
+    "length": -1
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

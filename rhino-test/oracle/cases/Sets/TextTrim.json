@@ -1,0 +1,64 @@
+{
+ "component": "pyhopper.Components.Sets.Text.TextTrim.TextTrim",
+ "gh_guid": "e4cb7168-5e32-4c54-b425-5a31c6fd685a",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "defaults",
+   "inputs": {
+    "text": [
+     "  hi there  ",
+     "\t tab\n"
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "start_only",
+   "inputs": {
+    "text": "  hi  ",
+    "start": true,
+    "end": false
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "end_only",
+   "inputs": {
+    "text": "  hi  ",
+    "start": false,
+    "end": true
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "text": {
+     "0": [
+      " a ",
+      " b "
+     ],
+     "1": [
+      " c "
+     ]
+    },
+    "start": [
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

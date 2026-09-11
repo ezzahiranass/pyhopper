@@ -1,0 +1,100 @@
+{
+ "component": "pyhopper.Components.Sets.List.Weave.Weave",
+ "gh_guid": "50faccbd-9c92-4175-a5fa-d65e36013db6",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "pattern": [
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a",
+      "b",
+      "c"
+     ],
+     [
+      "x",
+      "y",
+      "z"
+     ]
+    ]
+   },
+   "compare": [
+    "Weave"
+   ]
+  },
+  {
+   "name": "exhausted_stream_is_skipped",
+   "inputs": {
+    "pattern": [
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a",
+      "b",
+      "c",
+      "d"
+     ],
+     [
+      "x"
+     ]
+    ]
+   },
+   "compare": [
+    "Weave"
+   ]
+  },
+  {
+   "name": "pattern_0_0_1",
+   "inputs": {
+    "pattern": [
+     0,
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a",
+      "b",
+      "c",
+      "d"
+     ],
+     [
+      "x",
+      "y"
+     ]
+    ]
+   },
+   "compare": [
+    "Weave"
+   ]
+  },
+  {
+   "name": "empty_stream",
+   "inputs": {
+    "pattern": [
+     0,
+     1
+    ],
+    "streams": [
+     [],
+     [
+      "x",
+      "y"
+     ]
+    ]
+   },
+   "compare": [
+    "Weave"
+   ]
+  }
+ ]
+}

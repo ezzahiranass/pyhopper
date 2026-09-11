@@ -172,6 +172,11 @@ def coerce_item(value: Any, target: type | TypeSpec | None) -> Any:
     if target is str:
         if isinstance(value, str):
             return value
+        if isinstance(value, (bool, int, float)):
+            # Grasshopper text ports accept numbers and booleans, formatted the .NET way (1.0 -> "1")
+            from pyhopper.Utils.Text import format_number
+
+            return format_number(value)
         raise CoercionError(target, value)
 
     if target is AtomicPlane and isinstance(value, AtomicPoint):

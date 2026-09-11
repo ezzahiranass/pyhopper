@@ -1,0 +1,114 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.MemberIndex.MemberIndex",
+ "gh_guid": "3ff27857-b988-417a-b495-b24c733dbd00",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "all_occurrences",
+   "inputs": {
+    "set": [
+     "a",
+     "b",
+     "a"
+    ],
+    "member": [
+     "a",
+     "b"
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0;0}": [
+      0,
+      2
+     ],
+     "{0;1}": [
+      1
+     ]
+    },
+    "count": {
+     "{0}": [
+      2,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "type_sensitive",
+   "inputs": {
+    "set": [
+     1,
+     2.0,
+     2
+    ],
+    "member": 2.0
+   },
+   "expect": {
+    "index": {
+     "{0;0}": [
+      1
+     ]
+    },
+    "count": {
+     "{0}": [
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "missing_member",
+   "inputs": {
+    "set": [
+     "a",
+     "b"
+    ],
+    "member": "z"
+   },
+   "expect": {
+    "index": {
+     "{0;0}": []
+    },
+    "count": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_set_branch",
+   "inputs": {
+    "set": {
+     "0": [],
+     "1": [
+      "a",
+      "b"
+     ]
+    },
+    "member": "b"
+   },
+   "expect": {
+    "index": {
+     "{0;0}": [],
+     "{1;0}": [
+      1
+     ]
+    },
+    "count": {
+     "{0}": [
+      0
+     ],
+     "{1}": [
+      1
+     ]
+    }
+   }
+  }
+ ]
+}

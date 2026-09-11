@@ -1,0 +1,70 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.Jitter.Jitter",
+ "gh_guid": "f02a20f6-bb49-4e3d-b155-8ed5d3c6b000",
+ "mode": "structural",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "notes": "seeded shuffle; pyhopper's sequence differs from Grasshopper's, only paths and counts compare",
+ "cases": [
+  {
+   "name": "zero_jitter_keeps_order",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "jitter": 0.0,
+    "seed": 1
+   },
+   "compare": [
+    "Values",
+    "Indices"
+   ]
+  },
+  {
+   "name": "full_jitter_shape",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "jitter": 1.0,
+    "seed": 1
+   },
+   "compare": [
+    "Values",
+    "Indices"
+   ]
+  },
+  {
+   "name": "per_branch_shape",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "jitter": 0.5,
+    "seed": 7
+   },
+   "compare": [
+    "Values",
+    "Indices"
+   ]
+  }
+ ]
+}

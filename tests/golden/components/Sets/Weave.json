@@ -1,0 +1,153 @@
+{
+ "component": "pyhopper.Components.Sets.List.Weave.Weave",
+ "gh_guid": "50faccbd-9c92-4175-a5fa-d65e36013db6",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "pattern": [
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a",
+      "b",
+      "c"
+     ],
+     [
+      "x",
+      "y",
+      "z"
+     ]
+    ]
+   },
+   "expect": {
+    "weave": {
+     "{0}": [
+      "a",
+      "x",
+      "b",
+      "y",
+      "c",
+      "z"
+     ]
+    }
+   }
+  },
+  {
+   "name": "exhausted_stream_is_skipped",
+   "inputs": {
+    "pattern": [
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a",
+      "b",
+      "c",
+      "d"
+     ],
+     [
+      "x"
+     ]
+    ]
+   },
+   "expect": {
+    "weave": {
+     "{0}": [
+      "a",
+      "x",
+      "b",
+      "c",
+      "d"
+     ]
+    }
+   }
+  },
+  {
+   "name": "pattern_0_0_1",
+   "inputs": {
+    "pattern": [
+     0,
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a",
+      "b",
+      "c",
+      "d"
+     ],
+     [
+      "x",
+      "y"
+     ]
+    ]
+   },
+   "expect": {
+    "weave": {
+     "{0}": [
+      "a",
+      "b",
+      "x",
+      "c",
+      "d",
+      "y"
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_stream",
+   "inputs": {
+    "pattern": [
+     0,
+     1
+    ],
+    "streams": [
+     [],
+     [
+      "x",
+      "y"
+     ]
+    ]
+   },
+   "expect": {
+    "weave": {
+     "{0}": [
+      "x",
+      "y"
+     ]
+    }
+   }
+  },
+  {
+   "name": "index_without_stream_raises",
+   "inputs": {
+    "pattern": [
+     0,
+     5
+    ],
+    "streams": [
+     [
+      "a",
+      "b"
+     ],
+     [
+      "x",
+      "y"
+     ]
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

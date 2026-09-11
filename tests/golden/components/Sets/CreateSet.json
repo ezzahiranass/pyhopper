@@ -1,0 +1,125 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.CreateSet.CreateSet",
+ "gh_guid": "98c3c63a-e78a-43ea-a111-514fcf312c95",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "type_sensitive",
+   "inputs": {
+    "list": [
+     1,
+     1.0,
+     true,
+     "1",
+     "a",
+     "a"
+    ]
+   },
+   "expect": {
+    "set": {
+     "{0}": [
+      1,
+      1.0,
+      true,
+      "1",
+      "a"
+     ]
+    },
+    "map": {
+     "{0}": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "points_by_value",
+   "inputs": {
+    "list": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "set": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "map": {
+     "{0}": [
+      0,
+      1,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch_with_empty",
+   "inputs": {
+    "list": {
+     "0": [
+      3,
+      3,
+      2
+     ],
+     "1": []
+    }
+   },
+   "expect": {
+    "set": {
+     "{0}": [
+      3,
+      2
+     ],
+     "{1}": []
+    },
+    "map": {
+     "{0}": [
+      0,
+      0,
+      1
+     ],
+     "{1}": []
+    }
+   }
+  }
+ ]
+}

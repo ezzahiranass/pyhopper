@@ -1,0 +1,63 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.DuplicateData.DuplicateData",
+ "gh_guid": "dd8134c0-109b-4012-92be-51d843edfff7",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "order_true",
+   "inputs": {
+    "data": [
+     "a",
+     "b"
+    ],
+    "number": 3,
+    "order": true
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "order_false",
+   "inputs": {
+    "data": [
+     "a",
+     "b"
+    ],
+    "number": 3,
+    "order": false
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "defaults",
+   "inputs": {
+    "data": [
+     1,
+     2,
+     3
+    ]
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "zero_copies",
+   "inputs": {
+    "data": [
+     "a",
+     "b"
+    ],
+    "number": 0
+   },
+   "compare": [
+    "Data"
+   ]
+  }
+ ]
+}

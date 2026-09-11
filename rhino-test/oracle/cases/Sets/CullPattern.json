@@ -1,0 +1,81 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.CullPattern.CullPattern",
+ "gh_guid": "008e9a6f-478a-4813-8c8a-546273bc3a6b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "pattern_cycles",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "cull_pattern": [
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "default_pattern",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4,
+      5,
+      6
+     ]
+    },
+    "cull_pattern": [
+     false,
+     true
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "empty_pattern_culls_everything",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "cull_pattern": []
+   },
+   "compare": [
+    "List"
+   ]
+  }
+ ]
+}
