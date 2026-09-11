@@ -1,0 +1,67 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.Includes.Includes",
+ "gh_guid": "f217f873-92f1-47ae-ad71-ca3c5a45c3f8",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "unit_domain",
+   "inputs": {
+    "value": [
+     -1,
+     0,
+     0.5,
+     1,
+     3
+    ]
+   },
+   "compare": [
+    "Includes",
+    "Deviation"
+   ]
+  },
+  {
+   "name": "reversed_domain",
+   "inputs": {
+    "value": [
+     5,
+     12,
+     -0.5
+    ],
+    "domain": {
+     "type": "Interval",
+     "start": 10,
+     "end": 0
+    }
+   },
+   "compare": [
+    "Includes",
+    "Deviation"
+   ]
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "value": {
+     "0": [
+      0.5,
+      4
+     ],
+     "1": [
+      -2
+     ]
+    },
+    "domain": {
+     "type": "Interval",
+     "start": 0,
+     "end": 1
+    }
+   },
+   "compare": [
+    "Includes",
+    "Deviation"
+   ]
+  }
+ ]
+}

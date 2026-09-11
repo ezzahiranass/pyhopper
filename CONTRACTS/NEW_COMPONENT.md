@@ -402,6 +402,14 @@ If the component appears in the frontend catalog, also verify:
 - the metadata reported by `list_components()` is correct
 - any frontend preset remains declarative
 
+For components with a `gh_guid`, also run the Grasshopper oracle when Rhino 8 is
+available: `scripts/sync_oracle_cases.py` mirrors the golden cases into
+`rhino-test/oracle/cases/`, and `RHINO_ORACLE=1 scripts/check.sh` solves the real
+Grasshopper component headlessly with the same inputs. Every case that legitimately
+differs gets `"gh": {"skip": "reason"}` in the case file **and** the same reason in
+the docstring `Notes:` — the case file documents the deviation, the docstring
+explains it to users.
+
 ---
 
 ## 13. A good example to copy

@@ -1,0 +1,61 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.LargerThan.LargerThan",
+ "gh_guid": "30d58600-1aab-42db-80a3-f1ea6c4269a0",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "first_number": [
+     1,
+     2,
+     3
+    ],
+    "second_number": [
+     2,
+     2,
+     2
+    ]
+   },
+   "compare": [
+    "Larger than",
+    "… or Equal to"
+   ]
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "first_number": {
+     "0": [
+      1,
+      5
+     ],
+     "1": [
+      2
+     ]
+    },
+    "second_number": [
+     2,
+     2
+    ]
+   },
+   "compare": [
+    "Larger than",
+    "… or Equal to"
+   ]
+  },
+  {
+   "name": "defaults_are_equal",
+   "inputs": {},
+   "compare": [
+    "Larger than",
+    "… or Equal to"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

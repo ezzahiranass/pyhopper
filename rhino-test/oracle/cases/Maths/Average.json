@@ -1,0 +1,91 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Average.Average",
+ "gh_guid": "7986486c-621a-48fb-8f27-a28a22c91cc9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "numbers",
+   "inputs": {
+    "input": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  },
+  {
+   "name": "points",
+   "inputs": {
+    "input": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 4,
+      "z": 6
+     }
+    ]
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  },
+  {
+   "name": "vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  },
+  {
+   "name": "per_branch_empty_preserved",
+   "inputs": {
+    "input": {
+     "0": [],
+     "1": [
+      10,
+      20
+     ],
+     "2": [
+      7
+     ]
+    }
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  }
+ ]
+}

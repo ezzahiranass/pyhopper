@@ -1,0 +1,58 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Round.Round",
+ "gh_guid": "a50c4a3b-0177-4c91-8556-db95de6c56c8",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "halves_away_from_zero",
+   "inputs": {
+    "number": [
+     2.5,
+     -2.5,
+     2.4,
+     -2.6,
+     0.5,
+     3
+    ]
+   },
+   "compare": [
+    "Nearest",
+    "Floor",
+    "Ceiling"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "number": {
+     "0": [
+      1.25
+     ],
+     "1": [
+      -0.75,
+      7.5
+     ]
+    }
+   },
+   "compare": [
+    "Nearest",
+    "Floor",
+    "Ceiling"
+   ]
+  },
+  {
+   "name": "default_is_zero",
+   "inputs": {},
+   "compare": [
+    "Nearest",
+    "Floor",
+    "Ceiling"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

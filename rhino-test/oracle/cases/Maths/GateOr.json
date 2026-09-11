@@ -1,0 +1,66 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateOr.GateOr",
+ "gh_guid": "5cad70f9-5a53-4c5c-a782-54a479b4abe3",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "b": [
+     true,
+     false,
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "a": {
+     "0": [
+      true,
+      false
+     ],
+     "1": [
+      false
+     ]
+    },
+    "b": false
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "missing_input_is_ignored",
+   "inputs": {
+    "b": [
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "no_inputs_emit_nothing",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

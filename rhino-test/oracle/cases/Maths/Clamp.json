@@ -1,0 +1,83 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Clamp.Clamp",
+ "gh_guid": "116df248-630e-4045-8c81-58693d1ff3a4",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "unit_domain",
+   "inputs": {
+    "value": [
+     -1,
+     0.5,
+     2
+    ]
+   },
+   "compare": [
+    "Clamped"
+   ]
+  },
+  {
+   "name": "custom_domain",
+   "inputs": {
+    "value": [
+     1,
+     3,
+     9
+    ],
+    "domain": {
+     "type": "Interval",
+     "start": 2,
+     "end": 4
+    }
+   },
+   "compare": [
+    "Clamped"
+   ]
+  },
+  {
+   "name": "reversed_domain",
+   "inputs": {
+    "value": [
+     5,
+     12,
+     -3
+    ],
+    "domain": {
+     "type": "Interval",
+     "start": 10,
+     "end": 0
+    }
+   },
+   "compare": [
+    "Clamped"
+   ],
+   "gh": {
+    "skip": "Grasshopper 8 returns the domain start for every value when the domain is reversed; pyhopper normalises the domain"
+   }
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "value": {
+     "0": [
+      -5,
+      5
+     ],
+     "1": [
+      0.25
+     ]
+    },
+    "domain": {
+     "type": "Interval",
+     "start": 0,
+     "end": 1
+    }
+   },
+   "compare": [
+    "Clamped"
+   ]
+  }
+ ]
+}

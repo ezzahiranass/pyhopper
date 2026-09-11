@@ -1,0 +1,50 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.Sine.Sine",
+ "gh_guid": "7663efbb-d9b8-4c6a-a0da-c3750a7bbe77",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     0,
+     0.5235987755982988,
+     1.5707963267948966,
+     3.141592653589793
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      1.5707963267948966
+     ],
+     "1": [
+      -1.5707963267948966,
+      0
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "default_is_zero",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

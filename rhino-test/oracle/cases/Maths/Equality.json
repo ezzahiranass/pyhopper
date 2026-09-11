@@ -1,0 +1,62 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.Equality.Equality",
+ "gh_guid": "5db0fb89-4f22-4f09-a777-fa5e55aed7ec",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "first_number": [
+     1,
+     2.5,
+     3
+    ],
+    "second_number": [
+     1,
+     2,
+     3
+    ]
+   },
+   "compare": [
+    "Equality",
+    "Inequality"
+   ]
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "first_number": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      3
+     ]
+    },
+    "second_number": 1
+   },
+   "compare": [
+    "Equality",
+    "Inequality"
+   ]
+  },
+  {
+   "name": "int_equals_float",
+   "inputs": {
+    "first_number": [
+     2
+    ],
+    "second_number": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Equality",
+    "Inequality"
+   ]
+  }
+ ]
+}

@@ -43,4 +43,9 @@ RHINO_ORACLE=1 scripts/check.sh      # or scripts\check.ps1 with $env:RHINO_ORAC
 ```
 Gotcha: RhinoCommon's 4-double `NurbsCurvePointList.SetPoint(i, x, y, z, w)` takes *homogeneous*
 coordinates; use the `(Point3d, weight)` overload for Euclidean control points (see `support.py`).
-`oracle/cases/` holds per-component case files written by `scripts/new_component.py`.
+`oracle/cases/` holds per-component case files written by `scripts/new_component.py`;
+`test_oracle_components.py` runs each of them through **headless Grasshopper** (`oracle/gh_headless.py`
+loads the Grasshopper plug-in inside Rhino.Inside, feeds volatile data into a real component and reads
+its outputs) and compares against pyhopper. Keep the case inputs in sync with the golden fixtures with
+`scripts/sync_oracle_cases.py`; document deviations per case as `"gh": {"skip": "reason"}` and record
+the reason in the component's docstring `Notes:` (see `oracle/cases/README.md`).

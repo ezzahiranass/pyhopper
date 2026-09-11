@@ -1,0 +1,58 @@
+{
+ "component": "pyhopper.Components.Params.Primitive.Data.Data",
+ "gh_guid": "8ec86459-bf01-4409-baee-174d0d2b13d0",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "data": [
+     1,
+     "text",
+     true,
+     2.5
+    ]
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "data": {
+     "0": [
+      1,
+      2
+     ],
+     "3;1": [
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "atoms",
+   "inputs": {
+    "data": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     },
+     {
+      "type": "Interval",
+      "start": 0,
+      "end": 5
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   }
+  }
+ ]
+}
