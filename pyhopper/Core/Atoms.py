@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import ClassVar
+from typing import Iterable, Sequence, ClassVar
 
 # Global registry: atom_type string -> class
 ATOM_REGISTRY: dict[str, type] = {}
@@ -989,6 +989,168 @@ class AtomicTransform(Atom):
             -2*c*a,     -2*c*b,    1 - 2*c*c, 2*c*d,
             0.0,        0.0,       0.0,       1.0,
         ))
+
+    # ── Algebra ─────────────────────────────────────────────────────
+
+    @classmethod
+    def _from_linear(cls, linear: Sequence[Sequence[float]], translation: Sequence[float]) -> AtomicTransform:
+        """Build from a 3x3 linear block and a translation column (affine)."""
+        return cls(matrix=(
+            float(linear[0][0]), float(linear[0][1]), float(linear[0][2]), float(translation[0]),
+            float(linear[1][0]), float(linear[1][1]), float(linear[1][2]), float(translation[1]),
+            float(linear[2][0]), float(linear[2][1]), float(linear[2][2]), float(translation[2]),
+            0.0, 0.0, 0.0, 1.0,
+        ))
+
+    def rows(self) -> list[list[float]]:
+        m = self.matrix
+        return [list(m[0:4]), list(m[4:8]), list(m[8:12]), list(m[12:16])]
+
+    @property
+    def is_affine(self) -> bool:
+        """True when the bottom row is (0, 0, 0, 1) — every factory here produces affine maps."""
+        m = self.matrix
+        return abs(m[12]) <= 1e-9 and abs(m[13]) <= 1e-9 and abs(m[14]) <= 1e-9 and abs(m[15] - 1.0) <= 1e-9
+
+    @property
+    def is_identity(self) -> bool:
+        return all(abs(value - reference) <= 1e-12 for value, reference in zip(self.matrix, _IDENTITY_4X4))
+
+    @property
+    def determinant(self) -> float:
+        """Determinant of the 3x3 linear block (negative for reflections, 0 for projections)."""
+        m = self.matrix
+        return (
+            m[0] * (m[5] * m[10] - m[6] * m[9])
+            - m[1] * (m[4] * m[10] - m[6] * m[8])
+            + m[2] * (m[4] * m[9] - m[5] * m[8])
+        )
+
+    def __matmul__(self, other: AtomicTransform) -> AtomicTransform:
+        """Matrix product ``self @ other``: *other* is applied first, then *self*."""
+        a = self.rows()
+        b = other.rows()
+        product = [[sum(a[row][k] * b[k][col] for k in range(4)) for col in range(4)] for row in range(4)]
+        return AtomicTransform(matrix=tuple(value for row in product for value in row))
+
+    def then(self, *later: AtomicTransform) -> AtomicTransform:
+        """Compose in application order: ``self`` first, then each of *later* in turn."""
+        result = self
+        for transform in later:
+            result = transform @ result
+        return result
+
+    @classmethod
+    def compound(cls, transforms: Iterable[AtomicTransform]) -> AtomicTransform:
+        """Grasshopper Compound: apply the transforms in list order (first entry first)."""
+        result = cls.identity()
+        for transform in transforms:
+            result = transform @ result
+        return result
+
+    def inverse(self) -> AtomicTransform:
+        """Inverse transform (Gauss-Jordan with partial pivoting). Raises ValueError when singular."""
+        size = 4
+        augmented = [row + [1.0 if i == j else 0.0 for j in range(size)] for i, row in enumerate(self.rows())]
+        for column in range(size):
+            pivot = max(range(column, size), key=lambda r: abs(augmented[r][column]))
+            if abs(augmented[pivot][column]) <= 1e-12:
+                raise ValueError("singular transform")
+            augmented[column], augmented[pivot] = augmented[pivot], augmented[column]
+            divisor = augmented[column][column]
+            augmented[column] = [value / divisor for value in augmented[column]]
+            for row in range(size):
+                if row == column:
+                    continue
+                factor = augmented[row][column]
+                if factor == 0.0:
+                    continue
+                augmented[row] = [value - factor * pivot_value for value, pivot_value in zip(augmented[row], augmented[column])]
+        return AtomicTransform(matrix=tuple(value for row in augmented for value in row[size:]))
+
+    def transform_point(self, point: AtomicPoint) -> AtomicPoint:
+        """Apply to a point (w = 1). Requires an affine matrix."""
+        if not self.is_affine:
+            raise ValueError("transform_point requires an affine transform (bottom row 0 0 0 1)")
+        m = self.matrix
+        return AtomicPoint(
+            m[0] * point.x + m[1] * point.y + m[2] * point.z + m[3],
+            m[4] * point.x + m[5] * point.y + m[6] * point.z + m[7],
+            m[8] * point.x + m[9] * point.y + m[10] * point.z + m[11],
+        )
+
+    def transform_vector(self, vector: AtomicVector) -> AtomicVector:
+        """Apply the 3x3 linear block to a direction (no translation)."""
+        m = self.matrix
+        return AtomicVector(
+            m[0] * vector.x + m[1] * vector.y + m[2] * vector.z,
+            m[4] * vector.x + m[5] * vector.y + m[6] * vector.z,
+            m[8] * vector.x + m[9] * vector.y + m[10] * vector.z,
+        )
+
+    # ── Additional factories ────────────────────────────────────────
+
+    @classmethod
+    def shear(cls, base: AtomicPlane, grip: AtomicPoint, target: AtomicPoint) -> AtomicTransform:
+        """Shear fixing *base* and moving *grip* to *target* (Grasshopper Shear).
+
+        Points on the base plane stay put; a point at height ``h`` above the
+        plane moves by ``h / h_grip * (target - grip)``.
+        """
+        n = base.normal.unitize()
+        o = base.origin
+        grip_height = n.x * (grip.x - o.x) + n.y * (grip.y - o.y) + n.z * (grip.z - o.z)
+        if abs(grip_height) <= 1e-12:
+            raise ValueError("Shear grip point must not lie on the base plane")
+        d = ((target.x - grip.x) / grip_height, (target.y - grip.y) / grip_height, (target.z - grip.z) / grip_height)
+        normal = (n.x, n.y, n.z)
+        linear = [[(1.0 if row == col else 0.0) + d[row] * normal[col] for col in range(3)] for row in range(3)]
+        plane_offset = n.x * o.x + n.y * o.y + n.z * o.z
+        translation = [-d[row] * plane_offset for row in range(3)]
+        return cls._from_linear(linear, translation)
+
+    @classmethod
+    def projection(cls, plane: AtomicPlane, direction: AtomicVector | None = None) -> AtomicTransform:
+        """Project onto *plane*: orthogonally, or along *direction* when given (singular map)."""
+        n = plane.normal.unitize()
+        o = plane.origin
+        normal = (n.x, n.y, n.z)
+        plane_offset = n.x * o.x + n.y * o.y + n.z * o.z
+        if direction is None:
+            axis = normal
+            scale = 1.0
+        else:
+            along = n.x * direction.x + n.y * direction.y + n.z * direction.z
+            if abs(along) <= 1e-12:
+                raise ValueError("Projection direction must not be parallel to the plane")
+            axis = (direction.x, direction.y, direction.z)
+            scale = 1.0 / along
+        linear = [[(1.0 if row == col else 0.0) - scale * axis[row] * normal[col] for col in range(3)] for row in range(3)]
+        translation = [scale * axis[row] * plane_offset for row in range(3)]
+        return cls._from_linear(linear, translation)
+
+    @classmethod
+    def rotation_to_direction(cls, origin: AtomicPoint, source: AtomicVector, target: AtomicVector) -> AtomicTransform:
+        """Minimal rotation about *origin* taking direction *source* onto *target*."""
+        s = source.unitize()
+        t = target.unitize()
+        if s.length == 0.0 or t.length == 0.0:
+            raise ValueError("rotation_to_direction requires non-zero directions")
+        axis = AtomicVector(s.y * t.z - s.z * t.y, s.z * t.x - s.x * t.z, s.x * t.y - s.y * t.x)
+        cosine = max(-1.0, min(1.0, s.x * t.x + s.y * t.y + s.z * t.z))
+        if axis.length <= 1e-12:
+            if cosine > 0.0:
+                return cls.identity()
+            # Anti-parallel: turn half a circle about any perpendicular axis.
+            from pyhopper.Utils.Vectors import perpendicular
+
+            return cls.rotation(origin, perpendicular(s), math.pi)
+        return cls.rotation(origin, axis, math.atan2(axis.length, cosine))
+
+    @classmethod
+    def plane_to_plane(cls, source: AtomicPlane, target: AtomicPlane) -> AtomicTransform:
+        """Alias of :meth:`orient` (Rhino naming)."""
+        return cls.orient(source, target)
 
     def to_json(self) -> dict:
         return {"type": "Transform", "matrix": list(self.matrix)}
