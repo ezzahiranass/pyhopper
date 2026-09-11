@@ -10,32 +10,25 @@ from pyhopper.Core.Atoms import (
     AtomicVector,
 )
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
+from pyhopper.Utils.Vectors import lerp
 
 
 def _lerp(a: float, b: float, t: float) -> float:
     return a + (b - a) * t
 
 
-def _lerp_point(a: AtomicPoint, b: AtomicPoint, t: float) -> AtomicPoint:
-    return AtomicPoint(_lerp(a.x, b.x, t), _lerp(a.y, b.y, t), _lerp(a.z, b.z, t))
-
-
-def _lerp_vector(a: AtomicVector, b: AtomicVector, t: float) -> AtomicVector:
-    return AtomicVector(_lerp(a.x, b.x, t), _lerp(a.y, b.y, t), _lerp(a.z, b.z, t))
-
-
 def _lerp_plane(a: AtomicPlane, b: AtomicPlane, t: float) -> AtomicPlane:
     return AtomicPlane(
-        origin=_lerp_point(a.origin, b.origin, t),
-        normal=_lerp_vector(a.normal, b.normal, t).unitize(),
-        x_axis=_lerp_vector(a.x_axis, b.x_axis, t).unitize(),
+        origin=lerp(a.origin, b.origin, t),
+        normal=lerp(a.normal, b.normal, t).unitize(),
+        x_axis=lerp(a.x_axis, b.x_axis, t).unitize(),
     )
 
 
 def _tween_line(a: AtomicLine, b: AtomicLine, t: float) -> AtomicLine:
     return AtomicLine(
-        start=_lerp_point(a.start, b.start, t),
-        end=_lerp_point(a.end, b.end, t),
+        start=lerp(a.start, b.start, t),
+        end=lerp(a.end, b.end, t),
     )
 
 
@@ -60,10 +53,10 @@ def _tween_polyline(a: AtomicPolyline, b: AtomicPolyline, t: float) -> AtomicPol
         lo = int(pos)
         hi = min(lo + 1, poly.count - 1)
         sub_t = pos - lo
-        return _lerp_point(poly.points[lo], poly.points[hi], sub_t)
+        return lerp(poly.points[lo], poly.points[hi], sub_t)
 
     points = tuple(
-        _lerp_point(_sample(a, i, count), _sample(b, i, count), t)
+        lerp(_sample(a, i, count), _sample(b, i, count), t)
         for i in range(count)
     )
     return AtomicPolyline(points=points)
@@ -83,7 +76,7 @@ def _tween_nurbs(
         )
     return AtomicNurbsCurve(
         control_points=tuple(
-            _lerp_point(pa, pb, t)
+            lerp(pa, pb, t)
             for pa, pb in zip(a.control_points, b.control_points)
         ),
         weights=tuple(

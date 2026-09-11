@@ -2,26 +2,15 @@
 
 from pyhopper.Core.Atoms import AtomicCircle, AtomicPlane, AtomicPoint, AtomicVector
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
-
-
-def _cross_product(a: AtomicVector, b: AtomicVector) -> AtomicVector:
-    return AtomicVector(
-        a.y * b.z - a.z * b.y,
-        a.z * b.x - a.x * b.z,
-        a.x * b.y - a.y * b.x,
-    )
-
-
-def _dot_product(a: AtomicVector, b: AtomicVector) -> float:
-    return a.x * b.x + a.y * b.y + a.z * b.z
+from pyhopper.Utils.Vectors import cross, dot
 
 
 def _orthonormal_x_axis(normal: AtomicVector) -> AtomicVector:
     reference = AtomicVector.unit_x()
-    if abs(_dot_product(normal, reference)) > 0.99:
+    if abs(dot(normal, reference)) > 0.99:
         reference = AtomicVector.unit_y()
-    y_axis = _cross_product(normal, reference).unitize()
-    return _cross_product(y_axis, normal).unitize()
+    y_axis = cross(normal, reference).unitize()
+    return cross(y_axis, normal).unitize()
 
 
 class CircleCNR(Component):

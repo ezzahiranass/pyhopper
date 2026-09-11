@@ -20,6 +20,7 @@ from pyhopper.Core.Atoms import (
 )
 from pyhopper.Utils.Curves import evaluate_nurbs_curve, nurbs_curve_domain
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+from pyhopper.Utils.Planes import plane_xy, point_on_plane
 
 try:
     from shapely.geometry import GeometryCollection, LineString, MultiPolygon, Polygon
@@ -58,30 +59,6 @@ def _require_shapely() -> None:
         or make_valid is None
     ):
         raise RuntimeError("Region boolean components require Shapely to be installed")
-
-
-def _dot(point: AtomicPoint, origin: AtomicPoint, axis) -> float:
-    return (
-        (point.x - origin.x) * axis.x
-        + (point.y - origin.y) * axis.y
-        + (point.z - origin.z) * axis.z
-    )
-
-
-def _point_to_plane_xy(point: AtomicPoint, plane: AtomicPlane) -> tuple[float, float]:
-    return (
-        _dot(point, plane.origin, plane.x_axis),
-        _dot(point, plane.origin, plane.y_axis),
-    )
-
-
-def _point_from_plane_xy(x: float, y: float, plane: AtomicPlane) -> AtomicPoint:
-    y_axis = plane.y_axis
-    return AtomicPoint(
-        plane.origin.x + x * plane.x_axis.x + y * y_axis.x,
-        plane.origin.y + x * plane.x_axis.y + y * y_axis.y,
-        plane.origin.z + x * plane.x_axis.z + y * y_axis.z,
-    )
 
 
 def _distance_2d(a: tuple[float, float], b: tuple[float, float]) -> float:
@@ -134,7 +111,7 @@ def _curve_ring(curve: CurveLike, plane: AtomicPlane) -> list[tuple[float, float
         raise ValueError("Region booleans require closed planar curves; Line is open")
 
     if isinstance(curve, AtomicPolyline):
-        return _closed_ring((_point_to_plane_xy(point, plane) for point in curve.points), "Polyline")
+        return _closed_ring((plane_xy(plane, point) for point in curve.points), "Polyline")
 
     if isinstance(curve, AtomicRectangle):
         half_x = abs(float(curve.x_size)) / 2.0
@@ -154,20 +131,20 @@ def _curve_ring(curve: CurveLike, plane: AtomicPlane) -> list[tuple[float, float
                 (-half_x, -half_y),
             )
         ]
-        return _closed_ring((_point_to_plane_xy(point, plane) for point in points), "Rectangle")
+        return _closed_ring((plane_xy(plane, point) for point in points), "Rectangle")
 
     nurbs = as_nurbs_curve(curve)
-    return _closed_ring((_point_to_plane_xy(point, plane) for point in _sample_nurbs_curve(nurbs)), type(curve).__name__)
+    return _closed_ring((plane_xy(plane, point) for point in _sample_nurbs_curve(nurbs)), type(curve).__name__)
 
 
 def _curve_line(curve: CurveLike, plane: AtomicPlane) -> list[tuple[float, float]]:
     if isinstance(curve, AtomicLine):
-        return _dedupe_consecutive((_point_to_plane_xy(curve.start, plane), _point_to_plane_xy(curve.end, plane)))
+        return _dedupe_consecutive((plane_xy(plane, curve.start), plane_xy(plane, curve.end)))
     if isinstance(curve, AtomicPolyline):
-        return _dedupe_consecutive(_point_to_plane_xy(point, plane) for point in curve.points)
+        return _dedupe_consecutive(plane_xy(plane, point) for point in curve.points)
     if isinstance(curve, AtomicRectangle):
         return _curve_ring(curve, plane)
-    return _dedupe_consecutive(_point_to_plane_xy(point, plane) for point in _sample_nurbs_curve(as_nurbs_curve(curve)))
+    return _dedupe_consecutive(plane_xy(plane, point) for point in _sample_nurbs_curve(as_nurbs_curve(curve)))
 
 
 def _polygon_parts(geometry) -> list:
@@ -219,7 +196,7 @@ def _ring_to_polyline(coords: Iterable[tuple[float, float]], plane: AtomicPlane)
         ring.append(ring[0])
     else:
         ring[-1] = ring[0]
-    return AtomicPolyline(points=tuple(_point_from_plane_xy(x, y, plane) for x, y in ring))
+    return AtomicPolyline(points=tuple(point_on_plane(plane, x, y) for x, y in ring))
 
 
 def _geometry_to_curves(geometry, plane: AtomicPlane) -> list[AtomicPolyline]:

@@ -17,41 +17,12 @@ from pyhopper.Core.Atoms import (
     AtomicPolyline,
     AtomicRectangle,
 )
-
-
-def _expand_knots(unique_knots: tuple[float, ...], mults: tuple[int, ...]) -> tuple[float, ...]:
-    expanded = []
-    for knot, mult in zip(unique_knots, mults):
-        expanded.extend([float(knot)] * int(mult))
-    return tuple(expanded)
-
-
-def _open_uniform_bspline_data(point_count: int, degree: int) -> tuple[tuple[float, ...], tuple[int, ...], int]:
-    if point_count < 2:
-        raise ValueError("A spline requires at least two control points")
-
-    clamped_degree = max(1, min(int(degree), point_count - 1))
-    knot_count = point_count - clamped_degree + 1
-
-    if knot_count == 2:
-        return (0.0, 1.0), (clamped_degree + 1, clamped_degree + 1), clamped_degree
-
-    denominator = float(knot_count - 1)
-    knots = tuple(index / denominator for index in range(knot_count))
-    mults = tuple(
-        clamped_degree + 1 if index in (0, knot_count - 1) else 1
-        for index in range(knot_count)
-    )
-    return knots, mults, clamped_degree
-
-
-def _point_on_plane(plane: AtomicPlane, x: float, y: float) -> AtomicPoint:
-    y_axis = plane.y_axis
-    return AtomicPoint(
-        plane.origin.x + x * plane.x_axis.x + y * y_axis.x,
-        plane.origin.y + x * plane.x_axis.y + y * y_axis.y,
-        plane.origin.z + x * plane.x_axis.z + y * y_axis.z,
-    )
+from pyhopper.Utils.Nurbs import expand_knots as _expand_knots
+from pyhopper.Utils.Nurbs import open_uniform_knots as _open_uniform_bspline_data
+from pyhopper.Utils.Planes import point_on_plane
+from pyhopper.Utils.Vectors import add as _add
+from pyhopper.Utils.Vectors import scale as _scale
+from pyhopper.Utils.Vectors import sub as _subtract
 
 
 def _arc_like_to_nurbs(plane: AtomicPlane, radius: float, start_angle: float, end_angle: float) -> AtomicNurbsCurve:
@@ -74,17 +45,17 @@ def _arc_like_to_nurbs(plane: AtomicPlane, radius: float, start_angle: float, en
         if abs(mid_weight) < 1e-12:
             raise ValueError("Arc span is too large to convert to a quadratic NURBS segment")
 
-        start_point = _point_on_plane(
+        start_point = point_on_plane(
             plane,
             radius * math.cos(angle_a),
             radius * math.sin(angle_a),
         )
-        middle_point = _point_on_plane(
+        middle_point = point_on_plane(
             plane,
             (radius / mid_weight) * math.cos(angle_mid),
             (radius / mid_weight) * math.sin(angle_mid),
         )
-        end_point = _point_on_plane(
+        end_point = point_on_plane(
             plane,
             radius * math.cos(angle_b),
             radius * math.sin(angle_b),
@@ -111,18 +82,6 @@ def _arc_like_to_nurbs(plane: AtomicPlane, radius: float, start_angle: float, en
         knots=_expand_knots(unique_knots, multiplicities),
         degree=2,
     )
-
-
-def _add(a: AtomicPoint, b: AtomicPoint) -> AtomicPoint:
-    return AtomicPoint(a.x + b.x, a.y + b.y, a.z + b.z)
-
-
-def _subtract(a: AtomicPoint, b: AtomicPoint) -> AtomicPoint:
-    return AtomicPoint(a.x - b.x, a.y - b.y, a.z - b.z)
-
-
-def _scale(point: AtomicPoint, factor: float) -> AtomicPoint:
-    return AtomicPoint(point.x * factor, point.y * factor, point.z * factor)
 
 
 def _interpolated_to_nurbs(curve: AtomicInterpolatedCurve) -> AtomicNurbsCurve:
@@ -219,7 +178,7 @@ def as_nurbs_curve(curve) -> AtomicNurbsCurve:
         half_x = abs(float(curve.x_size)) / 2.0
         half_y = abs(float(curve.y_size)) / 2.0
         points = tuple(
-            _point_on_plane(curve.plane, x, y)
+            point_on_plane(curve.plane, x, y)
             for x, y in (
                 (-half_x, -half_y),
                 (half_x, -half_y),
@@ -245,7 +204,7 @@ def as_nurbs_curve(curve) -> AtomicNurbsCurve:
                 + (point.y - curve.plane.origin.y) * y_axis.y
                 + (point.z - curve.plane.origin.z) * y_axis.z
             )
-            points.append(_point_on_plane(
+            points.append(point_on_plane(
                 curve.plane,
                 local_x * curve.radius_x,
                 local_y * curve.radius_y,

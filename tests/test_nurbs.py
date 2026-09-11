@@ -29,8 +29,6 @@ from pyhopper.Core.Atoms import (
     AtomicSurface,
 )
 from pyhopper.Utils.Curves import (
-    _basis_functions,
-    _find_span,
     divide_nurbs_curve_by_distance,
     evaluate_nurbs_curve,
     interpolate_nurbs_curve,
@@ -39,6 +37,7 @@ from pyhopper.Utils.Curves import (
     nurbs_curve_tangent,
     point_at_normalized_curve_length,
 )
+from pyhopper.Utils.Nurbs import basis_functions, find_span
 from pyhopper.Utils.Surfaces import evaluate_surface
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
 
@@ -153,8 +152,8 @@ class NurbsAnalyticTests(unittest.TestCase):
             start, end = nurbs_curve_domain(curve)
             for t in (0.05, 0.3, 0.55, 0.95):
                 u = start + (end - start) * t
-                span = _find_span(curve, u)
-                self.assertAlmostEqual(sum(_basis_functions(curve, span, u)), 1.0, places=12)
+                span = find_span(curve.degree, curve.knots, len(curve.control_points), u)
+                self.assertAlmostEqual(sum(basis_functions(span, u, curve.degree, curve.knots)), 1.0, places=12)
 
     def test_sphere_surface_points_lie_on_sphere(self) -> None:
         sphere = sample_surfaces()["sphere"]
