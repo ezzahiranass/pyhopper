@@ -1,0 +1,98 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.LargerThan.LargerThan",
+ "gh_guid": "30d58600-1aab-42db-80a3-f1ea6c4269a0",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "first_number": [
+     1,
+     2,
+     3
+    ],
+    "second_number": [
+     2,
+     2,
+     2
+    ]
+   },
+   "expect": {
+    "larger_than": {
+     "{0}": [
+      false,
+      false,
+      true
+     ]
+    },
+    "larger_or_equal": {
+     "{0}": [
+      false,
+      true,
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "first_number": {
+     "0": [
+      1,
+      5
+     ],
+     "1": [
+      2
+     ]
+    },
+    "second_number": [
+     2,
+     2
+    ]
+   },
+   "expect": {
+    "larger_than": {
+     "{0}": [
+      false,
+      true
+     ],
+     "{1}": [
+      false,
+      false
+     ]
+    },
+    "larger_or_equal": {
+     "{0}": [
+      false,
+      true
+     ],
+     "{1}": [
+      true,
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "defaults_are_equal",
+   "inputs": {},
+   "expect": {
+    "larger_than": {
+     "{0}": [
+      false
+     ]
+    },
+    "larger_or_equal": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  }
+ ]
+}

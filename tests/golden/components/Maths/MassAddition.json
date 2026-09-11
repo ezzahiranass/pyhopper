@@ -1,0 +1,251 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.MassAddition.MassAddition",
+ "gh_guid": "5b850221-b527-4bd6-8c62-e94168cd6efa",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "numbers",
+   "inputs": {
+    "input": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      10.0
+     ]
+    },
+    "partial_results": {
+     "{0}": [
+      1,
+      3.0,
+      6.0,
+      10.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "input": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      10,
+      20,
+      30
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      3.0
+     ],
+     "{1}": [
+      60.0
+     ]
+    },
+    "partial_results": {
+     "{0}": [
+      1,
+      3.0
+     ],
+     "{1}": [
+      10,
+      30.0,
+      60.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      }
+     ]
+    },
+    "partial_results": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "point_plus_vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     }
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 1,
+       "z": 3
+      }
+     ]
+    },
+    "partial_results": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 1,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 1,
+       "z": 3
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "text_concatenates",
+   "inputs": {
+    "input": [
+     "a",
+     "b",
+     "c"
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "abc"
+     ]
+    },
+    "partial_results": {
+     "{0}": [
+      "a",
+      "ab",
+      "abc"
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_branch_preserved",
+   "inputs": {
+    "input": {
+     "0": [],
+     "1": [
+      5
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [],
+     "{1}": [
+      5
+     ]
+    },
+    "partial_results": {
+     "{0}": [],
+     "{1}": [
+      5
+     ]
+    }
+   }
+  },
+  {
+   "name": "mixed_kinds_raise",
+   "inputs": {
+    "input": [
+     1,
+     "a"
+    ]
+   },
+   "raises": "TypeError"
+  }
+ ]
+}

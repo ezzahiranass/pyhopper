@@ -1,0 +1,138 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Average.Average",
+ "gh_guid": "7986486c-621a-48fb-8f27-a28a22c91cc9",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "numbers",
+   "inputs": {
+    "input": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [
+      2.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "points",
+   "inputs": {
+    "input": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 4,
+      "z": 6
+     }
+    ]
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 3.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 0.3333333333333333,
+       "y": 0.3333333333333333,
+       "z": 0.3333333333333333
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch_empty_preserved",
+   "inputs": {
+    "input": {
+     "0": [],
+     "1": [
+      10,
+      20
+     ],
+     "2": [
+      7
+     ]
+    }
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [],
+     "{1}": [
+      15.0
+     ],
+     "{2}": [
+      7.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "mixed_kinds_raise",
+   "inputs": {
+    "input": [
+     1,
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "raises": "TypeError"
+  }
+ ]
+}

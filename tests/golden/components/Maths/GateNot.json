@@ -1,0 +1,64 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateNot.GateNot",
+ "gh_guid": "cb2c7d3c-41b4-4c6d-a6bd-9235bd2851bb",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     true,
+     false
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      false,
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "2;1": [
+      false,
+      false
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ],
+     "{2;1}": [
+      true,
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_is_false",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  }
+ ]
+}
