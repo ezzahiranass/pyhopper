@@ -1,0 +1,185 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.Plane3Pt.Plane3Pt",
+ "gh_guid": "c98a6015-7a2f-423c-bc66-bdc505249b45",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "counter_clockwise",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 3,
+     "z": 0.0
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "clockwise_flips_normal",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 1,
+     "y": -3,
+     "z": 0.0
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "origin_offset",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 1,
+     "z": 1
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 1,
+     "z": 5
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 4,
+     "y": 1,
+     "z": 1
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 1,
+        "z": 1
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "collinear_raises",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    }
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

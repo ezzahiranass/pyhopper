@@ -1,0 +1,29 @@
+{
+ "component": "pyhopper.Components.Vector.Grid.SquareGrid.SquareGrid",
+ "gh_guid": "717a1e25-a075-4530-bc80-d43ecc2500d9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_by_one",
+   "inputs": {
+    "size": 3.0,
+    "extent_x": 2,
+    "extent_y": 1
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  },
+  {
+   "name": "defaults_shape",
+   "inputs": {},
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  }
+ ]
+}

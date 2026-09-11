@@ -1,0 +1,122 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.PlaneOrigin.PlaneOrigin",
+ "gh_guid": "75eec078-a905-47a1-b0d2-0934182b1e3d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "move_origin",
+   "inputs": {
+    "base": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "origin": {
+     "type": "Point3d",
+     "x": 3,
+     "y": 4,
+     "z": 5
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "keeps_axes",
+   "inputs": {
+    "base": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    },
+    "origin": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "several_origins",
+   "inputs": {
+    "base": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "origin": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  }
+ ]
+}

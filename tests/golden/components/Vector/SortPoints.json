@@ -1,0 +1,205 @@
+{
+ "component": "pyhopper.Components.Vector.Point.SortPoints.SortPoints",
+ "gh_guid": "4e86ba36-05e2-4cc0-a0f5-3ad57c91f04e",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "lexicographic_stable",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 5,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "expect": {
+    "points": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 5,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "indices": {
+     "{0}": [
+      3,
+      4,
+      2,
+      1,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 2
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": -1
+      }
+     ]
+    }
+   },
+   "expect": {
+    "points": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": -1
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 2
+      }
+     ]
+    },
+    "indices": {
+     "{0}": [
+      1,
+      0
+     ],
+     "{1}": [
+      1,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_branch",
+   "inputs": {
+    "points": {
+     "0": [],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    }
+   },
+   "expect": {
+    "points": {
+     "{0}": [],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    },
+    "indices": {
+     "{0}": [],
+     "{1}": [
+      0
+     ]
+    }
+   }
+  }
+ ]
+}

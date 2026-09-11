@@ -1,0 +1,148 @@
+{
+ "component": "pyhopper.Components.Vector.Point.CullDuplicates.CullDuplicates",
+ "gh_guid": "6eaffbb2-3392-441a-8556-2dc126aa8910",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "averages_groups",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0.0005
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0.0004,
+      "z": 0
+     }
+    ],
+    "tolerance": 0.001
+   },
+   "compare": [
+    "Points",
+    "Indices",
+    "Valence"
+   ]
+  },
+  {
+   "name": "greedy_against_group_seed",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0.0008,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0.0016,
+      "y": 0,
+      "z": 0.0
+     }
+    ],
+    "tolerance": 0.001
+   },
+   "compare": [
+    "Points",
+    "Indices",
+    "Valence"
+   ]
+  },
+  {
+   "name": "no_duplicates",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0,
+      "z": 0.0
+     }
+    ],
+    "tolerance": 0.001
+   },
+   "compare": [
+    "Points",
+    "Indices",
+    "Valence"
+   ]
+  },
+  {
+   "name": "per_branch_default_tolerance",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 0.05,
+       "y": 0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Points",
+    "Indices",
+    "Valence"
+   ]
+  }
+ ]
+}

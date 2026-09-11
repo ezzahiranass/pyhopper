@@ -1,0 +1,110 @@
+{
+ "component": "pyhopper.Components.Vector.Point.ClosestPoint.ClosestPoint",
+ "gh_guid": "571ca323-6e55-425a-bf9e-ee103c7ba4b9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "tie_goes_to_lowest_index",
+   "inputs": {
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Closest Point",
+    "CP Index",
+    "Distance"
+   ]
+  },
+  {
+   "name": "two_points_repeat_cloud",
+   "inputs": {
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 10,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    },
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Closest Point",
+    "CP Index",
+    "Distance"
+   ]
+  },
+  {
+   "name": "empty_cloud_emits_nothing",
+   "inputs": {
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "cloud": []
+   },
+   "compare": [
+    "Closest Point",
+    "CP Index",
+    "Distance"
+   ]
+  }
+ ]
+}

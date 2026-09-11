@@ -1,0 +1,87 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.Plane3Pt.Plane3Pt",
+ "gh_guid": "c98a6015-7a2f-423c-bc66-bdc505249b45",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "counter_clockwise",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 3,
+     "z": 0.0
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "clockwise_flips_normal",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 1,
+     "y": -3,
+     "z": 0.0
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "origin_offset",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 1,
+     "z": 1
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 1,
+     "z": 5
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 4,
+     "y": 1,
+     "z": 1
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  }
+ ]
+}
