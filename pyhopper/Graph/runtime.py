@@ -17,14 +17,19 @@ PREVIEW_OUTPUTS_ENTRYPOINT = "build_graph_preview_outputs"
 NODE_OUTPUTS_ENTRYPOINT = "build_graph_node_outputs"
 MERGE_COMPONENT_KEY = "pyhopper.Components.Sets.Tree.Merge.Merge"
 
+# Tree-level port operations map to DataTree methods ...
 PORT_OP_METHODS: dict[str, str] = {
     "Graft": "graft",
     "Simplify": "simplify",
     "Flatten": "flatten",
     "Reverse": "reverse",
-    "Reparametrize": "reparametrize",
 }
-VALID_PORT_OPERATIONS = frozenset(PORT_OP_METHODS.keys())
+# ... while item-level ones (Grasshopper's Reparameterize acts on curve domains)
+# map to a (module, function) applied to the whole tree.
+PORT_OP_FUNCTIONS: dict[str, tuple[str, str]] = {
+    "Reparametrize": ("pyhopper.Utils.Curves", "reparametrize_tree"),
+}
+VALID_PORT_OPERATIONS = frozenset(PORT_OP_METHODS) | frozenset(PORT_OP_FUNCTIONS)
 
 
 class GraphCompilerValidationError(Exception):
@@ -149,10 +154,16 @@ def _output_expression(variable_name: str, port_name: str, primary_output_name: 
     return f"{variable_name}.output({port_name!r})"
 
 
-def _apply_port_operation(expr: str, op_name: str | None) -> str:
-    """Wrap *expr* in the DataTree method for a port operation, if any."""
-    method = PORT_OP_METHODS.get(op_name or "")
-    return f"{expr}.{method}()" if method else expr
+def _apply_port_operation(expr: str, op_name: str | None, imports: set[tuple[str, str]]) -> str:
+    """Wrap *expr* in the code for a port operation, registering any import it needs."""
+    if not op_name:
+        return expr
+    method = PORT_OP_METHODS.get(op_name)
+    if method:
+        return f"{expr}.{method}()"
+    module_name, function_name = PORT_OP_FUNCTIONS[op_name]
+    imports.add((module_name, function_name))
+    return f"{function_name}({expr})"
 
 
 def _source_expression(
@@ -160,10 +171,11 @@ def _source_expression(
     port_expressions: dict[tuple[str, str], str],
     target_node: ResolvedNode,
     target_port: str,
+    imports: set[tuple[str, str]],
 ) -> str:
     """Expression for the value arriving on *target_port* through *edge* (input op applied)."""
     expr = port_expressions[(edge.source_node_id, edge.source_port)]
-    return _apply_port_operation(expr, target_node.port_operations.get(f"input:{target_port}"))
+    return _apply_port_operation(expr, target_node.port_operations.get(f"input:{target_port}"), imports)
 
 
 def _slider_value(node: ResolvedNode) -> float:
@@ -587,7 +599,7 @@ def compile_graph_document(document: Any) -> CompiledGraph:
             imports.add(("pyhopper.Components.Params.Input.GraphMapper", "map_graph_tree"))
             input_param = node.inputs[0]
             edge = incoming_by_port[(node.node_id, input_param.name)][0]
-            expr = _source_expression(edge, port_expressions, node, input_param.name)
+            expr = _source_expression(edge, port_expressions, node, input_param.name, imports)
             config = {
                 "graphType": _authored_value(node, "graphType", "bezier"),
                 "xMin": float(_authored_value(node, "xMin", 0.0)),
@@ -619,10 +631,10 @@ def compile_graph_document(document: Any) -> CompiledGraph:
                     # Every edge on the variadic port becomes one stream, in evaluation order.
                     stream_edges = sorted(connected_edges, key=lambda edge: (order_index[edge.source_node_id], edge.edge_id))
                     if stream_edges:
-                        streams = ", ".join(_source_expression(edge, port_expressions, node, input_param.name) for edge in stream_edges)
+                        streams = ", ".join(_source_expression(edge, port_expressions, node, input_param.name, imports) for edge in stream_edges)
                         keyword_arguments.append(f"{input_param.name}=[{streams}]")
                 elif connected_edges:
-                    expr = _source_expression(connected_edges[0], port_expressions, node, input_param.name)
+                    expr = _source_expression(connected_edges[0], port_expressions, node, input_param.name, imports)
                     keyword_arguments.append(f"{input_param.name}={expr}")
                 elif node_name == "PointOnCurve" and input_param.name == "parameter":
                     parameter = float(_authored_value(node, "parameter", 0.5))
@@ -638,7 +650,7 @@ def compile_graph_document(document: Any) -> CompiledGraph:
             op_name = node.port_operations.get(f"output:{output.name}")
             if op_name:
                 op_variable = f"{variable_name}__{_snake_case(output.name)}"
-                lines.append(f"{op_variable} = {_apply_port_operation(base_expr, op_name)}")
+                lines.append(f"{op_variable} = {_apply_port_operation(base_expr, op_name, imports)}")
                 port_expressions[(node_id, output.name)] = op_variable
                 if output.name == primary_name:
                     result_expressions[node_id] = op_variable

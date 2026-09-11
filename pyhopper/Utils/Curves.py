@@ -486,3 +486,45 @@ def divide_nurbs_curve_by_distance(
     points = [evaluate_nurbs_curve(curve, parameter) for parameter in parameters]
     tangents = [nurbs_curve_tangent(curve, parameter) for parameter in parameters]
     return points, tangents, parameters
+
+
+# ── Reparametrization ───────────────────────────────────────────────
+
+
+def reparametrize_nurbs_curve(curve: AtomicNurbsCurve) -> AtomicNurbsCurve:
+    """Return the same curve with its parameter domain mapped affinely onto [0, 1].
+
+    The geometry is untouched; only the knot vector is rescaled, so a point
+    evaluated at ``t`` on the result equals the point at ``start + t * (end - start)``
+    on the input.
+    """
+    start, end = nurbs_curve_domain(curve)
+    span = end - start
+    if abs(span) <= _TOLERANCE:
+        raise ValueError("Cannot reparametrize a NURBS curve with a zero-length domain")
+    knots = tuple((float(knot) - start) / span for knot in curve.knots)
+    return AtomicNurbsCurve(
+        control_points=curve.control_points,
+        weights=curve.weights,
+        knots=knots,
+        degree=curve.degree,
+    )
+
+
+def reparametrize_curve(item):
+    """Reparametrize a curve atom to [0, 1]; non-NURBS items pass through unchanged.
+
+    Named curve atoms (lines, circles, arcs, polylines, …) already unify to a
+    [0, 1] domain, so only explicit ``AtomicNurbsCurve`` values need rescaling.
+    """
+    if isinstance(item, AtomicNurbsCurve):
+        return reparametrize_nurbs_curve(item)
+    return item
+
+
+def reparametrize_tree(tree):
+    """Apply :func:`reparametrize_curve` to every item of a DataTree, preserving paths."""
+    from pyhopper.Core.DataTree import DataTree
+
+    source = DataTree.coerce(tree)
+    return DataTree.from_branches({path: [reparametrize_curve(item) for item in branch] for path, branch in source.branches()})
