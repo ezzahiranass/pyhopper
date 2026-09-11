@@ -18,7 +18,7 @@ from .Core import (
     CoercionError, TypeSpec, accepted_type_names, coerce_item, coerce_tree, type_name,
 )
 
-# Components — re-exported with user-friendly names
+# Components — curated re-exports (frozen; new components resolve lazily via __getattr__ below)
 from .Components.Maths.Series import Series
 from .Components.Maths.Domain.Bounds import Bounds
 from .Components.Maths.Domain.ConstructDomain import ConstructDomain
@@ -116,6 +116,29 @@ from .Components.Params.Input.NumberSlider import NumberSlider
 from .Components.Params.Input.Panel import Panel
 
 from .admin_utils import list_components
+
+def __getattr__(name: str):
+    """Resolve any component class lazily by name (PEP 562).
+
+    The explicit imports above stay as the curated public API; every other
+    component under ``pyhopper/Components`` is reachable as ``pyhopper.<Class>``
+    without editing this file. Ambiguous names raise with the candidates listed.
+    """
+    if name.startswith("_"):
+        raise AttributeError(name)
+    from .Components.registry import resolve
+
+    try:
+        return resolve(name)
+    except LookupError as exc:
+        raise AttributeError(f"module 'pyhopper' has no attribute {name!r}: {exc}") from exc
+
+
+def __dir__() -> list[str]:
+    from .Components.registry import component_index
+
+    return sorted(set(globals()) | set(component_index()))
+
 from .Graph import (
     CompiledGraph, GraphCompilerValidationError, PORT_OP_METHODS,
     VALID_PORT_OPERATIONS, compile_graph_document, execute_compiled_graph,
