@@ -149,6 +149,23 @@ def _output_expression(variable_name: str, port_name: str, primary_output_name: 
     return f"{variable_name}.output({port_name!r})"
 
 
+def _apply_port_operation(expr: str, op_name: str | None) -> str:
+    """Wrap *expr* in the DataTree method for a port operation, if any."""
+    method = PORT_OP_METHODS.get(op_name or "")
+    return f"{expr}.{method}()" if method else expr
+
+
+def _source_expression(
+    edge: ValidatedEdge,
+    port_expressions: dict[tuple[str, str], str],
+    target_node: ResolvedNode,
+    target_port: str,
+) -> str:
+    """Expression for the value arriving on *target_port* through *edge* (input op applied)."""
+    expr = port_expressions[(edge.source_node_id, edge.source_port)]
+    return _apply_port_operation(expr, target_node.port_operations.get(f"input:{target_port}"))
+
+
 def _slider_value(node: ResolvedNode) -> float:
     output_name = node.outputs[0].name if node.outputs else "value"
     raw_value = node.settings.get("value", node.values.get(output_name))
@@ -529,6 +546,9 @@ def compile_graph_document(document: Any) -> CompiledGraph:
 
     imports: set[tuple[str, str]] = set()
     variable_names: dict[str, str] = {}
+    # (node id, output port) -> expression yielding that output (after any output port op)
+    port_expressions: dict[tuple[str, str], str] = {}
+    result_expressions: dict[str, str] = {}
     lines: list[str] = []
 
     for index, node_id in enumerate(ordered_node_ids):
@@ -567,11 +587,7 @@ def compile_graph_document(document: Any) -> CompiledGraph:
             imports.add(("pyhopper.Components.Params.Input.GraphMapper", "map_graph_tree"))
             input_param = node.inputs[0]
             edge = incoming_by_port[(node.node_id, input_param.name)][0]
-            source_node = nodes[edge.source_node_id]
-            expr = _output_expression(variable_names[edge.source_node_id], edge.source_port, source_node.outputs[0].name)
-            input_op = PORT_OP_METHODS.get(node.port_operations.get(f"input:{input_param.name}", ""))
-            if input_op:
-                expr = f"{expr}.{input_op}()"
+            expr = _source_expression(edge, port_expressions, node, input_param.name)
             config = {
                 "graphType": _authored_value(node, "graphType", "bezier"),
                 "xMin": float(_authored_value(node, "xMin", 0.0)),
@@ -592,48 +608,42 @@ def compile_graph_document(document: Any) -> CompiledGraph:
                 f"AtomicTransform.from_json({node.object_transform!r}), "
                 f"atom_from_json({node.object_atom!r})))"
             )
-        elif node.variadic_inputs and node.inputs:
-            module_name, _, class_name = node.component_key.rpartition(".")
-            imports.add((module_name, class_name))
-            variadic_port = node.inputs[-1].name
-            variadic_edges = sorted(
-                incoming_by_port.get((node.node_id, variadic_port), []),
-                key=lambda edge: (order_index[edge.source_node_id], edge.edge_id),
-            )
-            input_op = PORT_OP_METHODS.get(node.port_operations.get(f"input:{variadic_port}", ""))
-            arguments = []
-            for edge in variadic_edges:
-                expr = _output_expression(variable_names[edge.source_node_id], edge.source_port, nodes[edge.source_node_id].outputs[0].name)
-                if input_op:
-                    expr = f"{expr}.{input_op}()"
-                arguments.append(expr)
-            lines.append(f"{variable_name} = {class_name}({', '.join(arguments)})")
         else:
             module_name, _, class_name = node.component_key.rpartition(".")
             imports.add((module_name, class_name))
+            variadic_port = node.inputs[-1].name if node.variadic_inputs and node.inputs else None
             keyword_arguments: list[str] = []
             for input_param in node.inputs:
                 connected_edges = incoming_by_port.get((node.node_id, input_param.name), [])
-                if connected_edges:
-                    edge = connected_edges[0]
-                    source_node = nodes[edge.source_node_id]
-                    expr = _output_expression(variable_names[edge.source_node_id], edge.source_port, source_node.outputs[0].name)
-                    input_op = PORT_OP_METHODS.get(node.port_operations.get(f"input:{input_param.name}", ""))
-                    if input_op:
-                        expr = f"{expr}.{input_op}()"
+                if input_param.name == variadic_port:
+                    # Every edge on the variadic port becomes one stream, in evaluation order.
+                    stream_edges = sorted(connected_edges, key=lambda edge: (order_index[edge.source_node_id], edge.edge_id))
+                    if stream_edges:
+                        streams = ", ".join(_source_expression(edge, port_expressions, node, input_param.name) for edge in stream_edges)
+                        keyword_arguments.append(f"{input_param.name}=[{streams}]")
+                elif connected_edges:
+                    expr = _source_expression(connected_edges[0], port_expressions, node, input_param.name)
                     keyword_arguments.append(f"{input_param.name}={expr}")
                 elif node_name == "PointOnCurve" and input_param.name == "parameter":
                     parameter = float(_authored_value(node, "parameter", 0.5))
                     keyword_arguments.append(f"{input_param.name}={_literal_expression(parameter)}")
             lines.append(f"{variable_name} = {class_name}({', '.join(keyword_arguments)})")
 
+        # Register how downstream nodes read each output. Output port operations get their
+        # own variable so the node result (and its sibling outputs) is never rebound.
         primary_name = node.outputs[0].name if node.outputs else ""
+        result_expressions[node_id] = variable_name
         for output in node.outputs:
-            op_name = node.port_operations.get(f"output:{output.name}")
-            if not op_name:
-                continue
             base_expr = _output_expression(variable_name, output.name, primary_name)
-            lines.append(f"{variable_name} = {base_expr}.{PORT_OP_METHODS[op_name]}()")
+            op_name = node.port_operations.get(f"output:{output.name}")
+            if op_name:
+                op_variable = f"{variable_name}__{_snake_case(output.name)}"
+                lines.append(f"{op_variable} = {_apply_port_operation(base_expr, op_name)}")
+                port_expressions[(node_id, output.name)] = op_variable
+                if output.name == primary_name:
+                    result_expressions[node_id] = op_variable
+            else:
+                port_expressions[(node_id, output.name)] = base_expr
 
     preview_node_ids = [node_id for node_id in ordered_node_ids if nodes[node_id].preview_enabled]
     if not preview_node_ids:
@@ -652,7 +662,7 @@ def compile_graph_document(document: Any) -> CompiledGraph:
         f"def {NODE_OUTPUTS_ENTRYPOINT}():",
         *[f"    {line}" for line in lines],
         "    return {",
-        *[f"        {node_id!r}: {variable_names[node_id]}," for node_id in ordered_node_ids],
+        *[f"        {node_id!r}: {result_expressions[node_id]}," for node_id in ordered_node_ids],
         "    }",
         "",
         f"def {PREVIEW_OUTPUTS_ENTRYPOINT}():",

@@ -11,11 +11,6 @@ from pyhopper.Utils.Curves import nurbs_curve_domain, nurbs_curve_length
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
 
 
-def _first(value, default):
-    if isinstance(value, list):
-        return value[0] if value else default
-    return value
-
 
 def _periodic_curve(points: tuple[AtomicPoint, ...], degree: int) -> AtomicNurbsCurve:
     wrapped_points = points + points[:degree]
@@ -40,6 +35,10 @@ class NurbsCurve(Component):
     first ``degree`` points and remain smooth across their seam.
     """
 
+    display_name = "Nurbs Curve"
+    nickname = "Nurbs"
+    gh_guid = "dde71aef-d6ed-40a6-af98-6b0673983c82"
+
     inputs = [
         InputParam("vertices", AtomicPoint, Access.LIST),
         InputParam("degree", int, Access.ITEM, default=3),
@@ -58,8 +57,8 @@ class NurbsCurve(Component):
         if not all(isinstance(point, AtomicPoint) for point in points):
             raise TypeError("NurbsCurve vertices must all be AtomicPoint values")
 
-        curve_degree = max(1, min(int(_first(degree, 3)), len(points) - 1))
-        is_periodic = bool(_first(periodic, False))
+        curve_degree = max(1, min(int(degree), len(points) - 1))
+        is_periodic = bool(periodic)
         curve = (
             _periodic_curve(points, curve_degree)
             if is_periodic
