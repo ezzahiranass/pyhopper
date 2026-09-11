@@ -1,0 +1,180 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.LengthParameter.LengthParameter",
+ "gh_guid": "a1c16251-74f0-400f-9e7c-5e379d739963",
+ "mode": "exact",
+ "tolerance": 1e-05,
+ "reparametrize": [
+  "curve"
+ ],
+ "notes": "arc-length tables on both sides agree to ~1e-6",
+ "cases": [
+  {
+   "name": "circle",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "parameter": 0.25
+   },
+   "compare": [
+    "Length",
+    "Length#2"
+   ]
+  },
+  {
+   "name": "uneven_polyline",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "parameter": 0.75
+   },
+   "compare": [
+    "Length",
+    "Length#2"
+   ]
+  },
+  {
+   "name": "nurbs",
+   "inputs": {
+    "curve": {
+     "type": "NurbsCurve",
+     "control_points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 2
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 4
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 5
+      }
+     ],
+     "weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "knots": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3
+     ],
+     "degree": 3
+    },
+    "parameter": 1.0
+   },
+   "compare": [
+    "Length",
+    "Length#2"
+   ]
+  },
+  {
+   "name": "ends",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "parameter": [
+     0.0,
+     1.0
+    ]
+   },
+   "compare": [
+    "Length",
+    "Length#2"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.Rectangle2Pt.Rectangle2Pt",
+ "gh_guid": "575660b1-8c79-4b8d-9222-7ab4a6ddb359",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_corners",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 1,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 4,
+     "y": 3,
+     "z": 0.0
+    },
+    "radius": 0.0
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  },
+  {
+   "name": "reversed_corners",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 4,
+     "y": 3,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 1,
+     "z": 0.0
+    },
+    "radius": 0.0
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  },
+  {
+   "name": "tilted_plane_projects_corners",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 5
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 3,
+     "z": 4
+    },
+    "radius": 0.0
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  },
+  {
+   "name": "fillet",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 4,
+     "y": 2,
+     "z": 0.0
+    },
+    "radius": 0.5
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  },
+  {
+   "name": "fillet_clamped_to_half_side",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 4,
+     "y": 2,
+     "z": 0.0
+    },
+    "radius": 5.0
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  },
+  {
+   "name": "defaults",
+   "inputs": {},
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  }
+ ]
+}

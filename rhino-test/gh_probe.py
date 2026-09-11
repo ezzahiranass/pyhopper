@@ -69,39 +69,40 @@ POP2D = "e2d958e8-9f08-44f7-bf47-a684882d0b2a"
 from pyhopper.Core.Atoms import AtomicVector as V, AtomicPlane, AtomicRectangle
 import math
 
+from pyhopper.Core.Atoms import AtomicCircle, AtomicArc, AtomicPolyline, AtomicInterval as I, AtomicLine as L, AtomicVector as V, AtomicPlane
+import math
+EVAL = "fc6979e4-7e91-4508-8e05-37c680779751"
+CRV_DOM = "ccfd6ba8-ecb1-44df-a47e-08126a653c51"
+LEN_PARAM = "a1c16251-74f0-400f-9e7c-5e379d739963"
+CLOSED = "323f3245-af49-4489-8677-7a2c73664077"
+CTRL = "424eb433-2b3a-4859-beaf-804d8af0afd7"
+PCEN = "59e94548-cefd-4774-b3de-48142fc783fb"
+DIV_LEN = "fdc466a9-d3b8-4056-852a-09dba0f74aca"
+PFRAMES = "983c7600-980c-44da-bc53-c804067f667f"
+ARC = "bb59bffc-f54c-4682-9778-f6c3fe74fce3"
+ARC3 = "9fa1b081-b1c7-4a12-a163-0aa8da9ff6c4"
+ARCSED = "9d2583dd-6cf5-497c-8c40-c9a290598396"
+REC2 = "575660b1-8c79-4b8d-9222-7ab4a6ddb359"
+ENDS = "11bbd48b-bb0a-4f1b-8167-fa297590390d"
+circle = AtomicCircle(AtomicPlane.world_xy(), 2.0)
+line = L(P(0, 0, 0), P(4, 0, 0))
+poly = AtomicPolyline((P(0, 0, 0), P(2, 0, 0), P(2, 2, 0)))
+closed_poly = AtomicPolyline((P(0, 0, 0), P(2, 0, 0), P(2, 2, 0), P(0, 2, 0), P(0, 0, 0)))
+
+from pyhopper.Core.Atoms import AtomicNurbsCurve
+vertical = L(P(0, 0, 0), P(0, 0, 3))
+helix = AtomicNurbsCurve((P(0, 0, 0), P(2, 0, 1), P(2, 2, 2), P(0, 2, 3), P(0, 0, 4), P(2, 0, 5)), (1.0,) * 6, (0, 0, 0, 0, 1, 2, 3, 3, 3, 3), 3)
+
+diag = L(P(0, 0, 0), P(3, 3, 0))
+yline = L(P(0, 0, 0), P(0, 3, 0))
+uneven = AtomicPolyline((P(0, 0, 0), P(1, 0, 0), P(4, 0, 0)))
+kinked = AtomicPolyline((P(0, 0, 0), P(4, 0, 0), P(4, 3, 0)))
 PROBES = [
-    ("CP tie", CP, {0: T([P(0, 0, 0)]), 1: T([P(1, 0, 0), P(0, 2, 0), P(-1, 0, 0)])}),
-    ("CP empty cloud", CP, {0: T([P(0, 0, 0)]), 1: T([])}),
-    ("CPs count 2", CPS, {0: T([P(0, 0, 0)]), 1: T([P(3, 0, 0), P(1, 0, 0), P(0, 2, 0)]), 2: T([2])}),
-    ("CPs count exceeds cloud", CPS, {0: T([P(0, 0, 0)]), 1: T([P(3, 0, 0), P(1, 0, 0)]), 2: T([5])}),
-    ("CPs two points", CPS, {0: T([P(0, 0, 0), P(10, 0, 0)]), 1: T([P(3, 0, 0), P(1, 0, 0), P(9, 0, 0)]), 2: T([2])}),
-    ("Cull dup", CULL_DUP, {0: T([P(0, 0, 0), P(0, 0, 0.0005), P(1, 0, 0), P(0, 0, 0), P(1, 0.0004, 0)]), 1: T([0.001])}),
-    ("Cull dup chain", CULL_DUP, {0: T([P(0, 0, 0), P(0.0008, 0, 0), P(0.0016, 0, 0)]), 1: T([0.001])}),
-    ("Cull dup none", CULL_DUP, {0: T([P(0, 0, 0), P(5, 0, 0)]), 1: T([0.001])}),
-    ("Polar", POLAR, {1: T([math.pi / 2]), 2: T([0.0]), 3: T([2.0])}),
-    ("Polar z angle", POLAR, {1: T([0.0]), 2: T([math.pi / 4]), 3: T([2.0])}),
-    ("Sort points", SORT_PTS, {0: T([P(1, 0, 0), P(0, 5, 0), P(0, 0, 3), P(0, 0, 1), P(0, 0, 1)])}),
-    ("Plane normal z", PL_NORMAL, {0: T([P(1, 2, 3)]), 1: T([V(0, 0, 1)])}),
-    ("Plane normal tilted", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(1, 1, 0)])}),
-    ("Plane normal x", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(1, 0, 0)])}),
-    ("Plane normal generic", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(0.3, -0.5, 0.8)])}),
-    ("Plane normal zero", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(0, 0, 0)])}),
-    ("Plane 3pt", PL_3PT, {0: T([P(0, 0, 0)]), 1: T([P(2, 0, 0)]), 2: T([P(0, 3, 0)])}),
-    ("Plane 3pt other side", PL_3PT, {0: T([P(0, 0, 0)]), 1: T([P(2, 0, 0)]), 2: T([P(1, -3, 0)])}),
-    ("Plane 3pt collinear", PL_3PT, {0: T([P(0, 0, 0)]), 1: T([P(1, 0, 0)]), 2: T([P(2, 0, 0)])}),
-    ("Align xy to y", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, 1, 0)])}),
-    ("Align xy to diag", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(1, 1, 0)])}),
-    ("Align xy to tilted", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, 1, 1)])}),
-    ("Align xy to -x", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(-1, 0, 0)])}),
-    ("Align xy to normal", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, 0, 1)])}),
-    ("Align xy to -y", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, -1, 0)])}),
-    ("Rec grid 2x3 sizes 2,1", REC_GRID, {1: T([2.0]), 2: T([1.0]), 3: T([2]), 4: T([3])}),
-    ("Rec grid 1x1", REC_GRID, {1: T([2.0]), 2: T([1.0]), 3: T([1]), 4: T([1])}),
-    ("Rec grid 0 extent", REC_GRID, {1: T([2.0]), 2: T([1.0]), 3: T([0]), 4: T([2])}),
-    ("Rec grid two sizes", REC_GRID, {1: T([1.0, 2.0]), 2: T([1.0]), 3: T([1]), 4: T([1])}),
-    ("Sq grid 2x1", SQ_GRID, {1: T([3.0]), 2: T([2]), 3: T([1])}),
-    ("Pop2D 5", POP2D, {0: T([AtomicRectangle(AtomicPlane.world_xy(P(5, 5, 0)), 10.0, 10.0)]), 1: T([5]), 2: T([1])}),
-    ("Pop2D seed points", POP2D, {0: T([AtomicRectangle(AtomicPlane.world_xy(P(5, 5, 0)), 10.0, 10.0)]), 1: T([4]), 2: T([1]), 3: T([P(5, 5, 0)])}),
+    ("Divide kinks polyline 2", DIVIDE_CURVE, {0: T([kinked]), 1: T([2]), 2: T([True])}),
+    ("Divide kinks polyline 3", DIVIDE_CURVE, {0: T([kinked]), 1: T([3]), 2: T([True])}),
+    ("Divide kinks polyline 3 no kinks", DIVIDE_CURVE, {0: T([kinked]), 1: T([3]), 2: T([False])}),
+    ("Divide kinks closed square 4", DIVIDE_CURVE, {0: T([closed_poly]), 1: T([4]), 2: T([True])}),
+    ("Divide kinks closed square 3", DIVIDE_CURVE, {0: T([closed_poly]), 1: T([3]), 2: T([True])}),
 ]
 
 for label, guid, inputs in PROBES:

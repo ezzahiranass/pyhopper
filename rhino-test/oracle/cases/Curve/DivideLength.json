@@ -1,0 +1,278 @@
+{
+ "component": "pyhopper.Components.Curve.Division.DivideLength.DivideLength",
+ "gh_guid": "fdc466a9-d3b8-4056-852a-09dba0f74aca",
+ "mode": "exact",
+ "tolerance": 1e-05,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "line_1_5",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "length": 1.5
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "line_exact_includes_end",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "length": 2.0
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "circle_skips_seam",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "length": 3.141592653589793
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "longer_than_curve",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "length": 9.0
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "closed_polyline",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "length": 2.0
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "uneven_polyline",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "length": 1.5
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "nurbs",
+   "inputs": {
+    "curve": {
+     "type": "NurbsCurve",
+     "control_points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 2
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 4
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 5
+      }
+     ],
+     "weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "knots": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3
+     ],
+     "degree": 3
+    },
+    "length": 2.0
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  }
+ ]
+}

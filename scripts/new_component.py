@@ -203,6 +203,16 @@ def render_module(record: dict, class_name: str, inputs: list[dict], outputs: li
     return "\n".join(lines)
 
 
+def _oracle_output_keys(record: dict) -> list[str]:
+    """Grasshopper output names with ``#2`` suffixes for repeats (mirrors oracle.gh_headless.output_key)."""
+    names = [o["name"] for o in (record["outputs"] or [])]
+    keys = []
+    for index, name in enumerate(names):
+        repeat = names[:index].count(name)
+        keys.append(name if repeat == 0 else f"{name}#{repeat + 1}")
+    return keys
+
+
 def render_golden(record: dict, class_key: str, outputs: list[dict]) -> str:
     fixture = {
         "component": class_key,
@@ -225,7 +235,7 @@ def render_oracle(record: dict, class_key: str) -> str:
         "mode": "exact",
         "tolerance": 1e-6,
         "reparametrize": [],
-        "cases": [{"name": "typical", "inputs": {}, "compare": [o["name"] for o in (record["outputs"] or [])]}],
+        "cases": [{"name": "typical", "inputs": {}, "compare": _oracle_output_keys(record)}],
     }
     return json.dumps(case, indent=1, ensure_ascii=False) + "\n"
 

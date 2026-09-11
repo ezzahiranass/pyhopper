@@ -429,3 +429,331 @@ def reparametrize_tree(tree):
 
     source = DataTree.coerce(tree)
     return DataTree.from_branches({path: [reparametrize_curve(item) for item in branch] for path, branch in source.branches()})
+
+
+# ── Atom-aware parameterisation ─────────────────────────────────────
+#
+# Grasshopper evaluates each curve type with its own parameterisation: lines
+# by length, polylines uniformly per segment, arcs and circles by angle (their
+# Rhino parameter is arc length), NURBS by knots. pyhopper keeps those
+# semantics but normalises every non-NURBS atom to the domain [0, 1] — exactly
+# what a Grasshopper curve param with "Reparameterize" produces — so a
+# parameter means the same thing on both sides. Verified with the headless
+# oracle (rhino-test/oracle).
+
+_NATIVE_ATOMS = (AtomicLine, AtomicPolyline, AtomicArc, AtomicCircle)
+
+
+def _as_nurbs(curve) -> AtomicNurbsCurve:
+    if isinstance(curve, AtomicNurbsCurve):
+        return curve
+    from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+
+    return as_nurbs_curve(curve)
+
+
+def curve_domain_of(curve) -> tuple[float, float]:
+    """Parameter domain: [0, 1] for named curve atoms, the knot domain for NURBS."""
+    if isinstance(curve, _NATIVE_ATOMS):
+        return 0.0, 1.0
+    return nurbs_curve_domain(_as_nurbs(curve))
+
+
+def _arc_geometry(curve) -> tuple[AtomicPoint, AtomicVector, AtomicVector, float, float, float]:
+    """(centre, x axis, y axis, radius, start angle, sweep) of an arc or circle."""
+    plane = curve.plane
+    if isinstance(curve, AtomicCircle):
+        return plane.origin, plane.x_axis, plane.y_axis, float(curve.radius), 0.0, 2.0 * math.pi
+    return plane.origin, plane.x_axis, plane.y_axis, float(curve.radius), float(curve.angle.start), float(curve.angle.length)
+
+
+def _arc_point(curve, angle: float) -> AtomicPoint:
+    centre, x_axis, y_axis, radius, _, _ = _arc_geometry(curve)
+    cos_a, sin_a = math.cos(angle), math.sin(angle)
+    return AtomicPoint(
+        centre.x + radius * (cos_a * x_axis.x + sin_a * y_axis.x),
+        centre.y + radius * (cos_a * x_axis.y + sin_a * y_axis.y),
+        centre.z + radius * (cos_a * x_axis.z + sin_a * y_axis.z),
+    )
+
+
+def _polyline_segments(curve: AtomicPolyline) -> list[tuple[AtomicPoint, AtomicPoint]]:
+    points = list(curve.points)
+    return list(zip(points, points[1:]))
+
+
+def _polyline_locate(curve: AtomicPolyline, parameter: float) -> tuple[int, float]:
+    """(segment index, local 0..1) for a uniform-per-segment polyline parameter in [0, 1]."""
+    segments = _polyline_segments(curve)
+    if not segments:
+        raise ValueError("A polyline needs at least two points")
+    scaled = min(1.0, max(0.0, float(parameter))) * len(segments)
+    index = min(int(math.floor(scaled)), len(segments) - 1)
+    return index, scaled - index
+
+
+def curve_point_at(curve, parameter: float) -> AtomicPoint:
+    """Point at *parameter* (see the module note on parameterisations)."""
+    if isinstance(curve, AtomicLine):
+        return _lerp_point(curve.start, curve.end, float(parameter))
+    if isinstance(curve, AtomicPolyline):
+        index, local = _polyline_locate(curve, parameter)
+        start, end = _polyline_segments(curve)[index]
+        return _lerp_point(start, end, local)
+    if isinstance(curve, (AtomicArc, AtomicCircle)):
+        _, _, _, _, start_angle, sweep = _arc_geometry(curve)
+        return _arc_point(curve, start_angle + sweep * float(parameter))
+    return evaluate_nurbs_curve(_as_nurbs(curve), float(parameter))
+
+
+def curve_tangent_at(curve, parameter: float, *, incoming: bool = False) -> AtomicVector:
+    """Unit tangent at *parameter*.
+
+    At a polyline vertex the outgoing segment's direction is used (Grasshopper's
+    Evaluate Curve); ``incoming=True`` takes the segment ending there instead
+    (what Rhino's perpendicular frames do).
+    """
+    if isinstance(curve, AtomicLine):
+        return _unit_between(curve.start, curve.end)
+    if isinstance(curve, AtomicPolyline):
+        index, local = _polyline_locate(curve, parameter)
+        segments = _polyline_segments(curve)
+        if not incoming and local >= 1.0 - _TOLERANCE and index + 1 < len(segments):
+            index += 1
+        elif incoming and local <= _TOLERANCE and index > 0:
+            index -= 1
+        start, end = segments[index]
+        return _unit_between(start, end)
+    if isinstance(curve, (AtomicArc, AtomicCircle)):
+        _, x_axis, y_axis, _, start_angle, sweep = _arc_geometry(curve)
+        angle = start_angle + sweep * float(parameter)
+        sign = -1.0 if sweep < 0.0 else 1.0
+        return _snap_small(AtomicVector(
+            sign * (-math.sin(angle) * x_axis.x + math.cos(angle) * y_axis.x),
+            sign * (-math.sin(angle) * x_axis.y + math.cos(angle) * y_axis.y),
+            sign * (-math.sin(angle) * x_axis.z + math.cos(angle) * y_axis.z),
+        ))
+    return nurbs_curve_tangent(_as_nurbs(curve), float(parameter))
+
+
+def _snap_small(vector: AtomicVector, tolerance: float = 1e-14) -> AtomicVector:
+    """Zero out components that are floating-point noise (cos(pi/2) and friends) on a unit vector."""
+    return AtomicVector(*(0.0 if abs(component) < tolerance else component for component in (vector.x, vector.y, vector.z)))
+
+
+def curve_curvature_vector(curve, parameter: float) -> AtomicVector:
+    """Curvature vector (towards the centre of curvature, length = curvature); zero on straights."""
+    if isinstance(curve, (AtomicLine, AtomicPolyline)):
+        return AtomicVector(0.0, 0.0, 0.0)
+    if isinstance(curve, (AtomicArc, AtomicCircle)):
+        centre, _, _, radius, start_angle, sweep = _arc_geometry(curve)
+        point = _arc_point(curve, start_angle + sweep * float(parameter))
+        if radius <= _TOLERANCE:
+            return AtomicVector(0.0, 0.0, 0.0)
+        return AtomicVector((centre.x - point.x) / (radius * radius), (centre.y - point.y) / (radius * radius), (centre.z - point.z) / (radius * radius))
+    from pyhopper.Utils.Nurbs import curve_curvature
+
+    _, _, vector = curve_curvature(_as_nurbs(curve), float(parameter))
+    return vector
+
+
+def curve_start_end(curve) -> tuple[AtomicPoint, AtomicPoint]:
+    start, end = curve_domain_of(curve)
+    return curve_point_at(curve, start), curve_point_at(curve, end)
+
+
+def curve_is_closed(curve, tolerance: float = 1e-9) -> bool:
+    if isinstance(curve, AtomicCircle):
+        return True
+    if isinstance(curve, AtomicArc):
+        return abs(abs(float(curve.angle.length)) - 2.0 * math.pi) <= tolerance
+    if isinstance(curve, AtomicLine):
+        return False
+    if isinstance(curve, AtomicPolyline):
+        return curve.is_closed
+    return is_closed_nurbs_curve(_as_nurbs(curve), tolerance)
+
+
+def curve_is_periodic(curve) -> bool:
+    """True for circles and for closed NURBS curves whose knot vector is not clamped (Rhino's notion)."""
+    if isinstance(curve, AtomicCircle):
+        return True
+    if isinstance(curve, AtomicNurbsCurve):
+        degree = int(curve.degree)
+        if len(curve.knots) <= degree or not is_closed_nurbs_curve(curve):
+            return False
+        return abs(float(curve.knots[0]) - float(curve.knots[degree])) > _TOLERANCE
+    return False
+
+
+def _nurbs_length_table(curve: AtomicNurbsCurve, tolerance: float):
+    return _arc_length_table(curve, tolerance)
+
+
+def _length_at_parameter(samples, cumulative, parameter: float) -> float:
+    if parameter <= samples[0][0]:
+        return 0.0
+    if parameter >= samples[-1][0]:
+        return cumulative[-1]
+    index = 1
+    while index < len(samples) - 1 and samples[index][0] < parameter:
+        index += 1
+    lower = index - 1
+    span = samples[index][0] - samples[lower][0]
+    local = 0.0 if span <= _TOLERANCE else (parameter - samples[lower][0]) / span
+    return cumulative[lower] + (cumulative[index] - cumulative[lower]) * local
+
+
+def curve_length_at(curve, parameter: float, tolerance: float = 1e-7) -> float:
+    """Arc length from the curve start to *parameter*."""
+    if isinstance(curve, AtomicLine):
+        return _distance(curve.start, curve.end) * min(1.0, max(0.0, float(parameter)))
+    if isinstance(curve, AtomicPolyline):
+        index, local = _polyline_locate(curve, parameter)
+        segments = _polyline_segments(curve)
+        return sum(_distance(a, b) for a, b in segments[:index]) + _distance(*segments[index]) * local
+    if isinstance(curve, (AtomicArc, AtomicCircle)):
+        _, _, _, radius, _, sweep = _arc_geometry(curve)
+        return radius * abs(sweep) * min(1.0, max(0.0, float(parameter)))
+    nurbs = _as_nurbs(curve)
+    samples, cumulative = _nurbs_length_table(nurbs, tolerance)
+    return _length_at_parameter(samples, cumulative, float(parameter))
+
+
+def curve_parameter_at_length(curve, length: float, tolerance: float = 1e-7) -> float:
+    """Parameter at arc length *length* from the start (clamped to the curve)."""
+    total = curve_length(curve, tolerance)
+    if total <= _TOLERANCE:
+        raise ValueError("Cannot measure along a zero-length curve")
+    target = min(total, max(0.0, float(length)))
+    if isinstance(curve, (AtomicLine, AtomicArc, AtomicCircle)):
+        return target / total
+    if isinstance(curve, AtomicPolyline):
+        segments = _polyline_segments(curve)
+        remaining = target
+        for index, (a, b) in enumerate(segments):
+            span = _distance(a, b)
+            if remaining <= span + _TOLERANCE or index == len(segments) - 1:
+                local = 0.0 if span <= _TOLERANCE else min(1.0, remaining / span)
+                return (index + local) / len(segments)
+            remaining -= span
+        return 1.0
+    nurbs = _as_nurbs(curve)
+    samples, cumulative = _nurbs_length_table(nurbs, tolerance)
+    if target >= cumulative[-1]:
+        return samples[-1][0]
+    return _parameter_at_length(samples, cumulative, target)
+
+
+def curve_kink_angle(curve, parameter: float, tolerance: float = 1e-9) -> float:
+    """Angle between the incoming and outgoing tangents at *parameter* (0 where the curve is smooth).
+
+    Polylines kink at their vertices (and at the seam of a closed polyline);
+    NURBS curves kink at interior knots of full multiplicity.
+    """
+    if isinstance(curve, (AtomicLine, AtomicArc, AtomicCircle)):
+        return 0.0
+    if isinstance(curve, AtomicPolyline):
+        segments = _polyline_segments(curve)
+        count = len(segments)
+        scaled = float(parameter) * count
+        vertex = int(round(scaled))
+        if abs(scaled - vertex) > tolerance * max(1.0, count):
+            return 0.0
+        if 0 < vertex < count:
+            return _angle_between(_unit_between(*segments[vertex - 1]), _unit_between(*segments[vertex]))
+        if curve.is_closed and count >= 2:
+            return _angle_between(_unit_between(*segments[-1]), _unit_between(*segments[0]))
+        return 0.0
+    nurbs = _as_nurbs(curve)
+    start, end = nurbs_curve_domain(nurbs)
+    degree = int(nurbs.degree)
+    interior = [knot for knot in nurbs.knots if start < knot < end]
+    for knot in sorted(set(interior)):
+        if interior.count(knot) >= degree and abs(float(parameter) - knot) <= tolerance * max(1.0, abs(end - start)):
+            step = (end - start) * 1e-6
+            incoming = nurbs_curve_tangent(nurbs, max(start, knot - step))
+            outgoing = nurbs_curve_tangent(nurbs, min(end, knot + step))
+            return _angle_between(incoming, outgoing)
+    return 0.0
+
+
+def divide_curve_by_count(curve, count: int, tolerance: float = 1e-7) -> tuple[list[AtomicPoint], list[AtomicVector], list[float]]:
+    """Equal arc-length division of any curve atom (Grasshopper Divide Curve).
+
+    Open curves yield ``count + 1`` points, closed curves ``count`` (the seam is
+    not repeated). Parameters follow each atom's own parameterisation.
+    """
+    segments = int(count)
+    if segments < 1:
+        raise ValueError("Divide Curve requires at least one segment")
+    total = curve_length(curve, tolerance)
+    if total <= _TOLERANCE:
+        raise ValueError("Divide Curve requires a non-zero-length curve")
+    start, end = curve_domain_of(curve)
+    point_count = segments if curve_is_closed(curve) else segments + 1
+    parameters = []
+    for index in range(point_count):
+        if index == 0:
+            parameters.append(start)
+        elif index == segments:
+            parameters.append(end)
+        else:
+            parameters.append(curve_parameter_at_length(curve, total * index / segments, tolerance))
+    return sample_curve(curve, parameters)
+
+
+def divide_curve_by_length(curve, length: float, tolerance: float = 1e-7) -> tuple[list[AtomicPoint], list[AtomicVector], list[float]]:
+    """Points every *length* along the curve from its start (Grasshopper Divide Length).
+
+    The start is always included, the end only when the length divides the curve
+    exactly; on a closed curve the final point (which is the start again) is
+    left out.
+    """
+    step = float(length)
+    if step <= _TOLERANCE:
+        raise ValueError("Divide Length requires a length greater than zero")
+    total = curve_length(curve, tolerance)
+    if total <= _TOLERANCE:
+        raise ValueError("Divide Length requires a non-zero-length curve")
+    count = int(math.floor((total + tolerance * max(1.0, total)) / step))
+    targets = [index * step for index in range(count + 1)]
+    if curve_is_closed(curve) and len(targets) > 1 and abs(targets[-1] - total) <= tolerance * max(1.0, total):
+        targets.pop()
+    parameters = [curve_parameter_at_length(curve, target, tolerance) for target in targets]
+    return sample_curve(curve, parameters)
+
+
+def sample_curve(curve, parameters: list[float]) -> tuple[list[AtomicPoint], list[AtomicVector], list[float]]:
+    """Points and unit tangents at *parameters* (returned together with the parameters)."""
+    points = [curve_point_at(curve, parameter) for parameter in parameters]
+    tangents = [curve_tangent_at(curve, parameter) for parameter in parameters]
+    return points, tangents, parameters
+
+
+def redomain_nurbs_curve(curve: AtomicNurbsCurve, domain: tuple[float, float]) -> AtomicNurbsCurve:
+    """Map the knot vector affinely onto *domain*; the geometry is untouched."""
+    start, end = nurbs_curve_domain(curve)
+    span = end - start
+    new_start, new_end = float(domain[0]), float(domain[1])
+    if abs(span) <= _TOLERANCE or abs(new_end - new_start) <= _TOLERANCE:
+        raise ValueError("Cannot re-domain a curve onto a zero-length domain")
+    knots = tuple(new_start + (float(knot) - start) / span * (new_end - new_start) for knot in curve.knots)
+    return AtomicNurbsCurve(control_points=curve.control_points, weights=curve.weights, knots=knots, degree=curve.degree)
+
+
+def _lerp_point(a: AtomicPoint, b: AtomicPoint, t: float) -> AtomicPoint:
+    return AtomicPoint(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, a.z + (b.z - a.z) * t)
+
+
+def _unit_between(a: AtomicPoint, b: AtomicPoint) -> AtomicVector:
+    vector = AtomicVector(b.x - a.x, b.y - a.y, b.z - a.z)
+    length = math.sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
+    if length <= _TOLERANCE:
+        return AtomicVector(0.0, 0.0, 0.0)
+    return AtomicVector(vector.x / length, vector.y / length, vector.z / length)
+
+
+def _angle_between(a: AtomicVector, b: AtomicVector) -> float:
+    dot = a.x * b.x + a.y * b.y + a.z * b.z
+    return math.acos(max(-1.0, min(1.0, dot)))

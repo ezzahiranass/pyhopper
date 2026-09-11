@@ -1,0 +1,375 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.EvaluateCurve.EvaluateCurve",
+ "gh_guid": "fc6979e4-7e91-4508-8e05-37c680779751",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "circle_quarter",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "parameter": 0.25
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "circle_generic",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "parameter": 0.1
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "polyline_kink",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ]
+    },
+    "parameter": 0.5
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "polyline_mid_segment",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ]
+    },
+    "parameter": 0.25
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "closed_polyline_seam",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "parameter": 0.0
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "uneven_polyline_per_segment",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "parameter": 0.75
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "arc_by_angle",
+   "inputs": {
+    "curve": {
+     "type": "Arc",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0,
+     "angle": {
+      "type": "Interval",
+      "start": 0.0,
+      "end": 1.5707963267948966
+     }
+    },
+    "parameter": 0.5
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "nurbs_knot_domain",
+   "inputs": {
+    "curve": {
+     "type": "NurbsCurve",
+     "control_points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 2
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 4
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 5
+      }
+     ],
+     "weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "knots": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3
+     ],
+     "degree": 3
+    },
+    "parameter": 1.0
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  },
+  {
+   "name": "several_parameters",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "parameter": [
+     0.0,
+     0.5,
+     1.0
+    ]
+   },
+   "compare": [
+    "Point",
+    "Tangent",
+    "Angle"
+   ]
+  }
+ ]
+}
