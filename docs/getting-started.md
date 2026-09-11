@@ -89,4 +89,4 @@ item splits into its own branch so the next component can address them individua
 
 - Read [Concepts → Data Tree](concepts/data-tree.md) to understand branching deeply
 - See the full [Parametric Tower example](examples/tower.md) with rotation and export
-- Browse the [Reference](reference/) for every component's inputs and outputs
+- Browse the [Reference](reference/index.md) for every component's inputs and outputs

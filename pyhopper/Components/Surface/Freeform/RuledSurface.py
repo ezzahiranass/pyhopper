@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from pyhopper.Core.Atoms import AtomicNurbsCurve, AtomicSurface, _open_uniform_bspline_data
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
+from pyhopper.Core.TypeSystem import CURVE
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
 
 
@@ -84,8 +85,8 @@ class RuledSurface(Component):
     """
 
     inputs = [
-        InputParam("curve_a", None, Access.ITEM),
-        InputParam("curve_b", None, Access.ITEM),
+        InputParam("curve_a", CURVE, Access.ITEM),
+        InputParam("curve_b", CURVE, Access.ITEM),
     ]
     outputs = [OutputParam("surface", AtomicSurface)]
 

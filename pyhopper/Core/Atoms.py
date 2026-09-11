@@ -38,6 +38,15 @@ class Atom:
         raise NotImplementedError
 
 
+def atom_from_json(data: dict) -> Atom:
+    """Deserialize one registered atom from its JSON representation."""
+    atom_type = data.get("type")
+    atom_cls = ATOM_REGISTRY.get(atom_type)
+    if atom_cls is None:
+        raise ValueError(f"Unknown atom type: {atom_type!r}")
+    return atom_cls.from_json(data)
+
+
 def _open_uniform_bspline_data(point_count: int, degree: int) -> tuple[tuple[float, ...], tuple[int, ...], int]:
     if point_count < 2:
         raise ValueError("A spline requires at least two control points")
@@ -168,6 +177,12 @@ class AtomicInterval(Atom):
 
 @dataclass(frozen=True)
 class AtomicPlane(Atom):
+    """Rhino-style orthonormal plane defined by origin, normal, and X axis.
+
+    The Y axis is derived as ``normal x x_axis``. Input axes are normalized
+    and the X axis is projected onto the plane during construction.
+    """
+
     atom_type: ClassVar[str] = "Plane"
 
     origin: AtomicPoint = None  # type: ignore[assignment]
@@ -175,12 +190,26 @@ class AtomicPlane(Atom):
     x_axis: AtomicVector = None  # type: ignore[assignment]
 
     def __post_init__(self):
-        if self.origin is None:
-            object.__setattr__(self, "origin", AtomicPoint.origin())
-        if self.normal is None:
-            object.__setattr__(self, "normal", AtomicVector.unit_z())
-        if self.x_axis is None:
-            object.__setattr__(self, "x_axis", AtomicVector.unit_x())
+        origin = self.origin if self.origin is not None else AtomicPoint.origin()
+        normal = self.normal if self.normal is not None else AtomicVector.unit_z()
+        x_axis = self.x_axis if self.x_axis is not None else AtomicVector.unit_x()
+
+        normal = normal.unitize()
+        if normal.length == 0.0:
+            raise ValueError("AtomicPlane normal must be non-zero")
+
+        projection = x_axis.x * normal.x + x_axis.y * normal.y + x_axis.z * normal.z
+        x_axis = AtomicVector(
+            x_axis.x - projection * normal.x,
+            x_axis.y - projection * normal.y,
+            x_axis.z - projection * normal.z,
+        ).unitize()
+        if x_axis.length == 0.0:
+            raise ValueError("AtomicPlane x axis must not be parallel to its normal")
+
+        object.__setattr__(self, "origin", origin)
+        object.__setattr__(self, "normal", normal)
+        object.__setattr__(self, "x_axis", x_axis)
 
     @property
     def y_axis(self) -> AtomicVector:
@@ -209,16 +238,16 @@ class AtomicPlane(Atom):
         )
 
     @classmethod
-    def world_xy(cls) -> AtomicPlane:
-        return cls(AtomicPoint.origin(), AtomicVector.unit_z(), AtomicVector.unit_x())
+    def world_xy(cls, origin: AtomicPoint | None = None) -> AtomicPlane:
+        return cls(origin or AtomicPoint.origin(), AtomicVector.unit_z(), AtomicVector.unit_x())
 
     @classmethod
-    def world_xz(cls) -> AtomicPlane:
-        return cls(AtomicPoint.origin(), AtomicVector.unit_y(), AtomicVector.unit_x())
+    def world_xz(cls, origin: AtomicPoint | None = None) -> AtomicPlane:
+        return cls(origin or AtomicPoint.origin(), AtomicVector(0.0, -1.0, 0.0), AtomicVector.unit_x())
 
     @classmethod
-    def world_yz(cls) -> AtomicPlane:
-        return cls(AtomicPoint.origin(), AtomicVector.unit_x(), AtomicVector.unit_y())
+    def world_yz(cls, origin: AtomicPoint | None = None) -> AtomicPlane:
+        return cls(origin or AtomicPoint.origin(), AtomicVector.unit_x(), AtomicVector.unit_y())
 
 
 @dataclass(frozen=True)
@@ -402,6 +431,152 @@ class AtomicNurbsCurve(Atom):
 
 
 @dataclass(frozen=True)
+class AtomicEllipse(Atom):
+    """Named ellipse defined by a plane and two radii."""
+
+    atom_type: ClassVar[str] = "Ellipse"
+
+    plane: AtomicPlane = None  # type: ignore[assignment]
+    radius_x: float = 1.0
+    radius_y: float = 0.5
+
+    def __post_init__(self):
+        if self.plane is None:
+            object.__setattr__(self, "plane", AtomicPlane.world_xy())
+
+    def to_json(self) -> dict:
+        return {
+            "type": "Ellipse",
+            "plane": self.plane.to_json(),
+            "radius_x": self.radius_x,
+            "radius_y": self.radius_y,
+        }
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicEllipse:
+        return cls(
+            plane=AtomicPlane.from_json(data["plane"]),
+            radius_x=data["radius_x"],
+            radius_y=data["radius_y"],
+        )
+
+
+@dataclass(frozen=True)
+class AtomicRectangle(Atom):
+    """Named rectangle defined by a centered plane and side lengths."""
+
+    atom_type: ClassVar[str] = "Rectangle"
+
+    plane: AtomicPlane = None  # type: ignore[assignment]
+    x_size: float = 1.0
+    y_size: float = 1.0
+
+    def __post_init__(self):
+        if self.plane is None:
+            object.__setattr__(self, "plane", AtomicPlane.world_xy())
+
+    def to_json(self) -> dict:
+        return {
+            "type": "Rectangle",
+            "plane": self.plane.to_json(),
+            "x_size": self.x_size,
+            "y_size": self.y_size,
+        }
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicRectangle:
+        return cls(
+            plane=AtomicPlane.from_json(data["plane"]),
+            x_size=data["x_size"],
+            y_size=data["y_size"],
+        )
+
+
+@dataclass(frozen=True)
+class AtomicBox(Atom):
+    """Named box defined by a centered plane and three side lengths."""
+
+    atom_type: ClassVar[str] = "Box"
+
+    plane: AtomicPlane = None  # type: ignore[assignment]
+    x_size: float = 1.0
+    y_size: float = 1.0
+    z_size: float = 1.0
+
+    def __post_init__(self):
+        if self.plane is None:
+            object.__setattr__(self, "plane", AtomicPlane.world_xy())
+
+    def to_json(self) -> dict:
+        return {
+            "type": "Box",
+            "plane": self.plane.to_json(),
+            "x_size": self.x_size,
+            "y_size": self.y_size,
+            "z_size": self.z_size,
+        }
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicBox:
+        return cls(
+            plane=AtomicPlane.from_json(data["plane"]),
+            x_size=data["x_size"],
+            y_size=data["y_size"],
+            z_size=data["z_size"],
+        )
+
+
+@dataclass(frozen=True)
+class AtomicInterpolatedCurve(Atom):
+    """Curve that passes through each interpolation point."""
+
+    atom_type: ClassVar[str] = "InterpolatedCurve"
+
+    points: tuple[AtomicPoint, ...] = ()
+    degree: int = 3
+
+    def to_json(self) -> dict:
+        return {
+            "type": "InterpolatedCurve",
+            "points": [point.to_json() for point in self.points],
+            "degree": self.degree,
+        }
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicInterpolatedCurve:
+        return cls(
+            points=tuple(AtomicPoint.from_json(point) for point in data["points"]),
+            degree=data.get("degree", 3),
+        )
+
+
+@dataclass(frozen=True)
+class AtomicControlPointCurve(Atom):
+    """Clamped NURBS curve defined directly by its control points."""
+
+    atom_type: ClassVar[str] = "ControlPointCurve"
+
+    control_points: tuple[AtomicPoint, ...] = ()
+    degree: int = 3
+
+    def to_json(self) -> dict:
+        return {
+            "type": "ControlPointCurve",
+            "control_points": [point.to_json() for point in self.control_points],
+            "degree": self.degree,
+        }
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicControlPointCurve:
+        return cls(
+            control_points=tuple(
+                AtomicPoint.from_json(point) for point in data["control_points"]
+            ),
+            degree=data.get("degree", 3),
+        )
+
+
+@dataclass(frozen=True)
 class AtomicMesh(Atom):
     """Polygonal mesh."""
 
@@ -533,6 +708,51 @@ class AtomicSurface(Atom):
 
 
 @dataclass(frozen=True)
+class AtomicTrimmedSurface(Atom):
+    """Surface patch with UV-space trim loops.
+
+    ``surface`` stores the underlying untrimmed tensor-product surface.
+    ``outer`` and ``holes`` are closed ``AtomicPolyline`` loops in the
+    surface's parameter space, where point ``x`` is U and point ``y`` is V.
+    """
+
+    atom_type: ClassVar[str] = "TrimmedSurface"
+
+    surface: AtomicSurface = None  # type: ignore[assignment]
+    outer: AtomicPolyline = None  # type: ignore[assignment]
+    holes: tuple[AtomicPolyline, ...] = ()
+
+    def __post_init__(self):
+        if self.surface is None:
+            raise ValueError("AtomicTrimmedSurface requires a base surface")
+        if not isinstance(self.surface, AtomicSurface):
+            raise TypeError("AtomicTrimmedSurface surface must be an AtomicSurface")
+        if self.outer is None:
+            raise ValueError("AtomicTrimmedSurface requires an outer trim loop")
+        if not isinstance(self.outer, AtomicPolyline):
+            raise TypeError("AtomicTrimmedSurface outer trim must be an AtomicPolyline")
+        for index, hole in enumerate(self.holes):
+            if not isinstance(hole, AtomicPolyline):
+                raise TypeError(f"AtomicTrimmedSurface hole {index} must be an AtomicPolyline")
+
+    def to_json(self) -> dict:
+        return {
+            "type": "TrimmedSurface",
+            "surface": self.surface.to_json(),
+            "outer": self.outer.to_json(),
+            "holes": [hole.to_json() for hole in self.holes],
+        }
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicTrimmedSurface:
+        return cls(
+            surface=AtomicSurface.from_json(data["surface"]),
+            outer=AtomicPolyline.from_json(data["outer"]),
+            holes=tuple(AtomicPolyline.from_json(hole) for hole in data.get("holes", [])),
+        )
+
+
+@dataclass(frozen=True)
 class AtomicCylinder(Atom):
     atom_type: ClassVar[str] = "Cylinder"
 
@@ -584,15 +804,15 @@ class AtomicBrep(Atom):
 
     atom_type: ClassVar[str] = "Brep"
 
-    faces: tuple[AtomicSurface, ...] = ()
+    faces: tuple[AtomicSurface | AtomicTrimmedSurface, ...] = ()
 
     def __post_init__(self):
         if not self.faces:
             return
         for i, face in enumerate(self.faces):
-            if not isinstance(face, AtomicSurface):
+            if not isinstance(face, (AtomicSurface, AtomicTrimmedSurface)):
                 raise TypeError(
-                    f"AtomicBrep face {i} must be an AtomicSurface, "
+                    f"AtomicBrep face {i} must be an AtomicSurface or AtomicTrimmedSurface, "
                     f"got {type(face).__name__}"
                 )
 
@@ -609,7 +829,7 @@ class AtomicBrep(Atom):
     @classmethod
     def from_json(cls, data: dict) -> AtomicBrep:
         return cls(
-            faces=tuple(AtomicSurface.from_json(f) for f in data.get("faces", [])),
+            faces=tuple(atom_from_json(f) for f in data.get("faces", [])),
         )
 
 
@@ -641,6 +861,84 @@ class AtomicTransform(Atom):
             1.0, 0.0, 0.0, vector.x,
             0.0, 1.0, 0.0, vector.y,
             0.0, 0.0, 1.0, vector.z,
+            0.0, 0.0, 0.0, 1.0,
+        ))
+
+    @classmethod
+    def scale(cls, center: AtomicPoint, factor: float) -> AtomicTransform:
+        """Uniform scale around *center*."""
+        value = float(factor)
+        return cls(matrix=(
+            value, 0.0,   0.0,   center.x * (1.0 - value),
+            0.0,   value, 0.0,   center.y * (1.0 - value),
+            0.0,   0.0,   value, center.z * (1.0 - value),
+            0.0,   0.0,   0.0,   1.0,
+        ))
+
+    @classmethod
+    def scale_non_uniform(
+        cls,
+        plane: AtomicPlane,
+        x_factor: float,
+        y_factor: float,
+        z_factor: float,
+    ) -> AtomicTransform:
+        """Non-uniform scale in a plane's local coordinate system."""
+        x = plane.x_axis
+        y = plane.y_axis
+        z = plane.normal
+        factors = (float(x_factor), float(y_factor), float(z_factor))
+        axes = (x, y, z)
+        coordinates = ("x", "y", "z")
+        linear = [
+            [
+                sum(
+                    factors[k] * getattr(axes[k], coordinates[row]) * getattr(axes[k], coordinates[col])
+                    for k in range(3)
+                )
+                for col in range(3)
+            ]
+            for row in range(3)
+        ]
+        origin = plane.origin
+        translation = (
+            origin.x - sum(linear[0][index] * (origin.x, origin.y, origin.z)[index] for index in range(3)),
+            origin.y - sum(linear[1][index] * (origin.x, origin.y, origin.z)[index] for index in range(3)),
+            origin.z - sum(linear[2][index] * (origin.x, origin.y, origin.z)[index] for index in range(3)),
+        )
+        return cls(matrix=(
+            linear[0][0], linear[0][1], linear[0][2], translation[0],
+            linear[1][0], linear[1][1], linear[1][2], translation[1],
+            linear[2][0], linear[2][1], linear[2][2], translation[2],
+            0.0, 0.0, 0.0, 1.0,
+        ))
+
+    @classmethod
+    def orient(cls, source: AtomicPlane, target: AtomicPlane) -> AtomicTransform:
+        """Change basis from *source* plane coordinates to *target* plane coordinates."""
+        source_axes = (source.x_axis, source.y_axis, source.normal)
+        target_axes = (target.x_axis, target.y_axis, target.normal)
+        coordinates = ("x", "y", "z")
+        linear = [
+            [
+                sum(
+                    getattr(target_axes[k], coordinates[row]) * getattr(source_axes[k], coordinates[col])
+                    for k in range(3)
+                )
+                for col in range(3)
+            ]
+            for row in range(3)
+        ]
+        source_origin = (source.origin.x, source.origin.y, source.origin.z)
+        target_origin = (target.origin.x, target.origin.y, target.origin.z)
+        translation = tuple(
+            target_origin[row] - sum(linear[row][col] * source_origin[col] for col in range(3))
+            for row in range(3)
+        )
+        return cls(matrix=(
+            linear[0][0], linear[0][1], linear[0][2], translation[0],
+            linear[1][0], linear[1][1], linear[1][2], translation[1],
+            linear[2][0], linear[2][1], linear[2][2], translation[2],
             0.0, 0.0, 0.0, 1.0,
         ))
 

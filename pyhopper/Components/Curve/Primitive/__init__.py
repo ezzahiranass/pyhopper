@@ -2,6 +2,7 @@ from .Circle import Circle
 from .Circle3Pt import Circle3Pt
 from .CircleCNR import CircleCNR
 from .Cylinder import Cylinder
+from .Ellipse import Ellipse
 from .Line import Line
 from .LineSDL import LineSDL
 from .Polygon import Polygon
@@ -12,6 +13,7 @@ __all__ = [
     "Circle3Pt",
     "CircleCNR",
     "Cylinder",
+    "Ellipse",
     "Line",
     "LineSDL",
     "Polygon",

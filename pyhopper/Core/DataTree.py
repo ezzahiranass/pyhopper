@@ -163,6 +163,13 @@ class DataTree:
             branches[new_path] = Branch(new_path, list(branch))
         return DataTree(branches)
 
+    def reverse(self) -> DataTree:
+        """Reverse the order of items in each branch."""
+        branches = {}
+        for path, branch in self._branches.items():
+            branches[path] = Branch(path, list(reversed(branch)))
+        return DataTree(branches)
+
     def flip_matrix(self) -> DataTree:
         """Transpose: swap branch-index and item-index dimensions.
 

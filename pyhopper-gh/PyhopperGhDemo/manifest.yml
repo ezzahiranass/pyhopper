@@ -1,0 +1,10 @@
+name: PyhopperGhDemo
+version: 0.1.0
+authors:
+  - Pyhopper
+description: Starter Grasshopper plugin demonstrating components, canvas controls, logging, and Eto UI.
+url: https://pyhopper.dev
+keywords:
+  - grasshopper
+  - pyhopper
+  - development

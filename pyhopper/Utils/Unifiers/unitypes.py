@@ -7,11 +7,15 @@ import math
 from pyhopper.Core.Atoms import (
     AtomicArc,
     AtomicCircle,
+    AtomicControlPointCurve,
+    AtomicEllipse,
+    AtomicInterpolatedCurve,
     AtomicLine,
     AtomicNurbsCurve,
     AtomicPlane,
     AtomicPoint,
     AtomicPolyline,
+    AtomicRectangle,
 )
 
 
@@ -109,6 +113,50 @@ def _arc_like_to_nurbs(plane: AtomicPlane, radius: float, start_angle: float, en
     )
 
 
+def _add(a: AtomicPoint, b: AtomicPoint) -> AtomicPoint:
+    return AtomicPoint(a.x + b.x, a.y + b.y, a.z + b.z)
+
+
+def _subtract(a: AtomicPoint, b: AtomicPoint) -> AtomicPoint:
+    return AtomicPoint(a.x - b.x, a.y - b.y, a.z - b.z)
+
+
+def _scale(point: AtomicPoint, factor: float) -> AtomicPoint:
+    return AtomicPoint(point.x * factor, point.y * factor, point.z * factor)
+
+
+def _interpolated_to_nurbs(curve: AtomicInterpolatedCurve) -> AtomicNurbsCurve:
+    points = curve.points
+    if len(points) < 2:
+        raise ValueError("InterpolatedCurve requires at least two points")
+    if len(points) == 2:
+        return as_nurbs_curve(AtomicLine(points[0], points[1]))
+
+    controls = [points[0]]
+    for index in range(len(points) - 1):
+        previous = points[index - 1] if index > 0 else points[index]
+        start = points[index]
+        end = points[index + 1]
+        next_point = points[index + 2] if index + 2 < len(points) else end
+        controls.extend((
+            _add(start, _scale(_subtract(end, previous), 1.0 / 6.0)),
+            _add(end, _scale(_subtract(start, next_point), 1.0 / 6.0)),
+            end,
+        ))
+
+    segment_count = len(points) - 1
+    knots = [0.0, 0.0, 0.0, 0.0]
+    for index in range(1, segment_count):
+        knots.extend((index / segment_count,) * 3)
+    knots.extend((1.0, 1.0, 1.0, 1.0))
+    return AtomicNurbsCurve(
+        control_points=tuple(controls),
+        weights=tuple(1.0 for _ in controls),
+        knots=tuple(knots),
+        degree=3,
+    )
+
+
 def as_nurbs_curve(curve) -> AtomicNurbsCurve:
     """Convert supported curve atoms into a canonical ``AtomicNurbsCurve``."""
     if isinstance(curve, AtomicNurbsCurve):
@@ -148,6 +196,65 @@ def as_nurbs_curve(curve) -> AtomicNurbsCurve:
             weights=tuple(1.0 for _ in curve.points),
             knots=_expand_knots(unique_knots, mults),
             degree=degree,
+        )
+
+    if isinstance(curve, AtomicControlPointCurve):
+        if len(curve.control_points) < 2:
+            raise ValueError("ControlPointCurve requires at least two control points")
+        unique_knots, mults, degree = _open_uniform_bspline_data(
+            len(curve.control_points),
+            curve.degree,
+        )
+        return AtomicNurbsCurve(
+            control_points=curve.control_points,
+            weights=tuple(1.0 for _ in curve.control_points),
+            knots=_expand_knots(unique_knots, mults),
+            degree=degree,
+        )
+
+    if isinstance(curve, AtomicInterpolatedCurve):
+        return _interpolated_to_nurbs(curve)
+
+    if isinstance(curve, AtomicRectangle):
+        half_x = abs(float(curve.x_size)) / 2.0
+        half_y = abs(float(curve.y_size)) / 2.0
+        points = tuple(
+            _point_on_plane(curve.plane, x, y)
+            for x, y in (
+                (-half_x, -half_y),
+                (half_x, -half_y),
+                (half_x, half_y),
+                (-half_x, half_y),
+                (-half_x, -half_y),
+            )
+        )
+        return as_nurbs_curve(AtomicPolyline(points=points))
+
+    if isinstance(curve, AtomicEllipse):
+        circle = _arc_like_to_nurbs(curve.plane, 1.0, 0.0, 2.0 * math.pi)
+        points = []
+        for point in circle.control_points:
+            local_x = (
+                (point.x - curve.plane.origin.x) * curve.plane.x_axis.x
+                + (point.y - curve.plane.origin.y) * curve.plane.x_axis.y
+                + (point.z - curve.plane.origin.z) * curve.plane.x_axis.z
+            )
+            y_axis = curve.plane.y_axis
+            local_y = (
+                (point.x - curve.plane.origin.x) * y_axis.x
+                + (point.y - curve.plane.origin.y) * y_axis.y
+                + (point.z - curve.plane.origin.z) * y_axis.z
+            )
+            points.append(_point_on_plane(
+                curve.plane,
+                local_x * curve.radius_x,
+                local_y * curve.radius_y,
+            ))
+        return AtomicNurbsCurve(
+            control_points=tuple(points),
+            weights=circle.weights,
+            knots=circle.knots,
+            degree=circle.degree,
         )
 
     if isinstance(curve, AtomicCircle):

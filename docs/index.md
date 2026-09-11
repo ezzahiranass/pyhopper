@@ -55,5 +55,5 @@ pip install -e .
 
 - [Getting Started](getting-started.md) — your first model in 10 minutes
 - [Concepts](concepts/index.md) — understand DataTrees and how components work
-- [Reference](reference/) — full auto-generated API docs
+- [Reference](reference/index.md) — full auto-generated API docs
 - [Examples](examples/tower.md) — annotated real-world models

@@ -11,7 +11,10 @@ Supported atoms
   AtomicMesh      -> triangle mesh (faces must be triangles or quads; quads split)
   AtomicPoint     -> POINTS primitive
   AtomicCircle    -> tessellated LINE_STRIP (36 segments)
+  AtomicArc       -> tessellated LINE_STRIP
+  AtomicNurbsCurve -> tessellated LINE_STRIP
   AtomicSurface   -> tessellated triangle mesh
+  AtomicTrimmedSurface -> UV-trimmed tessellated triangle mesh
 
 Unknown atom types are silently skipped.
 """
@@ -79,13 +82,21 @@ def _iter_atoms(tree: Any) -> list[Any]:
     """Return a flat list of supported atoms from DataTree/list/scalar geometry."""
     from pyhopper.Core.Atoms import (
         AtomicBrep,
+        AtomicBox,
+        AtomicArc,
         AtomicCircle,
+        AtomicControlPointCurve,
         AtomicCylinder,
+        AtomicEllipse,
+        AtomicInterpolatedCurve,
         AtomicLine,
         AtomicMesh,
+        AtomicNurbsCurve,
         AtomicPoint,
         AtomicPolyline,
+        AtomicRectangle,
         AtomicSurface,
+        AtomicTrimmedSurface,
     )
     from pyhopper.Core.DataTree import DataTree
 
@@ -103,8 +114,16 @@ def _iter_atoms(tree: Any) -> list[Any]:
         AtomicMesh,
         AtomicPoint,
         AtomicCircle,
+        AtomicArc,
+        AtomicNurbsCurve,
+        AtomicEllipse,
+        AtomicRectangle,
+        AtomicInterpolatedCurve,
+        AtomicControlPointCurve,
         AtomicSurface,
+        AtomicTrimmedSurface,
         AtomicBrep,
+        AtomicBox,
     )
     return [atom for atom in atoms if isinstance(atom, supported_atom_types)]
 
@@ -127,13 +146,21 @@ class _GlbBuilder:
     def add_atom(self, atom: Any, name: str | None = None) -> bool:
         from pyhopper.Core.Atoms import (
             AtomicBrep,
+            AtomicBox,
+            AtomicArc,
             AtomicCircle,
+            AtomicControlPointCurve,
             AtomicCylinder,
+            AtomicEllipse,
+            AtomicInterpolatedCurve,
             AtomicLine,
             AtomicMesh,
+            AtomicNurbsCurve,
             AtomicPoint,
             AtomicPolyline,
+            AtomicRectangle,
             AtomicSurface,
+            AtomicTrimmedSurface,
         )
 
         if isinstance(atom, AtomicPolyline):
@@ -153,10 +180,24 @@ class _GlbBuilder:
         if isinstance(atom, AtomicCircle):
             self.add_circle(atom, name=name)
             return True
-        if isinstance(atom, AtomicSurface):
+        if isinstance(atom, (
+            AtomicArc,
+            AtomicControlPointCurve,
+            AtomicEllipse,
+            AtomicInterpolatedCurve,
+            AtomicNurbsCurve,
+            AtomicRectangle,
+        )):
+            self.add_nurbs_curve(atom, name=name)
+            return True
+        if isinstance(atom, (AtomicSurface, AtomicTrimmedSurface)):
             return self.add_surface(atom, name=name)
         if isinstance(atom, AtomicBrep):
             return self.add_brep(atom, name=name)
+        if isinstance(atom, AtomicBox):
+            from pyhopper.Utils.Boxes import box_to_brep
+
+            return self.add_brep(box_to_brep(atom), name=name)
         return False
 
     def add_point(self, pt, name: str | None = None) -> None:
@@ -181,6 +222,15 @@ class _GlbBuilder:
 
     def add_circle(self, circle, name: str | None = None) -> None:
         positions = _circle_points(circle, _CIRCLE_SEGS)
+        acc_idx = self._add_vec3_accessor(positions)
+        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP}, name=name)
+
+    def add_nurbs_curve(self, curve, name: str | None = None) -> None:
+        from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+
+        positions = _nurbs_curve_points(as_nurbs_curve(curve))
+        if not positions:
+            return
         acc_idx = self._add_vec3_accessor(positions)
         self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP}, name=name)
 
@@ -216,7 +266,7 @@ class _GlbBuilder:
         all_indices: list[int] = []
 
         for face in brep.faces:
-            face_positions, face_indices = _tessellate_surface(face)
+            face_positions, face_indices = _tessellate_surface_face(face)
             if not face_positions:
                 continue
             offset = len(all_positions)
@@ -236,7 +286,7 @@ class _GlbBuilder:
         return True
 
     def add_surface(self, surface, name: str | None = None) -> bool:
-        positions, indices = _tessellate_surface(surface)
+        positions, indices = _tessellate_surface_face(surface)
         if not positions or not indices:
             return False
         pos_acc = self._add_vec3_accessor(positions)
@@ -418,6 +468,43 @@ def _basis_functions(span: int, parameter: float, degree: int, knots: tuple[floa
     return basis
 
 
+def _nurbs_curve_points(curve) -> list[tuple[float, float, float]]:
+    control_points = curve.control_points
+    if len(control_points) < 2:
+        return []
+
+    degree = max(1, min(int(curve.degree), len(control_points) - 1))
+    knots = tuple(float(knot) for knot in curve.knots)
+    if len(knots) != len(control_points) + degree + 1:
+        return []
+    weights = curve.weights if len(curve.weights) == len(control_points) else tuple(
+        1.0 for _ in control_points
+    )
+    start = knots[degree]
+    end = knots[len(control_points)]
+    sample_count = max(32, len(control_points) * 12)
+    points: list[tuple[float, float, float]] = []
+
+    for index in range(sample_count + 1):
+        parameter = start + (end - start) * index / sample_count
+        span = _find_span(degree, knots, len(control_points), parameter)
+        basis = _basis_functions(span, parameter, degree, knots)
+        x = y = z = total_weight = 0.0
+        for local_index, basis_value in enumerate(basis):
+            control_index = span - degree + local_index
+            point = control_points[control_index]
+            coefficient = basis_value * weights[control_index]
+            x += coefficient * point.x
+            y += coefficient * point.y
+            z += coefficient * point.z
+            total_weight += coefficient
+        if abs(total_weight) < 1e-12:
+            continue
+        points.append((x / total_weight, y / total_weight, z / total_weight))
+
+    return points
+
+
 def _surface_point(surface, u: float, v: float) -> tuple[float, float, float]:
     poles = surface.poles
     weights = surface.weights
@@ -519,6 +606,54 @@ def _tessellate_surface(surface) -> tuple[list[tuple[float, float, float]], list
             indices += [a, b, d, a, d, c]
 
     return positions, indices
+
+
+def _trim_loop_coords(loop) -> list[tuple[float, float]]:
+    coords = [(float(point.x), float(point.y)) for point in loop.points]
+    if len(coords) > 1 and coords[0] != coords[-1]:
+        coords.append(coords[0])
+    return coords
+
+
+def _tessellate_trimmed_surface(trimmed) -> tuple[list[tuple[float, float, float]], list[int]]:
+    try:
+        from shapely import constrained_delaunay_triangles
+        from shapely.geometry import Polygon
+    except ImportError as exc:  # pragma: no cover - optional dependency guard
+        raise RuntimeError("GLB export of trimmed surfaces requires Shapely") from exc
+
+    outer = _trim_loop_coords(trimmed.outer)
+    holes = [_trim_loop_coords(hole) for hole in trimmed.holes]
+    polygon = Polygon(outer, holes)
+    if polygon.is_empty or polygon.area <= 1e-12:
+        return [], []
+    if not polygon.is_valid:
+        polygon = polygon.buffer(0)
+        if polygon.is_empty:
+            return [], []
+
+    triangles = constrained_delaunay_triangles(polygon)
+    positions: list[tuple[float, float, float]] = []
+    indices: list[int] = []
+
+    for triangle in getattr(triangles, "geoms", (triangles,)):
+        if triangle.is_empty or not polygon.covers(triangle.representative_point()):
+            continue
+        coords = list(triangle.exterior.coords)
+        if len(coords) < 4:
+            continue
+        offset = len(positions)
+        for u, v in coords[:3]:
+            positions.append(_surface_point(trimmed.surface, float(u), float(v)))
+        indices.extend((offset, offset + 1, offset + 2))
+
+    return positions, indices
+
+
+def _tessellate_surface_face(surface) -> tuple[list[tuple[float, float, float]], list[int]]:
+    if hasattr(surface, "surface") and hasattr(surface, "outer"):
+        return _tessellate_trimmed_surface(surface)
+    return _tessellate_surface(surface)
 
 
 def _tessellate_cylinder(cyl, segments: int) -> tuple[list[tuple[float, float, float]], list[int]]:
