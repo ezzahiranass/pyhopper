@@ -4,6 +4,7 @@ from inspect import getdoc
 from typing import Any
 
 from pyhopper.Core.Component import Component, InputParam, OutputParam
+from pyhopper.Core.Path import Path
 from pyhopper.Core.TypeSystem import accepted_type_names, type_name
 
 
@@ -11,6 +12,8 @@ from pyhopper.Core.TypeSystem import accepted_type_names, type_name
 def _json_safe(value: Any) -> Any:
     if value is None or isinstance(value, (str, int, float, bool)):
         return value
+    if isinstance(value, Path):
+        return str(value)  # "{0;1}" — the spelling Panels and text ports use for paths
     if isinstance(value, dict):
         return {str(key): _json_safe(val) for key, val in value.items()}
     if isinstance(value, (list, tuple, set)):

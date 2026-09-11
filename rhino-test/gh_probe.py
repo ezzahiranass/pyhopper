@@ -45,17 +45,21 @@ TEXT_JOIN = "1274d51a-81e6-4ccf-ad1f-0edf4c769cac"
 TEXT_TRIM = "e4cb7168-5e32-4c54-b425-5a31c6fd685a"
 P = AtomicPoint
 
+FLATTEN = "f80cfe18-9510-4b89-8301-8e58faf423bb"
+GRAFT = "87e1d9ef-088b-4d30-9dda-8a7448a17329"
+SIMPLIFY = "1303da7b-e339-4e65-a051-82c4dce8224d"
+TRIM = "1177d6ee-3993-4226-9558-52b7fd63e1e3"
+FLIP = "41aa4112-9c9b-42f4-847e-503b9d90e4c7"
+ENTWINE = "c9785b8e-2f30-4f90-8ee3-cca710f82402"
+PRUNE = "fe769f85-8900-45dd-ba11-ec9cd6c778c6"
+CLEAN = "071c3940-a12d-4b77-bb23-42b5d3314a0d"
+from pyhopper.Core.Path import Path as TP
+
 PROBES = [
-    ("Text Join floats", TEXT_JOIN, {0: T([1.0, 2.50, -0.5, 1e-7, 123456789.0, 0.1 + 0.2]), 1: T(["|"])}),
-    ("Sort unique keys with values", SORT, {0: T([3.0, 1.0, 2.0]), 1: T(["c", "a", "b"])}),
-    ("Sort dup keys with values", SORT, {0: T([2.0, 1.0, 2.0, 1.0]), 1: T(["w", "x", "y", "z"])}),
-    ("Sort ints", SORT, {0: T([3, 1, 2])}),
-    ("Sort negative and reversed", SORT, {0: T([0.5, -1.0, -1.0, 10.0])}),
-    ("Sift pattern longer than list", SIFT, {0: T(["a", "b"]), 1: T([1, 1, 0, 0])}),
-    ("Weave streams empty", WEAVE, {0: T([0, 1]), 1: T([]), 2: T(["x", "y"])}),
-    ("Repeat empty list", REPEAT, {0: T([]), 1: T([3])}),
-    ("Cull Pattern empty pattern", CULL_PATTERN, {0: T(["a", "b"]), 1: T([])}),
-    ("Jitter half", JITTER, {0: T(["a", "b", "c", "d", "e", "f", "g", "h"]), 1: T([0.5]), 2: T([1])}),
+    ("Simplify single {0;0}", SIMPLIFY, {0: T({"0;0": ["a", "b"]})}),
+    ("Simplify single {0;0} front", SIMPLIFY, {0: T({"0;0": ["a", "b"]}), 1: T([True])}),
+    ("Simplify single {0}", SIMPLIFY, {0: T({"0": ["a", "b"]})}),
+    ("Simplify single {0;0;0}", SIMPLIFY, {0: T({"0;0;0": ["a"]})}),
 ]
 
 for label, guid, inputs in PROBES:

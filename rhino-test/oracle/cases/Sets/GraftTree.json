@@ -1,0 +1,55 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.GraftTree.GraftTree",
+ "gh_guid": "87e1d9ef-088b-4d30-9dda-8a7448a17329",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "graft",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1;2": [
+      "c"
+     ],
+     "5": []
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "ordering",
+   "inputs": {
+    "tree": {
+     "1": [
+      "a",
+      "b"
+     ],
+     "0": [
+      "c"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "empty_only",
+   "inputs": {
+    "tree": {
+     "5": []
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  }
+ ]
+}

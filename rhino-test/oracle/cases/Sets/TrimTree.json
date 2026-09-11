@@ -1,0 +1,107 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.TrimTree.TrimTree",
+ "gh_guid": "1177d6ee-3993-4226-9558-52b7fd63e1e3",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "depth_1_drops_short_branch",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;0;2": [
+      "b"
+     ],
+     "0;1;0": [
+      "c"
+     ],
+     "3": [
+      "d"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "depth_2",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;0;2": [
+      "b"
+     ],
+     "0;1;0": [
+      "c"
+     ],
+     "3": [
+      "d"
+     ]
+    },
+    "depth": 2
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "depth_0_unchanged",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;1;0": [
+      "c"
+     ]
+    },
+    "depth": 0
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "mixed_lengths",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;1": [
+      "b"
+     ],
+     "0;2": [
+      "c"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "depth_beyond_all_branches",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;1;0": [
+      "c"
+     ]
+    },
+    "depth": 5
+   },
+   "compare": [
+    "Tree"
+   ]
+  }
+ ]
+}

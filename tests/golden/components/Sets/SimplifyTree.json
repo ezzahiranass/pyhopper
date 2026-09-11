@@ -1,0 +1,257 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.SimplifyTree.SimplifyTree",
+ "gh_guid": "1303da7b-e339-4e65-a051-82c4dce8224d",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "shared_ends",
+   "inputs": {
+    "tree": {
+     "0;0;5": [
+      "a"
+     ],
+     "0;1;5": [
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a"
+     ],
+     "{1}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "shared_ends_front",
+   "inputs": {
+    "tree": {
+     "0;0;5": [
+      "a"
+     ],
+     "0;1;5": [
+      "b"
+     ]
+    },
+    "front": true
+   },
+   "expect": {
+    "tree": {
+     "{0;5}": [
+      "a"
+     ],
+     "{1;5}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_branch_unchanged",
+   "inputs": {
+    "tree": {
+     "0;3;2": [
+      "a",
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0;3;2}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "nothing_shared",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a"
+     ],
+     "0;1": [
+      "b"
+     ],
+     "1;0": [
+      "c"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0;0}": [
+      "a"
+     ],
+     "{0;1}": [
+      "b"
+     ],
+     "{1;0}": [
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "ragged_keeps_first_index",
+   "inputs": {
+    "tree": {
+     "2;1": [
+      "a"
+     ],
+     "2;1;0": [
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{2}": [
+      "a"
+     ],
+     "{2;0}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "ragged_three",
+   "inputs": {
+    "tree": {
+     "4;1": [
+      "a"
+     ],
+     "4;1;0": [
+      "b"
+     ],
+     "4;1;0;7": [
+      "c"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{4}": [
+      "a"
+     ],
+     "{4;0}": [
+      "b"
+     ],
+     "{4;0;7}": [
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "middle_shared",
+   "inputs": {
+    "tree": {
+     "0;7;1": [
+      "a"
+     ],
+     "1;7;2": [
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0;1}": [
+      "a"
+     ],
+     "{1;2}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "middle_shared_front_unchanged",
+   "inputs": {
+    "tree": {
+     "0;7;1": [
+      "a"
+     ],
+     "1;7;2": [
+      "b"
+     ]
+    },
+    "front": true
+   },
+   "expect": {
+    "tree": {
+     "{0;7;1}": [
+      "a"
+     ],
+     "{1;7;2}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "prefix_and_deeper",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "0;1": [
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a"
+     ],
+     "{0;1}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "mixed_depths",
+   "inputs": {
+    "tree": {
+     "0;0;1;2": [
+      "a"
+     ],
+     "0;0;1": [
+      "b"
+     ],
+     "0;0;5": [
+      "c"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{1}": [
+      "b"
+     ],
+     "{1;2}": [
+      "a"
+     ],
+     "{5}": [
+      "c"
+     ]
+    }
+   }
+  }
+ ]
+}

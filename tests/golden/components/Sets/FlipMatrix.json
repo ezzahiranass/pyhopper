@@ -1,0 +1,207 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.FlipMatrix.FlipMatrix",
+ "gh_guid": "41aa4112-9c9b-42f4-847e-503b9d90e4c7",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "ragged_pads_with_none",
+   "inputs": {
+    "data": {
+     "0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "1": [
+      "d",
+      "e"
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{0}": [
+      "a",
+      "d"
+     ],
+     "{1}": [
+      "b",
+      "e"
+     ],
+     "{2}": [
+      "c",
+      null
+     ]
+    }
+   }
+  },
+  {
+   "name": "deep_paths",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "0;1": [
+      "c",
+      "d"
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [
+      "a",
+      "c"
+     ],
+     "{0;1}": [
+      "b",
+      "d"
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_branch",
+   "inputs": {
+    "data": {
+     "3": [
+      "a",
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{0}": [
+      "a"
+     ],
+     "{1}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "differing_first_index",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1;0": [
+      "c",
+      "d"
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [
+      "a",
+      "c"
+     ],
+     "{1;0}": [
+      "b",
+      "d"
+     ]
+    }
+   }
+  },
+  {
+   "name": "three_deep_non_zero",
+   "inputs": {
+    "data": {
+     "2;5;1": [
+      "a",
+      "b",
+      "c"
+     ],
+     "2;5;3": [
+      "d",
+      "e",
+      "f"
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{2;5;0}": [
+      "a",
+      "d"
+     ],
+     "{2;5;1}": [
+      "b",
+      "e"
+     ],
+     "{2;5;2}": [
+      "c",
+      "f"
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_branch_pads",
+   "inputs": {
+    "data": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": []
+    }
+   },
+   "expect": {
+    "data": {
+     "{0}": [
+      "a",
+      null
+     ],
+     "{1}": [
+      "b",
+      null
+     ]
+    }
+   }
+  },
+  {
+   "name": "mixed_depth_raises",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "c",
+      "d"
+     ]
+    }
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "two_loci_raise",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1;1": [
+      "c",
+      "d"
+     ]
+    }
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

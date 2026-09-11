@@ -1,0 +1,135 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.FlattenTree.FlattenTree",
+ "gh_guid": "f80cfe18-9510-4b89-8301-8e58faf423bb",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "default_path",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "c"
+     ],
+     "2": []
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a",
+      "b",
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "custom_path",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "c"
+     ]
+    },
+    "path": {
+     "type": "Path",
+     "indices": [
+      2,
+      3
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{2;3}": [
+      "a",
+      "b",
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "path_from_text",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b"
+     ]
+    },
+    "path": "{4;1}"
+   },
+   "expect": {
+    "tree": {
+     "{4;1}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_tree",
+   "inputs": {
+    "tree": {
+     "5": []
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0}": []
+    }
+   }
+  },
+  {
+   "name": "two_paths_flatten_twice",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      "b"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       5
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       7
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "tree": {
+     "{5}": [
+      "a",
+      "b"
+     ],
+     "{7}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  }
+ ]
+}

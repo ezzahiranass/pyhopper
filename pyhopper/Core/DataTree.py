@@ -10,6 +10,7 @@ and JSON serialization.
 from __future__ import annotations
 
 import json
+import math
 from collections import OrderedDict
 from enum import Enum
 from itertools import product
@@ -17,6 +18,11 @@ from typing import Any, Iterator
 
 from .Branch import Branch
 from .Path import Path
+
+
+def _is_invalid(item: Any) -> bool:
+    """Grasshopper's notion of an invalid item, for pyhopper data: a non-finite number."""
+    return isinstance(item, float) and not math.isfinite(item)
 
 
 class MatchRule(Enum):
@@ -68,10 +74,12 @@ class DataTree:
 
         - DataTree -> passthrough
         - list/tuple -> single branch {0} with all items
-        - scalar/Atom -> single item at {0}
+        - scalar/Atom/Path -> single item at {0} (a Path is a tuple, but it is one item)
         """
         if isinstance(value, DataTree):
             return value
+        if isinstance(value, Path):
+            return cls.from_item(value)
         if isinstance(value, (list, tuple)):
             return cls.from_list(value)
         return cls.from_item(value)
@@ -122,44 +130,61 @@ class DataTree:
         return any(item in b for b in self._branches.values())
 
     # ── Tree Operations (all return new DataTree) ───────────────────
+    #
+    # These follow Grasshopper's data-tree components exactly (checked with the
+    # headless oracle in rhino-test/oracle): Flatten, Graft, Simplify, Trim,
+    # Flip Matrix, Entwine, Merge, Prune and Clean.
 
-    def flatten(self) -> DataTree:
-        """Collapse all branches into a single branch at {0}."""
-        all_items = self.all_items()
-        path = Path.root()
-        return DataTree({path: Branch(path, all_items)})
+    def flatten(self, path: Path | None = None) -> DataTree:
+        """Collapse every branch into one branch at ``path`` (default ``{0}``)."""
+        target = Path.root() if path is None else Path(*path)
+        return DataTree({target: Branch(target, self.all_items())})
 
     def graft(self) -> DataTree:
-        """Each item becomes its own branch.
+        """Each item becomes its own branch: ``{a;b}[i]`` moves to ``{a;b;i}[0]``.
 
-        Item at {a;b}[i] moves to {a;b;i}[0].
+        An empty branch survives as the empty sub-branch ``{a;b;0}`` (Grasshopper).
         """
         branches = {}
         for path, branch in self._branches.items():
+            if not len(branch):
+                new_path = path.append(0)
+                branches[new_path] = Branch(new_path, [])
             for i, item in enumerate(branch):
                 new_path = path.append(i)
                 branches[new_path] = Branch(new_path, [item])
         return DataTree(branches)
 
-    def simplify(self) -> DataTree:
-        """Remove the longest common path prefix from all branches."""
-        if len(self._branches) <= 1:
-            path = Path.root()
-            items = self.all_items()
-            return DataTree({path: Branch(path, items)})
+    def simplify(self, front: bool = False) -> DataTree:
+        """Remove the path indices that every branch shares (Grasshopper Simplify).
 
-        all_paths = list(self._branches.keys())
-        prefix = all_paths[0]
-        for p in all_paths[1:]:
-            prefix = prefix.common_prefix(p)
-
-        trim_depth = prefix.depth
-        if trim_depth == 0:
+        Positions are compared up to the shortest path; with ``front`` only the
+        leading run of shared positions is removed. When removing every shared
+        position would leave the shortest path empty, its first index is kept
+        (``{2;1}`` + ``{2;1;0}`` -> ``{2}`` + ``{2;0}``). A tree with a single
+        branch is returned unchanged, exactly like Grasshopper.
+        """
+        paths = list(self._branches.keys())
+        if len(paths) < 2:
             return DataTree(dict(self._branches))
-
+        shortest = min(len(path) for path in paths)
+        shared = [position for position in range(shortest) if len({path[position] for path in paths}) == 1]
+        if front:
+            leading = []
+            for position in range(shortest):
+                if position in shared:
+                    leading.append(position)
+                else:
+                    break
+            shared = leading
+        if len(shared) == shortest and shared:
+            shared = shared[1:]  # never empty the shortest path: keep its first index
+        removed = set(shared)
+        if not removed:
+            return DataTree(dict(self._branches))
         branches = {}
         for path, branch in self._branches.items():
-            new_path = Path(*path[trim_depth:]) if len(path) > trim_depth else Path.root()
+            new_path = Path(*(index for position, index in enumerate(path) if position not in removed))
             branches[new_path] = Branch(new_path, list(branch))
         return DataTree(branches)
 
@@ -171,47 +196,88 @@ class DataTree:
         return DataTree(branches)
 
     def flip_matrix(self) -> DataTree:
-        """Transpose: swap branch-index and item-index dimensions.
+        """Swap rows and columns of a matrix-like tree (Grasshopper Flip Matrix).
 
-        A tree with N branches of M items each becomes M branches of N items.
+        All paths must have the same length and may differ at a single index
+        position (the *locus*); item ``i`` of every branch lands in the branch
+        whose locus index is ``i``. Shorter branches are padded with ``None``
+        (Grasshopper nulls). Raises ``ValueError`` for uneven or multi-locus paths.
         """
-        all_paths = list(self._branches.keys())
-        if not all_paths:
+        paths = list(self._branches.keys())
+        if not paths:
             return DataTree()
-
-        max_items = max(len(b) for b in self._branches.values())
+        length = len(paths[0])
+        if any(len(path) != length for path in paths):
+            raise ValueError("Flip Matrix needs paths of the same length")
+        loci = [position for position in range(length) if len({path[position] for path in paths}) > 1]
+        if len(loci) > 1:
+            raise ValueError("Flip Matrix paths may only differ at a single index position")
+        locus = loci[0] if loci else length - 1
+        count = max(len(branch) for branch in self._branches.values())
+        template = list(paths[0])
         branches = {}
-        for i in range(max_items):
-            new_path = Path(i)
-            items = []
-            for path in all_paths:
-                branch = self._branches[path]
-                if i < len(branch):
-                    items.append(branch[i])
-                elif branch:
-                    items.append(branch[-1])  # repeat last
-            branches[new_path] = Branch(new_path, items)
+        for i in range(count):
+            template[locus] = i
+            new_path = Path(*template)
+            branches[new_path] = Branch(new_path, [branch[i] if i < len(branch) else None for branch in self._branches.values()])
         return DataTree(branches)
 
     def trim(self, depth: int) -> DataTree:
-        """Truncate all paths to *depth*, merging branches that collide."""
+        """Remove the last ``depth`` indices of every path, merging colliding branches.
+
+        Grasshopper's Trim Tree: ``{0;0;1}`` + ``{0;0;2}`` -> ``{0;0}`` at depth 1.
+        Branches whose path is not longer than ``depth`` are omitted (Grasshopper
+        drops them with a warning); a negative depth raises ``ValueError``.
+        """
+        if depth < 0:
+            raise ValueError("Trim Tree depth has to be a positive integer")
+        if depth == 0:
+            return DataTree(dict(self._branches))
         branches: dict[Path, list] = {}
         for path, branch in self._branches.items():
-            new_path = path.trim(depth) if path.depth > depth else path
-            if new_path in branches:
-                branches[new_path].extend(branch)
-            else:
-                branches[new_path] = list(branch)
+            if len(path) <= depth:
+                continue
+            new_path = Path(*path[: len(path) - depth])
+            branches.setdefault(new_path, []).extend(branch)
         return DataTree.from_branches(branches)
+
+    def prune(self, minimum: int = 0, maximum: int = 0) -> DataTree:
+        """Drop branches with fewer than ``minimum`` or more than ``maximum`` items.
+
+        ``maximum = 0`` means no upper limit (Grasshopper Prune Tree).
+        """
+        branches = {}
+        for path, branch in self._branches.items():
+            count = len(branch)
+            if count < minimum or (maximum > 0 and count > maximum):
+                continue
+            branches[path] = Branch(path, list(branch))
+        return DataTree(branches)
+
+    def clean(self, remove_nulls: bool = True, remove_invalid: bool = True, remove_empty: bool = False) -> DataTree:
+        """Remove ``None`` items, invalid items and/or empty branches (Grasshopper Clean Tree).
+
+        pyhopper atoms are always valid; "invalid" items are non-finite numbers.
+        """
+        branches = {}
+        for path, branch in self._branches.items():
+            items = list(branch)
+            if remove_nulls:
+                items = [item for item in items if item is not None]
+            if remove_invalid:
+                items = [item for item in items if not _is_invalid(item)]
+            if remove_empty and not items:
+                continue
+            branches[path] = Branch(path, items)
+        return DataTree(branches)
 
     @classmethod
     def entwine(cls, *trees: DataTree) -> DataTree:
-        """Merge multiple trees, prepending each tree's branches with a unique index."""
+        """Flatten each tree into its own branch ``{0;i}`` (Grasshopper Entwine)."""
         branches = {}
         for i, tree in enumerate(trees):
-            for path, branch in tree._branches.items():
-                new_path = path.prepend(i)
-                branches[new_path] = Branch(new_path, list(branch))
+            new_path = Path(0, i)
+            branches[new_path] = Branch(new_path, tree.all_items())
         return cls(branches)
 
     @classmethod

@@ -1,0 +1,90 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.Entwine.Entwine",
+ "gh_guid": "c9785b8e-2f30-4f90-8ee3-cca710f82402",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_streams",
+   "inputs": {
+    "branches": [
+     {
+      "0": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "0": [
+       "c"
+      ],
+      "1": [
+       "d"
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "Grasshopper emits an empty {0;i} branch for each of its three ports even when unconnected; pyhopper emits one branch per stream"
+   }
+  },
+  {
+   "name": "three_streams",
+   "inputs": {
+    "branches": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ],
+     [
+      "c",
+      "d"
+     ]
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "deep_stream_is_flattened",
+   "inputs": {
+    "branches": [
+     {
+      "3;1": [
+       "a"
+      ],
+      "3;2": [
+       "b"
+      ]
+     },
+     [
+      "c"
+     ]
+    ]
+   },
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "Grasshopper emits an empty {0;i} branch for each of its three ports even when unconnected; pyhopper emits one branch per stream"
+   }
+  },
+  {
+   "name": "no_streams",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "Grasshopper emits an empty {0;i} branch for each of its three ports even when unconnected; pyhopper emits one branch per stream"
+   }
+  }
+ ]
+}

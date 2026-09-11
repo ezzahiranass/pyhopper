@@ -187,6 +187,7 @@ GH_TYPE_HINTS: dict[str, str] = {
     "Transform": "AtomicTransform",
     "Brep": "AtomicBrep",
     "Domain": "AtomicInterval",
+    "Path": "Path",
     "Curve": "CURVE",
     "Surface": "SURFACE",
     "Geometry": "GEOMETRY",

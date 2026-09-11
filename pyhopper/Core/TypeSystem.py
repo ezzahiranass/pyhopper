@@ -130,6 +130,8 @@ def accepted_type_names(target: type | TypeSpec | None) -> list[str] | None:
         return ["AtomicBrep", "AtomicBox", "AtomicSurface", "AtomicTrimmedSurface"]
     if target is AtomicSurface:
         return ["AtomicSurface", "AtomicBrep"]
+    if target is Path:
+        return ["Path", "str", "int"]
     return [target.__name__]
 
 
@@ -181,6 +183,18 @@ def coerce_item(value: Any, target: type | TypeSpec | None) -> Any:
 
     if target is AtomicPlane and isinstance(value, AtomicPoint):
         return AtomicPlane.world_xy(value)
+
+    if target is Path:
+        if isinstance(value, Path):
+            return value
+        if isinstance(value, str):
+            try:
+                return Path.parse(value)
+            except ValueError as error:
+                raise CoercionError(target, value, reason=str(error)) from None
+        if isinstance(value, int) and not isinstance(value, bool):
+            return Path(value)
+        raise CoercionError(target, value)
 
     if target is AtomicBrep:
         if isinstance(value, AtomicBox):

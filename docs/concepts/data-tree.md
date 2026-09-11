@@ -85,28 +85,49 @@ grafted = tree.graft()
 **When to use it:** You have a list of *parameters* (heights, angles, counts) and want
 each one to pair with a separate copy of the geometry in the next component.
 
-### `flatten()`
+### `flatten(path=None)`
 
-Collapse all branches into a single branch at `{0}`.
+Collapse all branches into a single branch at `{0}` (or the path you pass).
 
 ```python
 tree.flatten()
 # {0}: [10, 20, 30, 40, ...]
 ```
 
-### `simplify()`
+### `simplify(front=False)`
 
-Remove the longest common path prefix from all branches.
+Remove the index positions that every branch shares — Grasshopper's Simplify, verified
+against Grasshopper 8. With `front=True` only the leading run of shared positions goes.
+The shortest path always keeps at least its first index, and a single-branch tree is
+returned unchanged (Grasshopper does not simplify `{0;0}` to `{0}` either).
 
 ```python
-# {0;0}: [a]
-# {0;1}: [b]
-# simplify → {0}: [a]  {1}: [b]
+# {0;0;5}: [a]
+# {0;1;5}: [b]
+# simplify()           → {0}: [a]    {1}: [b]      (positions 0 and 2 were shared)
+# simplify(front=True) → {0;5}: [a]  {1;5}: [b]    (only the leading position)
 ```
 
 ### `flip_matrix()`
 
-Transpose branches and items: N branches of M items → M branches of N items.
+Transpose branches and items: N branches of M items → M branches of N items. Paths must
+have the same length and differ at one index position only; item `i` of every branch lands
+in the branch whose varying index is `i`, and shorter branches are padded with `None`
+(Grasshopper nulls).
+
+```python
+# {0;0}: [a, b]
+# {0;1}: [c, d]
+# flip_matrix() → {0;0}: [a, c]   {0;1}: [b, d]
+```
+
+### `trim(depth)`, `prune(minimum, maximum)`, `clean(...)`, `entwine(*trees)`
+
+The remaining Grasshopper tree operations, with the same semantics as their components:
+`trim` removes the last `depth` indices and merges colliding branches (branches that are not
+deep enough are dropped, like Grasshopper), `prune` drops branches by item count
+(`maximum=0` = unbounded), `clean` removes `None` items, non-finite numbers and optionally
+empty branches, and `DataTree.entwine(a, b, ...)` flattens each tree into its own `{0;i}`.
 
 ---
 
