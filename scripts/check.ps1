@@ -20,7 +20,7 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 if ($env:RHINO_ORACLE -eq "1") {
     Write-Host "== Rhino 8 oracle suite (rhino-test/oracle)"
     $rpy = Join-Path $root "rhino-test\.venv\Scripts\python.exe"
-    & $rpy -m unittest discover -s (Join-Path $root "rhino-test\oracle") -v
+    & $rpy -m unittest discover -s (Join-Path $root "rhino-test\oracle") -t (Join-Path $root "rhino-test") -v
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 Write-Host "== all checks passed"
