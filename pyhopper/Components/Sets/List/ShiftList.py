@@ -3,38 +3,38 @@
 from __future__ import annotations
 
 import builtins
-from typing import Any
 
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
-
-
-def _first(value: Any, default: Any) -> Any:
-    values = value if isinstance(value, builtins.list) else [value]
-    return values[0] if values else default
 
 
 class ShiftList(Component):
     """Shift each incoming branch by an integer offset.
 
-    Positive offsets begin the result later in the branch. With ``wrap``
-    enabled, shifted-out items cycle to the opposite end.
+    ``list`` is a whole-branch (LIST) input; ``shift`` and ``wrap`` are ITEM
+    inputs, so several shift values in one branch produce one shifted list per
+    value in sub-branches. Positive offsets begin the result later in the
+    branch. With ``wrap`` enabled, shifted-out items cycle to the opposite end.
     """
+
+    display_name = "Shift List"
+    nickname = "Shift"
+    gh_guid = "4fdfe351-6c07-47ce-9fb9-be027fb62186"
 
     inputs = [
         InputParam("list", None, Access.LIST),
-        InputParam("shift", int, Access.LIST, default=1),
-        InputParam("wrap", bool, Access.LIST, default=True),
+        InputParam("shift", int, Access.ITEM, default=1),
+        InputParam("wrap", bool, Access.ITEM, default=True),
     ]
     outputs = [OutputParam("list")]
 
     def generate(self, list=None, shift=1, wrap=True):
         """Return the shifted incoming branch."""
-        branch = list if isinstance(list, builtins.list) else [list]
+        branch = list if isinstance(list, (tuple, builtins.list)) else [list]
         if not branch:
             return []
 
-        offset = int(_first(shift, 1))
-        if bool(_first(wrap, True)):
+        offset = int(shift)
+        if wrap:
             offset %= len(branch)
             return branch[offset:] + branch[:offset]
 

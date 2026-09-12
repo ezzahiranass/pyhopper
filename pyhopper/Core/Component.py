@@ -1,16 +1,30 @@
 """
 Component - Base class for all pyhopper components.
 
-Handles the entire solve pipeline: input coercion, data matching,
-iteration over branches/items, calling generate(), and output tree
-construction. Concrete components only implement generate().
+Handles the entire solve pipeline: input binding and coercion, branch
+pairing across inputs, per-input access (ITEM / LIST / TREE) iteration,
+calling generate(), and output tree construction. Concrete components only
+implement generate().
+
+Access semantics follow Grasshopper:
+
+* ``ITEM`` inputs are iterated item by item inside a branch (longest-list
+  matching, last item repeated).
+* ``LIST`` inputs are handed to ``generate()`` as the whole branch (a list),
+  once per branch.
+* ``TREE`` inputs do not take part in branch pairing; the full ``DataTree``
+  is supplied to every call.
+* With ``variadic_inputs = True`` the last declared input accepts any number
+  of streams; ``generate()`` receives them as a list (one entry per stream,
+  each shaped by the declared access).
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any
+from itertools import product
+from typing import Any, Iterable, Sequence
 
 from .TypeSystem import TypeSpec
 
@@ -25,7 +39,7 @@ from .Path import Path
 class Access(Enum):
     ITEM = "item"   # generate called once per matched item-tuple
     LIST = "list"   # generate called once per matched branch
-    TREE = "tree"   # generate called once with full trees
+    TREE = "tree"   # generate receives the whole tree on every call
 
 
 @dataclass
@@ -41,6 +55,43 @@ class InputParam:
 class OutputParam:
     name: str
     type_hint: type | TypeSpec | None = None
+
+
+# ── Sentinels and iteration context ─────────────────────────────────
+
+
+class _NoOutput:
+    """Returned from generate() (or as one tuple element) to emit nothing."""
+
+    __slots__ = ()
+
+    def __repr__(self) -> str:
+        return "NO_OUTPUT"
+
+
+NO_OUTPUT = _NoOutput()
+
+
+@dataclass(frozen=True)
+class IterationContext:
+    """Where the current generate() call writes: branch path, item index, item count."""
+
+    path: Path
+    index: int = 0
+    count: int = 1
+
+
+@dataclass
+class _BoundInput:
+    param: InputParam
+    tree: DataTree
+    stream_index: int | None = None  # set for variadic streams
+
+
+@dataclass
+class _BoundInputs:
+    tree_inputs: list[_BoundInput] = field(default_factory=list)
+    iterated: list[_BoundInput] = field(default_factory=list)   # ITEM + LIST, declaration order
 
 
 # ── ComponentResult ─────────────────────────────────────────────────
@@ -94,17 +145,39 @@ class Component:
 
     Calling MyComponent(arg1, arg2, kwarg=val) triggers the solve
     pipeline and returns a ComponentResult (a DataTree).
+
+    Inside ``generate()``:
+
+    * ``self.iteration`` tells the current branch path, item index and count.
+    * return ``Component.NO_OUTPUT`` (or use it as one tuple element) to emit
+      nothing for this call.
+    * return a ``list`` to emit several items (they land in a sub-branch when
+      the branch runs more than one iteration, like Grasshopper's
+      ``SetDataList``).
+    * return a ``DataTree`` to place items at absolute paths; use
+      ``self.sub_branches(lists)`` to build one under the current branch.
     """
 
     inputs: list[InputParam] = []
     outputs: list[OutputParam] = [OutputParam("result")]
     match_rule: MatchRule = MatchRule.LONGEST_LIST
     settings_schema: dict[str, dict[str, Any]] = {}
+    variadic_inputs: bool = False
+
+    # Optional Grasshopper-facing metadata (surfaced by the catalog).
+    display_name: str | None = None
+    nickname: str | None = None
+    gh_guid: str | None = None
+    gh_extra_inputs: tuple[str, ...] = ()
+
+    NO_OUTPUT = NO_OUTPUT
+    iteration: IterationContext | None = None
 
     def __new__(cls, *args: Any, **kwargs: Any) -> ComponentResult:
         settings = kwargs.pop("_settings", None)
         instance = object.__new__(cls)
         instance.settings = instance._normalize_settings(settings)
+        instance.iteration = None
         return instance._solve(*args, **kwargs)
 
     def _normalize_settings(self, settings: Any) -> dict[str, Any]:
@@ -127,7 +200,7 @@ class Component:
         return normalized
 
     def generate(self, **kw: Any) -> Any:
-        """Override in subclasses. Receives matched items as keyword args.
+        """Override in subclasses. Receives matched inputs as keyword args.
 
         Return a single value (single-output) or a tuple matching
         len(self.outputs) for multi-output components.
@@ -136,50 +209,102 @@ class Component:
             f"{type(self).__name__} must implement generate()"
         )
 
-    # ── Solve pipeline ──────────────────────────────────────────────
+    # ── Helpers available inside generate() ─────────────────────────
 
-    def _solve(self, *args: Any, **kwargs: Any) -> ComponentResult:
-        # 1. Map args/kwargs to declared inputs
-        input_trees = self._coerce_inputs(*args, **kwargs)
+    def sub_branches(self, lists: Iterable[Iterable[Any]]) -> DataTree:
+        """Build a tree with one branch per list under the current branch.
 
-        # 2. Determine access mode (use the first input's access, or ITEM)
-        access = self._get_access_mode()
+        Branch ``k`` lands at ``{path;k}``, or ``{path;index;k}`` when the
+        current branch runs several item iterations.
+        """
+        context = self.iteration or IterationContext(Path.root())
+        base = context.path.append(context.index) if context.count > 1 else context.path
+        branches: dict[Path, list[Any]] = {}
+        for k, items in enumerate(lists):
+            branches[base.append(k)] = list(items)
+        return DataTree.from_branches(branches)
 
-        # 3. Dispatch based on access mode
-        if access == Access.TREE:
-            return self._solve_tree(input_trees)
-        elif access == Access.LIST:
-            return self._solve_list(input_trees)
-        else:
-            return self._solve_item(input_trees)
+    # ── Input binding ───────────────────────────────────────────────
 
-    def _coerce_inputs(self, *args: Any, **kwargs: Any) -> dict[str, DataTree]:
-        """Map positional/keyword args to input names, coerce to DataTrees."""
-        input_trees: dict[str, DataTree] = {}
-        params_by_name = {param.name: param for param in self.inputs}
+    def _variadic_index(self) -> int | None:
+        if self.variadic_inputs and self.inputs:
+            return len(self.inputs) - 1
+        return None
 
-        # Positional args map to inputs in declaration order
-        for i, arg in enumerate(args):
-            if i < len(self.inputs):
-                param = self.inputs[i]
-                input_trees[param.name] = self._coerce_input_tree(param, DataTree.coerce(arg))
+    def _bind_inputs(self, *args: Any, **kwargs: Any) -> _BoundInputs:
+        """Map positional/keyword args to declared inputs and coerce them."""
+        params = list(self.inputs)
+        params_by_name = {param.name: param for param in params}
+        variadic_index = self._variadic_index()
+        variadic_name = params[variadic_index].name if variadic_index is not None else None
+        name = type(self).__name__
 
-        # Keyword args override
-        for key, val in kwargs.items():
-            tree = DataTree.coerce(val)
-            input_trees[key] = self._coerce_input_tree(params_by_name[key], tree) if key in params_by_name else tree
+        bound: list[_BoundInput] = []
+        seen: set[str] = set()
+        streams = 0
 
-        # Fill defaults for missing inputs
-        for inp in self.inputs:
-            if inp.name not in input_trees:
-                if inp.default is not None:
-                    input_trees[inp.name] = self._coerce_input_tree(inp, DataTree.coerce(inp.default))
-                elif not inp.optional:
-                    raise TypeError(
-                        f"{type(self).__name__} missing required input: '{inp.name}'"
-                    )
+        for index, arg in enumerate(args):
+            if variadic_index is not None and index >= variadic_index:
+                param = params[variadic_index]
+                bound.append(_BoundInput(param, self._coerce_input_tree(param, DataTree.coerce(arg)), streams))
+                streams += 1
+            elif index < len(params):
+                param = params[index]
+                bound.append(_BoundInput(param, self._coerce_input_tree(param, DataTree.coerce(arg))))
+            else:
+                raise TypeError(
+                    f"{name} accepts {len(params)} positional input(s) but {len(args)} were given"
+                )
+            seen.add(param.name)
 
-        return input_trees
+        for key, value in kwargs.items():
+            param = params_by_name.get(key)
+            if param is None:
+                raise TypeError(f"{name} got an unexpected input '{key}'")
+            if key in seen:
+                raise TypeError(f"{name} got multiple values for input '{key}'")
+            if param.name == variadic_name:
+                for stream in self._variadic_streams(value):
+                    bound.append(_BoundInput(param, self._coerce_input_tree(param, DataTree.coerce(stream)), streams))
+                    streams += 1
+            else:
+                bound.append(_BoundInput(param, self._coerce_input_tree(param, DataTree.coerce(value))))
+            seen.add(key)
+
+        for param in params:
+            if param.name in seen:
+                continue
+            if param.default is not None:
+                tree = self._coerce_input_tree(param, DataTree.coerce(param.default))
+                bound.append(_BoundInput(param, tree, 0 if param.name == variadic_name else None))
+            elif not param.optional and param.name != variadic_name:
+                raise TypeError(f"{name} missing required input: '{param.name}'")
+
+        result = _BoundInputs()
+        for item in bound:
+            if item.param.access == Access.TREE:
+                result.tree_inputs.append(item)
+            else:
+                result.iterated.append(item)
+        return result
+
+    @staticmethod
+    def _variadic_streams(value: Any) -> list[Any]:
+        """A list/tuple of DataTrees is a stream collection; anything else is one stream."""
+        if isinstance(value, (list, tuple)) and value and all(isinstance(item, DataTree) for item in value):
+            return list(value)
+        return [value]
+
+    def _coerce_inputs(self, *args: Any, **kwargs: Any) -> dict[str, DataTree | list[DataTree]]:
+        """Compatibility helper: bound inputs as ``{name: tree}`` (variadic → list of trees)."""
+        bound = self._bind_inputs(*args, **kwargs)
+        result: dict[str, Any] = {}
+        for item in bound.tree_inputs + bound.iterated:
+            if item.stream_index is not None:
+                result.setdefault(item.param.name, []).append(item.tree)
+            else:
+                result[item.param.name] = item.tree
+        return result
 
     @staticmethod
     def _coerce_input_tree(param: InputParam, tree: DataTree) -> DataTree:
@@ -188,72 +313,111 @@ class Component:
 
         return coerce_tree(tree, param.type_hint, input_name=param.name)
 
-    def _get_access_mode(self) -> Access:
-        """Determine the access mode from input declarations."""
-        if not self.inputs:
-            return Access.ITEM
-        # If any input uses TREE access, use TREE
-        for inp in self.inputs:
-            if inp.access == Access.TREE:
-                return Access.TREE
-        # If any input uses LIST access, use LIST
-        for inp in self.inputs:
-            if inp.access == Access.LIST:
-                return Access.LIST
-        return Access.ITEM
+    # ── Solve pipeline ──────────────────────────────────────────────
 
-    # ── ITEM access solve ───────────────────────────────────────────
+    def _solve(self, *args: Any, **kwargs: Any) -> ComponentResult:
+        bound = self._bind_inputs(*args, **kwargs)
+        collectors: list[dict[Path, list[Any]]] = [{} for _ in self.outputs]
+        tree_kwargs = self._group_values([(item.param, item.tree, item.stream_index) for item in bound.tree_inputs])
 
-    def _solve_item(self, input_trees: dict[str, DataTree]) -> ComponentResult:
-        """Solve with ITEM access: generate called once per matched item-tuple.
+        if not bound.iterated:
+            # Zero-input component, or every input is TREE access: one call at {0}.
+            placed = self._run_generate(tree_kwargs, Path.root(), 0, 1, collectors)
+            if not placed:
+                for collector in collectors:
+                    collector.setdefault(Path.root(), [])
+            return self._build_result(collectors)
 
-        When generate() returns a list and the branch has multiple items,
-        each invocation's list gets its own sub-branch at path.append(item_idx),
-        matching Grasshopper's automatic branching for list outputs.
-        """
-        if not input_trees:
-            # Zero-input component
-            return self._build_result_from_single_call({})
+        principal = DataTree.principal([item.tree for item in bound.iterated])
+        for path in principal.paths:
+            branches = [item.tree.nearest_branch(path) for item in bound.iterated]
+            self._solve_branch(bound, path, branches, tree_kwargs, collectors)
 
-        input_names = [inp.name for inp in self.inputs if inp.name in input_trees]
-        trees = [input_trees[name] for name in input_names]
+        return self._build_result(collectors)
 
-        # Initialize output collectors
-        output_branches: list[dict[Path, list]] = [
-            {} for _ in self.outputs
-        ]
+    def _solve_branch(
+        self,
+        bound: _BoundInputs,
+        path: Path,
+        branches: list[list[Any]],
+        tree_kwargs: dict[str, Any],
+        collectors: list[dict[Path, list[Any]]],
+    ) -> None:
+        list_values: list[tuple[InputParam, Any, int | None]] = []
+        item_specs: list[tuple[_BoundInput, list[Any]]] = []
+        for item, branch in zip(bound.iterated, branches):
+            if item.param.access == Access.LIST:
+                list_values.append((item.param, list(branch), item.stream_index))
+            else:
+                item_specs.append((item, branch))
 
-        for path, matched_items in DataTree.match(trees, self.match_rule):
-            # matched_items[i] is a list of items from trees[i]
-            num_items = len(matched_items[0]) if matched_items else 0
+        active_items = [(item, branch) for item, branch in item_specs if branch]
+        missing_required = any(not branch and not item.param.optional for item, branch in item_specs)
 
-            for item_idx in range(num_items):
-                kw = {}
-                for j, name in enumerate(input_names):
-                    kw[name] = matched_items[j][item_idx]
+        if missing_required:
+            indices: list[tuple[int, ...]] = []
+        elif not active_items:
+            indices = [()]
+        else:
+            indices = list(_iteration_indices([len(branch) for _, branch in active_items], self.match_rule))
 
-                result = self.generate(**kw)
-                self._collect_item_output(
-                    result, path, item_idx, num_items, output_branches,
-                )
+        count = len(indices)
+        placed_any = False
+        for iteration_index, combo in enumerate(indices):
+            values = list(list_values)
+            for (item, branch), item_index in zip(active_items, combo):
+                values.append((item.param, branch[item_index], item.stream_index))
+            kwargs = dict(tree_kwargs)
+            kwargs.update(self._group_values(values))
+            target = path
+            if self.match_rule == MatchRule.CROSS_REFERENCE and combo:
+                target = path.append(combo[0])
+            if self._run_generate(kwargs, target, iteration_index, count, collectors):
+                placed_any = True
 
-        return self._build_result(output_branches)
+        if not placed_any:
+            # Keep the branch topology: an empty or silent branch stays an empty branch.
+            for collector in collectors:
+                collector.setdefault(path, [])
 
-    def _collect_item_output(
+    @staticmethod
+    def _group_values(values: Sequence[tuple[InputParam, Any, int | None]]) -> dict[str, Any]:
+        """Turn (param, value, stream_index) triples into generate() kwargs."""
+        grouped: dict[str, Any] = {}
+        streams: dict[str, list[tuple[int, Any]]] = {}
+        for param, value, stream_index in values:
+            if stream_index is None:
+                grouped[param.name] = value
+            else:
+                streams.setdefault(param.name, []).append((stream_index, value))
+        for name, entries in streams.items():
+            grouped[name] = [value for _, value in sorted(entries, key=lambda entry: entry[0])]
+        return grouped
+
+    def _run_generate(
+        self,
+        kwargs: dict[str, Any],
+        path: Path,
+        index: int,
+        count: int,
+        collectors: list[dict[Path, list[Any]]],
+    ) -> bool:
+        """Call generate() once and collect its outputs; returns True if anything was placed."""
+        self.iteration = IterationContext(path, index, count)
+        result = self.generate(**kwargs)
+        return self._collect(result, path, index, count, collectors)
+
+    # ── Output collection ───────────────────────────────────────────
+
+    def _collect(
         self,
         result: Any,
         path: Path,
-        item_idx: int,
-        num_items: int,
-        output_branches: list[dict[Path, list]],
-    ) -> None:
-        """Route a generate() result into the output branch collectors.
-
-        Like _collect_output but aware of the item iteration context so
-        list results create sub-branches when multiple items are iterated.
-        """
+        index: int,
+        count: int,
+        collectors: list[dict[Path, list[Any]]],
+    ) -> bool:
         num_outputs = len(self.outputs)
-
         if num_outputs > 1:
             if not isinstance(result, (tuple, list)) or len(result) != num_outputs:
                 raise ValueError(
@@ -261,144 +425,68 @@ class Component:
                     f"{num_outputs} elements (matching {num_outputs} outputs), "
                     f"got {type(result).__name__}"
                 )
-            for i, val in enumerate(result):
-                self._place_item_value(
-                    output_branches[i], path, item_idx, num_items, val,
-                )
+            values = list(result)
         else:
-            self._place_item_value(
-                output_branches[0], path, item_idx, num_items, result,
-            )
+            values = [result]
+
+        placed = False
+        for collector, value in zip(collectors, values):
+            if self._place_value(collector, path, index, count, value):
+                placed = True
+        return placed
 
     @staticmethod
-    def _place_item_value(
-        collector: dict[Path, list],
+    def _place_value(
+        collector: dict[Path, list[Any]],
         path: Path,
-        item_idx: int,
-        num_items: int,
+        index: int,
+        count: int,
         value: Any,
-    ) -> None:
-        """Place a single output value into the branch collector.
+    ) -> bool:
+        """Route one generate() value into a collector.
 
-        If the value is a list and multiple items are being iterated,
-        it gets its own sub-branch at path.append(item_idx) — matching
-        Grasshopper's behavior where list outputs auto-branch.
+        * ``NO_OUTPUT`` places nothing.
+        * ``DataTree`` results are merged at their absolute paths.
+        * ``list`` results extend the branch, moving to ``{path;index}`` when
+          the branch runs more than one iteration.
+        * anything else is appended as a single item.
         """
-        # List result with multiple iterations → sub-branch per invocation
-        if isinstance(value, list) and num_items > 1:
-            path = path.append(item_idx)
-
-        if path not in collector:
-            collector[path] = []
-
+        if value is NO_OUTPUT:
+            return False
+        if isinstance(value, DataTree):
+            for branch_path, branch in value.branches():
+                collector.setdefault(branch_path, []).extend(branch)
+            return True
         if isinstance(value, list):
-            collector[path].extend(value)
-        elif isinstance(value, DataTree):
-            collector[path].extend(value.all_items())
-        else:
-            collector[path].append(value)
+            target = path.append(index) if count > 1 else path
+            collector.setdefault(target, []).extend(value)
+            return True
+        collector.setdefault(path, []).append(value)
+        return True
 
-    # ── LIST access solve ───────────────────────────────────────────
-
-    def _solve_list(self, input_trees: dict[str, DataTree]) -> ComponentResult:
-        """Solve with LIST access: generate called once per matched branch."""
-        if not input_trees:
-            return self._build_result_from_single_call({})
-
-        input_names = [inp.name for inp in self.inputs if inp.name in input_trees]
-        trees = [input_trees[name] for name in input_names]
-
-        output_branches: list[dict[Path, list]] = [
-            {} for _ in self.outputs
-        ]
-
-        for path, matched_items in DataTree.match(trees, self.match_rule):
-            kw = {}
-            for j, name in enumerate(input_names):
-                kw[name] = matched_items[j]  # pass the whole list
-
-            result = self.generate(**kw)
-            self._collect_output(result, path, output_branches)
-
-        return self._build_result(output_branches)
-
-    # ── TREE access solve ───────────────────────────────────────────
-
-    def _solve_tree(self, input_trees: dict[str, DataTree]) -> ComponentResult:
-        """Solve with TREE access: generate called once with full trees."""
-        kw = {name: tree for name, tree in input_trees.items()}
-        result = self.generate(**kw)
-
-        output_branches: list[dict[Path, list]] = [
-            {} for _ in self.outputs
-        ]
-        self._collect_output(result, Path.root(), output_branches)
-        return self._build_result(output_branches)
-
-    # ── Output collection helpers ───────────────────────────────────
-
-    def _collect_output(
-        self,
-        result: Any,
-        path: Path,
-        output_branches: list[dict[Path, list]],
-    ) -> None:
-        """Place generate() return value(s) into the output branch collectors."""
-        num_outputs = len(self.outputs)
-
-        if num_outputs > 1:
-            # Multi-output: result must be a tuple/list matching output count
-            if not isinstance(result, (tuple, list)) or len(result) != num_outputs:
-                raise ValueError(
-                    f"{type(self).__name__}.generate() must return a tuple of "
-                    f"{num_outputs} elements (matching {num_outputs} outputs), "
-                    f"got {type(result).__name__}"
-                )
-            for i, val in enumerate(result):
-                self._add_to_branch(output_branches[i], path, val)
-        else:
-            # Single output
-            self._add_to_branch(output_branches[0], path, result)
-
-    @staticmethod
-    def _add_to_branch(
-        collector: dict[Path, list], path: Path, value: Any
-    ) -> None:
-        """Add a value (single item or list of items) to the branch collector."""
-        if path not in collector:
-            collector[path] = []
-
-        if isinstance(value, list):
-            collector[path].extend(value)
-        elif isinstance(value, DataTree):
-            # If generate returns a DataTree, merge it
-            collector[path].extend(value.all_items())
-        else:
-            collector[path].append(value)
-
-    def _build_result(
-        self, output_branches: list[dict[Path, list]]
-    ) -> ComponentResult:
+    def _build_result(self, collectors: list[dict[Path, list[Any]]]) -> ComponentResult:
         """Build ComponentResult from output branch collectors."""
         output_trees: dict[str, DataTree] = {}
-
-        for i, out_param in enumerate(self.outputs):
-            branches = {}
-            for path, items in output_branches[i].items():
-                branches[path] = Branch(path, items)
+        for out_param, collector in zip(self.outputs, collectors):
+            branches = {path: Branch(path, items) for path, items in collector.items()}
             output_trees[out_param.name] = DataTree(branches)
 
-        first_name = self.outputs[0].name
-        primary = output_trees[first_name]
+        primary = output_trees[self.outputs[0].name]
         return ComponentResult(primary, output_trees)
 
-    def _build_result_from_single_call(
-        self, kw: dict[str, Any]
-    ) -> ComponentResult:
-        """Handle zero-input components."""
-        result = self.generate(**kw)
-        output_branches: list[dict[Path, list]] = [
-            {} for _ in self.outputs
-        ]
-        self._collect_output(result, Path.root(), output_branches)
-        return self._build_result(output_branches)
+
+# ── Item matching inside a branch ───────────────────────────────────
+
+
+def _iteration_indices(lengths: Sequence[int], rule: MatchRule) -> Iterable[tuple[int, ...]]:
+    """Yield one index tuple (one index per ITEM input) for every iteration."""
+    if not lengths or any(length <= 0 for length in lengths):
+        return
+    if rule == MatchRule.SHORTEST_LIST:
+        for i in range(min(lengths)):
+            yield tuple(i for _ in lengths)
+    elif rule == MatchRule.CROSS_REFERENCE:
+        yield from product(*(range(length) for length in lengths))
+    else:  # LONGEST_LIST: repeat the last item of shorter inputs
+        for i in range(max(lengths)):
+            yield tuple(min(i, length - 1) for length in lengths)

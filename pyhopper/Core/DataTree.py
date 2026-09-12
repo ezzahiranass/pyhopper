@@ -229,6 +229,23 @@ class DataTree:
     # ── Data Matching ───────────────────────────────────────────────
 
     @classmethod
+    def principal(cls, trees: list[DataTree]) -> DataTree:
+        """The tree whose paths drive iteration: most branches, then deepest path.
+
+        Ties keep the first tree, so declaration order matters.
+        """
+        if not trees:
+            raise ValueError("principal() needs at least one tree")
+        return max(
+            trees,
+            key=lambda t: (t.branch_count, max((p.depth for p in t.paths), default=0)),
+        )
+
+    def nearest_branch(self, target_path: Path) -> list:
+        """Items at *target_path*, or of the last branch when the path is missing (repeat-last)."""
+        return _find_nearest_branch(self, target_path)
+
+    @classmethod
     def match(
         cls,
         trees: list[DataTree],
@@ -248,10 +265,7 @@ class DataTree:
 
         # Determine the principal tree: the one with the most branches,
         # breaking ties by deepest max path depth. Its paths drive iteration.
-        principal = max(
-            trees,
-            key=lambda t: (t.branch_count, max((p.depth for p in t.paths), default=0)),
-        )
+        principal = cls.principal(trees)
         sorted_paths = sorted(principal.paths)
 
         # For each path in the principal tree, find matching branches in others
@@ -330,7 +344,8 @@ def _longest_list_match(branches: list[list]) -> list[list]:
         return []
 
     max_len = max((len(b) for b in branches), default=0)
-    if max_len == 0:
+    if max_len == 0 or any(len(b) == 0 for b in branches):
+        # An empty branch has nothing to repeat: no item pairs exist.
         return [[] for _ in branches]
 
     result = [[] for _ in branches]

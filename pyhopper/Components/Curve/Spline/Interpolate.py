@@ -9,11 +9,6 @@ from pyhopper.Utils.Curves import (
 )
 
 
-def _first(value, default):
-    if isinstance(value, list):
-        return value[0] if value else default
-    return value
-
 
 class Interpolate(Component):
     """Create an interpolated NURBS curve from each branch of vertices.
@@ -21,6 +16,10 @@ class Interpolate(Component):
     Knot style values are ``0`` for uniform, ``1`` for chord spacing, and
     ``2`` for square-root chord spacing. Degree must be a positive odd number.
     """
+
+    display_name = "Interpolate"
+    nickname = "IntCrv"
+    gh_guid = "2b2a4145-3dff-41d4-a8de-1ea9d29eef33"
 
     inputs = [
         InputParam("vertices", AtomicPoint, Access.LIST),
@@ -37,9 +36,9 @@ class Interpolate(Component):
     def generate(self, vertices=None, degree=3, periodic=False, knot_style=1):
         curve = interpolate_nurbs_curve(
             tuple(vertices or ()),
-            int(_first(degree, 3)),
-            bool(_first(periodic, False)),
-            int(_first(knot_style, 1)),
+            int(degree),
+            bool(periodic),
+            int(knot_style),
         )
         domain_start, domain_end = nurbs_curve_domain(curve)
         return curve, nurbs_curve_length(curve), AtomicInterval(domain_start, domain_end)

@@ -60,24 +60,52 @@ disambiguation instead, for example `AtomicCircle`, `AtomicLine`, `AtomicPoint`.
 
 ## 3. Respect the inherited solve model
 
-Every normal component should subclass `Component` and let the base class handle:
+Every component subclasses `Component` and lets the base class handle:
 
-- input coercion to `DataTree`
-- branch and item matching
-- access-mode dispatch (`ITEM`, `LIST`, `TREE`)
-- path propagation
-- output collection
+- input binding and coercion to `DataTree`
+- branch pairing across inputs and per-input access (`ITEM`, `LIST`, `TREE`)
+- path propagation and output collection
 - `ComponentResult` wrapping
 
 That means:
 
-- declare `inputs`
+- declare `inputs` (each with the access Grasshopper gives that port)
 - declare `outputs`
 - implement `generate()`
 
-Do not reimplement the solve pipeline in each component.
-Only override `__new__` or bypass the standard pipeline when the component
-truly requires special tree-level behavior, as in `Merge`.
+Never override `__new__` and never reimplement iteration inside `generate()`.
+The pipeline follows Grasshopper's rules exactly:
+
+| Declared access | Drives iteration? | `generate()` receives |
+|---|---|---|
+| `ITEM` | yes — iterated item by item inside the branch (longest list, last item repeated) | one item |
+| `LIST` | yes — one call per branch | the whole branch as a `list` |
+| `TREE` | no — supplied whole to every call | the `DataTree` |
+| optional input, absent or empty branch | — | the keyword is omitted (the signature default applies) |
+| variadic tail (`variadic_inputs = True`) | each stream is a pseudo-input with the declared access | `name=[stream, stream, ...]` |
+
+Branch pairing: the *principal* tree (most branches, then deepest path) drives
+iteration; other iterated inputs contribute the branch at the same path or, when
+missing, their last branch. Inside a branch the number of calls is the longest
+`ITEM` branch; a required `ITEM` input with an empty branch makes zero calls and
+the output branch stays empty. Empty or silent branches are preserved as empty
+output branches (Grasshopper keeps topology).
+
+Inside `generate()` you can use:
+
+- `self.iteration` — an `IterationContext(path, index, count)` for the current call
+- `Component.NO_OUTPUT` — return it (or use it as one element of the output
+  tuple) to emit nothing for this call
+- `self.sub_branches(lists)` — build a `DataTree` with one branch per list under
+  the current branch (`{path;k}`, or `{path;index;k}` when the branch runs
+  several item iterations); return it to place chunks explicitly
+
+Calling a component with extra positional arguments or unknown keywords raises
+`TypeError`; a required input that is neither connected nor defaulted raises too.
+
+Variadic inputs (`Merge`, `Entwine`, `Weave`, `Sort List` values…) set
+`variadic_inputs = True` on the class; the *last* declared input then accepts
+any number of streams. `Merge(a, b)` and `Merge(data=[a, b])` are equivalent.
 
 ---
 
@@ -166,15 +194,26 @@ When defining them:
 
 Rules of thumb:
 
+- copy the access Grasshopper declares for the matching port (the dump in
+  `rhino-test/gh_core_components_r8.json` lists it as `[item]`, `[list]`, `[tree]`)
 - `ITEM` for per-item transforms and analysis
-- `LIST` when a whole branch must be seen together
-- `TREE` only when the component truly needs whole-tree awareness
+- `LIST` when a whole branch must be seen together (the list ports of
+  `List Item`, `Partition List`, `Polyline` vertices)
+- `TREE` only for whole-tree operations (`Merge`, `Flatten Tree`, `Graft Tree`)
 
-Examples:
+Mixed access is the normal case, not the exception: `List Item` declares
+`list` as `LIST` and `index`/`wrap` as `ITEM`, so three indices in one branch
+produce three items in that branch — no `__new__` override, no `[0]` reducer.
 
-- `Polygon` should use `LIST`
-- `Merge` is effectively tree-level
-- most transforms like `Move` and `Rotate` use `ITEM`
+Also declare the Grasshopper identity on the class so the catalog can show it
+and the metadata test can check the port contract:
+
+```python
+display_name = "List Item"      # exact Grasshopper name
+nickname = "Item"               # Grasshopper nickname
+gh_guid = "59daf374-bc21-4a5e-8282-5504fb7ae9ae"
+gh_extra_inputs = ()            # names of pyhopper-only trailing inputs, if any
+```
 
 ### Never use `default=None` as a stand-in for a real default value
 
@@ -249,6 +288,16 @@ the latter. The framework handles the branching.
 
 For **multi-output** components returning a tuple, each element is handled
 independently — some outputs can be scalars and others lists.
+
+- **`Component.NO_OUTPUT`** → nothing is emitted for this call. Use it for
+  events that have no result (parallel lines in `Line | Line`, an
+  out-of-range index without wrap). The branch is still kept, empty, when no
+  call of the branch emitted anything.
+
+- **`DataTree`** → merged by absolute path. Build it with
+  `self.sub_branches(lists)` when the component partitions its input
+  (`Partition List` writes chunk `k` to `{path;k}`), or construct it directly
+  for whole-tree operations (`Merge`, `Flatten Tree`).
 
 ---
 
