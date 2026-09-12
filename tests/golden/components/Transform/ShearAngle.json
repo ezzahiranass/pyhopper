@@ -1,0 +1,253 @@
+{
+ "component": "pyhopper.Components.Transform.Affine.ShearAngle.ShearAngle",
+ "gh_guid": "f19ee36c-f21f-4e25-be4c-4ca4b30eda0d",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "tilt_x",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "base": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "angle_x": [
+     0.7853981633974483
+    ],
+    "angle_y": [
+     0.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "tilt_y",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     }
+    ],
+    "base": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "angle_x": [
+     0.0
+    ],
+    "angle_y": [
+     0.7853981633974483
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "both_angles",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     }
+    ],
+    "base": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "angle_x": [
+     0.4636476090008061
+    ],
+    "angle_y": [
+     0.24497866312686414
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "tilted_base",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     }
+    ],
+    "base": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 1
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "angle_x": [
+     0.3
+    ],
+    "angle_y": [
+     -0.2
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "transform_only",
+   "inputs": {
+    "base": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "angle_x": [
+     0.4
+    ],
+    "angle_y": [
+     0.1
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "flat_frame_raises",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "angle_x": [
+     1.5707963267948966
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

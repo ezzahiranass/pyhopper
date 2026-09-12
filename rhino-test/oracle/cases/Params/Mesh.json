@@ -1,0 +1,231 @@
+{
+ "component": "pyhopper.Components.Params.Geometry.Mesh.Mesh",
+ "gh_guid": "1e936df3-0eea-4246-8549-514cb8862b7a",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "mesh": [
+     {
+      "type": "Mesh",
+      "vertices": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      ],
+      "faces": [
+       [
+        0,
+        1,
+        2
+       ],
+       [
+        0,
+        2,
+        3
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "mesh": {
+     "0": [
+      {
+       "type": "Mesh",
+       "vertices": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 1,
+         "z": 0
+        }
+       ],
+       "faces": [
+        [
+         0,
+         1,
+         2
+        ],
+        [
+         0,
+         2,
+         3
+        ]
+       ]
+      },
+      {
+       "type": "Mesh",
+       "vertices": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 1
+        }
+       ],
+       "faces": [
+        [
+         0,
+         1,
+         2
+        ]
+       ]
+      }
+     ],
+     "1;2": [
+      {
+       "type": "Mesh",
+       "vertices": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 1,
+         "z": 0
+        }
+       ],
+       "faces": [
+        [
+         0,
+         1,
+         2
+        ],
+        [
+         0,
+         2,
+         3
+        ]
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_branch",
+   "inputs": {
+    "mesh": {
+     "0": [],
+     "1": [
+      {
+       "type": "Mesh",
+       "vertices": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 1,
+         "z": 0
+        }
+       ],
+       "faces": [
+        [
+         0,
+         1,
+         2
+        ],
+        [
+         0,
+         2,
+         3
+        ]
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

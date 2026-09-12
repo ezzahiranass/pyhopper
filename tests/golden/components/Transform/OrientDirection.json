@@ -1,0 +1,644 @@
+{
+ "component": "pyhopper.Components.Transform.Affine.OrientDirection.OrientDirection",
+ "gh_guid": "1602b2cc-007c-4b79-8926-0067c6184e44",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "z_to_x",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_a": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_b": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 0.0,
+       "z": 6.123233995736766e-17
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        6.123233995736766e-17,
+        0.0,
+        1.0,
+        5.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        6.123233995736766e-17,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "off_origin",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_a": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "direction_b": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 6.0,
+       "z": 6.123233995736766e-17
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0,
+        6.123233995736766e-17,
+        1.0,
+        5.0,
+        0.0,
+        -1.0,
+        6.123233995736766e-17,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "line_geometry_scales_by_direction_length",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 2
+      }
+     }
+    ],
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_a": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     }
+    ],
+    "direction_b": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 1.0,
+        "z": 0.9999999999999998
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3.0000000000000004,
+        "y": 3.0000000000000004,
+        "z": 1.0
+       }
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        0.7071067811865477,
+        -0.7071067811865476,
+        1.0000000000000002,
+        1.0,
+        -0.7071067811865476,
+        0.7071067811865477,
+        1.0000000000000002,
+        1.0,
+        -1.0000000000000002,
+        -1.0000000000000002,
+        8.659560562354934e-17,
+        0.9999999999999998,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "scaled_off_origin",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_a": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "direction_b": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 7.0,
+       "z": 1.2246467991473532e-16
+      },
+      {
+       "type": "Point3d",
+       "x": 7.0,
+       "y": 5.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        2.0,
+        0.0,
+        0.0,
+        3.0,
+        0.0,
+        1.2246467991473532e-16,
+        2.0,
+        5.0,
+        0.0,
+        -2.0,
+        1.2246467991473532e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      },
+      {
+       "type": "Transform",
+       "matrix": [
+        2.0,
+        0.0,
+        0.0,
+        3.0,
+        0.0,
+        1.2246467991473532e-16,
+        2.0,
+        5.0,
+        0.0,
+        -2.0,
+        1.2246467991473532e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "same_direction_scales_only",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_a": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_b": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.5
+      },
+      {
+       "type": "Point3d",
+       "x": 0.5,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      },
+      {
+       "type": "Transform",
+       "matrix": [
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 3.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "transform_only",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_a": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_b": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": []
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        2.0,
+        1.0,
+        6.123233995736766e-17,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_direction_raises",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "direction_a": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}
