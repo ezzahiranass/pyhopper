@@ -1,0 +1,173 @@
+{
+ "component": "pyhopper.Components.Intersect.Mathematical.LineLine.LineLine",
+ "gh_guid": "6d4b82a7-8c1d-4bec-af7b-ca321ba4beb1",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "skew_closest_points",
+   "inputs": {
+    "line_1": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "line_2": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 1,
+      "y": -1,
+      "z": 1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 1
+     }
+    }
+   },
+   "compare": [
+    "Param A",
+    "Param B",
+    "Point A",
+    "Point B"
+   ]
+  },
+  {
+   "name": "crossing",
+   "inputs": {
+    "line_1": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "line_2": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 1,
+      "y": -1,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     }
+    }
+   },
+   "compare": [
+    "Param A",
+    "Param B",
+    "Point A",
+    "Point B"
+   ]
+  },
+  {
+   "name": "beyond_segments",
+   "inputs": {
+    "line_1": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "line_2": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 3,
+      "y": 5,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 3,
+      "y": 6,
+      "z": 0
+     }
+    }
+   },
+   "compare": [
+    "Param A",
+    "Param B",
+    "Point A",
+    "Point B"
+   ]
+  },
+  {
+   "name": "parallel_emits_nothing",
+   "inputs": {
+    "line_1": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "line_2": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 1,
+      "z": 0
+     }
+    }
+   },
+   "compare": [
+    "Param A",
+    "Param B",
+    "Point A",
+    "Point B"
+   ]
+  }
+ ]
+}

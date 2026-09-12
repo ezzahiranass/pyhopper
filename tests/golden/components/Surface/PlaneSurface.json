@@ -1,0 +1,284 @@
+{
+ "component": "pyhopper.Components.Surface.Primitive.PlaneSurface.PlaneSurface",
+ "gh_guid": "439a55a5-2f9e-4f66-9de2-32f24fec2ef5",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "custom_domains",
+   "inputs": {
+    "x_size": {
+     "type": "Interval",
+     "start": -1.0,
+     "end": 3.0
+    },
+    "y_size": {
+     "type": "Interval",
+     "start": 0.0,
+     "end": 2.0
+    }
+   },
+   "expect": {
+    "surface": {
+     "{0}": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": -1.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 3.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": -1.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 3.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        -1.0,
+        3.0
+       ],
+       "v_knots": [
+        0.0,
+        2.0
+       ],
+       "u_mults": [
+        2,
+        2
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 1,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "defaults",
+   "inputs": {},
+   "expect": {
+    "surface": {
+     "{0}": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": -10.0,
+          "y": -10.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 10.0,
+          "y": -10.0,
+          "z": 0.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": -10.0,
+          "y": 10.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 10.0,
+          "y": 10.0,
+          "z": 0.0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        -10.0,
+        10.0
+       ],
+       "v_knots": [
+        -10.0,
+        10.0
+       ],
+       "u_mults": [
+        2,
+        2
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 1,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "tilted",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "x_size": {
+     "type": "Interval",
+     "start": 0.0,
+     "end": 1.0
+    },
+    "y_size": {
+     "type": "Interval",
+     "start": 0.0,
+     "end": 2.0
+    }
+   },
+   "expect": {
+    "surface": {
+     "{0}": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 1.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": -2.0
+         },
+         {
+          "type": "Point3d",
+          "x": 1.0,
+          "y": 0.0,
+          "z": -2.0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        2.0
+       ],
+       "u_mults": [
+        2,
+        2
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 1,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_domain_raises",
+   "inputs": {
+    "x_size": {
+     "type": "Interval",
+     "start": 1.0,
+     "end": 1.0
+    }
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

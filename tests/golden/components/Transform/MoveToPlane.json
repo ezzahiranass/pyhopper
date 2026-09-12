@@ -1,0 +1,407 @@
+{
+ "component": "pyhopper.Components.Transform.Euclidian.MoveToPlane.MoveToPlane",
+ "gh_guid": "4fe87ef8-49e4-4605-9859-87940d62e1de",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "point_above_moves_down",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": 3
+    }
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        1.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        1.0,
+        -3.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "point_below_moves_up",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": -3
+    }
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        3.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "straddling_line_moves_up",
+   "inputs": {
+    "geometry": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": -1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    }
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 4.0
+       }
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "above_disabled",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": 3
+    },
+    "above": false
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 3.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "below_disabled",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": -3
+    },
+    "below": false
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": -3.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "straddling_counts_as_below",
+   "inputs": {
+    "geometry": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": -1
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    },
+    "below": false
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 3.0
+       }
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "tilted_plane",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 5,
+     "z": 0
+    },
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    }
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        1.0,
+        0.0,
+        -5.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

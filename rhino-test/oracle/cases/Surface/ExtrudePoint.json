@@ -1,0 +1,119 @@
+{
+ "component": "pyhopper.Components.Surface.Freeform.ExtrudePoint.ExtrudePoint",
+ "gh_guid": "be6636b2-2f1a-4d42-897b-fdef429b6f17",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "base"
+ ],
+ "cases": [
+  {
+   "name": "circle",
+   "inputs": {
+    "base": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 3
+    }
+   },
+   "compare": [
+    "Extrusion"
+   ]
+  },
+  {
+   "name": "line",
+   "inputs": {
+    "base": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "point": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 2,
+     "z": 3
+    }
+   },
+   "compare": [
+    "Extrusion"
+   ]
+  },
+  {
+   "name": "polyline_kinked",
+   "inputs": {
+    "base": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ]
+    },
+    "point": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 1,
+     "z": 5
+    }
+   },
+   "compare": [
+    "Extrusion"
+   ],
+   "gh": {
+    "skip": "Grasshopper splits the extrusion into one face per polyline segment; pyhopper emits one kinked surface"
+   }
+  }
+ ]
+}

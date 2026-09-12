@@ -101,6 +101,9 @@ class PortNameRuleTests(unittest.TestCase):
         self.assertEqual(port_name_for("Length", "Length Parameter"), "length_before")
         self.assertEqual(port_name_for("Length", "Length Parameter", duplicate=True), "length_after")
         self.assertEqual(port_name_for("Box", "Bounding Box", duplicate=True), "plane_box")
+        # output-only overrides leave the input of the same Grasshopper name alone
+        self.assertEqual(port_name_for("Plane", "Plane Surface"), "plane")
+        self.assertEqual(port_name_for("Plane", "Plane Surface", output=True), "surface")
         self.assertEqual(port_name_for("RegEx", "Match Text"), "regex")
 
 

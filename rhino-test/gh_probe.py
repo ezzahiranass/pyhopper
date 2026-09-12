@@ -97,12 +97,49 @@ diag = L(P(0, 0, 0), P(3, 3, 0))
 yline = L(P(0, 0, 0), P(0, 3, 0))
 uneven = AtomicPolyline((P(0, 0, 0), P(1, 0, 0), P(4, 0, 0)))
 kinked = AtomicPolyline((P(0, 0, 0), P(4, 0, 0), P(4, 3, 0)))
+from pyhopper.Core.Atoms import AtomicBox, AtomicSurface, AtomicTransform
+BOX2 = "2a43ef96-8f87-4892-8b94-237a47e8d3cf"
+BBOX = "0bb3d234-9097-45db-9998-621639c87d3b"
+PLSRF = "439a55a5-2f9e-4f66-9de2-32f24fec2ef5"
+DEBOX = "db7d83b1-2898-4ef9-9be5-4e94b4e2048d"
+DIM = "f241e42e-8983-4ed3-b869-621c07630b00"
+SRFPT = "15128198-399d-4d6c-9586-1f65db3ce7bf"
+EXTRPT = "be6636b2-2f1a-4d42-897b-fdef429b6f17"
+SUMSRF = "5e33c760-adcd-4235-b1dd-05cf72eb7a38"
+LLX = "6d4b82a7-8c1d-4bec-af7b-ca321ba4beb1"
+PLX = "75d0442c-1aa3-47cf-bd94-457b42c16e9f"
+PPX = "290cf9c4-0711-4704-851e-4c99e3343ac5"
+MTP = "4fe87ef8-49e4-4605-9859-87940d62e1de"
+ROT3D = "3dfb9a77-6e05-4016-9f20-94f78607d672"
+SHEAR = "5a27203a-e05f-4eea-b80f-a5f29a00fdf2"
+PROJECT = "23285717-156c-468f-a691-b242488c06a6"
+XFORM = "610e689b-5adc-47b3-af8f-e3a32b7ea341"
+COMPOUND = "ca80054a-cde0-4f69-a132-10502b24866d"
+INVERSE = "51f61166-7202-45aa-9126-3d83055b269e"
+tilted = AtomicPlane(P(0, 0, 0), V(0, 1, 0), V(1, 0, 0))
+plane_srf = AtomicSurface(poles=((P(0, 0, 0), P(4, 0, 0)), (P(0, 2, 0), P(4, 2, 0))), u_degree=1, v_degree=1)
+curved = AtomicSurface(poles=((P(0, 0, 0), P(2, 0, 1), P(4, 0, 0)), (P(0, 2, 0), P(2, 2, 2), P(4, 2, 0))), u_degree=2, v_degree=1)
+box = AtomicBox(AtomicPlane.world_xy(P(1, 1.5, 2)), 2.0, 3.0, 4.0)
+
+curved2 = AtomicSurface(poles=((P(0, 0, 0), P(3, 0, 0), P(6, 0, 0)), (P(0, 1, 0), P(3, 1, 4), P(6, 1, 0))), u_degree=2, v_degree=1)
 PROBES = [
-    ("Divide kinks polyline 2", DIVIDE_CURVE, {0: T([kinked]), 1: T([2]), 2: T([True])}),
-    ("Divide kinks polyline 3", DIVIDE_CURVE, {0: T([kinked]), 1: T([3]), 2: T([True])}),
-    ("Divide kinks polyline 3 no kinks", DIVIDE_CURVE, {0: T([kinked]), 1: T([3]), 2: T([False])}),
-    ("Divide kinks closed square 4", DIVIDE_CURVE, {0: T([closed_poly]), 1: T([4]), 2: T([True])}),
-    ("Divide kinks closed square 3", DIVIDE_CURVE, {0: T([closed_poly]), 1: T([3]), 2: T([True])}),
+    ("Dimensions curved2", DIM, {0: T([curved2])}),
+    ("Dimensions plane rotated", DIM, {0: T([AtomicSurface(poles=((P(0, 0, 0), P(3, 4, 0)), (P(-4, 3, 0), P(-1, 7, 0))), u_degree=1, v_degree=1)])}),
+    ("PPX other pair", PPX, {0: T([AtomicPlane(P(0, 0, 0), V(0, 0, 1), V(1, 0, 0))]), 1: T([AtomicPlane(P(3, 1, 2), V(0, 1, 0), V(1, 0, 0))])}),
+    ("PPX tilted", PPX, {0: T([AtomicPlane(P(1, 1, 1), V(1, 1, 0), V(0, 0, 1))]), 1: T([AtomicPlane(P(-2, 0, 3), V(0, 0, 1), V(1, 0, 0))])}),
+    ("MoveToPlane straddling below off", MTP, {0: T([L(P(0, 0, -1), P(0, 0, 3))]), 1: T([AtomicPlane.world_xy()]), 3: T([False])}),
+    ("MoveToPlane straddling above off", MTP, {0: T([L(P(0, 0, -1), P(0, 0, 3))]), 1: T([AtomicPlane.world_xy()]), 2: T([False])}),
+    ("MoveToPlane tilted plane point", MTP, {0: T([P(0, 5, 0)]), 1: T([AtomicPlane(P(0, 0, 0), V(0, 1, 0), V(1, 0, 0))])}),
+    ("BBox nurbs", BBOX, {0: T([helix])}),
+    ("BBox arc", BBOX, {0: T([AtomicArc(AtomicPlane.world_xy(), 2.0, I(0, math.pi / 2))])}),
+    ("BBox box", BBOX, {0: T([box])}),
+    ("BBox empty", BBOX, {0: T([])}),
+    ("LLX param beyond both", LLX, {0: T([L(P(0, 0, 0), P(1, 0, 0))]), 1: T([L(P(3, 5, 0), P(3, 6, 0))])}),
+    ("PLX line param beyond", PLX, {0: T([L(P(0, 0, 1), P(0, 0, 2))]), 1: T([AtomicPlane.world_xy()])}),
+    ("Extrude point polyline", EXTRPT, {0: T([poly]), 1: T([P(1, 1, 5)])}),
+    ("Extrude point surface", EXTRPT, {0: T([plane_srf]), 1: T([P(2, 1, 5)])}),
+    ("Sum surface polyline line", SUMSRF, {0: T([poly]), 1: T([L(P(0, 0, 0), P(0, 0, 2))])}),
+    ("Sum surface two arcs", SUMSRF, {0: T([AtomicArc(AtomicPlane.world_xy(), 1.0, I(0, math.pi / 2))]), 1: T([AtomicArc(AtomicPlane(P(0, 0, 0), V(0, 1, 0), V(1, 0, 0)), 1.0, I(0, math.pi / 2))])}),
 ]
 
 for label, guid, inputs in PROBES:

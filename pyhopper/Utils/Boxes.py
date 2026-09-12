@@ -53,3 +53,32 @@ def box_to_brep(box: AtomicBox) -> AtomicBrep:
         _quad_surface(corners[(-1, -1, -1)], corners[(-1, 1, -1)], corners[(-1, -1, 1)], corners[(-1, 1, 1)]),
         _quad_surface(corners[(1, -1, -1)], corners[(1, 1, -1)], corners[(1, -1, 1)], corners[(1, 1, 1)]),
     ))
+
+
+def box_corners(box: AtomicBox) -> list[AtomicPoint]:
+    """The eight corners in Grasshopper's order: bottom face A-B-C-D counter-clockwise, then the top face E-F-G-H."""
+    half_x = float(box.x_size) / 2.0
+    half_y = float(box.y_size) / 2.0
+    half_z = float(box.z_size) / 2.0
+    corners = []
+    for z in (-half_z, half_z):
+        for x, y in ((-half_x, -half_y), (half_x, -half_y), (half_x, half_y), (-half_x, half_y)):
+            corners.append(_point_on_box(box, x, y, z))
+    return corners
+
+
+def box_from_corners(plane, corner_a: AtomicPoint, corner_b: AtomicPoint) -> AtomicBox:
+    """Box aligned to ``plane`` spanned by two corners (their plane coordinates), centred like every pyhopper box."""
+    from pyhopper.Utils.Planes import plane_coordinates, point_on_plane
+
+    ax, ay, az = plane_coordinates(plane, corner_a)
+    bx, by, bz = plane_coordinates(plane, corner_b)
+    centre = point_on_plane(plane, (ax + bx) / 2.0, (ay + by) / 2.0, (az + bz) / 2.0)
+    return AtomicBox(type(plane)(origin=centre, normal=plane.normal, x_axis=plane.x_axis), abs(bx - ax), abs(by - ay), abs(bz - az))
+
+
+def box_intervals(box: AtomicBox):
+    """Grasshopper Deconstruct Box domains: the box is centred on its plane, so each is +/- half a size."""
+    from pyhopper.Core.Atoms import AtomicInterval
+
+    return tuple(AtomicInterval(-float(size) / 2.0, float(size) / 2.0) for size in (box.x_size, box.y_size, box.z_size))

@@ -43,13 +43,17 @@ PORT_OVERRIDES: dict[tuple[str, str], str] = {
     ("Extrude Linear", "Orientation (A)"): "axis_orientation",
     ("Match Text", "RegEx"): "regex",
     ("Set Difference (S)", "ExDifference"): "symmetric_difference",
-    ("Plane Surface", "Plane"): "surface",                      # output port; the input plane keeps "plane"
     ("Sort List", "Values A"): "values",                        # variadic collapse
     # "output" shadows ComponentResult.output(); the constants follow the Maths "Result" convention
     ("Pi", "Output"): "result",
     ("Golden Ratio", "Output"): "result",
     ("Epsilon", "Output"): "result",
     ("Natural logarithm", "Output"): "result",
+}
+
+# Output ports whose Grasshopper name would collide with (or mislead next to) an input of the same name.
+OUTPUT_PORT_OVERRIDES: dict[tuple[str, str], str] = {
+    ("Plane Surface", "Plane"): "surface",                      # the input plane keeps "plane"
 }
 
 # Second occurrence of a duplicated GH output name (mapped by position when names repeat).
@@ -138,16 +142,19 @@ def variadic_port_name(gh_port_name: str) -> str | None:
     return None
 
 
-def port_name_for(gh_port_name: str, gh_component_name: str | None = None, *, duplicate: bool = False) -> str:
+def port_name_for(gh_port_name: str, gh_component_name: str | None = None, *, duplicate: bool = False, output: bool = False) -> str:
     """Derive a snake_case pyhopper port name from a Grasshopper port name.
 
-    ``duplicate`` selects the second mapping when a component repeats an output
-    name (Length Parameter, Bounding Box). Overrides win; numbered stream ports
-    collapse to their plural variadic name.
+    ``output`` selects the output-only overrides (Plane Surface's "Plane" output
+    is the surface); ``duplicate`` selects the second mapping when a component
+    repeats an output name (Length Parameter, Bounding Box). Overrides win;
+    numbered stream ports collapse to their plural variadic name.
     """
     if gh_component_name is not None:
         if duplicate and (gh_component_name, gh_port_name) in DUPLICATE_OUTPUT_OVERRIDES:
             return DUPLICATE_OUTPUT_OVERRIDES[(gh_component_name, gh_port_name)]
+        if output and (gh_component_name, gh_port_name) in OUTPUT_PORT_OVERRIDES:
+            return OUTPUT_PORT_OVERRIDES[(gh_component_name, gh_port_name)]
         if (gh_component_name, gh_port_name) in PORT_OVERRIDES:
             return PORT_OVERRIDES[(gh_component_name, gh_port_name)]
     plural = variadic_port_name(gh_port_name)

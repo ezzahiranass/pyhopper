@@ -1,0 +1,217 @@
+{
+ "component": "pyhopper.Components.Transform.Euclidian.Rotate3D.Rotate3D",
+ "gh_guid": "3dfb9a77-6e05-4016-9f20-94f78607d672",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "quarter_turn",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    },
+    "angle": 1.5707963267948966,
+    "center": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "axis": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 0,
+     "z": 1
+    }
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 6.123233995736766e-17,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        6.123233995736766e-17,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "defaults_quarter_turn_about_z",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 6.123233995736766e-17,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        6.123233995736766e-17,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "transform_only",
+   "inputs": {
+    "angle": 3.141592653589793
+   },
+   "expect": {
+    "geometry": {
+     "{0}": []
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        -1.0,
+        -1.2246467991473532e-16,
+        0.0,
+        0.0,
+        1.2246467991473532e-16,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "off_centre_axis",
+   "inputs": {
+    "geometry": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "angle": 3.141592653589793,
+    "center": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    },
+    "axis": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 1.2246467991473532e-16
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        -1.0,
+        0.0,
+        1.2246467991473532e-16,
+        2.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.2246467991473532e-16,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
