@@ -12,9 +12,10 @@ from pyhopper.Core.Atoms import (
     AtomicVector,
 )
 from pyhopper.Utils.Curves import evaluate_nurbs_curve, nurbs_curve_domain
+from pyhopper.Utils.Nurbs import curve_tangent
 from pyhopper.Utils.Transforms import apply_transform
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
-from pyhopper.Utils.Vectors import distance, dot, sub
+from pyhopper.Utils.Vectors import distance, dot
 
 
 def checked_count(count: int) -> int:
@@ -94,19 +95,14 @@ def curve_array_transforms(curve, count: int) -> list[AtomicTransform]:
     rail = as_nurbs_curve(curve)
     start, end = nurbs_curve_domain(rail)
     parameters = _curve_array_parameters(rail, item_count)
-    epsilon = max(abs(end - start) * 1e-6, 1e-9)
     frames = []
     previous_x = None
 
     for parameter in parameters:
-        before = max(start, parameter - epsilon)
-        after = min(end, parameter + epsilon)
-        tangent = sub(
-            evaluate_nurbs_curve(rail, after),
-            evaluate_nurbs_curve(rail, before),
-        ).unitize()
-        if tangent.length == 0.0:
-            raise ValueError("Curve Array cannot construct a frame at a stationary rail point")
+        try:
+            tangent = curve_tangent(rail, parameter)
+        except ValueError as exc:
+            raise ValueError("Curve Array cannot construct a frame at a stationary rail point") from exc
 
         x_axis = _initial_frame_axis(tangent) if previous_x is None else _project_to_plane(previous_x, tangent)
         if x_axis.length <= 1e-9:

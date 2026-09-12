@@ -1,0 +1,450 @@
+{
+ "component": "pyhopper.Components.Curve.Division.DivideCurve.DivideCurve",
+ "gh_guid": "2162e72e-72fc-4bf8-9459-d4d82fa8aa14",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": [
+   "curve"
+  ]
+ },
+ "cases": [
+  {
+   "name": "line_four_segments",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 10,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": 4
+   },
+   "expect": {
+    "points": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2.5,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 7.5,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 10.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "tangents": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "parameters": {
+     "{0}": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "circle_closed_yields_count_points",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "count": 4
+   },
+   "expect": {
+    "points": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 6.402834514649841e-15,
+       "y": 2.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": -2.0,
+       "y": 1.5945853946667247e-14,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": -1.2928133709214424e-14,
+       "y": -2.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "tangents": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": -1.0,
+       "y": 3.140184917367551e-15,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": -8.007471539287253e-15,
+       "y": -1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": -6.437379080603479e-15,
+       "z": 0.0
+      }
+     ]
+    },
+    "parameters": {
+     "{0}": [
+      0.0,
+      0.24999999999999944,
+      0.4999999999999986,
+      0.7499999999999989
+     ]
+    }
+   }
+  },
+  {
+   "name": "polyline_kinks_two_segments_per_edge",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 3,
+       "z": 0
+      }
+     ]
+    },
+    "count": 2,
+    "kinks": true
+   },
+   "expect": {
+    "points": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 1.5,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 3.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "tangents": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "parameters": {
+     "{0}": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "two_branches_of_counts_sub_branch",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": [
+     1,
+     2
+    ]
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ],
+     "{0;1}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 0.5,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "tangents": {
+     "{0;0}": [
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ],
+     "{0;1}": [
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "parameters": {
+     "{0;0}": [
+      0.0,
+      1.0
+     ],
+     "{0;1}": [
+      0.0,
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_segments_raises",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": 0
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

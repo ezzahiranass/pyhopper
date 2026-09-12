@@ -33,28 +33,31 @@ points = DivideCurve(circle, count=8)
 ```python
 from pyhopper import Series, UnitZ, Move
 
-z      = UnitZ()                               # DataTree: 1 Vector3d (0,0,1)
-levels = Series(start=0, step=3.0, count=10)  # DataTree: 10 floats
-floors = Move(points, z, levels.graft())
+levels  = Series(start=0, step=3.0, count=10)  # DataTree: 10 floats
+lifts   = UnitZ(levels.graft())                # 10 branches, one (0,0,height) vector each
+floors  = Move(points, lifts)
 # floors: 10 branches {0;0}…{0;9}, 8 Point3d each = 80 points
 ```
 
-`levels.graft()` turns the flat list of 10 heights into 10 **branches of 1 item each**.
-When `Move` sees 10 branches on one input and 1 branch on the other, it repeats the
-single branch for every step — producing one translated copy of the 8 base points
-for each floor level.
+`levels.graft()` turns the flat list of 10 heights into 10 **branches of 1 item each**,
+and `UnitZ` scales its unit vector by whatever number it receives, so `lifts` holds one
+translation vector per floor. When `Move` sees 10 branches on one input and 1 branch on
+the other, it repeats the single branch for every step — producing one translated copy
+of the 8 base points for each floor level.
 
 ### 3. Close each floor into a polygon
 
 ```python
-from pyhopper import Polygon
+from pyhopper import Polyline
 
-polys = Polygon(floors)
+polys = Polyline(floors, closed=True)
 # polys: 10 branches, 1 Polyline each
 ```
 
-`Polygon` uses `LIST` access — it receives the full list of points per branch and
-returns one closed `Polyline` per floor.
+`Polyline` reads its `vertices` input with `LIST` access — it receives the full list of
+points per branch and returns one closed `Polyline` per floor. (`Polygon` is the
+Grasshopper primitive that draws a regular polygon around a plane; it is not the
+outline-through-points component.)
 
 ### 4. Export to GLB
 
@@ -74,9 +77,9 @@ Open the file in any glTF viewer (Babylon.js sandbox, Blender, three.js editor).
 CircleCmp(r=10)           → DataTree {0}: [Circle]
     ↓ DivideCurve(n=8)
                            → DataTree {0}: [P0, P1, … P7]  (8 pts)
-    ↓ Move(z, levels.graft())
+    ↓ Move(UnitZ(levels.graft()))
     levels = [0,3,6,…27]  → DataTree {0;0}…{0;9}: [P0…P7] per floor
-    ↓ Polygon
+    ↓ Polyline(closed=True)
                            → DataTree {0;0}…{0;9}: [Polyline] per floor
 ```
 
