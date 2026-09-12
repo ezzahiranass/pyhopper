@@ -1,0 +1,68 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.PowerOf2.PowerOf2",
+ "gh_guid": "7a1e5fd7-b7da-4244-a261-f1da66614992",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     -1.0,
+     0.0,
+     3.0,
+     0.5
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      0.5,
+      1.0,
+      8.0,
+      1.4142135623730951
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      10.0
+     ],
+     "1": [
+      -3.0,
+      1.0
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1024.0
+     ],
+     "{1}": [
+      0.125,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_value",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

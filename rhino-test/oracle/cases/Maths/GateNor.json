@@ -1,0 +1,55 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateNor.GateNor",
+ "gh_guid": "548177c2-d1db-4172-b667-bec979e2d38b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     false,
+     false,
+     true,
+     true
+    ],
+    "b": [
+     false,
+     true,
+     false,
+     true
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "1": [
+      false,
+      true
+     ]
+    },
+    "b": {
+     "0": [
+      true
+     ],
+     "1": [
+      true,
+      false
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

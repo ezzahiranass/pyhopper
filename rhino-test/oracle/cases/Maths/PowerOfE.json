@@ -1,0 +1,50 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.PowerOfE.PowerOfE",
+ "gh_guid": "c717f26f-e4a0-475c-8e1c-b8f77af1bc99",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     -1.0,
+     0.0,
+     1.0,
+     2.5
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.5
+     ],
+     "1": [
+      -2.0,
+      3.0
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "default_value",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

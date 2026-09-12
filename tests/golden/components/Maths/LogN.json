@@ -1,0 +1,98 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.LogN.LogN",
+ "gh_guid": "7ab8d289-26a2-4dd4-b4ad-df5b477999d8",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "number": [
+     8.0,
+     81.0,
+     100.0
+    ],
+    "base": [
+     2.0,
+     3.0,
+     10.0
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      3.0,
+      4.0,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch_repeats_base",
+   "inputs": {
+    "number": {
+     "0": [
+      16.0
+     ],
+     "1": [
+      27.0,
+      3.0
+     ]
+    },
+    "base": [
+     2.0,
+     3.0
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      4.0,
+      2.5237190142858297
+     ],
+     "{1}": [
+      4.754887502163469,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "base_one_raises",
+   "inputs": {
+    "number": [
+     8.0
+    ],
+    "base": [
+     1.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "negative_base_raises",
+   "inputs": {
+    "number": [
+     8.0
+    ],
+    "base": [
+     -2.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "missing_base_raises",
+   "inputs": {
+    "number": [
+     8.0
+    ]
+   },
+   "raises": "TypeError"
+  }
+ ]
+}

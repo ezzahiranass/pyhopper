@@ -1,0 +1,50 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.CubeRoot.CubeRoot",
+ "gh_guid": "5b0be57a-31f5-4446-a11a-ae0d348bca90",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     -8.0,
+     27.0,
+     0.0,
+     2.0
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      64.0
+     ],
+     "1": [
+      -1.0,
+      0.125
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "default_value",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

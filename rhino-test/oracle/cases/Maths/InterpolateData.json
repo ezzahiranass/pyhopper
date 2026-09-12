@@ -1,0 +1,183 @@
+{
+ "component": "pyhopper.Components.Maths.Util.InterpolateData.InterpolateData",
+ "gh_guid": "e168ff6b-e5c0-48f1-b831-f6996bf3b459",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "linear_along_the_list",
+   "inputs": {
+    "data": [
+     0.0,
+     10.0,
+     20.0,
+     40.0
+    ],
+    "parameter": [
+     0.0,
+     0.25,
+     0.5,
+     0.75,
+     1.0,
+     0.1
+    ]
+   },
+   "compare": [
+    "Value"
+   ]
+  },
+  {
+   "name": "clamped_and_per_branch",
+   "inputs": {
+    "data": {
+     "0": [
+      0.0,
+      10.0,
+      20.0
+     ],
+     "1": [
+      0.0,
+      10.0
+     ]
+    },
+    "parameter": {
+     "0": [
+      -0.5,
+      1.5
+     ],
+     "1": [
+      0.3
+     ]
+    }
+   },
+   "compare": [
+    "Value"
+   ]
+  },
+  {
+   "name": "points",
+   "inputs": {
+    "data": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "parameter": [
+     0.25,
+     0.5
+    ]
+   },
+   "compare": [
+    "Value"
+   ]
+  },
+  {
+   "name": "vectors_and_domains",
+   "inputs": {
+    "data": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Value"
+   ]
+  },
+  {
+   "name": "domains",
+   "inputs": {
+    "data": [
+     {
+      "type": "Interval",
+      "start": 0,
+      "end": 1
+     },
+     {
+      "type": "Interval",
+      "start": 2,
+      "end": 4
+     }
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Value"
+   ]
+  },
+  {
+   "name": "integers_round_to_even",
+   "inputs": {
+    "data": [
+     0,
+     10
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Value"
+   ]
+  },
+  {
+   "name": "booleans_are_integers",
+   "inputs": {
+    "data": [
+     true,
+     false
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Value"
+   ]
+  },
+  {
+   "name": "single_value",
+   "inputs": {
+    "data": [
+     7.0
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Value"
+   ]
+  }
+ ]
+}

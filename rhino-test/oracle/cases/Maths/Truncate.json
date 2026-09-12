@@ -1,0 +1,135 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Truncate.Truncate",
+ "gh_guid": "bd96f893-d57b-4f04-90d0-dca0d72ff2f9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "sorted_and_trimmed",
+   "inputs": {
+    "input": [
+     5.0,
+     1.0,
+     9.0,
+     3.0,
+     7.0,
+     2.0,
+     8.0,
+     4.0,
+     6.0,
+     10.0
+    ],
+    "truncation_factor": [
+     0.2
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "half_per_end_rounds_to_even",
+   "inputs": {
+    "input": [
+     4.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    "truncation_factor": [
+     0.25
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "one_and_a_half_rounds_up",
+   "inputs": {
+    "input": [
+     5.0,
+     1.0,
+     9.0,
+     3.0,
+     7.0,
+     2.0,
+     8.0,
+     4.0,
+     6.0,
+     10.0
+    ],
+    "truncation_factor": [
+     0.3
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "per_branch_factors",
+   "inputs": {
+    "input": {
+     "0": [
+      5.0,
+      3.0,
+      1.0,
+      4.0,
+      2.0
+     ],
+     "1": [
+      6.0,
+      1.0,
+      3.0,
+      5.0,
+      2.0,
+      4.0
+     ]
+    },
+    "truncation_factor": [
+     0.4,
+     0.5
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "clamped_factors",
+   "inputs": {
+    "input": [
+     4.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    "truncation_factor": [
+     -0.5,
+     2.0
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "duplicates_and_default",
+   "inputs": {
+    "input": [
+     2.0,
+     2.0,
+     1.0,
+     3.0,
+     3.0,
+     1.0
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

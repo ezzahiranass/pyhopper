@@ -1,0 +1,40 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.Logarithm.Logarithm",
+ "gh_guid": "27d6f724-a701-4585-992f-3897488abf08",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     1.0,
+     10.0,
+     1000.0,
+     0.5
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      100.0
+     ],
+     "1": [
+      0.001,
+      2.0
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

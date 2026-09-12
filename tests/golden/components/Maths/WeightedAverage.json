@@ -1,0 +1,169 @@
+{
+ "component": "pyhopper.Components.Maths.Util.WeightedAverage.WeightedAverage",
+ "gh_guid": "338666eb-14c5-4d9b-82e2-2b5be60655df",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "numbers",
+   "inputs": {
+    "input": [
+     1.0,
+     2.0,
+     3.0
+    ],
+    "weights": [
+     1.0,
+     1.0,
+     2.0
+    ]
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [
+      2.25
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "input": {
+     "0": [
+      1.0,
+      3.0
+     ],
+     "1": [
+      10.0,
+      20.0,
+      30.0
+     ]
+    },
+    "weights": {
+     "0": [
+      -1.0,
+      3.0
+     ],
+     "1": [
+      1.0,
+      1.0,
+      2.0
+     ]
+    }
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [
+      4.0
+     ],
+     "{1}": [
+      22.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "points",
+   "inputs": {
+    "input": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "weights": [
+     1.0,
+     3.0
+    ]
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     },
+     {
+      "type": "Vector3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "weights": [
+     1.0,
+     1.0
+    ]
+   },
+   "expect": {
+    "arithmetic_mean": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "count_mismatch_raises",
+   "inputs": {
+    "input": [
+     1.0,
+     2.0,
+     3.0
+    ],
+    "weights": [
+     1.0,
+     3.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "zero_weights_raise",
+   "inputs": {
+    "input": [
+     1.0,
+     2.0
+    ],
+    "weights": [
+     0.0,
+     0.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

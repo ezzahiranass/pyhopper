@@ -1,0 +1,68 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.CubeRoot.CubeRoot",
+ "gh_guid": "5b0be57a-31f5-4446-a11a-ae0d348bca90",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     -8.0,
+     27.0,
+     0.0,
+     2.0
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      -2.0,
+      3.0,
+      0.0,
+      1.259921049894873
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      64.0
+     ],
+     "1": [
+      -1.0,
+      0.125
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      4.0
+     ],
+     "{1}": [
+      -1.0,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_value",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  }
+ ]
+}

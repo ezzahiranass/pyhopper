@@ -1,0 +1,79 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.ConsecutiveDomains.ConsecutiveDomains",
+ "gh_guid": "95992b33-89e1-4d36-bd35-2754a11af21e",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "additive_default",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     3.0
+    ]
+   },
+   "compare": [
+    "Domains"
+   ]
+  },
+  {
+   "name": "not_additive_keeps_order",
+   "inputs": {
+    "numbers": [
+     3.0,
+     1.0,
+     2.0
+    ],
+    "additive": [
+     false
+    ]
+   },
+   "compare": [
+    "Domains"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "numbers": {
+     "0": [
+      1.0,
+      -2.0,
+      3.0
+     ],
+     "1": [
+      2.0,
+      5.0
+     ]
+    },
+    "additive": [
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "Domains"
+   ]
+  },
+  {
+   "name": "single_number",
+   "inputs": {
+    "numbers": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Domains"
+   ]
+  },
+  {
+   "name": "grasshopper_default_numbers",
+   "inputs": {},
+   "compare": [
+    "Domains"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.Logarithm.Logarithm",
+ "gh_guid": "27d6f724-a701-4585-992f-3897488abf08",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     1.0,
+     10.0,
+     1000.0,
+     0.5
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      0.0,
+      1.0,
+      3.0,
+      -0.3010299956639812
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      100.0
+     ],
+     "1": [
+      0.001,
+      2.0
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      2.0
+     ],
+     "{1}": [
+      -3.0,
+      0.3010299956639812
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_raises",
+   "inputs": {
+    "value": [
+     0.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "negative_raises",
+   "inputs": {
+    "value": [
+     -1.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.Similarity.Similarity",
+ "gh_guid": "40177d8a-a35c-4622-bca7-d150031fe427",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "percent_of_larger_magnitude",
+   "inputs": {
+    "first_number": [
+     100.0,
+     100.0,
+     100.0,
+     10.0,
+     0.0
+    ],
+    "second_number": [
+     105.0,
+     105.0,
+     105.0,
+     11.0,
+     1.0
+    ],
+    "threshold": [
+     4.8,
+     4.0,
+     5.0,
+     0.1,
+     200.0
+    ]
+   },
+   "compare": [
+    "Similarity",
+    "Absolute difference"
+   ]
+  },
+  {
+   "name": "multi_branch_default_threshold",
+   "inputs": {
+    "first_number": {
+     "0": [
+      10.0
+     ],
+     "1": [
+      5.0,
+      -10.0
+     ]
+    },
+    "second_number": {
+     "0": [
+      10.5
+     ],
+     "1": [
+      5.0,
+      9.0
+     ]
+    }
+   },
+   "compare": [
+    "Similarity",
+    "Absolute difference"
+   ]
+  },
+  {
+   "name": "sign_and_zero",
+   "inputs": {
+    "first_number": [
+     -100.0,
+     0.0
+    ],
+    "second_number": [
+     -105.0,
+     0.0
+    ],
+    "threshold": [
+     5.1,
+     0.0
+    ]
+   },
+   "compare": [
+    "Similarity",
+    "Absolute difference"
+   ]
+  }
+ ]
+}
