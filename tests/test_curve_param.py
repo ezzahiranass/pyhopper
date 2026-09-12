@@ -135,12 +135,12 @@ class ArcTests(unittest.TestCase):
 class RoundedRectangleTests(unittest.TestCase):
     def test_exact_fillet_curve_structure(self):
         curve, length = make_rectangle(AtomicPlane.world_xy(), 4.0, 2.0, 0.5)
-        self.assertEqual(len(curve.control_points), 17)
-        self.assertEqual(curve.degree, 2)
-        self.assertAlmostEqual(curve.knots[-1], length)
+        self.assertEqual([type(segment).__name__ for segment in curve.segments], ["AtomicLine", "AtomicArc"] * 4)
+        self.assertAlmostEqual(sum(curve.spans), length)
         self.assertAlmostEqual(length, 2 * (4 + 2) - 8 * 0.5 + 2 * math.pi * 0.5)
+        close(self, curve_point_at(curve, 0.0), (-1.5, -1.0, 0.0))
         clamped, _ = make_rectangle(AtomicPlane.world_xy(), 4.0, 2.0, 5.0)
-        self.assertEqual(len(clamped.control_points), 13)  # the short edges vanish
+        self.assertEqual([type(segment).__name__ for segment in clamped.segments], ["AtomicLine", "AtomicArc", "AtomicArc"] * 2)  # the short edges vanish
 
     def test_sharp_rectangle_stays_a_rectangle(self):
         rectangle, length = make_rectangle(AtomicPlane.world_xy(), 3.0, 2.0)

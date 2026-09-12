@@ -1,0 +1,494 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.TangentCurve.TangentCurve",
+ "gh_guid": "f73498c5-178b-4e09-ad61-73d172fa6e56",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "cubic",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "full_blend",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "blend": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "degree_five",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "degree": [
+     5
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "degree_seven",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "degree": [
+     7
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "degree_one_becomes_three",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "degree": [
+     1
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "even_degree_is_raised",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "degree": [
+     4
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "tangents_are_unitised",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 3.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "two_vertices",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangents": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": -1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "vertices": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "tangents": {
+     "0": [
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": -1.0,
+       "z": 0.0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,403 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.BlendCurvePt.BlendCurvePt",
+ "gh_guid": "14cf43b6-5eb9-460f-899c-bdece732213a",
+ "mode": "exact",
+ "tolerance": 0.001,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "tangency",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 1.5,
+      "z": 0.0
+     }
+    ],
+    "continuity": [
+     1
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "curvature",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 1.5,
+      "z": 0.0
+     }
+    ],
+    "continuity": [
+     2
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "position_becomes_tangency",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 1.5,
+      "z": 0.0
+     }
+    ],
+    "continuity": [
+     0
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "off_centre_tangency",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 4.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ],
+    "continuity": [
+     1
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "off_centre_curvature",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 4.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ],
+    "continuity": [
+     2
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 1.5,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve_a": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 1.5,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ],
+    "continuity": [
+     1
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  }
+ ],
+ "notes": "Grasshopper's point solver stops about 1e-4 short of the point; pyhopper solves exactly, so the comparison is loose."
+}

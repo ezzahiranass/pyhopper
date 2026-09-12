@@ -1,0 +1,325 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.PolyArc.PolyArc",
+ "gh_guid": "7159ef59-e4ef-44b8-8cb2-91231e278292",
+ "mode": "geometry",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "with_tangent",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 6.0,
+      "y": 2.0,
+      "z": 0.0
+     }
+    ],
+    "tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ]
+  },
+  {
+   "name": "tangent_along_the_chord",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 6.0,
+      "y": 2.0,
+      "z": 0.0
+     }
+    ],
+    "tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ]
+  },
+  {
+   "name": "collinear",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ]
+  },
+  {
+   "name": "two_vertices_line",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ]
+  },
+  {
+   "name": "two_vertices_arc",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     }
+    ],
+    "tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ]
+  },
+  {
+   "name": "closed",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 6.0,
+      "y": 2.0,
+      "z": 0.0
+     }
+    ],
+    "tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "closed": [
+     true
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ],
+   "gh": {
+    "skip": "Grasshopper closes a PolyArc with its own arc blend; pyhopper uses the equal-tangent biarc"
+   }
+  },
+  {
+   "name": "no_tangent_starts_with_a_line",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ],
+   "gh": {
+    "skip": "Grasshopper emits degenerate zero-radius arcs without a start tangent; pyhopper starts with a line"
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "vertices": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "PolyArc"
+   ]
+  }
+ ],
+ "notes": "Arcs compare by their points; the no-tangent and closed cases are documented deviations."
+}

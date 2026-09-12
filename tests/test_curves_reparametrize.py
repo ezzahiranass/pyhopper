@@ -18,8 +18,10 @@ from pyhopper.Core.Atoms import (
     AtomicNurbsCurve,
     AtomicPlane,
     AtomicPoint,
+    AtomicPolyCurve,
     AtomicPolyline,
     AtomicRectangle,
+    AtomicVector,
 )
 from pyhopper.Core.TypeSystem import CURVE_TYPES
 from pyhopper.Graph.runtime import PORT_OP_FUNCTIONS, PORT_OP_METHODS, VALID_PORT_OPERATIONS
@@ -80,10 +82,15 @@ class ReparametrizeTests(unittest.TestCase):
             AtomicInterpolatedCurve: AtomicInterpolatedCurve((P(0, 0, 0), P(1, 1, 0), P(2, 0, 0))),
             AtomicControlPointCurve: AtomicControlPointCurve((P(0, 0, 0), P(1, 1, 0), P(2, 0, 0)), 2),
         }
-        self.assertEqual(set(samples), set(CURVE_TYPES), "add a sample for every CURVE_TYPES member")
+        polycurve = AtomicPolyCurve((AtomicLine(P(0, 0, 0), P(3, 0, 0)), AtomicArc(AtomicPlane(P(3, 2, 0), AtomicVector(0, 0, 1), AtomicVector(0, -1, 0)), 2.0, AtomicInterval(0.0, 1.0))), (3.0, 2.0), 0.0)
+        self.assertEqual(set(samples) | {AtomicPolyCurve}, set(CURVE_TYPES), "add a sample for every CURVE_TYPES member")
         for atom_type, atom in samples.items():
             with self.subTest(atom=atom_type.__name__):
                 self.assertEqual(nurbs_curve_domain(as_nurbs_curve(atom)), (0.0, 1.0))
+        # polycurves, like NURBS curves, live on their own domain (the segment spans) and reparametrize to [0, 1]
+        self.assertEqual(nurbs_curve_domain(as_nurbs_curve(polycurve)), (0.0, 5.0))
+        self.assertEqual(nurbs_curve_domain(as_nurbs_curve(reparametrize_curve(polycurve))), (0.0, 1.0))
+        self.assertEqual(reparametrize_curve(polycurve).spans, (0.6, 0.4))
 
     def test_tree_helper_preserves_paths(self):
         result = reparametrize_tree(tree({"0": [_shifted_curve()], "3;1": [5.0]}))

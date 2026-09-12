@@ -1,0 +1,1580 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.ConnectCurves.ConnectCurves",
+ "gh_guid": "d0a1b843-873d-4d1d-965c-b5423b35f327",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "geometry",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "tangency_open",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.82842712474619,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 1.1715728752538097,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.829731942495993,
+          3.829731942495993,
+          3.829731942495993,
+          3.829731942495993
+         ],
+         "degree": 3
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 6.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        }
+       ],
+       "spans": [
+        2.0,
+        3.829731942495993,
+        2.0
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "curvature_closed",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     2
+    ],
+    "close": [
+     true
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 3.1313708498984765,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.262741699796953,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 1.7372583002030475,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.8686291501015235,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156
+         ],
+         "degree": 5
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 6.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 6.0,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 8.529822128134704,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 11.059644256269408,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": -5.059644256269408,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": -2.529822128134704,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637
+         ],
+         "degree": 5
+        }
+       ],
+       "spans": [
+        2.0,
+        3.822450828307156,
+        2.0,
+        12.105430639590637
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "position",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     0
+    ],
+    "close": [
+     false
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 6.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        }
+       ],
+       "spans": [
+        2.0,
+        2.8284271247461903,
+        2.0
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "three_curves_half_bulge",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 8.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 10.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ],
+    "bulge": [
+     0.5
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 3.414213562373095,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.585786437626905,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.1144342076546945,
+          3.1144342076546945,
+          3.1144342076546945,
+          3.1144342076546945
+         ],
+         "degree": 3
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 6.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 6.0,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 7.414213562373095,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 6.585786437626905,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 8.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.1144342076546945,
+          3.1144342076546945,
+          3.1144342076546945,
+          3.1144342076546945
+         ],
+         "degree": 3
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 8.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        }
+       ],
+       "spans": [
+        2.0,
+        3.1144342076546945,
+        2.0,
+        3.1144342076546945,
+        2.0
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "polyline_and_line",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      ]
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 4.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 8.0,
+       "y": 4.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Polyline",
+         "points": [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 0.0
+          }
+         ]
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 6.82842712474619,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 3.1715728752538097,
+           "y": 4.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 6.0,
+           "y": 4.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.829731942495993,
+          3.829731942495993,
+          3.829731942495993,
+          3.829731942495993
+         ],
+         "degree": 3
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 6.0,
+          "y": 4.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 8.0,
+          "y": 4.0,
+          "z": 0.0
+         }
+        }
+       ],
+       "spans": [
+        3.0,
+        3.829731942495993,
+        2.0
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_curve",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_curve_closed",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     true
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": -2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.656854249492417,
+          3.656854249492417,
+          3.656854249492417,
+          3.656854249492417
+         ],
+         "degree": 3
+        }
+       ],
+       "spans": [
+        2.0,
+        3.656854249492417
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "touching_curves_need_no_blend",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        }
+       ],
+       "spans": [
+        2.0,
+        2.8284271247461903
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 3.1313708498984765,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.262741699796953,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 1.7372583002030475,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.8686291501015235,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156,
+          3.822450828307156
+         ],
+         "degree": 5
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 6.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 6.0,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 8.529822128134704,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 11.059644256269408,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": -5.059644256269408,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": -2.529822128134704,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637,
+          12.105430639590637
+         ],
+         "degree": 5
+        }
+       ],
+       "spans": [
+        2.0,
+        3.822450828307156,
+        2.0,
+        12.105430639590637
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curves": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 6.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 8.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.82842712474619,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 1.1715728752538097,
+           "y": 2.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.829731942495993,
+          3.829731942495993,
+          3.829731942495993,
+          3.829731942495993
+         ],
+         "degree": 3
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 6.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        }
+       ],
+       "spans": [
+        2.0,
+        3.829731942495993,
+        2.0
+       ],
+       "start": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "PolyCurve",
+       "segments": [
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        {
+         "type": "NurbsCurve",
+         "control_points": [
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 8.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 8.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         "weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ],
+         "knots": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          6.0,
+          6.0,
+          6.0,
+          6.0
+         ],
+         "degree": 3
+        },
+        {
+         "type": "Line",
+         "start": {
+          "type": "Point3d",
+          "x": 8.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "end": {
+          "type": "Point3d",
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        }
+       ],
+       "spans": [
+        2.0,
+        6.0,
+        2.0
+       ],
+       "start": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "no_curves_raises",
+   "inputs": {
+    "curves": [],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

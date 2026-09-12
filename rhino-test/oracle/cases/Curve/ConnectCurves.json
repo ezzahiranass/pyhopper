@@ -1,0 +1,499 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.ConnectCurves.ConnectCurves",
+ "gh_guid": "d0a1b843-873d-4d1d-965c-b5423b35f327",
+ "mode": "geometry",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "tangency_open",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "curvature_closed",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     2
+    ],
+    "close": [
+     true
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "position",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     0
+    ],
+    "close": [
+     false
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "three_curves_half_bulge",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 8.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 10.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ],
+    "bulge": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "polyline_and_line",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      ]
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 4.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 8.0,
+       "y": 4.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "single_curve",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "single_curve_closed",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     true
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "touching_curves_need_no_blend",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "curves": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curves": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 6.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 8.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "continuity": [
+     1
+    ],
+    "close": [
+     false
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  }
+ ]
+}

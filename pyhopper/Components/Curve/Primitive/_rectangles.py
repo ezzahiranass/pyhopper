@@ -1,22 +1,18 @@
 """Rectangle construction shared by Rectangle and Rectangle 2Pt.
 
 A sharp rectangle is an ``AtomicRectangle`` (centred plane + sizes). A filleted
-one is the exact rational degree-2 NURBS Grasshopper builds: straight edges as
-3-point spans, corners as quarter-circle spans (middle weight sqrt(2)/2), knots
-accumulating the segment lengths, starting on the bottom edge just past the
-bottom-left corner and running counter-clockwise. Edges shortened to nothing by
-the fillet are dropped, exactly like Grasshopper.
+one is the polycurve Grasshopper builds: straight edges as lines, corners as
+quarter arcs, spans accumulating the segment lengths, starting on the bottom
+edge just past the bottom-left corner and running counter-clockwise. Edges
+shortened to nothing by the fillet are dropped, exactly like Grasshopper.
 """
 
 from __future__ import annotations
 
 import math
 
-from pyhopper.Core.Atoms import AtomicNurbsCurve, AtomicPlane, AtomicPoint, AtomicRectangle
+from pyhopper.Core.Atoms import AtomicArc, AtomicInterval, AtomicLine, AtomicPlane, AtomicPoint, AtomicPolyCurve, AtomicRectangle, AtomicVector
 from pyhopper.Utils.Planes import plane_coordinates, point_on_plane
-
-_CORNER_WEIGHT = math.sqrt(0.5)
-
 
 def rectangle_from_corners(plane: AtomicPlane, corner_a: AtomicPoint, corner_b: AtomicPoint) -> tuple[AtomicPlane, float, float]:
     """(centred plane, width, height) of the rectangle spanned by two points projected onto ``plane``."""
@@ -34,7 +30,7 @@ def rectangle_length(width: float, height: float, fillet: float = 0.0) -> float:
     return 2.0 * (width + height) - 8.0 * fillet + 2.0 * math.pi * fillet
 
 
-def make_rectangle(plane: AtomicPlane, width: float, height: float, radius: float = 0.0) -> tuple[AtomicRectangle | AtomicNurbsCurve, float]:
+def make_rectangle(plane: AtomicPlane, width: float, height: float, radius: float = 0.0) -> tuple[AtomicRectangle | AtomicPolyCurve, float]:
     """(rectangle or filleted curve, perimeter) centred on ``plane``."""
     width, height = abs(float(width)), abs(float(height))
     fillet = clamp_fillet(width, height, radius)
@@ -43,36 +39,32 @@ def make_rectangle(plane: AtomicPlane, width: float, height: float, radius: floa
     return rounded_rectangle(plane, width, height, fillet), rectangle_length(width, height, fillet)
 
 
-def rounded_rectangle(plane: AtomicPlane, width: float, height: float, fillet: float) -> AtomicNurbsCurve:
-    """Exact NURBS of a rectangle with filleted corners (Grasshopper's construction)."""
+def rounded_rectangle(plane: AtomicPlane, width: float, height: float, fillet: float) -> AtomicPolyCurve:
+    """Rectangle with filleted corners as Grasshopper builds it: a polycurve of edge lines and quarter
+    arcs (natural spans), counter-clockwise from the bottom edge's first tangent point; edges that the
+    fillets consume entirely vanish."""
     half_x, half_y = width / 2.0, height / 2.0
     x0, x1, y0, y1 = -half_x, half_x, -half_y, half_y
     r = fillet
-    # (start, end) of each straight edge and (corner, end) of each quarter arc, counter-clockwise from the bottom edge
+    # (start, end) of each straight edge and (centre, start) of each quarter arc, counter-clockwise from the bottom edge
     edges = [((x0 + r, y0), (x1 - r, y0)), ((x1, y0 + r), (x1, y1 - r)), ((x1 - r, y1), (x0 + r, y1)), ((x0, y1 - r), (x0, y0 + r))]
-    corners = [((x1, y0), (x1, y0 + r)), ((x1, y1), (x1 - r, y1)), ((x0, y1), (x0, y1 - r)), ((x0, y0), (x0 + r, y0))]
+    corners = [((x1 - r, y0 + r), (x1 - r, y0)), ((x1 - r, y1 - r), (x1, y1 - r)), ((x0 + r, y1 - r), (x0 + r, y1)), ((x0 + r, y0 + r), (x0, y0 + r))]
+    segments: list = []
+    for (edge_start, edge_end), (centre, arc_start) in zip(edges, corners):
+        if math.hypot(edge_end[0] - edge_start[0], edge_end[1] - edge_start[1]) > 1e-12:
+            segments.append(AtomicLine(point_on_plane(plane, *edge_start), point_on_plane(plane, *edge_end)))
+        origin = point_on_plane(plane, *centre)
+        start_point = point_on_plane(plane, *arc_start)
+        x_axis = AtomicVector((start_point.x - origin.x) / r, (start_point.y - origin.y) / r, (start_point.z - origin.z) / r)
+        segments.append(AtomicArc(AtomicPlane(origin, plane.normal, x_axis), r, AtomicInterval(0.0, math.pi / 2.0)))
+    return AtomicPolyCurve(tuple(segments), tuple(rectangle_spans(segments, r)), 0.0)
 
-    local: list[tuple[float, float]] = [edges[0][0]]
-    weights = [1.0]
-    spans: list[float] = []
-    for (edge_start, edge_end), (corner, corner_end) in zip(edges, corners):
-        edge_length = math.hypot(edge_end[0] - edge_start[0], edge_end[1] - edge_start[1])
-        if edge_length > 1e-12:
-            local.append(((edge_start[0] + edge_end[0]) / 2.0, (edge_start[1] + edge_end[1]) / 2.0))
-            local.append(edge_end)
-            weights.extend([1.0, 1.0])
-            spans.append(edge_length)
-        local.append(corner)
-        local.append(corner_end)
-        weights.extend([_CORNER_WEIGHT, 1.0])
-        spans.append(math.pi * r / 2.0)
 
-    knots = [0.0, 0.0, 0.0]
-    total = 0.0
-    for span in spans[:-1]:
-        total += span
-        knots.extend([total, total])
-    total += spans[-1]
-    knots.extend([total, total, total])
-    points = tuple(point_on_plane(plane, x, y) for x, y in local)
-    return AtomicNurbsCurve(control_points=points, weights=tuple(weights), knots=tuple(knots), degree=2)
+def rectangle_spans(segments, radius: float) -> list[float]:
+    spans = []
+    for segment in segments:
+        if isinstance(segment, AtomicLine):
+            spans.append(math.dist((segment.start.x, segment.start.y, segment.start.z), (segment.end.x, segment.end.y, segment.end.z)))
+        else:
+            spans.append(math.pi * radius / 2.0)
+    return spans

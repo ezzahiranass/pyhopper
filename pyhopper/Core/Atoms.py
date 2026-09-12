@@ -454,6 +454,54 @@ class AtomicNurbsCurve(Atom):
 
 
 @dataclass(frozen=True)
+class AtomicPolyCurve(Atom):
+    """Ordered chain of curve segments joined end to end (Rhino's PolyCurve).
+
+    ``spans`` are the parameter lengths of the segments (empty = each segment's
+    natural span: a line's length, an arc's length, a polyline's segment count,
+    a NURBS curve's knot domain) and ``start`` is the domain start, so the
+    polycurve lives on ``[start, start + sum(spans)]`` like Rhino's.
+    """
+
+    atom_type: ClassVar[str] = "PolyCurve"
+
+    segments: tuple[Atom, ...] = ()
+    spans: tuple[float, ...] = ()
+    start: float = 0.0
+
+    def __post_init__(self):
+        if not self.segments:
+            raise ValueError("AtomicPolyCurve needs at least one segment")
+        for index, segment in enumerate(self.segments):
+            if not isinstance(segment, Atom) or isinstance(segment, (AtomicPoint, AtomicVector, AtomicPlane)):
+                raise TypeError(f"AtomicPolyCurve segment {index} must be a curve atom, got {type(segment).__name__}")
+        if self.spans and len(self.spans) != len(self.segments):
+            raise ValueError("AtomicPolyCurve spans must match its segments")
+        if any(float(span) <= 0.0 for span in self.spans):
+            raise ValueError("AtomicPolyCurve spans must be positive")
+
+    @property
+    def segment_count(self) -> int:
+        return len(self.segments)
+
+    def to_json(self) -> dict:
+        return {
+            "type": "PolyCurve",
+            "segments": [segment.to_json() for segment in self.segments],
+            "spans": [float(span) for span in self.spans],
+            "start": float(self.start),
+        }
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicPolyCurve:
+        return cls(
+            segments=tuple(atom_from_json(segment) for segment in data["segments"]),
+            spans=tuple(float(span) for span in data.get("spans", ())),
+            start=float(data.get("start", 0.0)),
+        )
+
+
+@dataclass(frozen=True)
 class AtomicEllipse(Atom):
     """Named ellipse defined by a plane and two radii."""
 

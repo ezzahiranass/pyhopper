@@ -82,14 +82,37 @@ def compare_trees(testcase: unittest.TestCase, ours: DataTree, theirs: DataTree,
 
 def geometry_close(a, b, places: int) -> bool:
     """Like ``items_close`` but circles compare as the same set of points (centre, radius and the
-    normal up to its sign) — Rhino's fitted circles carry arbitrary frames."""
-    from pyhopper.Core.Atoms import AtomicCircle
+    normal up to its sign) — Rhino's fitted circles carry arbitrary frames — arcs by their start, middle
+    and end points plus radius (Rhino stores some arcs from their end with negative angles), and
+    polycurves segment by segment with the same leniency."""
+    from pyhopper.Core.Atoms import AtomicArc, AtomicCircle, AtomicPolyCurve
+    from pyhopper.Utils.Curves import curve_point_at
 
     if isinstance(a, AtomicCircle) and isinstance(b, AtomicCircle):
         na, nb = a.plane.normal, b.plane.normal
         parallel = items_close([na.x, na.y, na.z], [nb.x, nb.y, nb.z], places) or items_close([na.x, na.y, na.z], [-nb.x, -nb.y, -nb.z], places)
         return parallel and items_close(a.plane.origin, b.plane.origin, places) and items_close(float(a.radius), float(b.radius), places)
+    if isinstance(a, AtomicArc) and isinstance(b, AtomicArc):
+        return items_close(abs(float(a.radius)), abs(float(b.radius)), places) and all(
+            items_close(curve_point_at(a, t), curve_point_at(b, t), places) for t in (0.0, 0.5, 1.0)
+        )
+    if isinstance(a, AtomicPolyCurve) and isinstance(b, AtomicPolyCurve):
+        return (
+            len(a.segments) == len(b.segments)
+            and items_close(list(a.spans), list(b.spans), places)
+            and items_close(float(a.start), float(b.start), places)
+            and all(geometry_close(_normalised_segment(x), _normalised_segment(y), places) for x, y in zip(a.segments, b.segments))
+        )
     return items_close(a, b, places)
+
+
+def _normalised_segment(segment):
+    """Rhino sometimes shifts a polycurve segment's own knot domain to follow the previous segment and
+    sometimes not; the spans carry the parameterisation, so NURBS segments compare on [0, 1]."""
+    from pyhopper.Core.Atoms import AtomicNurbsCurve
+    from pyhopper.Utils.Curves import reparametrize_nurbs_curve
+
+    return reparametrize_nurbs_curve(segment) if isinstance(segment, AtomicNurbsCurve) else segment
 
 
 @requires_rhino

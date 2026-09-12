@@ -1,0 +1,607 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.BlendCurve.BlendCurve",
+ "gh_guid": "5909dbcb-4950-4ce4-9433-7cf9e62ee011",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "position",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     0
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "tangency",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "curvature",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     2
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "tangency_bulges",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bulge_a": [
+     0.5
+    ],
+    "bulge_b": [
+     2.0
+    ],
+    "continuity": [
+     1
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "curvature_bulges",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bulge_a": [
+     0.5
+    ],
+    "bulge_b": [
+     2.0
+    ],
+    "continuity": [
+     2
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "arc_to_line_curvature",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     2
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "arc_to_line_tangency",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "arc_to_arc_curvature",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ],
+    "continuity": [
+     2
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "unknown_continuity_is_curvature",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     3
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve_a": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 2.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.5707963267948966
+       }
+      }
+     ]
+    },
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "continuity": [
+     1
+    ]
+   },
+   "compare": [
+    "Blend"
+   ]
+  }
+ ]
+}

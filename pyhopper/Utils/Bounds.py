@@ -24,6 +24,7 @@ from pyhopper.Core.Atoms import (
     AtomicLine,
     AtomicMesh,
     AtomicNurbsCurve,
+    AtomicPolyCurve,
     AtomicPlane,
     AtomicPoint,
     AtomicPolyline,
@@ -119,6 +120,11 @@ def geometry_extents(geometry, plane: AtomicPlane) -> Extents | None:
         for face in geometry.faces:
             result = _merge(result, geometry_extents(face, plane))
         return result
+    if isinstance(geometry, AtomicPolyCurve):
+        result = None
+        for segment in geometry.segments:
+            result = _merge(result, geometry_extents(segment, plane))
+        return result
     if isinstance(geometry, (AtomicEllipse, AtomicInterpolatedCurve, AtomicControlPointCurve)):
         from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
 
@@ -185,6 +191,11 @@ def tight_extents(geometry, plane: AtomicPlane, samples: int = 96) -> Extents | 
         result = None
         for face in geometry.faces:
             result = _merge(result, tight_extents(face, plane, samples))
+        return result
+    if isinstance(geometry, AtomicPolyCurve):
+        result = None
+        for segment in geometry.segments:
+            result = _merge(result, tight_extents(segment, plane, samples))
         return result
     if isinstance(geometry, (AtomicNurbsCurve, AtomicEllipse, AtomicInterpolatedCurve, AtomicControlPointCurve)):
         from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve

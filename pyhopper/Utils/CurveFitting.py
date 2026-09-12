@@ -15,6 +15,7 @@ from pyhopper.Core.Atoms import (
     AtomicInterval,
     AtomicLine,
     AtomicNurbsCurve,
+    AtomicPolyCurve,
     AtomicPlane,
     AtomicPoint,
     AtomicPolyline,
@@ -191,6 +192,10 @@ def reverse_curve(curve):
         return AtomicCircle(_flip_plane(curve.plane), curve.radius)
     if isinstance(curve, AtomicRectangle):
         return AtomicRectangle(_flip_plane(curve.plane), curve.x_size, curve.y_size)
+    if isinstance(curve, AtomicPolyCurve):
+        from pyhopper.Utils.Curves import polycurve_spans
+
+        return AtomicPolyCurve(tuple(reverse_curve(segment) for segment in reversed(curve.segments)), tuple(reversed(polycurve_spans(curve))), curve.start)
     return reverse_nurbs_curve(as_nurbs_curve(curve))
 
 

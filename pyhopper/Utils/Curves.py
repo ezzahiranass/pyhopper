@@ -7,10 +7,12 @@ import math
 from pyhopper.Core.Atoms import (
     AtomicArc,
     AtomicCircle,
+    AtomicEllipse,
     AtomicLine,
     AtomicNurbsCurve,
     AtomicPlane,
     AtomicPoint,
+    AtomicPolyCurve,
     AtomicPolyline,
     AtomicRectangle,
     AtomicVector,
@@ -122,49 +124,47 @@ def interpolate_nurbs_curve(
     )
 
 
-def _adaptive_span_length(
-    curve: AtomicNurbsCurve,
-    start: float,
-    end: float,
-    start_point: AtomicPoint,
-    end_point: AtomicPoint,
-    tolerance: float,
-    depth: int,
-) -> float:
-    one_third = start + (end - start) / 3.0
-    two_thirds = start + 2.0 * (end - start) / 3.0
-    point_a = evaluate_nurbs_curve(curve, one_third)
-    point_b = evaluate_nurbs_curve(curve, two_thirds)
-    chord = _distance(start_point, end_point)
-    polygon = (
-        _distance(start_point, point_a)
-        + _distance(point_a, point_b)
-        + _distance(point_b, end_point)
-    )
-    if depth <= 0 or polygon - chord <= tolerance * max(1.0, polygon):
-        return polygon
+# 7-point Gauss-Legendre rule on [-1, 1]
+_GAUSS_NODES = (0.0, 0.4058451513773972, -0.4058451513773972, 0.7415311855993945, -0.7415311855993945, 0.9491079123427585, -0.9491079123427585)
+_GAUSS_WEIGHTS = (0.4179591836734694, 0.3818300505051189, 0.3818300505051189, 0.2797053914892766, 0.2797053914892766, 0.1294849661688697, 0.1294849661688697)
 
-    return (
-        _adaptive_span_length(curve, start, one_third, start_point, point_a, tolerance, depth - 1)
-        + _adaptive_span_length(curve, one_third, two_thirds, point_a, point_b, tolerance, depth - 1)
-        + _adaptive_span_length(curve, two_thirds, end, point_b, end_point, tolerance, depth - 1)
-    )
+
+def _speed(curve: AtomicNurbsCurve, parameter: float) -> float:
+    from pyhopper.Utils.Nurbs import curve_derivatives
+
+    _, (first,) = curve_derivatives(curve, parameter, 1)
+    return math.sqrt(first.x * first.x + first.y * first.y + first.z * first.z)
+
+
+def _gauss_length(curve: AtomicNurbsCurve, start: float, end: float) -> float:
+    middle, half = 0.5 * (start + end), 0.5 * (end - start)
+    return half * sum(weight * _speed(curve, middle + half * node) for node, weight in zip(_GAUSS_NODES, _GAUSS_WEIGHTS))
+
+
+def _adaptive_length(curve: AtomicNurbsCurve, start: float, end: float, whole: float, tolerance: float, depth: int, boundaries: list[float] | None) -> float:
+    """Arc length of ``[start, end]`` by adaptive Gauss-Legendre quadrature of the speed: the span is
+    bisected until the two half estimates agree with the whole one (cusps and reversals, where the
+    speed is not smooth, are isolated by the bisection). ``boundaries`` collects the leaf interval ends."""
+    middle = 0.5 * (start + end)
+    left, right = _gauss_length(curve, start, middle), _gauss_length(curve, middle, end)
+    if depth <= 0 or abs(left + right - whole) <= tolerance * max(1.0, left + right):
+        if boundaries is not None:
+            boundaries.append(middle)
+            boundaries.append(end)
+        return left + right
+    return _adaptive_length(curve, start, middle, left, tolerance, depth - 1, boundaries) + _adaptive_length(curve, middle, end, right, tolerance, depth - 1, boundaries)
+
+
+def _span_boundaries(curve: AtomicNurbsCurve) -> list[float]:
+    start, end = nurbs_curve_domain(curve)
+    return sorted({start, end, *(float(knot) for knot in curve.knots if start < knot < end)})
 
 
 def nurbs_curve_length(curve: AtomicNurbsCurve, tolerance: float = 1e-7) -> float:
-    """Approximate NURBS arc length adaptively over each active knot span."""
-    start, end = nurbs_curve_domain(curve)
-    boundaries = sorted({start, end, *(knot for knot in curve.knots if start < knot < end)})
+    """NURBS arc length: adaptive Gauss-Legendre quadrature of the speed over every knot span."""
+    boundaries = _span_boundaries(curve)
     return sum(
-        _adaptive_span_length(
-            curve,
-            span_start,
-            span_end,
-            evaluate_nurbs_curve(curve, span_start),
-            evaluate_nurbs_curve(curve, span_end),
-            tolerance,
-            10,
-        )
+        _adaptive_length(curve, span_start, span_end, _gauss_length(curve, span_start, span_end), tolerance * 1e-3, 24, None)
         for span_start, span_end in zip(boundaries, boundaries[1:])
         if span_end > span_start
     )
@@ -180,43 +180,90 @@ def curve_length(curve, tolerance: float = 1e-7) -> float:
         return 2.0 * math.pi * abs(float(curve.radius))
     if isinstance(curve, AtomicArc):
         return abs(float(curve.angle.length) * float(curve.radius))
+    if isinstance(curve, AtomicPolyCurve):
+        return sum(curve_length(segment, tolerance) for segment in curve.segments)
 
     from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
 
     return nurbs_curve_length(as_nurbs_curve(curve), tolerance)
 
 
-def _arc_length_table(curve: AtomicNurbsCurve, tolerance: float = 1e-7) -> tuple[list[tuple[float, AtomicPoint]], list[float]]:
-    """Adaptive (parameter, point) samples over every knot span plus cumulative chord lengths."""
-    start, end = nurbs_curve_domain(curve)
-    boundaries = sorted({start, end, *(knot for knot in curve.knots if start < knot < end)})
-    samples: list[tuple[float, AtomicPoint]] = []
-    for span_start, span_end in zip(boundaries, boundaries[1:]):
-        span_samples = _adaptive_span_samples(
-            curve,
-            span_start,
-            span_end,
-            evaluate_nurbs_curve(curve, span_start),
-            evaluate_nurbs_curve(curve, span_end),
-            tolerance,
-            10,
-        )
-        samples.extend(span_samples if not samples else span_samples[1:])
+class _LengthTable:
+    """Cumulative arc length at the adaptive quadrature boundaries of a NURBS curve, with exact
+    (quadrature) refinement inside a bracket for both length -> parameter and parameter -> length."""
 
-    cumulative = [0.0]
-    for (_, point_a), (_, point_b) in zip(samples, samples[1:]):
-        cumulative.append(cumulative[-1] + _distance(point_a, point_b))
-    return samples, cumulative
+    def __init__(self, curve: AtomicNurbsCurve, tolerance: float) -> None:
+        self.curve = curve
+        self.parameters: list[float] = []
+        self.cumulative: list[float] = []
+        boundaries = _span_boundaries(curve)
+        self.parameters.append(boundaries[0])
+        self.cumulative.append(0.0)
+        for span_start, span_end in zip(boundaries, boundaries[1:]):
+            if span_end <= span_start:
+                continue
+            leaves: list[float] = []
+            _adaptive_length(curve, span_start, span_end, _gauss_length(curve, span_start, span_end), tolerance * 1e-3, 24, leaves)
+            previous = span_start
+            for leaf in sorted(set(leaves)):
+                if leaf <= previous:
+                    continue
+                self.cumulative.append(self.cumulative[-1] + _gauss_length(curve, previous, leaf))
+                self.parameters.append(leaf)
+                previous = leaf
+
+    @property
+    def total(self) -> float:
+        return self.cumulative[-1]
+
+    def length_at(self, parameter: float) -> float:
+        t = float(parameter)
+        if t <= self.parameters[0]:
+            return 0.0
+        if t >= self.parameters[-1]:
+            return self.total
+        index = 1
+        while index < len(self.parameters) - 1 and self.parameters[index] < t:
+            index += 1
+        lower = index - 1
+        return self.cumulative[lower] + _gauss_length(self.curve, self.parameters[lower], t)
+
+    def parameter_at(self, length: float) -> float:
+        target = min(self.total, max(0.0, float(length)))
+        if target <= 0.0:
+            return self.parameters[0]
+        if target >= self.total:
+            return self.parameters[-1]
+        index = 1
+        while index < len(self.cumulative) - 1 and self.cumulative[index] < target:
+            index += 1
+        lower = index - 1
+        origin, low, high = self.parameters[lower], self.parameters[lower], self.parameters[index]
+        base = self.cumulative[lower]
+        # Newton on the monotone length function, guarded by the bracket
+        t = low + (high - low) * (target - base) / max(self.cumulative[index] - base, _TOLERANCE)
+        for _ in range(60):
+            residual = base + _gauss_length(self.curve, origin, t) - target
+            if abs(residual) <= 1e-13 * max(1.0, self.total):
+                break
+            if residual > 0:
+                high = t
+            else:
+                low = t
+            speed = _speed(self.curve, t)
+            step = t - residual / speed if speed > _TOLERANCE else 0.5 * (low + high)
+            t = step if low < step < high else 0.5 * (low + high)
+            if high - low <= 1e-15 * max(1.0, abs(high)):
+                break
+        return t
 
 
-def _parameter_at_length(samples: list[tuple[float, AtomicPoint]], cumulative: list[float], target: float) -> float:
-    sample_index = 1
-    while sample_index < len(cumulative) - 1 and cumulative[sample_index] < target:
-        sample_index += 1
-    lower = sample_index - 1
-    segment_length = cumulative[sample_index] - cumulative[lower]
-    local = 0.0 if segment_length <= _TOLERANCE else (target - cumulative[lower]) / segment_length
-    return samples[lower][0] + (samples[sample_index][0] - samples[lower][0]) * local
+def _arc_length_table(curve: AtomicNurbsCurve, tolerance: float = 1e-7) -> _LengthTable:
+    return _LengthTable(curve, tolerance)
+
+
+def _parameter_at_length(table: _LengthTable, cumulative, target: float) -> float:
+    return table.parameter_at(target)
 
 
 def parameter_at_normalized_curve_length(
@@ -231,11 +278,10 @@ def parameter_at_normalized_curve_length(
         return start
     if factor >= 1.0:
         return end
-    samples, cumulative = _arc_length_table(curve, tolerance)
-    total = cumulative[-1]
-    if total <= _TOLERANCE:
+    table = _arc_length_table(curve, tolerance)
+    if table.total <= _TOLERANCE:
         raise ValueError("Point On Curve requires a non-zero-length curve")
-    return _parameter_at_length(samples, cumulative, total * factor)
+    return table.parameter_at(table.total * factor)
 
 
 def point_at_normalized_curve_length(
@@ -274,8 +320,8 @@ def divide_nurbs_curve_by_count(
     segments = int(count)
     if segments < 1:
         raise ValueError("Divide Curve requires at least one segment")
-    samples, cumulative = _arc_length_table(curve, tolerance)
-    total = cumulative[-1]
+    table = _arc_length_table(curve, tolerance)
+    total = table.total
     if total <= _TOLERANCE:
         raise ValueError("Divide Curve requires a non-zero-length curve")
     start, end = nurbs_curve_domain(curve)
@@ -288,7 +334,7 @@ def divide_nurbs_curve_by_count(
         elif index == segments:
             parameters.append(end)
         else:
-            parameters.append(_parameter_at_length(samples, cumulative, total * index / segments))
+            parameters.append(table.parameter_at(total * index / segments))
     points = [evaluate_nurbs_curve(curve, parameter) for parameter in parameters]
     tangents = [nurbs_curve_tangent(curve, parameter) for parameter in parameters]
     return points, tangents, parameters
@@ -297,44 +343,6 @@ def divide_nurbs_curve_by_count(
 def nurbs_curve_tangent(curve: AtomicNurbsCurve, parameter: float) -> AtomicVector:
     """Return the unit tangent at *parameter* (analytic first derivative)."""
     return curve_tangent(curve, parameter)
-
-
-def _adaptive_span_samples(
-    curve: AtomicNurbsCurve,
-    start: float,
-    end: float,
-    start_point: AtomicPoint,
-    end_point: AtomicPoint,
-    tolerance: float,
-    depth: int,
-) -> list[tuple[float, AtomicPoint]]:
-    one_third = start + (end - start) / 3.0
-    two_thirds = start + 2.0 * (end - start) / 3.0
-    point_a = evaluate_nurbs_curve(curve, one_third)
-    point_b = evaluate_nurbs_curve(curve, two_thirds)
-    chord = _distance(start_point, end_point)
-    polygon = _distance(start_point, point_a) + _distance(point_a, point_b) + _distance(point_b, end_point)
-    if depth <= 0 or polygon - chord <= tolerance * max(1.0, polygon):
-        return [(start, start_point), (one_third, point_a), (two_thirds, point_b), (end, end_point)]
-
-    samples = []
-    segments = (
-        (start, one_third, start_point, point_a),
-        (one_third, two_thirds, point_a, point_b),
-        (two_thirds, end, point_b, end_point),
-    )
-    for segment_start, segment_end, segment_start_point, segment_end_point in segments:
-        segment_samples = _adaptive_span_samples(
-            curve,
-            segment_start,
-            segment_end,
-            segment_start_point,
-            segment_end_point,
-            tolerance,
-            depth - 1,
-        )
-        samples.extend(segment_samples if not samples else segment_samples[1:])
-    return samples
 
 
 def divide_nurbs_curve_by_distance(
@@ -346,46 +354,16 @@ def divide_nurbs_curve_by_distance(
     interval = float(distance)
     if interval <= 0.0:
         raise ValueError("Divide Distance requires a distance greater than zero")
-
-    start, end = nurbs_curve_domain(curve)
-    boundaries = sorted({start, end, *(knot for knot in curve.knots if start < knot < end)})
-    samples: list[tuple[float, AtomicPoint]] = []
-    for span_start, span_end in zip(boundaries, boundaries[1:]):
-        span_samples = _adaptive_span_samples(
-            curve,
-            span_start,
-            span_end,
-            evaluate_nurbs_curve(curve, span_start),
-            evaluate_nurbs_curve(curve, span_end),
-            tolerance,
-            10,
-        )
-        samples.extend(span_samples if not samples else span_samples[1:])
-
-    cumulative = [0.0]
-    for (_, point_a), (_, point_b) in zip(samples, samples[1:]):
-        cumulative.append(cumulative[-1] + _distance(point_a, point_b))
-    total = cumulative[-1]
+    table = _arc_length_table(curve, tolerance)
+    total = table.total
     if total <= _TOLERANCE:
         raise ValueError("Divide Distance requires a non-zero-length curve")
 
     target_count = int(math.floor((total + tolerance) / interval))
     targets = [index * interval for index in range(target_count + 1)]
-    closed = _distance(samples[0][1], samples[-1][1]) <= tolerance * max(1.0, total)
-    if closed and targets and abs(targets[-1] - total) <= tolerance * max(1.0, total):
+    if is_closed_nurbs_curve(curve) and targets and abs(targets[-1] - total) <= tolerance * max(1.0, total):
         targets.pop()
-
-    parameters = []
-    sample_index = 1
-    for target in targets:
-        while sample_index < len(cumulative) - 1 and cumulative[sample_index] < target:
-            sample_index += 1
-        lower = sample_index - 1
-        segment_length = cumulative[sample_index] - cumulative[lower]
-        local = 0.0 if segment_length <= _TOLERANCE else (target - cumulative[lower]) / segment_length
-        parameter = samples[lower][0] + (samples[sample_index][0] - samples[lower][0]) * local
-        parameters.append(parameter)
-
+    parameters = [table.parameter_at(target) for target in targets]
     points = [evaluate_nurbs_curve(curve, parameter) for parameter in parameters]
     tangents = [nurbs_curve_tangent(curve, parameter) for parameter in parameters]
     return points, tangents, parameters
@@ -418,10 +396,17 @@ def reparametrize_curve(item):
     """Reparametrize a curve atom to [0, 1]; non-NURBS items pass through unchanged.
 
     Named curve atoms (lines, circles, arcs, polylines, …) already unify to a
-    [0, 1] domain, so only explicit ``AtomicNurbsCurve`` values need rescaling.
+    [0, 1] domain, so only ``AtomicNurbsCurve`` values (knot domain) and
+    ``AtomicPolyCurve`` values (segment spans) need rescaling.
     """
     if isinstance(item, AtomicNurbsCurve):
         return reparametrize_nurbs_curve(item)
+    if isinstance(item, AtomicPolyCurve):
+        spans = polycurve_spans(item)
+        total = sum(spans)
+        if total <= _TOLERANCE:
+            raise ValueError("Cannot reparametrize a polycurve with a zero-length domain")
+        return AtomicPolyCurve(item.segments, tuple(span / total for span in spans), 0.0)
     return item
 
 
@@ -454,10 +439,68 @@ def _as_nurbs(curve) -> AtomicNurbsCurve:
     return as_nurbs_curve(curve)
 
 
+def natural_span(curve) -> float:
+    """The parameter length Rhino gives a curve of this kind: a line's length, an arc's length, a
+    polyline's segment count, a NURBS curve's knot domain (2π for ellipses, 4 for rectangles)."""
+    if isinstance(curve, AtomicLine):
+        return _distance(curve.start, curve.end)
+    if isinstance(curve, AtomicPolyline):
+        return float(max(1, len(curve.points) - 1))
+    if isinstance(curve, (AtomicArc, AtomicCircle)):
+        return curve_length(curve)
+    if isinstance(curve, AtomicEllipse):
+        return 2.0 * math.pi
+    if isinstance(curve, AtomicRectangle):
+        return 4.0
+    if isinstance(curve, AtomicPolyCurve):
+        return sum(polycurve_spans(curve))
+    start, end = nurbs_curve_domain(_as_nurbs(curve))
+    return end - start
+
+
+def polycurve_spans(curve: AtomicPolyCurve) -> list[float]:
+    """Parameter length of every segment (the stored spans, or the natural ones)."""
+    if curve.spans:
+        return [float(span) for span in curve.spans]
+    return [natural_span(segment) for segment in curve.segments]
+
+
+def polycurve_breaks(curve: AtomicPolyCurve) -> list[float]:
+    """Parameters at which the segments start and end (``segment_count + 1`` values)."""
+    breaks = [float(curve.start)]
+    for span in polycurve_spans(curve):
+        breaks.append(breaks[-1] + span)
+    return breaks
+
+
+def polycurve_locate(curve: AtomicPolyCurve, parameter: float) -> tuple[int, float]:
+    """(segment index, local 0..1) for a polycurve parameter; joints belong to the outgoing segment."""
+    breaks = polycurve_breaks(curve)
+    t = min(breaks[-1], max(breaks[0], float(parameter)))
+    index = len(breaks) - 2
+    for i in range(len(breaks) - 1):
+        if t < breaks[i + 1]:
+            index = i
+            break
+    span = breaks[index + 1] - breaks[index]
+    local = 0.0 if span <= _TOLERANCE else (t - breaks[index]) / span
+    return index, min(1.0, max(0.0, local))
+
+
+def segment_parameter(segment, local: float) -> float:
+    """Map a local 0..1 position onto a segment's own parameter domain."""
+    start, end = curve_domain_of(segment)
+    return start + (end - start) * float(local)
+
+
 def curve_domain_of(curve) -> tuple[float, float]:
-    """Parameter domain: [0, 1] for named curve atoms, the knot domain for NURBS."""
+    """Parameter domain: [0, 1] for named curve atoms, the knot domain for NURBS, the accumulated
+    segment spans for polycurves."""
     if isinstance(curve, _NATIVE_ATOMS):
         return 0.0, 1.0
+    if isinstance(curve, AtomicPolyCurve):
+        breaks = polycurve_breaks(curve)
+        return breaks[0], breaks[-1]
     return nurbs_curve_domain(_as_nurbs(curve))
 
 
@@ -505,6 +548,10 @@ def curve_point_at(curve, parameter: float) -> AtomicPoint:
     if isinstance(curve, (AtomicArc, AtomicCircle)):
         _, _, _, _, start_angle, sweep = _arc_geometry(curve)
         return _arc_point(curve, start_angle + sweep * float(parameter))
+    if isinstance(curve, AtomicPolyCurve):
+        index, local = polycurve_locate(curve, parameter)
+        segment = curve.segments[index]
+        return curve_point_at(segment, segment_parameter(segment, local))
     return evaluate_nurbs_curve(_as_nurbs(curve), float(parameter))
 
 
@@ -535,6 +582,12 @@ def curve_tangent_at(curve, parameter: float, *, incoming: bool = False) -> Atom
             sign * (-math.sin(angle) * x_axis.y + math.cos(angle) * y_axis.y),
             sign * (-math.sin(angle) * x_axis.z + math.cos(angle) * y_axis.z),
         ))
+    if isinstance(curve, AtomicPolyCurve):
+        index, local = polycurve_locate(curve, parameter)
+        if incoming and local <= _TOLERANCE and index > 0:
+            index, local = index - 1, 1.0
+        segment = curve.segments[index]
+        return curve_tangent_at(segment, segment_parameter(segment, local), incoming=incoming)
     return nurbs_curve_tangent(_as_nurbs(curve), float(parameter))
 
 
@@ -553,6 +606,10 @@ def curve_curvature_vector(curve, parameter: float) -> AtomicVector:
         if radius <= _TOLERANCE:
             return AtomicVector(0.0, 0.0, 0.0)
         return AtomicVector((centre.x - point.x) / (radius * radius), (centre.y - point.y) / (radius * radius), (centre.z - point.z) / (radius * radius))
+    if isinstance(curve, AtomicPolyCurve):
+        index, local = polycurve_locate(curve, parameter)
+        segment = curve.segments[index]
+        return curve_curvature_vector(segment, segment_parameter(segment, local))
     from pyhopper.Utils.Nurbs import curve_curvature
 
     _, _, vector = curve_curvature(_as_nurbs(curve), float(parameter))
@@ -584,6 +641,18 @@ def curve_derivatives_at(curve, parameter: float) -> tuple[AtomicPoint, AtomicVe
         second = AtomicVector(-sweep * sweep * radial.x, -sweep * sweep * radial.y, -sweep * sweep * radial.z)
         third = AtomicVector(-sweep * sweep * first.x, -sweep * sweep * first.y, -sweep * sweep * first.z)
         return AtomicPoint(centre.x + radial.x, centre.y + radial.y, centre.z + radial.z), first, second, third
+    if isinstance(curve, AtomicPolyCurve):
+        index, local = polycurve_locate(curve, t)
+        segment = curve.segments[index]
+        seg_start, seg_end = curve_domain_of(segment)
+        scale = (seg_end - seg_start) / polycurve_spans(curve)[index]  # d(segment parameter) / d(polycurve parameter)
+        point, first, second, third = curve_derivatives_at(segment, seg_start + (seg_end - seg_start) * local)
+        return (
+            point,
+            AtomicVector(first.x * scale, first.y * scale, first.z * scale),
+            AtomicVector(second.x * scale * scale, second.y * scale * scale, second.z * scale * scale),
+            AtomicVector(third.x * scale ** 3, third.y * scale ** 3, third.z * scale ** 3),
+        )
     from pyhopper.Utils.Nurbs import curve_derivatives
 
     point, (first, second, third) = curve_derivatives(_as_nurbs(curve), t, 3)
@@ -604,6 +673,10 @@ def curve_is_closed(curve, tolerance: float = 1e-9) -> bool:
         return False
     if isinstance(curve, AtomicPolyline):
         return curve.is_closed
+    if isinstance(curve, AtomicPolyCurve):
+        first, last = curve_start_end(curve)
+        extent = max(1.0, abs(first.x), abs(first.y), abs(first.z))
+        return _distance(first, last) <= tolerance * extent
     return is_closed_nurbs_curve(_as_nurbs(curve), tolerance)
 
 
@@ -619,22 +692,8 @@ def curve_is_periodic(curve) -> bool:
     return False
 
 
-def _nurbs_length_table(curve: AtomicNurbsCurve, tolerance: float):
+def _nurbs_length_table(curve: AtomicNurbsCurve, tolerance: float) -> _LengthTable:
     return _arc_length_table(curve, tolerance)
-
-
-def _length_at_parameter(samples, cumulative, parameter: float) -> float:
-    if parameter <= samples[0][0]:
-        return 0.0
-    if parameter >= samples[-1][0]:
-        return cumulative[-1]
-    index = 1
-    while index < len(samples) - 1 and samples[index][0] < parameter:
-        index += 1
-    lower = index - 1
-    span = samples[index][0] - samples[lower][0]
-    local = 0.0 if span <= _TOLERANCE else (parameter - samples[lower][0]) / span
-    return cumulative[lower] + (cumulative[index] - cumulative[lower]) * local
 
 
 def curve_length_at(curve, parameter: float, tolerance: float = 1e-7) -> float:
@@ -648,9 +707,13 @@ def curve_length_at(curve, parameter: float, tolerance: float = 1e-7) -> float:
     if isinstance(curve, (AtomicArc, AtomicCircle)):
         _, _, _, radius, _, sweep = _arc_geometry(curve)
         return radius * abs(sweep) * min(1.0, max(0.0, float(parameter)))
+    if isinstance(curve, AtomicPolyCurve):
+        index, local = polycurve_locate(curve, parameter)
+        segment = curve.segments[index]
+        before = sum(curve_length(piece, tolerance) for piece in curve.segments[:index])
+        return before + curve_length_at(segment, segment_parameter(segment, local), tolerance)
     nurbs = _as_nurbs(curve)
-    samples, cumulative = _nurbs_length_table(nurbs, tolerance)
-    return _length_at_parameter(samples, cumulative, float(parameter))
+    return _nurbs_length_table(nurbs, tolerance).length_at(float(parameter))
 
 
 def curve_parameter_at_length(curve, length: float, tolerance: float = 1e-7) -> float:
@@ -671,11 +734,19 @@ def curve_parameter_at_length(curve, length: float, tolerance: float = 1e-7) -> 
                 return (index + local) / len(segments)
             remaining -= span
         return 1.0
+    if isinstance(curve, AtomicPolyCurve):
+        breaks = polycurve_breaks(curve)
+        remaining = target
+        for index, segment in enumerate(curve.segments):
+            piece = curve_length(segment, tolerance)
+            if remaining <= piece + _TOLERANCE or index == len(curve.segments) - 1:
+                seg_start, seg_end = curve_domain_of(segment)
+                local = 0.0 if piece <= _TOLERANCE else (curve_parameter_at_length(segment, min(piece, remaining), tolerance) - seg_start) / (seg_end - seg_start)
+                return breaks[index] + (breaks[index + 1] - breaks[index]) * local
+            remaining -= piece
+        return breaks[-1]
     nurbs = _as_nurbs(curve)
-    samples, cumulative = _nurbs_length_table(nurbs, tolerance)
-    if target >= cumulative[-1]:
-        return samples[-1][0]
-    return _parameter_at_length(samples, cumulative, target)
+    return _nurbs_length_table(nurbs, tolerance).parameter_at(target)
 
 
 def curve_kink_angle(curve, parameter: float, tolerance: float = 1e-9) -> float:
@@ -698,6 +769,19 @@ def curve_kink_angle(curve, parameter: float, tolerance: float = 1e-9) -> float:
         if curve.is_closed and count >= 2:
             return _angle_between(_unit_between(*segments[-1]), _unit_between(*segments[0]))
         return 0.0
+    if isinstance(curve, AtomicPolyCurve):
+        breaks = polycurve_breaks(curve)
+        t = float(parameter)
+        for index, joint in enumerate(breaks):
+            if abs(t - joint) <= tolerance * max(1.0, abs(breaks[-1] - breaks[0])):
+                if 0 < index < len(breaks) - 1:
+                    return _angle_between(curve_tangent_at(curve, joint, incoming=True), curve_tangent_at(curve, joint))
+                if curve_is_closed(curve):
+                    return _angle_between(curve_tangent_at(curve, breaks[-1], incoming=True), curve_tangent_at(curve, breaks[0]))
+                return 0.0
+        index, local = polycurve_locate(curve, t)
+        segment = curve.segments[index]
+        return curve_kink_angle(segment, segment_parameter(segment, local), tolerance)
     nurbs = _as_nurbs(curve)
     start, end = nurbs_curve_domain(nurbs)
     degree = int(nurbs.degree)
@@ -798,6 +882,9 @@ def curve_segments(curve) -> list[tuple[float, float, float]]:
         segments = _polyline_segments(curve)
         count = len(segments)
         return [(index / count, (index + 1) / count, _distance(start, end)) for index, (start, end) in enumerate(segments)]
+    if isinstance(curve, AtomicPolyCurve):
+        breaks = polycurve_breaks(curve)
+        return [(breaks[index], breaks[index + 1], curve_length(segment)) for index, segment in enumerate(curve.segments)]
     start, end = curve_domain_of(curve)
     return [(start, end, curve_length(curve))]
 

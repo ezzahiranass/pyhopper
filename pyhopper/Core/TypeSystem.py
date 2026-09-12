@@ -20,6 +20,7 @@ from .Atoms import (
     AtomicLine,
     AtomicMesh,
     AtomicNurbsCurve,
+    AtomicPolyCurve,
     AtomicPlane,
     AtomicPoint,
     AtomicPolyline,
@@ -53,6 +54,7 @@ CURVE_TYPES = (
     AtomicRectangle,
     AtomicInterpolatedCurve,
     AtomicControlPointCurve,
+    AtomicPolyCurve,
 )
 
 GEOMETRY_TYPES = (
@@ -67,6 +69,7 @@ GEOMETRY_TYPES = (
     AtomicBox,
     AtomicInterpolatedCurve,
     AtomicControlPointCurve,
+    AtomicPolyCurve,
     AtomicSurface,
     AtomicTrimmedSurface,
     AtomicMesh,

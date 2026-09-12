@@ -27,6 +27,7 @@ from pyhopper.Core.Atoms import (
     AtomicMesh,
     AtomicPlane,
     AtomicPoint,
+    AtomicPolyCurve,
     AtomicPolyline,
     AtomicRectangle,
     AtomicVector,
@@ -113,6 +114,15 @@ class GlbExportTests(unittest.TestCase):
         data, manifest = export_bytes({"trimmed": [trimmed]})
         self.assertEqual(len(manifest), 1)
         self.assertGreater(len(data), 200)
+
+    def test_polycurve_exports_one_line_strip(self) -> None:
+        arc = AtomicArc(AtomicPlane(AtomicPoint(2.0, 2.0, 0.0), AtomicVector(0.0, 0.0, 1.0), AtomicVector(0.0, -1.0, 0.0)), 2.0, AtomicInterval(0.0, math.pi / 2))
+        polycurve = AtomicPolyCurve((AtomicLine(AtomicPoint(0.0, 0.0, 0.0), AtomicPoint(2.0, 0.0, 0.0)), arc), (2.0, math.pi), 0.0)
+        data, manifest = export_bytes({"poly": [polycurve]})
+        self.assertEqual(len(manifest), 1)
+        self.assertGreater(len(data), 300)
+        # a bare polycurve of the same segments exports the same bytes as its manifest twin
+        self.assertEqual(export_bytes({"poly": [polycurve]})[0], data)
 
 
 if __name__ == "__main__":

@@ -28,6 +28,7 @@ from pyhopper.Core.Atoms import (
     AtomicNurbsCurve,
     AtomicPlane,
     AtomicPoint,
+    AtomicPolyCurve,
     AtomicPolyline,
     AtomicRectangle,
     AtomicSurface,
@@ -92,7 +93,7 @@ def to_net(value: Any, *, reparametrize: bool = False):
     Rhino = load()
     if value is None:
         return None
-    if isinstance(value, (AtomicLine, AtomicCircle, AtomicArc, AtomicPolyline, AtomicNurbsCurve)):
+    if isinstance(value, (AtomicLine, AtomicCircle, AtomicArc, AtomicPolyline, AtomicNurbsCurve, AtomicPolyCurve)):
         curve = curve_to_rhino(value)
         if reparametrize:
             curve.Domain = Rhino.Geometry.Interval(0.0, 1.0)
@@ -205,6 +206,16 @@ def curve_to_rhino(value):
         return Rhino.Geometry.ArcCurve(to_arc(value))
     if isinstance(value, AtomicPolyline):
         return Rhino.Geometry.PolylineCurve(to_polyline(value))
+    if isinstance(value, AtomicPolyCurve):
+        from pyhopper.Utils.Curves import polycurve_breaks
+
+        breaks = polycurve_breaks(value)
+        poly = Rhino.Geometry.PolyCurve()
+        for index, segment in enumerate(value.segments):
+            piece = curve_to_rhino(segment)
+            piece.Domain = Rhino.Geometry.Interval(breaks[index], breaks[index + 1])
+            poly.Append(piece)
+        return poly
     return to_nurbs_curve(value)
 
 
@@ -227,6 +238,10 @@ def curve_from_rhino(curve):
         return to_python_arc(curve.Arc)
     if isinstance(curve, Rhino.Geometry.PolylineCurve):
         return AtomicPolyline(tuple(AtomicPoint(float(curve.Point(i).X), float(curve.Point(i).Y), float(curve.Point(i).Z)) for i in range(curve.PointCount)))
+    if isinstance(curve, Rhino.Geometry.PolyCurve):
+        segments = tuple(curve_from_rhino(curve.SegmentCurve(i)) for i in range(curve.SegmentCount))
+        spans = tuple(float(curve.SegmentDomain(i).Length) for i in range(curve.SegmentCount))
+        return AtomicPolyCurve(segments, spans, float(curve.Domain.T0))
     nurbs = curve if isinstance(curve, Rhino.Geometry.NurbsCurve) else curve.ToNurbsCurve()
     if nurbs is None:
         raise TypeError(f"cannot convert {curve.GetType().FullName} to a pyhopper curve")

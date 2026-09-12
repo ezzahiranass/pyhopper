@@ -1,7 +1,7 @@
 {
  "component": "pyhopper.Components.Curve.Primitive.Rectangle2Pt.Rectangle2Pt",
  "gh_guid": "575660b1-8c79-4b8d-9222-7ab4a6ddb359",
- "mode": "exact",
+ "mode": "geometry",
  "tolerance": 1e-06,
  "reparametrize": [],
  "cases": [
@@ -144,5 +144,6 @@
     "Length"
    ]
   }
- ]
+ ],
+ "notes": "Fillet arcs compare by their points: Rhino stores every second quarter arc from its end with negative angles."
 }

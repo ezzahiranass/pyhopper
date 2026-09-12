@@ -12,7 +12,7 @@ from __future__ import annotations
 import math
 from typing import Sequence
 
-from pyhopper.Core.Atoms import AtomicArc, AtomicCircle, AtomicInterval, AtomicLine, AtomicNurbsCurve, AtomicPlane, AtomicPoint, AtomicVector
+from pyhopper.Core.Atoms import AtomicArc, AtomicCircle, AtomicInterval, AtomicLine, AtomicNurbsCurve, AtomicPlane, AtomicPoint, AtomicPolyCurve, AtomicVector
 from pyhopper.Utils.Planes import plane_coordinates, plane_from_points, point_on_plane
 from pyhopper.Utils.Vectors import cross, distance, dot, is_zero, sub, unit
 
@@ -308,12 +308,12 @@ def _fillet_arc(plane: AtomicPlane, cx: float, cy: float, r: float, ax: float, a
 
 # ── biarc ──────────────────────────────────────────────────────────
 
-def biarc(start: AtomicPoint, start_tangent: AtomicVector, end: AtomicPoint, end_tangent: AtomicVector, ratio: float) -> tuple[AtomicArc, AtomicArc, AtomicNurbsCurve]:
+def biarc(start: AtomicPoint, start_tangent: AtomicVector, end: AtomicPoint, end_tangent: AtomicVector, ratio: float) -> tuple[AtomicArc, AtomicArc, AtomicPolyCurve | AtomicArc]:
     """Biarc from ``start`` to ``end`` with the given (unitised) tangents. The tangent lengths of the
     two arcs are split ``ratio : 1 - ratio`` (0.5 gives the equal-tangent biarc, which is what
     Grasshopper draws at its default). Returns both arcs (the second stored Rhino's way: x axis at the
-    end point, negative start angle) and the joined rational NURBS curve — or the single arc when both
-    arcs lie on one circle.
+    end point, negative start angle) and the two-arc polycurve on natural spans — or the single arc
+    when both arcs lie on one circle.
     """
     rho = float(ratio)
     if not 0.0 < rho < 1.0:
@@ -344,7 +344,7 @@ def biarc(start: AtomicPoint, start_tangent: AtomicVector, end: AtomicPoint, end
         total = float(arc_a.angle.end) + abs(float(arc_b.angle.start))
         arc_b = AtomicArc(arc_a.plane, arc_a.radius, AtomicInterval(float(arc_a.angle.end), total))
         return arc_a, arc_b, AtomicArc(arc_a.plane, arc_a.radius, AtomicInterval(0.0, total))
-    return arc_a, arc_b, _join_arcs(arc_a, arc_b)
+    return arc_a, arc_b, AtomicPolyCurve((arc_a, arc_b), (abs(float(arc_a.angle.length)) * float(arc_a.radius), abs(float(arc_b.angle.length)) * float(arc_b.radius)), 0.0)
 
 
 def _positive_root(a: float, b: float, c: float):
@@ -394,16 +394,6 @@ def arc_nurbs_rhino(arc: AtomicArc) -> AtomicNurbsCurve:
     length = abs(float(arc.angle.end) - float(arc.angle.start)) * float(arc.radius)
     return AtomicNurbsCurve(nurbs.control_points, nurbs.weights, tuple(k * length for k in nurbs.knots), nurbs.degree)
 
-
-def _join_arcs(arc_a: AtomicArc, arc_b: AtomicArc) -> AtomicNurbsCurve:
-    first, second = arc_nurbs_rhino(arc_a), arc_nurbs_rhino(arc_b)
-    offset = first.knots[-1]
-    # a C0 join of two quadratics carries a double knot: drop one end knot and the second's start triple
-    knots = tuple(first.knots[:-1]) + tuple(offset + k for k in second.knots[3:])
-    return AtomicNurbsCurve(first.control_points + second.control_points[1:], first.weights + second.weights[1:], knots, 2)
-
-
-# ── Steiner inellipse ──────────────────────────────────────────────
 
 def steiner_inellipse(a: AtomicPoint, b: AtomicPoint, c: AtomicPoint) -> tuple[AtomicNurbsCurve, AtomicPlane]:
     """Grasshopper's InEllipse: the incircle of the unit equilateral triangle mapped affinely onto the

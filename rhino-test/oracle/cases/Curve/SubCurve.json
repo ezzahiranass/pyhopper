@@ -1,0 +1,502 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.SubCurve.SubCurve",
+ "gh_guid": "429cbba9-55ee-4e84-98ea-876c44db879a",
+ "mode": "geometry",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "base_curve"
+ ],
+ "cases": [
+  {
+   "name": "cubic",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "domain": [
+     {
+      "type": "Interval",
+      "start": 0.2,
+      "end": 0.7
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "reversed_domain",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "domain": [
+     {
+      "type": "Interval",
+      "start": 0.7,
+      "end": 0.2
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "circle",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "domain": [
+     {
+      "type": "Interval",
+      "start": 0.07957747154594767,
+      "end": 0.238732414637843
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "line",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "domain": [
+     {
+      "type": "Interval",
+      "start": 0.25,
+      "end": 0.75
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "polyline",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "domain": [
+     {
+      "type": "Interval",
+      "start": 0.16666666666666666,
+      "end": 0.8333333333333334
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "out_of_range_is_clipped",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "domain": [
+     {
+      "type": "Interval",
+      "start": -1.0,
+      "end": 6.0
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "polycurve",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "PolyCurve",
+      "segments": [
+       {
+        "type": "Line",
+        "start": {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": -3.0,
+         "z": 0.0
+        },
+        "end": {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       {
+        "type": "Arc",
+        "plane": {
+         "type": "Plane",
+         "origin": {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         "normal": {
+          "type": "Vector3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 1.0
+         },
+         "x_axis": {
+          "type": "Vector3d",
+          "x": 1.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        },
+        "radius": 2.0,
+        "angle": {
+         "type": "Interval",
+         "start": 0.0,
+         "end": 1.5707963267948966
+        }
+       }
+      ],
+      "spans": [
+       3.0,
+       3.141592653589793
+      ],
+      "start": 0.0
+     }
+    ],
+    "domain": [
+     {
+      "type": "Interval",
+      "start": 0.2,
+      "end": 0.8
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "base_curve": {
+     "0": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "domain": [
+     {
+      "type": "Interval",
+      "start": 0.25,
+      "end": 0.5
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {
+    "base_curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ]
+}

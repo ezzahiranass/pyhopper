@@ -98,6 +98,7 @@ def _iter_atoms(tree: Any) -> list[Any]:
         AtomicMesh,
         AtomicNurbsCurve,
         AtomicPoint,
+        AtomicPolyCurve,
         AtomicPolyline,
         AtomicRectangle,
         AtomicSurface,
@@ -125,6 +126,7 @@ def _iter_atoms(tree: Any) -> list[Any]:
         AtomicRectangle,
         AtomicInterpolatedCurve,
         AtomicControlPointCurve,
+        AtomicPolyCurve,
         AtomicSurface,
         AtomicTrimmedSurface,
         AtomicBrep,
@@ -162,6 +164,7 @@ class _GlbBuilder:
             AtomicMesh,
             AtomicNurbsCurve,
             AtomicPoint,
+            AtomicPolyCurve,
             AtomicPolyline,
             AtomicRectangle,
             AtomicSurface,
@@ -184,6 +187,9 @@ class _GlbBuilder:
             return True
         if isinstance(atom, AtomicCircle):
             self.add_circle(atom, name=name)
+            return True
+        if isinstance(atom, AtomicPolyCurve):
+            self.add_polycurve(atom, name=name)
             return True
         if isinstance(atom, (
             AtomicArc,
@@ -227,6 +233,14 @@ class _GlbBuilder:
 
     def add_circle(self, circle, name: str | None = None) -> None:
         positions = _circle_points(circle, _CIRCLE_SEGS)
+        acc_idx = self._add_vec3_accessor(positions)
+        self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP}, name=name)
+
+    def add_polycurve(self, polycurve, name: str | None = None) -> None:
+        """Segments tessellated one after another into a single line strip."""
+        positions = _polycurve_points(polycurve)
+        if not positions:
+            return
         acc_idx = self._add_vec3_accessor(positions)
         self._push_mesh({"attributes": {"POSITION": acc_idx}, "mode": _LINE_STRIP}, name=name)
 
@@ -426,6 +440,29 @@ def _circle_points(circle, segments: int) -> list[tuple[float, float, float]]:
             cz + radius * (cos_t * xz + sin_t * yz),
         ))
     return points
+
+
+def _polycurve_points(polycurve) -> list[tuple[float, float, float]]:
+    """Line-strip positions of a polycurve: every segment tessellated in turn, shared joints dropped."""
+    from pyhopper.Core.Atoms import AtomicCircle, AtomicLine, AtomicPolyCurve, AtomicPolyline
+    from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+
+    positions: list[tuple[float, float, float]] = []
+    for segment in polycurve.segments:
+        if isinstance(segment, AtomicLine):
+            piece = [(segment.start.x, segment.start.y, segment.start.z), (segment.end.x, segment.end.y, segment.end.z)]
+        elif isinstance(segment, AtomicPolyline):
+            piece = [(p.x, p.y, p.z) for p in segment.points]
+        elif isinstance(segment, AtomicCircle):
+            piece = _circle_points(segment, _CIRCLE_SEGS)
+        elif isinstance(segment, AtomicPolyCurve):
+            piece = _polycurve_points(segment)
+        else:
+            piece = _nurbs_curve_points(as_nurbs_curve(segment))
+        if positions and piece and positions[-1] == piece[0]:
+            piece = piece[1:]
+        positions.extend(piece)
+    return positions
 
 
 def _nurbs_curve_points(curve) -> list[tuple[float, float, float]]:

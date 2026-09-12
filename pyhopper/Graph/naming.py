@@ -115,6 +115,7 @@ def _tokens(text: str) -> list[str]:
 NAME_OVERRIDES_BY_GUID: dict[str, str] = {
     "9083b87f-a98c-4e41-9591-077ae4220b19": "ConstructDomain2Num",    # Construct Domain² from four numbers (Dom²Num)
     "47c30f9d-b685-4d4d-9b20-5b60e48d5af8": "DeconstructDomain2Num",  # Deconstruct Domain² into four numbers (DeDom2Num)
+    "2f407944-81c3-4062-a485-276454ec4b8c": "FilletRadius",           # Fillet every sharp corner with a radius (the other Fillet takes a parameter)
 }
 
 

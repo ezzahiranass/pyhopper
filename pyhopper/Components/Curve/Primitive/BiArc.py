@@ -30,7 +30,7 @@ class BiArc(Component):
         default 0.5 (the equal-tangent biarc); other ratios move the joint along the same biarc family
         as Grasshopper but through a different parametrisation. The second arc is stored Rhino's way
         (x axis at the end point, negative start angle); co-circular arcs collapse to one arc for the
-        Bi-Arc output, otherwise it is the joined rational NURBS with arc-length knots. A degenerate
+        Bi-Arc output, otherwise it is the two-arc polycurve on arc-length spans. A degenerate
         (straight) arc or a ratio outside (0, 1) raises ``ValueError``. Points and tangents are
         required.
     """

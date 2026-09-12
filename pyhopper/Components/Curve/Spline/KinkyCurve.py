@@ -6,7 +6,7 @@ import math
 
 from pyhopper.Core.Atoms import AtomicInterval, AtomicPoint
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
-from pyhopper.Utils.Curves import curve_length
+from pyhopper.Utils.Curves import curve_domain_of, curve_length
 from pyhopper.Utils.Interpolation import kinky_curve
 from pyhopper.Core.TypeSystem import CURVE
 
@@ -27,10 +27,10 @@ class KinkyCurve(Component):
     Notes:
         Grasshopper: Curve > Spline > Kinky Curve (KinkCrv).
         pyhopper decisions: Grasshopper-verified — vertices where the polyline turns by more than the
-        angle (default 10 degrees) are kinks; runs of two vertices become lines (knot span = length),
-        longer runs are interpolated with uniform knots (degree 1: the polyline, degree 3: Rhino's
-        interpolation) and the pieces join with full-multiplicity knots, lines being raised to the
-        curve degree. Degrees other than 1 and 3 raise ``ValueError``.
+        angle (default 10 degrees) are kinks; runs of two vertices become lines, longer runs are
+        interpolated with uniform knots (degree 1: the polyline, degree 3: Rhino's interpolation) and
+        the pieces form a polycurve on their natural spans (a single run is still wrapped, as
+        Grasshopper does). Degrees other than 1 and 3 raise ``ValueError``.
     """
 
     display_name = "Kinky Curve"
@@ -50,4 +50,4 @@ class KinkyCurve(Component):
 
     def generate(self, vertices=None, degree=3, angle=math.radians(10.0)):
         curve = kinky_curve(list(vertices or []), int(degree), float(angle))
-        return curve, curve_length(curve), AtomicInterval(curve.knots[curve.degree], curve.knots[-curve.degree - 1])
+        return curve, curve_length(curve), AtomicInterval(*curve_domain_of(curve))

@@ -12,7 +12,7 @@ from __future__ import annotations
 import math
 from typing import Sequence
 
-from pyhopper.Core.Atoms import AtomicNurbsCurve, AtomicPoint, AtomicVector
+from pyhopper.Core.Atoms import AtomicLine, AtomicNurbsCurve, AtomicPoint, AtomicPolyCurve, AtomicPolyline, AtomicVector
 from pyhopper.Utils.Nurbs import basis_row, solve_linear_system
 from pyhopper.Utils.Vectors import angle, distance, is_zero, sub, unit
 
@@ -113,11 +113,11 @@ def _single_span(a: AtomicPoint, b: AtomicPoint, t0: AtomicVector | None, t1: At
     return AtomicNurbsCurve((a, cp1, cp2, b), (1.0, 1.0, 1.0, 1.0), (0.0, 0.0, 0.0, 0.0, span, span, span, span), 3)
 
 
-def kinky_curve(points: Sequence[AtomicPoint], degree: int, kink_angle: float) -> AtomicNurbsCurve:
+def kinky_curve(points: Sequence[AtomicPoint], degree: int, kink_angle: float) -> AtomicPolyCurve:
     """Grasshopper's Kinky Curve: vertices where consecutive segments turn by more than ``kink_angle``
-    become kinks; runs of two vertices are lines (knot span = length), longer runs are interpolated
-    with uniform knots (degree 1: the polyline; degree 3: Rhino's interpolation), and the pieces are
-    joined with full-multiplicity knots, lines being raised to the curve degree when needed."""
+    become kinks; runs of two vertices are lines, longer runs are interpolated with uniform knots
+    (degree 1: the polyline; degree 3: Rhino's interpolation) and the pieces form a polycurve on their
+    natural spans — a single run is still wrapped in a polycurve, as Grasshopper does."""
     pts = list(points)
     if len(pts) < 2:
         raise ValueError("Kinky Curve needs at least two vertices")
@@ -128,32 +128,20 @@ def kinky_curve(points: Sequence[AtomicPoint], degree: int, kink_angle: float) -
     threshold = float(kink_angle)
     kinks = [0] + [i for i in range(1, len(pts) - 1) if angle(sub(pts[i], pts[i - 1]), sub(pts[i + 1], pts[i])) > threshold + 1e-12] + [len(pts) - 1]
     runs = [pts[start:end + 1] for start, end in zip(kinks, kinks[1:])]
-    curve_degree = int(degree) if any(len(run) > 2 for run in runs) else 1
-    controls: list[AtomicPoint] = []
-    knots: list[float] = []
-    offset = 0.0
+    segments = []
+    spans = []
     for run in runs:
         if len(run) == 2:
-            span = distance(run[0], run[1])
-            if curve_degree == 1:
-                piece_controls, piece_knots = [run[0], run[1]], [0.0, 0.0, span, span]
-            else:
-                piece_controls = [run[0], _lerp(run[0], run[1], 1.0 / 3.0), _lerp(run[0], run[1], 2.0 / 3.0), run[1]]
-                piece_knots = [0.0] * 4 + [span] * 4
-        elif curve_degree == 1:
-            piece_controls = list(run)
-            piece_knots = [0.0, 0.0] + [float(i) for i in range(1, len(run) - 1)] + [float(len(run) - 1)] * 2
+            segments.append(AtomicLine(run[0], run[1]))
+            spans.append(distance(run[0], run[1]))
+        elif int(degree) == 1:
+            segments.append(AtomicPolyline(tuple(run)))
+            spans.append(float(len(run) - 1))
         else:
             piece = rhino_interpolated_curve(run, UNIFORM)
-            piece_controls, piece_knots = list(piece.control_points), list(piece.knots)
-        if controls:
-            piece_controls = piece_controls[1:]  # shared joint
-            piece_knots = piece_knots[curve_degree + 1:]
-            knots.pop()  # the joint knot keeps multiplicity ``degree`` (a C0 join)
-        controls.extend(piece_controls)
-        knots.extend(offset + k for k in piece_knots)
-        offset = knots[-1]
-    return AtomicNurbsCurve(tuple(controls), tuple(1.0 for _ in controls), tuple(knots), curve_degree)
+            segments.append(piece)
+            spans.append(float(piece.knots[-1] - piece.knots[0]))
+    return AtomicPolyCurve(tuple(segments), tuple(spans), 0.0)
 
 
 def _lerp(a: AtomicPoint, b: AtomicPoint, t: float) -> AtomicPoint:

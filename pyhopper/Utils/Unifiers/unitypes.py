@@ -12,6 +12,7 @@ from pyhopper.Core.Atoms import (
     AtomicInterpolatedCurve,
     AtomicLine,
     AtomicNurbsCurve,
+    AtomicPolyCurve,
     AtomicPlane,
     AtomicPoint,
     AtomicPolyline,
@@ -221,5 +222,13 @@ def as_nurbs_curve(curve) -> AtomicNurbsCurve:
 
     if isinstance(curve, AtomicArc):
         return _arc_like_to_nurbs(curve.plane, curve.radius, curve.angle.start, curve.angle.end)
+
+    if isinstance(curve, AtomicPolyCurve):
+        # one NURBS curve on the polycurve's own parameterisation: every segment re-domained onto its
+        # span, degrees elevated to the largest one, C0 knots at the joints (Rhino's PolyCurve.ToNurbsCurve)
+        from pyhopper.Utils.Curves import polycurve_breaks
+        from pyhopper.Utils.NurbsEditing import join_nurbs_curves
+
+        return join_nurbs_curves([as_nurbs_curve(segment) for segment in curve.segments], polycurve_breaks(curve))
 
     raise TypeError(f"Cannot unify curve type {type(curve).__name__} to AtomicNurbsCurve")

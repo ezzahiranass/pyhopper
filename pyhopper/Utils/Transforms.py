@@ -17,6 +17,7 @@ from pyhopper.Core.Atoms import (
     AtomicLine,
     AtomicMesh,
     AtomicNurbsCurve,
+    AtomicPolyCurve,
     AtomicPlane,
     AtomicPoint,
     AtomicPolyline,
@@ -136,6 +137,13 @@ def apply_transform(transform: AtomicTransform, atom: Atom) -> Atom:
             weights=atom.weights,
             knots=atom.knots,
             degree=atom.degree,
+        )
+
+    if isinstance(atom, AtomicPolyCurve):
+        return AtomicPolyCurve(
+            segments=tuple(apply_transform(transform, segment) for segment in atom.segments),
+            spans=atom.spans,
+            start=atom.start,
         )
 
     if isinstance(atom, AtomicInterpolatedCurve):
