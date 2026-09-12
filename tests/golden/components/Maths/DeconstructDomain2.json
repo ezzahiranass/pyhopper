@@ -1,0 +1,209 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.DeconstructDomain2.DeconstructDomain2",
+ "gh_guid": "f0adfc96-b175-46a6-80c7-2b0ee17395c4",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "u_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      }
+     ]
+    },
+    "v_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "reversed",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "u_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.0
+      }
+     ]
+    },
+    "v_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "expect": {
+    "u_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ]
+    },
+    "v_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "domain": {
+     "0": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 2.0,
+        "end": 0.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ]
+    }
+   },
+   "expect": {
+    "u_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ]
+    },
+    "v_component": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      },
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

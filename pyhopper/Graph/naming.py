@@ -56,6 +56,7 @@ OUTPUT_PORT_OVERRIDES: dict[tuple[str, str], str] = {
     ("Plane Surface", "Plane"): "surface",                      # the input plane keeps "plane"
     ("Replace Nulls", "Items"): "result",                       # "items" is a DataTree attribute
     ("Match Text", "Match"): "matched",                         # "match" is a DataTree attribute
+    ("Construct Domain²", "2D Domain"): "domain",               # a leading digit makes no identifier
 }
 
 # Second occurrence of a duplicated GH output name (mapped by position when names repeat).
@@ -106,15 +107,24 @@ def _tokens(text: str) -> list[str]:
     return [token for token in re.split(r"[^A-Za-z0-9]+", text) if token]
 
 
-def class_name_for(gh_name: str, tab: str | None = None, sub: str | None = None) -> str:
+# Grasshopper ships a few components twice under one name (same tab and sub); their GUIDs decide.
+NAME_OVERRIDES_BY_GUID: dict[str, str] = {
+    "9083b87f-a98c-4e41-9591-077ae4220b19": "ConstructDomain2Num",    # Construct Domain² from four numbers (Dom²Num)
+    "47c30f9d-b685-4d4d-9b20-5b60e48d5af8": "DeconstructDomain2Num",  # Deconstruct Domain² into four numbers (DeDom2Num)
+}
+
+
+def class_name_for(gh_name: str, tab: str | None = None, sub: str | None = None, guid: str | None = None) -> str:
     """Derive the pyhopper class name for a Grasshopper component name.
 
     Rules: ``|`` is dropped, ``+`` becomes ``Plus``, a parenthesised qualifier is
     appended, ``²`` → ``2``, other punctuation separates tokens, tokens keep
     their Grasshopper capitalisation except for an upper-cased first letter, a
     leading digit is spelled out, and Vector › Grid single-word names gain the
-    ``Grid`` suffix. Overrides win.
+    ``Grid`` suffix. Overrides win (by GUID first, then by tab/sub/name).
     """
+    if guid is not None and guid in NAME_OVERRIDES_BY_GUID:
+        return NAME_OVERRIDES_BY_GUID[guid]
     if tab is not None and sub is not None and (tab, sub, gh_name) in NAME_OVERRIDES:
         return NAME_OVERRIDES[(tab, sub, gh_name)]
 
@@ -196,6 +206,7 @@ GH_TYPE_HINTS: dict[str, str] = {
     "Transform": "AtomicTransform",
     "Brep": "AtomicBrep",
     "Domain": "AtomicInterval",
+    "Domain²": "AtomicInterval2",
     "Path": "Path",
     "Curve": "CURVE",
     "Surface": "SURFACE",

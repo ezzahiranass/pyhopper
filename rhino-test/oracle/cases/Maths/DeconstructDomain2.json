@@ -1,0 +1,122 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.DeconstructDomain2.DeconstructDomain2",
+ "gh_guid": "f0adfc96-b175-46a6-80c7-2b0ee17395c4",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "U component",
+    "V component"
+   ]
+  },
+  {
+   "name": "reversed",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "U component",
+    "V component"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "compare": [
+    "U component",
+    "V component"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "domain": {
+     "0": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 2.0,
+        "end": 0.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ]
+    }
+   },
+   "compare": [
+    "U component",
+    "V component"
+   ]
+  }
+ ]
+}

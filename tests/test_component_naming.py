@@ -50,6 +50,11 @@ class ClassNameRuleTests(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertEqual(class_name_for(name, tab, sub), expected)
 
+    def test_duplicate_grasshopper_names_are_told_apart_by_guid(self) -> None:
+        self.assertEqual(class_name_for("Construct Domain²", "Maths", "Domain", "8555a743-36c1-42b8-abcc-06d9cb94519f"), "ConstructDomain2")
+        self.assertEqual(class_name_for("Construct Domain²", "Maths", "Domain", "9083b87f-a98c-4e41-9591-077ae4220b19"), "ConstructDomain2Num")
+        self.assertEqual(class_name_for("Deconstruct Domain²", "Maths", "Domain", "47c30f9d-b685-4d4d-9b20-5b60e48d5af8"), "DeconstructDomain2Num")
+
     @unittest.skipUnless(PLAN.exists(), "roadmap plan not available")
     def test_every_tier_one_and_two_candidate_gets_a_unique_identifier(self) -> None:
         plan = json.loads(PLAN.read_text(encoding="utf-8"))
