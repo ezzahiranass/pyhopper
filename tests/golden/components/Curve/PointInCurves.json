@@ -1,0 +1,735 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.PointInCurves.PointInCurves",
+ "gh_guid": "0b04e8b9-00d7-47a7-95c3-0d51e654fe88",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "inside_the_first",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "curves": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "relationship": {
+     "{0}": [
+      2
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "outside_all",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 5.0,
+      "y": 5.0,
+      "z": 0.0
+     }
+    ],
+    "curves": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "relationship": {
+     "{0}": [
+      0
+     ]
+    },
+    "index": {
+     "{0}": [
+      -1
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 5.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "inside_the_second_only",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.9,
+      "y": 1.9,
+      "z": 0.0
+     }
+    ],
+    "curves": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "relationship": {
+     "{0}": [
+      2
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.9,
+       "y": 1.9,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "coincident_with_the_first",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "curves": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "relationship": {
+     "{0}": [
+      1
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "coincident_with_the_second",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "curves": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "relationship": {
+     "{0}": [
+      1
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "open_curves_are_skipped",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "curves": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "relationship": {
+     "{0}": [
+      2
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 5.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "curves": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "relationship": {
+     "{0}": [
+      2
+     ],
+     "{1}": [
+      0
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ],
+     "{1}": [
+      -1
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 5.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,725 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.CurveSide.CurveSide",
+ "gh_guid": "bb2e13da-09ca-43fd-bef8-8d71f3653af9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "left_of_a_cubic",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 3.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "right_of_a_cubic",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": -3.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "on_the_curve",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "line_left",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "flipped_plane",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": -1.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "vertical_plane",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "circle_plane_orientation",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "flipped_circle_plane_orientation",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "outside_a_circle",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "inside_a_polyline",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "inside_a_reversed_polyline",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "planar_nurbs_reversed",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 3.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "vertical_line_uses_world_xy",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 4.0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Side",
+    "Left",
+    "Right"
+   ]
+  }
+ ],
+ "notes": "Without a plane Grasshopper uses the curve's own plane (arcs, circles), a fitted plane with a +z-leaning normal (polylines, planar NURBS) or World XY (lines, non-planar curves)."
+}

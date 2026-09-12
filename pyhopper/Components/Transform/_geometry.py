@@ -35,8 +35,8 @@ def _closest_on_segment(start: AtomicPoint, end: AtomicPoint, point: AtomicPoint
 
 def closest_point_on(emitter, point: AtomicPoint) -> AtomicPoint:
     """Closest point of ``emitter`` to ``point`` — exact for points, lines, polylines, rectangles, circles,
-    boxes and planes (Grasshopper measures a plane as the square [-1, 1]² on it); other atoms answer with
-    their bounding-box centre until the closest-point kernel (K3) lands."""
+    boxes and planes (Grasshopper measures a plane as the square [-1, 1]² on it); other curves, surfaces
+    and breps go through the closest-point kernel, anything else answers with its bounding-box centre."""
     if isinstance(emitter, AtomicPoint):
         return emitter
     if isinstance(emitter, AtomicLine):
@@ -59,7 +59,12 @@ def closest_point_on(emitter, point: AtomicPoint) -> AtomicPoint:
     if isinstance(emitter, AtomicPlane):
         x, y, _ = plane_coordinates(emitter, point)
         return point_on_plane(emitter, min(max(x, -1.0), 1.0), min(max(y, -1.0), 1.0))
-    return geometry_centre(emitter)
+    from pyhopper.Utils.ClosestPoints import geometry_closest_point
+
+    try:
+        return geometry_closest_point(emitter, point)[0]
+    except TypeError:
+        return geometry_centre(emitter)
 
 
 def move_away_translation(geometry, emitter, distance_along: float) -> AtomicVector:

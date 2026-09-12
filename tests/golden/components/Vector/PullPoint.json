@@ -1,0 +1,730 @@
+{
+ "component": "pyhopper.Components.Vector.Point.PullPoint.PullPoint",
+ "gh_guid": "902289da-28dc-454b-98d4-b8f8aa234516",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "mixed_geometry",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 3.0,
+      "z": 0.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.5,
+      "z": 0.0
+     },
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.5,
+       "z": 0.0
+      }
+     ]
+    },
+    "distance": {
+     "{0}": [
+      0.5
+     ]
+    },
+    "index": {
+     "{0}": [
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "surface",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 5.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": 1.25
+      }
+     ]
+    },
+    "distance": {
+     "{0}": [
+      3.75
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "tie_goes_first",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 2.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "distance": {
+     "{0}": [
+      1.0
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "curve",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.8973665961010275,
+       "y": 0.6324555320336759,
+       "z": 0.0
+      }
+     ]
+    },
+    "distance": {
+     "{0}": [
+      1.1622776601683793
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "brep",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 3.0,
+      "z": 2.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Brep",
+      "faces": [
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 2.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 2.0,
+           "z": 3.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 1.0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 4.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 4.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 4.0,
+           "z": 0.0
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         3,
+         3
+        ],
+        "v_mults": [
+         3,
+         3
+        ],
+        "u_degree": 2,
+        "v_degree": 2,
+        "u_periodic": false,
+        "v_periodic": false
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.2543210852069535,
+       "y": 2.7456789147930465,
+       "z": 1.0463170021727661
+      }
+     ]
+    },
+    "distance": {
+     "{0}": [
+      1.0192495715507683
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 3.0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": -1.0,
+       "y": -1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.1094003924504583,
+       "y": 1.6641005886756872,
+       "z": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": -1.4142135623730954,
+       "y": -1.414213562373095,
+       "z": 0.0
+      }
+     ]
+    },
+    "distance": {
+     "{0}": [
+      1.6055512754639893
+     ],
+     "{1}": [
+      0.5857864376269051
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      1
+     ]
+    }
+   }
+  }
+ ]
+}

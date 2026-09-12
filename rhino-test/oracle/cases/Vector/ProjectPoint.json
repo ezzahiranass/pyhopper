@@ -1,0 +1,1129 @@
+{
+ "component": "pyhopper.Components.Vector.Point.ProjectPoint.ProjectPoint",
+ "gh_guid": "5184b8cb-b71e-4def-a590-cd2c9bc58906",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "onto_a_dome",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 5.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "nearest_hit_wins",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 5.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     },
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "from_below",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": -5.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     },
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "diagonal",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 5.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": -2.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "onto_a_line",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.0005,
+      "z": 5.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "onto_a_circle",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 5.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "miss",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 10.0,
+      "y": 10.0,
+      "z": 5.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "behind_the_point_misses",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 5.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "line_out_of_tolerance",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.1,
+      "z": 5.0
+     }
+    ],
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 5.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 1.0,
+       "z": 5.0
+      }
+     ]
+    },
+    "geometry": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Index"
+   ]
+  }
+ ],
+ "notes": "A forward ray cast; curves and points count as hit within Rhino's default absolute tolerance (0.01)."
+}

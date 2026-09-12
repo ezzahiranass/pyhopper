@@ -1,0 +1,486 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.PointInCurve.PointInCurve",
+ "gh_guid": "a72b0bd3-c7a7-458e-875d-09ae1624638c",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "inside",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "outside",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "coincident",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "projected_onto_the_plane",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.5,
+      "z": 1.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "within_tolerance",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.005,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "beyond_tolerance",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.02,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "closed_polyline",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "polyline_vertex",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     }
+    ],
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "tilted_circle",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.0,
+      "y": 5.0,
+      "z": 0.5
+     }
+    ],
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0.5,
+       "y": 0.5,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Relationship",
+    "Point"
+   ]
+  }
+ ],
+ "notes": "Coincidence uses Rhino's default absolute tolerance (0.01), which Grasshopper's headless document uses too."
+}

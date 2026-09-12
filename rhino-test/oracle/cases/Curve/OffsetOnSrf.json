@@ -1,0 +1,653 @@
+{
+ "component": "pyhopper.Components.Curve.Util.OffsetOnSrf.OffsetOnSrf",
+ "gh_guid": "b6f5cb51-f260-4c74-bf73-deb47de1bf91",
+ "mode": "structural",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "line_on_a_flat",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.5,
+       "y": 0.5,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3.5,
+       "y": 0.5,
+       "z": 0.0
+      }
+     }
+    ],
+    "distance": [
+     0.5
+    ],
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "negative_distance",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.5,
+       "y": 0.5,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3.5,
+       "y": 0.5,
+       "z": 0.0
+      }
+     }
+    ],
+    "distance": [
+     -0.25
+    ],
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "polyline_corner_is_mitred",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.5,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 1.5,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "distance": [
+     0.25
+    ],
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "curve_on_a_dome",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.4375
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 1.0,
+        "z": 2.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.5,
+        "y": 0.5,
+        "z": 0.4375
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 2
+     }
+    ],
+    "distance": [
+     0.5
+    ],
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.5,
+       "y": 0.5,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3.5,
+       "y": 0.5,
+       "z": 0.0
+      }
+     }
+    ],
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3.5,
+        "y": 0.5,
+        "z": 0.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "distance": [
+     0.25
+    ],
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Curve"
+   ]
+  }
+ ],
+ "notes": "Planar cases are exact polyline offsets; curved surfaces are interpolated (structure only)."
+}

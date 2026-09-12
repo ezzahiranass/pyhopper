@@ -27,9 +27,10 @@ class MoveAwayFrom(Component):
         pyhopper decisions: Grasshopper-verified — the geometry moves ``distance`` along the line from
         the emitter's closest point to the geometry's reference point (its bounding-box centre) to that
         point; emitters are measured exactly for points, lines, polylines, rectangles, circles, boxes and
-        planes (a plane counts as the square [-1, 1]² on it, as in Grasshopper), other atoms by their
-        bounding-box centre until the closest-point kernel lands. Coincident objects do not move; a
-        negative distance moves towards the emitter. Default distance 10.
+        planes (a plane counts as the square [-1, 1]² on it, as in Grasshopper) and, through the
+        closest-point kernel, for other curves, surfaces and breps; anything else by its bounding-box
+        centre. Coincident objects do not move; a negative distance moves towards the emitter. Default
+        distance 10.
     """
 
     display_name = "Move Away From"
