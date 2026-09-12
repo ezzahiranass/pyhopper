@@ -24,7 +24,13 @@
      "b"
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      2
+     ]
+    }
+   }
   },
   {
    "name": "first_duplicate_wins",
@@ -43,7 +49,13 @@
      "b"
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      2
+     ]
+    }
+   }
   },
   {
    "name": "missing_emits_nothing",
@@ -62,7 +74,11 @@
      "z"
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": []
+    }
+   }
   },
   {
    "name": "type_strict_miss",
@@ -81,7 +97,11 @@
      2.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": []
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -114,7 +134,17 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      1,
+      2
+     ],
+     "{1}": [
+      24
+     ]
+    }
+   }
   },
   {
    "name": "count_mismatch_raises",

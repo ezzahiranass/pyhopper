@@ -31,7 +31,16 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "a0",
+      "b1",
+      "a2",
+      "b3"
+     ]
+    }
+   }
   },
   {
    "name": "pattern_does_not_repeat",
@@ -55,7 +64,14 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "a0",
+      "b1"
+     ]
+    }
+   }
   },
   {
    "name": "short_streams_pad_with_none",
@@ -80,7 +96,18 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "a0",
+      "b1",
+      null,
+      null,
+      null,
+      null
+     ]
+    }
+   }
   },
   {
    "name": "index_without_stream_is_skipped",
@@ -103,7 +130,14 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "a0",
+      "b2"
+     ]
+    }
+   }
   },
   {
    "name": "negative_index_is_skipped",
@@ -123,7 +157,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "a1"
+     ]
+    }
+   }
   },
   {
    "name": "single_stream",
@@ -140,7 +180,15 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "a0",
+      "a1",
+      null
+     ]
+    }
+   }
   },
   {
    "name": "grasshopper_default_pattern",
@@ -156,7 +204,14 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "a0",
+      "b1"
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -191,7 +246,17 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      10,
+      2
+     ],
+     "{1}": [
+      3
+     ]
+    }
+   }
   }
  ]
 }

@@ -23,7 +23,25 @@
      3.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "reversed_kept",
@@ -41,12 +59,48 @@
      -1.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 2.0,
+        "end": 0.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 3.0,
+        "end": -1.0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "grasshopper_defaults",
    "inputs": {},
-   "expect": {}
+   "expect": {
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -76,7 +130,66 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 4.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 1.0,
+        "end": 4.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 5.0,
+        "end": 4.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 5.0,
+        "end": 4.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 3.0
+       }
+      }
+     ]
+    }
+   }
   }
  ]
 }

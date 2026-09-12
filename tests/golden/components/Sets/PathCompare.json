@@ -30,7 +30,14 @@
      "{0;1}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      false
+     ]
+    }
+   }
   },
   {
    "name": "single_wildcard",
@@ -63,7 +70,15 @@
      "{0;?}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      false,
+      false
+     ]
+    }
+   }
   },
   {
    "name": "run_wildcard",
@@ -101,7 +116,16 @@
      "{0;*}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      true,
+      false,
+      true
+     ]
+    }
+   }
   },
   {
    "name": "match_everything",
@@ -125,7 +149,14 @@
      "{*}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      true
+     ]
+    }
+   }
   },
   {
    "name": "list",
@@ -157,7 +188,15 @@
      "{0;(1,2)}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      true,
+      false
+     ]
+    }
+   }
   },
   {
    "name": "range",
@@ -196,7 +235,16 @@
      "{0;(1 to 3)}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      true,
+      true,
+      false
+     ]
+    }
+   }
   },
   {
    "name": "negation",
@@ -221,7 +269,14 @@
      "{0;!1}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      false,
+      true
+     ]
+    }
+   }
   },
   {
    "name": "run_in_the_middle",
@@ -256,7 +311,15 @@
      "{0;*;1}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      true,
+      true
+     ]
+    }
+   }
   },
   {
    "name": "leading_run",
@@ -288,7 +351,15 @@
      "{*;1}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true,
+      true,
+      false
+     ]
+    }
+   }
   },
   {
    "name": "comparisons",
@@ -326,7 +397,16 @@
      "{<=1}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      false,
+      true,
+      true,
+      false
+     ]
+    }
+   }
   },
   {
    "name": "path_tree",
@@ -362,7 +442,17 @@
      "{0;1}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true
+     ],
+     "{1}": [
+      false,
+      true
+     ]
+    }
+   }
   },
   {
    "name": "pyhopper_default_mask",
@@ -377,7 +467,13 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "comparison": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "symbols_outside_braces_raise",

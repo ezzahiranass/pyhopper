@@ -20,7 +20,13 @@
      2
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "a_inside_b_is_false",
@@ -35,7 +41,13 @@
      3
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "equal_sets",
@@ -49,7 +61,13 @@
      1
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "no_inclusion",
@@ -64,7 +82,13 @@
      3
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "empty_a",
@@ -78,7 +102,13 @@
      3
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "empty_b",
@@ -92,7 +122,13 @@
      "0": []
     }
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -115,7 +151,16 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ],
+     "{1}": [
+      false
+     ]
+    }
+   }
   }
  ]
 }

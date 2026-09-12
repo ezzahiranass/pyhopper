@@ -35,7 +35,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "orthocentre": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "altitude_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.4,
+        "y": 1.2000000000000002,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "obtuse",
@@ -65,7 +133,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "orthocentre": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": -12.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "altitude_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 6.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 1,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.7999999999999998,
+        "y": -1.6,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 3.8918918918918917,
+        "y": 0.6486486486486487,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "right",
@@ -95,7 +231,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "orthocentre": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "altitude_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 1.44,
+        "y": 1.92,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "tilted_3d",
@@ -125,7 +329,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "orthocentre": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.7142857142857144,
+       "y": 0.5714285714285716,
+       "z": 2.1428571428571432
+      }
+     ]
+    },
+    "altitude_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 1.8823529411764706,
+        "y": 0.0,
+        "z": 1.4705882352941178
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 5
+       }
+      }
+     ]
+    },
+    "altitude_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 1.0,
+        "z": 3.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       }
+      }
+     ]
+    },
+    "altitude_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.3076923076923077,
+        "y": 0.9230769230769234,
+        "z": 2.230769230769231
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 2
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -203,7 +475,185 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "orthocentre": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1.7142857142857144,
+       "y": 0.5714285714285716,
+       "z": 2.1428571428571432
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": -12.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "altitude_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 1.8823529411764706,
+        "y": 0.0,
+        "z": 1.4705882352941178
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 5
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 6.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 1,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 1.0,
+        "z": 3.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.7999999999999998,
+        "y": -1.6,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "altitude_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.4,
+        "y": 1.2000000000000002,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.3076923076923077,
+        "y": 0.9230769230769234,
+        "z": 2.230769230769231
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 2
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 3.8918918918918917,
+        "y": 0.6486486486486487,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "collinear_raises",

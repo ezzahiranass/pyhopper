@@ -20,7 +20,19 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "path": {
+     "{0}": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        1
+       ]
+      }
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -52,7 +64,34 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "path": {
+     "{0}": [
+      {
+       "type": "Path",
+       "indices": [
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        2,
+        3,
+        1
+       ]
+      }
+     ],
+     "{1;2}": [
+      {
+       "type": "Path",
+       "indices": [
+        5
+       ]
+      }
+     ]
+    }
+   }
   },
   {
    "name": "text_coerces",
@@ -62,7 +101,25 @@
      "{4}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "path": {
+     "{0}": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        1
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        4
+       ]
+      }
+     ]
+    }
+   }
   },
   {
    "name": "empty_branch",
@@ -79,7 +136,19 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "path": {
+     "{0}": [],
+     "{1}": [
+      {
+       "type": "Path",
+       "indices": [
+        0
+       ]
+      }
+     ]
+    }
+   }
   }
  ]
 }

@@ -27,7 +27,16 @@
      1
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      2,
+      3,
+      4,
+      1
+     ]
+    }
+   }
   },
   {
    "name": "duplicates_once",
@@ -44,7 +53,13 @@
      9
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "all_disjoint",
@@ -59,7 +74,11 @@
      3
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": []
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -90,7 +109,17 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      "b",
+      "a"
+     ],
+     "{1}": [
+      1
+     ]
+    }
+   }
   }
  ]
 }

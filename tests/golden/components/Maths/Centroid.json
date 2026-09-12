@@ -35,7 +35,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "centroid": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.6666666666666667,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "median_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.5,
+        "y": 1.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.5,
+        "y": 1.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "obtuse",
@@ -65,7 +133,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "centroid": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 3.3333333333333335,
+       "y": 0.3333333333333333,
+       "z": 0.0
+      }
+     ]
+    },
+    "median_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 1,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 5.0,
+        "y": 0.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 0.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "right",
@@ -95,7 +231,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "centroid": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.3333333333333333,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "median_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 1.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 1.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "tilted_3d",
@@ -125,7 +329,75 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "centroid": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.6666666666666667,
+       "y": 1.0,
+       "z": 2.6666666666666665
+      }
+     ]
+    },
+    "median_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 1.5
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 5
+       }
+      }
+     ]
+    },
+    "median_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.5,
+        "y": 1.5,
+        "z": 3.5
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       }
+      }
+     ]
+    },
+    "median_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.5,
+        "y": 1.5,
+        "z": 3.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 2
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -203,7 +475,185 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "centroid": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.6666666666666667,
+       "y": 1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1.6666666666666667,
+       "y": 1.0,
+       "z": 2.6666666666666665
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 3.3333333333333335,
+       "y": 0.3333333333333333,
+       "z": 0.0
+      }
+     ]
+    },
+    "median_ab": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 1.5
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 3,
+        "z": 5
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 1,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_bc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.5,
+        "y": 1.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 2.5,
+        "y": 1.5,
+        "z": 3.5
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 5.0,
+        "y": 0.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "median_ca": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.5,
+        "y": 1.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.5,
+        "y": 1.5,
+        "z": 3.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 2
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 0.5,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "collinear_raises",

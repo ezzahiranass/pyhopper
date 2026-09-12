@@ -100,7 +100,37 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.8333333333333336,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 1.1666666666666667
+      }
+     ]
+    }
+   }
   },
   {
    "name": "triangle_incircle",
@@ -165,7 +195,37 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1.459818486524547,
+         "y": 1.0521776337709476,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 1.0521776337709476
+      }
+     ]
+    }
+   }
   },
   {
    "name": "triangle_excircle",
@@ -230,7 +290,37 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 2.5401815134754533,
+         "y": -3.524313588770527,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 3.524313588770527
+      }
+     ]
+    }
+   }
   },
   {
    "name": "lines_and_circle",
@@ -305,7 +395,37 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 3.0
+      }
+     ]
+    }
+   }
   }
  ]
 }
