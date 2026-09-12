@@ -13,95 +13,27 @@ from pyhopper.Core.Atoms import (
     AtomicPolyline,
     AtomicVector,
 )
+from pyhopper.Utils.Nurbs import (
+    basis_row as _basis_row,
+    curve_domain,
+    curve_point,
+    interpolation_knots as _interpolation_knots,
+    solve_linear_system as _solve_nurbs_system,
+)
+from pyhopper.Utils.Vectors import distance as _distance
 
 
 _TOLERANCE = 1e-12
 
 
-def _find_span(curve: AtomicNurbsCurve, parameter: float) -> int:
-    degree = curve.degree
-    knots = curve.knots
-    control_point_count = len(curve.control_points)
-
-    if parameter >= knots[control_point_count]:
-        return control_point_count - 1
-    if parameter <= knots[degree]:
-        return degree
-
-    low = degree
-    high = control_point_count
-    span = (low + high) // 2
-    while parameter < knots[span] or parameter >= knots[span + 1]:
-        if parameter < knots[span]:
-            high = span
-        else:
-            low = span
-        span = (low + high) // 2
-    return span
-
-
-def _basis_functions(curve: AtomicNurbsCurve, span: int, parameter: float) -> list[float]:
-    degree = curve.degree
-    knots = curve.knots
-    basis = [0.0] * (degree + 1)
-    basis[0] = 1.0
-    left = [0.0] * (degree + 1)
-    right = [0.0] * (degree + 1)
-
-    for index in range(1, degree + 1):
-        left[index] = parameter - knots[span + 1 - index]
-        right[index] = knots[span + index] - parameter
-        saved = 0.0
-        for basis_index in range(index):
-            denominator = right[basis_index + 1] + left[index - basis_index]
-            term = 0.0 if abs(denominator) < 1e-12 else basis[basis_index] / denominator
-            basis[basis_index] = saved + right[basis_index + 1] * term
-            saved = left[index - basis_index] * term
-        basis[index] = saved
-
-    return basis
-
-
 def nurbs_curve_domain(curve: AtomicNurbsCurve) -> tuple[float, float]:
     """Return the active parameter interval of a valid NURBS curve."""
-    point_count = len(curve.control_points)
-    degree = int(curve.degree)
-    if point_count < 2 or degree < 1 or degree >= point_count:
-        raise ValueError("NURBS curve has an invalid control-point count or degree")
-    if len(curve.knots) != point_count + degree + 1:
-        raise ValueError("NURBS curve knot count must equal point count + degree + 1")
-    return float(curve.knots[degree]), float(curve.knots[point_count])
+    return curve_domain(curve)
 
 
 def evaluate_nurbs_curve(curve: AtomicNurbsCurve, parameter: float) -> AtomicPoint:
     """Evaluate a canonical NURBS curve at one parameter."""
-    start, end = nurbs_curve_domain(curve)
-    value = min(end, max(start, float(parameter)))
-    span = _find_span(curve, value)
-    basis = _basis_functions(curve, span, value)
-    weights = (
-        curve.weights
-        if len(curve.weights) == len(curve.control_points)
-        else tuple(1.0 for _ in curve.control_points)
-    )
-    x = y = z = total_weight = 0.0
-
-    for local_index, basis_value in enumerate(basis):
-        control_index = span - curve.degree + local_index
-        point = curve.control_points[control_index]
-        coefficient = basis_value * weights[control_index]
-        x += coefficient * point.x
-        y += coefficient * point.y
-        z += coefficient * point.z
-        total_weight += coefficient
-
-    if abs(total_weight) < 1e-12:
-        raise ValueError("NURBS curve evaluation produced a zero rational weight")
-    return AtomicPoint(x / total_weight, y / total_weight, z / total_weight)
-
-
-def _distance(a: AtomicPoint, b: AtomicPoint) -> float:
-    return math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2 + (b.z - a.z) ** 2)
+    return curve_point(curve, parameter)
 
 
 def _interpolation_parameters(
@@ -130,78 +62,6 @@ def _interpolation_parameters(
     for length in segment_lengths[:len(points) - 1]:
         parameters.append(parameters[-1] + length / total)
     return tuple(parameters)
-
-
-def _interpolation_knots(parameters: tuple[float, ...], degree: int) -> tuple[float, ...]:
-    interior = tuple(
-        sum(parameters[index:index + degree]) / degree
-        for index in range(1, len(parameters) - degree)
-    )
-    return (0.0,) * (degree + 1) + interior + (1.0,) * (degree + 1)
-
-
-def _basis_row(
-    parameter: float,
-    degree: int,
-    knots: tuple[float, ...],
-    control_point_count: int,
-) -> list[float]:
-    if parameter >= knots[control_point_count]:
-        span = control_point_count - 1
-    else:
-        low = degree
-        high = control_point_count
-        span = (low + high) // 2
-        while parameter < knots[span] or parameter >= knots[span + 1]:
-            if parameter < knots[span]:
-                high = span
-            else:
-                low = span
-            span = (low + high) // 2
-
-    basis = [0.0] * (degree + 1)
-    basis[0] = 1.0
-    left = [0.0] * (degree + 1)
-    right = [0.0] * (degree + 1)
-    for order in range(1, degree + 1):
-        left[order] = parameter - knots[span + 1 - order]
-        right[order] = knots[span + order] - parameter
-        saved = 0.0
-        for index in range(order):
-            denominator = right[index + 1] + left[order - index]
-            term = 0.0 if abs(denominator) <= _TOLERANCE else basis[index] / denominator
-            basis[index] = saved + right[index + 1] * term
-            saved = left[order - index] * term
-        basis[order] = saved
-
-    row = [0.0] * control_point_count
-    for local_index, value in enumerate(basis):
-        row[span - degree + local_index] = value
-    return row
-
-
-def _solve_linear_system(matrix: list[list[float]], values: list[list[float]]) -> list[list[float]]:
-    size = len(matrix)
-    augmented = [matrix[row][:] + values[row][:] for row in range(size)]
-    value_count = len(values[0])
-    for column in range(size):
-        pivot = max(range(column, size), key=lambda row: abs(augmented[row][column]))
-        if abs(augmented[pivot][column]) <= _TOLERANCE:
-            raise ValueError("Interpolate could not solve the requested curve")
-        augmented[column], augmented[pivot] = augmented[pivot], augmented[column]
-        divisor = augmented[column][column]
-        augmented[column] = [value / divisor for value in augmented[column]]
-        for row in range(size):
-            if row == column:
-                continue
-            factor = augmented[row][column]
-            if abs(factor) <= _TOLERANCE:
-                continue
-            augmented[row] = [
-                value - factor * pivot_value
-                for value, pivot_value in zip(augmented[row], augmented[column])
-            ]
-    return [row[size:size + value_count] for row in augmented]
 
 
 def interpolate_nurbs_curve(
@@ -240,7 +100,7 @@ def interpolate_nurbs_curve(
             for index, value in enumerate(wrapped_row):
                 row[index % unique_count] += value
             matrix.append(row)
-        solved = _solve_linear_system(matrix, values)
+        solved = _solve_nurbs_system(matrix, values, "Interpolate could not solve the requested curve")
         unique_controls = tuple(AtomicPoint(*coordinates) for coordinates in solved)
         controls = unique_controls + unique_controls[:curve_degree]
     else:
@@ -249,7 +109,7 @@ def interpolate_nurbs_curve(
             _basis_row(parameter, curve_degree, knots, len(points))
             for parameter in parameters
         ]
-        controls = tuple(AtomicPoint(*coordinates) for coordinates in _solve_linear_system(matrix, values))
+        controls = tuple(AtomicPoint(*coordinates) for coordinates in _solve_nurbs_system(matrix, values, "Interpolate could not solve the requested curve"))
 
     return AtomicNurbsCurve(
         control_points=controls,

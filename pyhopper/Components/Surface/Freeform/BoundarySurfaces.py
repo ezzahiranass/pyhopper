@@ -7,21 +7,10 @@ from pyhopper.Utils.Adapters.shapely_regions import region_boundaries_from_bound
 from pyhopper.Utils.Curves import evaluate_nurbs_curve, nurbs_curve_domain
 from pyhopper.Utils.Surfaces import surface_from_planar_boundary
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+from pyhopper.Utils.Vectors import cross, sub
 
 
 _TOLERANCE = 1e-9
-
-
-def _subtract(a: AtomicPoint, b: AtomicPoint) -> AtomicVector:
-    return AtomicVector(a.x - b.x, a.y - b.y, a.z - b.z)
-
-
-def _cross(a: AtomicVector, b: AtomicVector) -> AtomicVector:
-    return AtomicVector(
-        a.y * b.z - a.z * b.y,
-        a.z * b.x - a.x * b.z,
-        a.x * b.y - a.y * b.x,
-    )
 
 
 def _sample_points(curve) -> list[AtomicPoint]:
@@ -65,11 +54,11 @@ def _infer_plane(edges) -> AtomicPlane:
 
     origin = points[0]
     for index_a in range(1, len(points) - 1):
-        x_axis = _subtract(points[index_a], origin)
+        x_axis = sub(points[index_a], origin)
         if x_axis.length <= _TOLERANCE:
             continue
         for index_b in range(index_a + 1, len(points)):
-            normal = _cross(x_axis, _subtract(points[index_b], origin))
+            normal = cross(x_axis, sub(points[index_b], origin))
             if normal.length > _TOLERANCE:
                 return AtomicPlane(origin=origin, normal=normal, x_axis=x_axis)
 

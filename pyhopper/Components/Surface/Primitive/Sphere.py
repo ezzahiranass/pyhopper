@@ -15,10 +15,7 @@ from pyhopper.Core.Atoms import (
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
 from pyhopper.Utils.Planes import coerce_base_plane
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
-
-
-def _dot(vector: AtomicVector, axis: AtomicVector) -> float:
-    return vector.x * axis.x + vector.y * axis.y + vector.z * axis.z
+from pyhopper.Utils.Vectors import dot
 
 
 def _offset(point: AtomicPoint, origin: AtomicPoint) -> AtomicVector:
@@ -58,7 +55,7 @@ class Sphere(Component):
         base = coerce_base_plane(base)
         normal = base.normal.unitize()
         x_axis = base.x_axis.unitize()
-        if normal.length == 0.0 or x_axis.length == 0.0 or abs(_dot(normal, x_axis)) > 1e-9:
+        if normal.length == 0.0 or x_axis.length == 0.0 or abs(dot(normal, x_axis)) > 1e-9:
             raise ValueError("Sphere base must have non-zero perpendicular normal and x axes")
         plane = AtomicPlane(base.origin, normal, x_axis)
         y_axis = plane.y_axis.unitize()
@@ -79,14 +76,14 @@ class Sphere(Component):
         weights = []
         for meridian_point, meridian_weight in zip(meridian.control_points, meridian.weights):
             meridian_offset = _offset(meridian_point, plane.origin)
-            radial = _dot(meridian_offset, x_axis)
-            height = _dot(meridian_offset, normal)
+            radial = dot(meridian_offset, x_axis)
+            height = dot(meridian_offset, normal)
             pole_row = []
             weight_row = []
             for circle_point, circle_weight in zip(circle.control_points, circle.weights):
                 circle_offset = _offset(circle_point, plane.origin)
-                circle_x = _dot(circle_offset, x_axis)
-                circle_y = _dot(circle_offset, y_axis)
+                circle_x = dot(circle_offset, x_axis)
+                circle_y = dot(circle_offset, y_axis)
                 pole_row.append(_point_from_axes(
                     plane.origin,
                     x_axis,

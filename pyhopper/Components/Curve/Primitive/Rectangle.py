@@ -5,17 +5,7 @@ import math
 from pyhopper.Core.Atoms import AtomicPlane
 from pyhopper.Core.Atoms import AtomicPoint, AtomicPolyline, AtomicRectangle
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
-
-
-def _point_on_plane(plane: AtomicPlane, x: float, y: float) -> AtomicPoint:
-    x_axis = plane.x_axis
-    y_axis = plane.y_axis
-    origin = plane.origin
-    return AtomicPoint(
-        origin.x + x_axis.x * x + y_axis.x * y,
-        origin.y + x_axis.y * x + y_axis.y * y,
-        origin.z + x_axis.z * x + y_axis.z * y,
-    )
+from pyhopper.Utils.Planes import point_on_plane
 
 
 class Rectangle(Component):
@@ -73,5 +63,5 @@ class Rectangle(Component):
                 + 2.0 * math.pi * fillet
             )
 
-        points = tuple(_point_on_plane(plane, x, y) for x, y in local_points)
+        points = tuple(point_on_plane(plane, x, y) for x, y in local_points)
         return AtomicPolyline(points=points), perimeter

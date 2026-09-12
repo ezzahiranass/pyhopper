@@ -14,6 +14,7 @@ from pyhopper.Core.Atoms import (
 from pyhopper.Utils.Curves import evaluate_nurbs_curve, nurbs_curve_domain
 from pyhopper.Utils.Transforms import apply_transform
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+from pyhopper.Utils.Vectors import distance, dot, sub
 
 
 def checked_count(count: int) -> int:
@@ -39,16 +40,8 @@ def combined_vector(*vectors: AtomicVector) -> AtomicVector:
     )
 
 
-def _subtract_points(end: AtomicPoint, start: AtomicPoint) -> AtomicVector:
-    return AtomicVector(end.x - start.x, end.y - start.y, end.z - start.z)
-
-
-def _dot(left: AtomicVector, right: AtomicVector) -> float:
-    return left.x * right.x + left.y * right.y + left.z * right.z
-
-
 def _project_to_plane(vector: AtomicVector, normal: AtomicVector) -> AtomicVector:
-    amount = _dot(vector, normal)
+    amount = dot(vector, normal)
     return AtomicVector(
         vector.x - amount * normal.x,
         vector.y - amount * normal.y,
@@ -64,10 +57,6 @@ def _initial_frame_axis(tangent: AtomicVector) -> AtomicVector:
     raise ValueError("Could not construct a perpendicular curve frame")
 
 
-def _distance(start: AtomicPoint, end: AtomicPoint) -> float:
-    return math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2 + (end.z - start.z) ** 2)
-
-
 def _curve_array_parameters(rail, item_count: int) -> list[float]:
     start, end = nurbs_curve_domain(rail)
     sample_count = max(256, len(rail.control_points) * 32)
@@ -78,12 +67,12 @@ def _curve_array_parameters(rail, item_count: int) -> list[float]:
     sample_points = [evaluate_nurbs_curve(rail, parameter) for parameter in sample_parameters]
     cumulative = [0.0]
     for left, right in zip(sample_points, sample_points[1:]):
-        cumulative.append(cumulative[-1] + _distance(left, right))
+        cumulative.append(cumulative[-1] + distance(left, right))
     total = cumulative[-1]
     if total <= 1e-12:
         raise ValueError("Curve Array requires a non-zero-length rail")
 
-    closed = _distance(sample_points[0], sample_points[-1]) <= 1e-8 * max(1.0, total)
+    closed = distance(sample_points[0], sample_points[-1]) <= 1e-8 * max(1.0, total)
     divisor = item_count if closed else max(1, item_count - 1)
     parameters = []
     for index in range(item_count):
@@ -112,7 +101,7 @@ def curve_array_transforms(curve, count: int) -> list[AtomicTransform]:
     for parameter in parameters:
         before = max(start, parameter - epsilon)
         after = min(end, parameter + epsilon)
-        tangent = _subtract_points(
+        tangent = sub(
             evaluate_nurbs_curve(rail, after),
             evaluate_nurbs_curve(rail, before),
         ).unitize()

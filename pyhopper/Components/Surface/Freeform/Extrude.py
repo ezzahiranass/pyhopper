@@ -12,73 +12,11 @@ from pyhopper.Core.Atoms import (
 )
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
 from pyhopper.Core.TypeSystem import CURVE_TYPES, GEOMETRY, TypeSpec
+from pyhopper.Utils.Nurbs import curve_profile
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
 
 
 EXTRUDABLE = TypeSpec("Extrudable", (AtomicPoint, *CURVE_TYPES, AtomicSurface))
-
-
-def _collapse_repeated_knots(knots: tuple[float, ...]) -> tuple[tuple[float, ...], tuple[int, ...]]:
-    if not knots:
-        return (), ()
-
-    unique_knots = [knots[0]]
-    multiplicities = [1]
-
-    for knot in knots[1:]:
-        if knot == unique_knots[-1]:
-            multiplicities[-1] += 1
-        else:
-            unique_knots.append(knot)
-            multiplicities.append(1)
-
-    return tuple(unique_knots), tuple(multiplicities)
-
-
-def _nurbs_profile(curve: AtomicNurbsCurve) -> tuple[
-    tuple[AtomicPoint, ...],
-    tuple[float, ...],
-    tuple[float, ...],
-    tuple[int, ...],
-    int,
-]:
-    """Extract surface-ready pole/weight/knot data from a NURBS curve.
-
-    Returns (poles, weights, unique_knots, mults, degree).
-    """
-    from pyhopper.Core.Atoms import _open_uniform_bspline_data
-
-    if len(curve.control_points) < 2:
-        raise ValueError("Extrude requires curves with at least two control points")
-
-    degree = max(1, min(int(curve.degree), len(curve.control_points) - 1))
-    weights = (
-        curve.weights
-        if len(curve.weights) == len(curve.control_points)
-        else tuple(1.0 for _ in curve.control_points)
-    )
-
-    if not curve.knots:
-        knots, mults, degree = _open_uniform_bspline_data(len(curve.control_points), degree)
-    else:
-        raw_knots = tuple(float(k) for k in curve.knots)
-        expected_full = len(curve.control_points) + degree + 1
-        expected_unique = len(curve.control_points) - degree + 1
-
-        if len(raw_knots) == expected_full:
-            knots, mults = _collapse_repeated_knots(raw_knots)
-        elif len(raw_knots) == expected_unique:
-            knots = raw_knots
-            mults = tuple(
-                degree + 1 if i in (0, len(raw_knots) - 1) else 1
-                for i in range(len(raw_knots))
-            )
-        else:
-            raise ValueError(
-                "Extrude could not interpret the NURBS knot vector"
-            )
-
-    return curve.control_points, weights, knots, mults, degree
 
 
 def _translate_point(p: AtomicPoint, v: AtomicVector) -> AtomicPoint:
@@ -105,7 +43,8 @@ def _extrude_point(point: AtomicPoint, direction: AtomicVector) -> AtomicLine:
 
 
 def _extrude_curve(curve: AtomicNurbsCurve, direction: AtomicVector) -> AtomicSurface:
-    poles, weights, knots, mults, degree = _nurbs_profile(curve)
+    profile = curve_profile(curve, "Extrude")
+    poles, weights, knots, mults, degree = profile.poles, profile.weights, profile.knots, profile.mults, profile.degree
     return _make_wall(poles, weights, knots, mults, degree, direction)
 
 

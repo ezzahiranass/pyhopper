@@ -4,15 +4,12 @@ import math
 
 from pyhopper.Core.Atoms import AtomicPlane, AtomicVector
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
-
-
-def _dot_product(a: AtomicVector, b: AtomicVector) -> float:
-    return a.x * b.x + a.y * b.y + a.z * b.z
+from pyhopper.Utils.Vectors import dot
 
 
 def _project_onto_plane(vector: AtomicVector, plane: AtomicPlane) -> AtomicVector:
     normal = plane.normal.unitize()
-    component = _dot_product(vector, normal)
+    component = dot(vector, normal)
     return AtomicVector(
         vector.x - normal.x * component,
         vector.y - normal.y * component,
@@ -44,6 +41,6 @@ class Angle(Component):
 
         a = vector_a.unitize()
         b = vector_b.unitize()
-        cosine = max(-1.0, min(1.0, _dot_product(a, b)))
+        cosine = max(-1.0, min(1.0, dot(a, b)))
         angle = math.acos(cosine)
         return angle, (2.0 * math.pi) - angle
