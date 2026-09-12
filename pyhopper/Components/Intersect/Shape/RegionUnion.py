@@ -6,10 +6,6 @@ from pyhopper.Core.TypeSystem import CURVE
 from pyhopper.Utils.Adapters.shapely_regions import region_union
 
 
-def _branch_plane(planes) -> AtomicPlane:
-    return planes[0] if planes else AtomicPlane.world_xy()
-
-
 class RegionUnion(Component):
     """Union a branch of planar closed curves and return result outlines.
 
@@ -20,9 +16,9 @@ class RegionUnion(Component):
 
     inputs = [
         InputParam("curves", CURVE, Access.LIST),
-        InputParam("plane", AtomicPlane, Access.LIST, default=AtomicPlane.world_xy()),
+        InputParam("plane", AtomicPlane, Access.ITEM, default=AtomicPlane.world_xy()),
     ]
-    outputs = [OutputParam("result", CURVE)]
+    outputs = [OutputParam("result", CURVE, access=Access.LIST)]
 
-    def generate(self, curves=None, plane=None):
-        return region_union(curves or [], _branch_plane(plane))
+    def generate(self, curves=None, plane=AtomicPlane.world_xy()):
+        return region_union(curves or [], plane)

@@ -4,8 +4,6 @@
  "mode": "exact",
  "tolerance": 1e-06,
  "reparametrize": [],
- "paths": "simplified",
- "notes": "Grasshopper always emits list outputs at {path;iteration}; pyhopper sub-branches only when a branch runs several iterations",
  "cases": [
   {
    "name": "unit_domain_four",

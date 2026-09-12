@@ -20,7 +20,7 @@ class Random(Component):
         InputParam("number", int, Access.ITEM, default=1),
         InputParam("seed", int, Access.ITEM, default=0),
     ]
-    outputs = [OutputParam("random", float)]
+    outputs = [OutputParam("random", float, access=Access.LIST)]
 
     def generate(self, range=AtomicInterval(0.0, 1.0), number=1, seed=0):
         generator = _random.Random(int(seed))

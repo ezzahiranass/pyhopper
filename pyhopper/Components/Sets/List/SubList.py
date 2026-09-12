@@ -32,7 +32,7 @@ class SubList(Component):
         InputParam("domain", AtomicInterval, Access.ITEM, default=AtomicInterval(0.0, 1.0)),
         InputParam("wrap", bool, Access.ITEM, default=False),
     ]
-    outputs = [OutputParam("list"), OutputParam("index", int)]
+    outputs = [OutputParam("list", access=Access.LIST), OutputParam("index", int, access=Access.LIST)]
 
     def generate(self, list=None, domain=AtomicInterval(0.0, 1.0), wrap=False):
         """Return the selected items and their resolved indices."""

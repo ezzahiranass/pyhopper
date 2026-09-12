@@ -16,7 +16,7 @@ class Range(Component):
         InputParam("domain", AtomicInterval, Access.ITEM, default=AtomicInterval(0.0, 1.0)),
         InputParam("steps", int, Access.ITEM, default=10),
     ]
-    outputs = [OutputParam("range")]
+    outputs = [OutputParam("range", access=Access.LIST)]
 
     def generate(self, domain=AtomicInterval(0.0, 1.0), steps=10):
         n = max(int(steps), 1)

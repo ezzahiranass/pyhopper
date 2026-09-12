@@ -8,8 +8,8 @@ class Characters(Component):
 
     inputs = [InputParam("text", str, Access.ITEM)]
     outputs = [
-        OutputParam("result", str),
-        OutputParam("unicode", int),
+        OutputParam("result", str, access=Access.LIST),
+        OutputParam("unicode", int, access=Access.LIST),
     ]
 
     def generate(self, text=""):

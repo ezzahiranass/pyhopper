@@ -11,7 +11,7 @@ class ReverseList(Component):
     """Reverse every incoming branch while preserving its DataTree path."""
 
     inputs = [InputParam("list", None, Access.LIST)]
-    outputs = [OutputParam("list")]
+    outputs = [OutputParam("list", access=Access.LIST)]
 
     def generate(self, list=None):
         """Return the incoming branch in reverse order."""

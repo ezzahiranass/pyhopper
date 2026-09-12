@@ -41,6 +41,7 @@ def serialize_output(param: OutputParam) -> dict[str, Any]:
     return {
         "name": param.name,
         "type": type_name(param.type_hint),
+        "access": param.access.value,
     }
 
 

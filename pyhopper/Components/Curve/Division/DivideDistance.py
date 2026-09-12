@@ -14,9 +14,9 @@ class DivideDistance(Component):
         InputParam("distance", float, Access.ITEM, default=1.0),
     ]
     outputs = [
-        OutputParam("points", AtomicPoint),
-        OutputParam("tangents", AtomicVector),
-        OutputParam("parameters", float),
+        OutputParam("points", AtomicPoint, access=Access.LIST),
+        OutputParam("tangents", AtomicVector, access=Access.LIST),
+        OutputParam("parameters", float, access=Access.LIST),
     ]
 
     def generate(self, curve=None, distance=1.0):

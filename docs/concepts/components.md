@@ -62,18 +62,18 @@ one-to-one relationship between parameters and geometry:
 
 ```python
 levels = Series(start=0, step=3.5, count=20)
-# {0}: [0, 3.5, 7, ..., 66.5]
+# {0;0}: [0, 3.5, 7, ..., 66.5]      (a list output lands at {path;iteration}, like Grasshopper)
 
 floors = Move(points, z, levels.graft())
-# levels.graft() -> {0;0}: [0]   {0;1}: [3.5]  ...  {0;19}: [66.5]
+# levels.graft() -> {0;0;0}: [0]   {0;0;1}: [3.5]  ...  {0;0;19}: [66.5]
 #
-# Match:  points {0}:12 items   x   levels {0;0}...{0;19}: 1 item each
+# Match:  points {0;0}:12 items   x   levels {0;0;0}...{0;0;19}: 1 item each
 # Result: 20 branches x 12 points = 240 output items
 ```
 
 Without `.graft()`, all 20 heights would be in one branch and zip
 against the 12 points via longest-list, giving only 20 outputs total,
-all at the same path `{0}`.
+all at the same path `{0;0}`.
 
 ---
 

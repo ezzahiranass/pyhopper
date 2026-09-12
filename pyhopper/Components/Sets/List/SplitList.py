@@ -23,7 +23,7 @@ class SplitList(Component):
         InputParam("list", None, Access.LIST),
         InputParam("index", int, Access.ITEM, default=1),
     ]
-    outputs = [OutputParam("list_a"), OutputParam("list_b")]
+    outputs = [OutputParam("list_a", access=Access.LIST), OutputParam("list_b", access=Access.LIST)]
 
     def generate(self, list=None, index=1):
         """Return the portions before and after the split index."""

@@ -15,8 +15,8 @@ class LinearArray(Component):
         InputParam("count", int, Access.ITEM, default=10),
     ]
     outputs = [
-        OutputParam("geometry"),
-        OutputParam("transform", AtomicTransform),
+        OutputParam("geometry", access=Access.LIST),
+        OutputParam("transform", AtomicTransform, access=Access.LIST),
     ]
 
     def generate(self, geometry=None, direction=AtomicVector.unit_x(), count=10):

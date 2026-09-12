@@ -62,17 +62,17 @@ export_glb(tower, "tower.glb")
 ```
 CircleCmp(r=20)                    → {0}: [Circle]
     │
-    └─ DivideCurve(n=12)           → {0}: [P0…P11]  12 pts
+    └─ DivideCurve(n=12)           → {0;0}: [P0…P11]  12 pts  (a list output: one level down)
            │
-           ├─ Move(UnitZ(levels↑)) ← levels = Series(0, 3.5, 20).graft()
-           │                       → {0;0}…{0;19}: [P0…P11] each  (240 pts)
+           ├─ Move(UnitZ(levels↑)) ← levels = Series(0, 3.5, 20).graft()   Series → {0;0}, grafted → {0;0;i}
+           │                       → {0;0;0}…{0;0;19}: [P0…P11] each  (240 pts)
            │       │
            │       └─ Rotate(angles↑, XYPlane)  ← angles = Series(0, 3°, 20).graft()
            │                                    → 240 rotated pts, same structure
            │               │
-           │               └─ Polyline(closed)  → {0;0}…{0;19}: [Polyline]  (20 floors)
+           │               └─ Polyline(closed)  → {0;0;0}…{0;0;19}: [Polyline]  (20 floors)
            │
-           └─ Move(UnitZ(70))      → {0}: [P0'…P11']  top pts
+           └─ Move(UnitZ(70))      → {0;0}: [P0'…P11']  top pts
                    │
                    └─ LineCmp      → {0}: [L0…L11]  12 columns
 

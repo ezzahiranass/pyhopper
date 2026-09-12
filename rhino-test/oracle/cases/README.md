@@ -22,9 +22,10 @@ persistent defaults, so cases that exercise a *pyhopper* default need a skip.
 
 Optional knobs:
 
-- fixture `"paths": "simplified"` — compare simplified trees where pyhopper's
-  list-output rule (sub-branch only when a branch runs several iterations)
-  differs from Grasshopper's unconditional `{path;iteration}`;
+- fixture `"paths": "simplified"` — compare simplified trees when a component
+  deliberately places its output differently from Grasshopper (the base class
+  follows Grasshopper's `{path;iteration}` rule for list outputs, so this is
+  rare and must be explained in `notes`);
 - fixture `"notes"` — why a knob is set;
 - per case `"gh": {"skip": "reason"}` — a documented deviation; the case still
   runs in pyhopper but is not compared. Record the same reason in the

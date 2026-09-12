@@ -18,8 +18,8 @@ class PolarArray(Component):
         InputParam("angle", float, Access.ITEM, default=2.0 * math.pi),
     ]
     outputs = [
-        OutputParam("geometry"),
-        OutputParam("transform", AtomicTransform),
+        OutputParam("geometry", access=Access.LIST),
+        OutputParam("transform", AtomicTransform, access=Access.LIST),
     ]
 
     def generate(self, geometry=None, plane=AtomicPlane.world_xy(), count=6, angle=2.0 * math.pi):

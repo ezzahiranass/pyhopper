@@ -17,8 +17,8 @@ class BoxArray(Component):
         InputParam("z_count", int, Access.ITEM, default=2),
     ]
     outputs = [
-        OutputParam("geometry"),
-        OutputParam("transform", AtomicTransform),
+        OutputParam("geometry", access=Access.LIST),
+        OutputParam("transform", AtomicTransform, access=Access.LIST),
     ]
 
     def generate(self, geometry=None, cell=AtomicBox(), x_count=2, y_count=2, z_count=2):

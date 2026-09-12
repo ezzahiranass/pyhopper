@@ -6,6 +6,7 @@ import math
 import re
 
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
+from pyhopper.Core.DataTree import DataTree
 
 
 _INTEGER_PATTERN = re.compile(r"^[+-]?\d+$")
@@ -48,13 +49,14 @@ class Panel(Component):
 
     Grasshopper's Panel is primarily a debugging and inspection parameter. In
     pyhopper it keeps the standard component solve model: one input named
-    ``data``, one output named ``data``, and a branch-wise pass-through
-    ``generate()`` implementation.
+    ``data``, one output named ``data``, and a whole-tree pass-through
+    ``generate()`` so every path survives untouched (a parameter, unlike a
+    list-producing component, never adds an iteration index).
     """
 
-    inputs = [InputParam("data", None, Access.LIST, default=[])]
-    outputs = [OutputParam("data")]
+    inputs = [InputParam("data", None, Access.TREE, default=[])]
+    outputs = [OutputParam("data", access=Access.TREE)]
 
     def generate(self, data=None):
-        """Return the matched branch contents unchanged."""
-        return [] if data is None else data
+        """Return the tree unchanged."""
+        return DataTree() if data is None else data
