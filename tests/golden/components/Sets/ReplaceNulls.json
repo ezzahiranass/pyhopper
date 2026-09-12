@@ -1,0 +1,148 @@
+{
+ "component": "pyhopper.Components.Sets.List.ReplaceNulls.ReplaceNulls",
+ "gh_guid": "f3230ecb-3631-4d6f-86f2-ef4b2ed37f45",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "last_replacement_repeats",
+   "inputs": {
+    "items": [
+     null,
+     1,
+     null,
+     null,
+     2
+    ],
+    "replacements": [
+     "a",
+     "b"
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "a",
+      1,
+      "b",
+      "b",
+      2
+     ]
+    },
+    "count": {
+     "{0}": [
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "spare_replacements",
+   "inputs": {
+    "items": [
+     null,
+     1
+    ],
+    "replacements": [
+     "a",
+     "b",
+     "c"
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "a",
+      1
+     ]
+    },
+    "count": {
+     "{0}": [
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "no_nulls",
+   "inputs": {
+    "items": [
+     1,
+     2
+    ],
+    "replacements": [
+     "a"
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1,
+      2
+     ]
+    },
+    "count": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "items": {
+     "0": [
+      null,
+      1
+     ],
+     "1": [
+      2,
+      null,
+      null
+     ]
+    },
+    "replacements": [
+     "x"
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "x",
+      1
+     ],
+     "{1}": [
+      2,
+      "x",
+      "x"
+     ]
+    },
+    "count": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "no_replacements_raise",
+   "inputs": {
+    "items": [
+     null,
+     1
+    ],
+    "replacements": {
+     "0": []
+    }
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

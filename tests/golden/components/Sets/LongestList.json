@@ -1,0 +1,114 @@
+{
+ "component": "pyhopper.Components.Sets.List.LongestList.LongestList",
+ "gh_guid": "8440fd1b-b6e0-4bdb-aa93-4ec295c213e9",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "repeat_last",
+   "inputs": {
+    "list_a": [
+     1,
+     2,
+     3
+    ],
+    "list_b": [
+     "a",
+     "b"
+    ]
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      1,
+      2,
+      3
+     ]
+    },
+    "list_b": {
+     "{0}": [
+      "a",
+      "b",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "list_a": {
+     "0": [
+      1
+     ],
+     "1": [
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    "list_b": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "x"
+     ]
+    }
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      1,
+      1
+     ],
+     "{1}": [
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    "list_b": {
+     "{0}": [
+      "a",
+      "b"
+     ],
+     "{1}": [
+      "x",
+      "x",
+      "x",
+      "x"
+     ]
+    }
+   }
+  },
+  {
+   "name": "only_a",
+   "inputs": {
+    "list_a": [
+     1,
+     2,
+     3
+    ]
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      1,
+      2,
+      3
+     ]
+    },
+    "list_b": {
+     "{0}": []
+    }
+   }
+  }
+ ]
+}

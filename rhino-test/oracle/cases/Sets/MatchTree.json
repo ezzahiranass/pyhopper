@@ -1,0 +1,84 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.MatchTree.MatchTree",
+ "gh_guid": "46372d0d-82dc-4acb-adc3-25d1fde04c4e",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "paths_from_guide",
+   "inputs": {
+    "tree": {
+     "7": [
+      1,
+      2
+     ],
+     "9": [
+      3,
+      4
+     ]
+    },
+    "guide": {
+     "0;0": [
+      "a"
+     ],
+     "0;1": [
+      "b",
+      "c",
+      "d"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "counts_may_differ",
+   "inputs": {
+    "tree": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4
+     ]
+    },
+    "guide": {
+     "4;0": [
+      "a"
+     ],
+     "4;1": [
+      "b",
+      "c"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "single_branch",
+   "inputs": {
+    "tree": {
+     "0": [
+      1,
+      2,
+      3
+     ]
+    },
+    "guide": {
+     "4": [
+      "a"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  }
+ ]
+}

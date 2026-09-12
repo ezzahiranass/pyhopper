@@ -1,0 +1,83 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.CharSequence.CharSequence",
+ "gh_guid": "01640871-69ea-40ac-9380-4660d6d28bd2",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "pool_ab",
+   "inputs": {
+    "count": [
+     8
+    ],
+    "char_pool": [
+     "AB"
+    ]
+   },
+   "compare": [
+    "Sequence"
+   ]
+  },
+  {
+   "name": "format",
+   "inputs": {
+    "count": [
+     3
+    ],
+    "format": [
+     "Item {0}!"
+    ]
+   },
+   "compare": [
+    "Sequence"
+   ]
+  },
+  {
+   "name": "wraps_past_z",
+   "inputs": {
+    "count": [
+     28
+    ]
+   },
+   "compare": [
+    "Sequence"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "count": {
+     "0": [
+      2
+     ],
+     "1": [
+      3
+     ]
+    },
+    "char_pool": [
+     "xy"
+    ]
+   },
+   "compare": [
+    "Sequence"
+   ]
+  },
+  {
+   "name": "empty_pool_and_zero_count",
+   "inputs": {
+    "count": [
+     3,
+     0
+    ],
+    "char_pool": [
+     "",
+     "AB"
+    ]
+   },
+   "compare": [
+    "Sequence"
+   ]
+  }
+ ]
+}

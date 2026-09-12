@@ -34,6 +34,13 @@ def resolve_index(index: int, length: int, wrap: bool, component: str) -> int:
     return position
 
 
+def extend_last(items: list[Any], length: int) -> list[Any]:
+    """Repeat the last item until ``items`` has ``length`` items (Grasshopper's "Repeat Last")."""
+    if items and length > len(items):
+        items.extend([items[-1]] * (length - len(items)))
+    return items
+
+
 def pad_to(items: list[Any], length: int) -> list[Any]:
     """Extend ``items`` in place with ``None`` until it has at least ``length`` items."""
     if length > len(items):

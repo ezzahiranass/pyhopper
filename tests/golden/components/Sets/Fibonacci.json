@@ -1,0 +1,89 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.Fibonacci.Fibonacci",
+ "gh_guid": "fe99f302-3d0d-4389-8494-bd53f7935a02",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "expect": {
+    "series": {
+     "{0;0}": [
+      0.0,
+      1.0,
+      1.0,
+      2.0,
+      3.0,
+      5.0,
+      8.0,
+      13.0,
+      21.0,
+      34.0,
+      55.0,
+      89.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "seeds",
+   "inputs": {
+    "seed_a": [
+     2.0
+    ],
+    "seed_b": [
+     3.0
+    ],
+    "number": [
+     6
+    ]
+   },
+   "expect": {
+    "series": {
+     "{0;0}": [
+      2.0,
+      3.0,
+      5.0,
+      8.0,
+      13.0,
+      21.0,
+      34.0,
+      55.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "counts_one_and_zero",
+   "inputs": {
+    "number": [
+     1,
+     0
+    ]
+   },
+   "expect": {
+    "series": {
+     "{0;0}": [
+      0.0,
+      1.0,
+      1.0
+     ],
+     "{0;1}": []
+    }
+   }
+  },
+  {
+   "name": "negative_raises",
+   "inputs": {
+    "number": [
+     -2
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

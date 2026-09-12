@@ -36,7 +36,11 @@ def persistent_defaults(guid: str) -> list[tuple[str, list]]:
             data = prop.GetValue(param, None)
             if data is not None:
                 for path in data.Paths:
-                    values.extend(to_python(goo) for goo in data.get_Branch(path))
+                    for goo in data.get_Branch(path):
+                        try:
+                            values.append(to_python(goo))
+                        except TypeError:
+                            values.append(f"<{goo.GetType().Name}: {goo}>")  # e.g. culture info
         result.append((param.Name, values))
     return result
 

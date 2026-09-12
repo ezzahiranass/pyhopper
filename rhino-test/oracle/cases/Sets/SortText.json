@@ -1,0 +1,113 @@
+{
+ "component": "pyhopper.Components.Sets.Text.SortText.SortText",
+ "gh_guid": "cec16c67-7b8b-41f7-a5a5-f675177e524b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "invariant_culture",
+   "inputs": {
+    "keys": [
+     "b",
+     "B",
+     "a",
+     "A",
+     "10",
+     "9",
+     "item2",
+     "item10"
+    ]
+   },
+   "compare": [
+    "Keys",
+    "Values"
+   ]
+  },
+  {
+   "name": "case_ties",
+   "inputs": {
+    "keys": [
+     "B",
+     "b",
+     "A",
+     "a",
+     "ab",
+     "Ab",
+     "aB"
+    ]
+   },
+   "compare": [
+    "Keys",
+    "Values"
+   ]
+  },
+  {
+   "name": "accents_and_punctuation",
+   "inputs": {
+    "keys": [
+     "b a",
+     "ba",
+     "b-a",
+     "é",
+     "e",
+     "f"
+    ]
+   },
+   "compare": [
+    "Keys",
+    "Values"
+   ]
+  },
+  {
+   "name": "values_follow_keys",
+   "inputs": {
+    "keys": [
+     "c",
+     "a",
+     "b"
+    ],
+    "values": [
+     3,
+     1,
+     2
+    ]
+   },
+   "compare": [
+    "Keys",
+    "Values"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "keys": {
+     "0": [
+      "b",
+      "a"
+     ],
+     "1": [
+      "z",
+      "y",
+      "x"
+     ]
+    },
+    "values": {
+     "0": [
+      2,
+      1
+     ],
+     "1": [
+      26,
+      25,
+      24
+     ]
+    }
+   },
+   "compare": [
+    "Keys",
+    "Values"
+   ]
+  }
+ ]
+}

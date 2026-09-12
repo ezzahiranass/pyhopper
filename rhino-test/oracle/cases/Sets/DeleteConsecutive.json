@@ -1,0 +1,101 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.DeleteConsecutive.DeleteConsecutive",
+ "gh_guid": "190d042c-2270-4bc1-81c0-4f90c170c9c9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "collapses_runs",
+   "inputs": {
+    "set": [
+     1,
+     1,
+     2,
+     2,
+     2,
+     3,
+     1,
+     1
+    ]
+   },
+   "compare": [
+    "Set",
+    "Count"
+   ]
+  },
+  {
+   "name": "wrap_merges_ends",
+   "inputs": {
+    "set": [
+     1,
+     1,
+     2,
+     3,
+     1,
+     1
+    ],
+    "wrap": [
+     true
+    ]
+   },
+   "compare": [
+    "Set",
+    "Count"
+   ]
+  },
+  {
+   "name": "types_differ",
+   "inputs": {
+    "set": [
+     1,
+     1.0,
+     true,
+     "a",
+     "a"
+    ]
+   },
+   "compare": [
+    "Set",
+    "Count"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "set": {
+     "0": [
+      1,
+      1
+     ],
+     "1": [
+      2,
+      3,
+      3,
+      2
+     ]
+    },
+    "wrap": [
+     false,
+     true
+    ]
+   },
+   "compare": [
+    "Set",
+    "Count"
+   ]
+  },
+  {
+   "name": "empty",
+   "inputs": {
+    "set": {
+     "0": []
+    }
+   },
+   "compare": [
+    "Set",
+    "Count"
+   ]
+  }
+ ]
+}

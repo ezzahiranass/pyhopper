@@ -1,0 +1,153 @@
+{
+ "component": "pyhopper.Components.Sets.List.CombineData.CombineData",
+ "gh_guid": "e7c80ff6-0299-4303-be36-3080977c14a1",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "first_non_null_wins",
+   "inputs": {
+    "inputs": [
+     [
+      null,
+      2,
+      null,
+      4
+     ],
+     [
+      1,
+      null,
+      null,
+      5
+     ]
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1,
+      2,
+      null,
+      4
+     ]
+    },
+    "index": {
+     "{0}": [
+      1,
+      0,
+      -1,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "lengths_differ_repeat_last",
+   "inputs": {
+    "inputs": [
+     [
+      null,
+      2
+     ],
+     [
+      1,
+      null,
+      3,
+      4
+     ]
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    "index": {
+     "{0}": [
+      1,
+      0,
+      0,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_stream",
+   "inputs": {
+    "inputs": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1,
+      2
+     ]
+    },
+    "index": {
+     "{0}": [
+      0,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "inputs": [
+     {
+      "0": [
+       null,
+       1
+      ],
+      "1": [
+       5
+      ]
+     },
+     {
+      "0": [
+       7,
+       8
+      ],
+      "1": [
+       null
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      7,
+      1
+     ],
+     "{1}": [
+      5
+     ]
+    },
+    "index": {
+     "{0}": [
+      1,
+      0
+     ],
+     "{1}": [
+      0
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "component": "pyhopper.Components.Sets.List.ShortestList.ShortestList",
+ "gh_guid": "5a13ec19-e4e9-43da-bf65-f93025fa87ca",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "trim_end",
+   "inputs": {
+    "list_a": [
+     1,
+     2,
+     3
+    ],
+    "list_b": [
+     "a",
+     "b"
+    ]
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      1,
+      2
+     ]
+    },
+    "list_b": {
+     "{0}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "list_a": {
+     "0": [
+      1
+     ],
+     "1": [
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    "list_b": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "x"
+     ]
+    }
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      1
+     ]
+    },
+    "list_b": {
+     "{0}": [
+      "a"
+     ],
+     "{1}": [
+      "x"
+     ]
+    }
+   }
+  },
+  {
+   "name": "only_b",
+   "inputs": {
+    "list_b": [
+     "a",
+     "b"
+    ]
+   },
+   "expect": {
+    "list_a": {
+     "{0}": []
+    },
+    "list_b": {
+     "{0}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  }
+ ]
+}

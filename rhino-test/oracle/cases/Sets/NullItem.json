@@ -1,0 +1,70 @@
+{
+ "component": "pyhopper.Components.Sets.List.NullItem.NullItem",
+ "gh_guid": "c74efd0e-7fe3-4c2d-8c9d-295c5672fb13",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "kinds",
+   "inputs": {
+    "item": [
+     1,
+     null,
+     "text",
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     true
+    ]
+   },
+   "compare": [
+    "Null Flags",
+    "Invalid Flags",
+    "Description"
+   ],
+   "gh": {
+    "skip": "pyhopper keeps null items where Grasshopper's headless output drops them"
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "item": {
+     "0": [
+      null
+     ],
+     "1": [
+      2.5,
+      null
+     ]
+    }
+   },
+   "compare": [
+    "Null Flags",
+    "Invalid Flags",
+    "Description"
+   ],
+   "gh": {
+    "skip": "pyhopper keeps null items where Grasshopper's headless output drops them"
+   }
+  },
+  {
+   "name": "all_valid",
+   "inputs": {
+    "item": [
+     1,
+     2
+    ]
+   },
+   "compare": [
+    "Null Flags",
+    "Invalid Flags",
+    "Description"
+   ]
+  }
+ ]
+}

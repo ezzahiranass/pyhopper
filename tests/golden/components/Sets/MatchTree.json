@@ -1,0 +1,136 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.MatchTree.MatchTree",
+ "gh_guid": "46372d0d-82dc-4acb-adc3-25d1fde04c4e",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "paths_from_guide",
+   "inputs": {
+    "tree": {
+     "7": [
+      1,
+      2
+     ],
+     "9": [
+      3,
+      4
+     ]
+    },
+    "guide": {
+     "0;0": [
+      "a"
+     ],
+     "0;1": [
+      "b",
+      "c",
+      "d"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0;0}": [
+      1,
+      2
+     ],
+     "{0;1}": [
+      3,
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "counts_may_differ",
+   "inputs": {
+    "tree": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4
+     ]
+    },
+    "guide": {
+     "4;0": [
+      "a"
+     ],
+     "4;1": [
+      "b",
+      "c"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{4;0}": [
+      1,
+      2,
+      3
+     ],
+     "{4;1}": [
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_branch",
+   "inputs": {
+    "tree": {
+     "0": [
+      1,
+      2,
+      3
+     ]
+    },
+    "guide": {
+     "4": [
+      "a"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{4}": [
+      1,
+      2,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "branch_count_mismatch_raises",
+   "inputs": {
+    "tree": {
+     "0": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    "guide": {
+     "2;0": [
+      "a",
+      "b"
+     ],
+     "2;1": [
+      "c",
+      "d",
+      "e"
+     ]
+    }
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

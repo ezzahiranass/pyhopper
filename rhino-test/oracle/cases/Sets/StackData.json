@@ -1,0 +1,94 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.StackData.StackData",
+ "gh_guid": "5fa4e736-0d82-4af0-97fb-30a79f4cbf41",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "data": [
+     "A",
+     "B",
+     "C"
+    ],
+    "stack": [
+     1,
+     2,
+     3
+    ]
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "stack_pattern_cycles",
+   "inputs": {
+    "data": [
+     "A",
+     "B",
+     "C",
+     "D"
+    ],
+    "stack": [
+     2,
+     0
+    ]
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "negative_stacks_nothing",
+   "inputs": {
+    "data": [
+     "A",
+     "B"
+    ],
+    "stack": [
+     -1,
+     2
+    ]
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "data": {
+     "0": [
+      "A",
+      "B"
+     ],
+     "1": [
+      "C"
+     ]
+    },
+    "stack": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      3
+     ]
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Data"
+   ]
+  }
+ ]
+}

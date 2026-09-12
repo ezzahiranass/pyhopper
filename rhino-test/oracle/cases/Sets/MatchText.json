@@ -1,0 +1,129 @@
+{
+ "component": "pyhopper.Components.Sets.Text.MatchText.MatchText",
+ "gh_guid": "3756c55f-95c3-442c-a027-6b3ab0455a94",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "wildcard_star",
+   "inputs": {
+    "text": [
+     "Hello",
+     "hello",
+     "Help",
+     "Yellow"
+    ],
+    "pattern": [
+     "H*"
+    ]
+   },
+   "compare": [
+    "Match"
+   ]
+  },
+  {
+   "name": "wildcard_question_hash_set",
+   "inputs": {
+    "text": [
+     "Hello",
+     "Hallo",
+     "Hllo",
+     "A1",
+     "AB",
+     "Ab",
+     "Ad"
+    ],
+    "pattern": [
+     "H?llo",
+     "H?llo",
+     "H?llo",
+     "A#",
+     "A#",
+     "A[bc]",
+     "A[bc]"
+    ]
+   },
+   "compare": [
+    "Match"
+   ]
+  },
+  {
+   "name": "case_insensitive",
+   "inputs": {
+    "text": [
+     "hello"
+    ],
+    "pattern": [
+     "H*"
+    ],
+    "case": [
+     false
+    ]
+   },
+   "compare": [
+    "Match"
+   ]
+  },
+  {
+   "name": "regex",
+   "inputs": {
+    "text": [
+     "Hello",
+     "world"
+    ],
+    "regex": [
+     "^[A-Z]"
+    ]
+   },
+   "compare": [
+    "Match"
+   ]
+  },
+  {
+   "name": "regex_case_insensitive",
+   "inputs": {
+    "text": [
+     "hello"
+    ],
+    "regex": [
+     "^H"
+    ],
+    "case": [
+     false
+    ]
+   },
+   "compare": [
+    "Match"
+   ]
+  },
+  {
+   "name": "both_must_match",
+   "inputs": {
+    "text": [
+     "Hello"
+    ],
+    "pattern": [
+     "H*"
+    ],
+    "regex": [
+     "z"
+    ]
+   },
+   "compare": [
+    "Match"
+   ]
+  },
+  {
+   "name": "nothing_to_match",
+   "inputs": {
+    "text": [
+     "Hello"
+    ]
+   },
+   "compare": [
+    "Match"
+   ]
+  }
+ ]
+}

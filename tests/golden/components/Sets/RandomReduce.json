@@ -1,0 +1,120 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.RandomReduce.RandomReduce",
+ "gh_guid": "455925fd-23ff-4e57-a0e7-913a4165e659",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "removes_three",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "reduction": [
+     3
+    ]
+   },
+   "expect": {
+    "list": {
+     "{0;0}": 5
+    }
+   },
+   "shape_only": true
+  },
+  {
+   "name": "remove_all_or_more",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3
+    ],
+    "reduction": [
+     5
+    ]
+   },
+   "expect": {
+    "list": {
+     "{0;0}": []
+    }
+   }
+  },
+  {
+   "name": "remove_nothing",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3
+    ],
+    "reduction": [
+     0
+    ]
+   },
+   "expect": {
+    "list": {
+     "{0;0}": [
+      1,
+      2,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch_shape",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "reduction": [
+     1
+    ],
+    "seed": [
+     7
+    ]
+   },
+   "expect": {
+    "list": {
+     "{0;0}": 2,
+     "{1;0}": 3
+    }
+   },
+   "shape_only": true
+  },
+  {
+   "name": "negative_raises",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3
+    ],
+    "reduction": [
+     -1
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

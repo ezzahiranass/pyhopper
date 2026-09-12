@@ -1,0 +1,166 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.DeleteConsecutive.DeleteConsecutive",
+ "gh_guid": "190d042c-2270-4bc1-81c0-4f90c170c9c9",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "collapses_runs",
+   "inputs": {
+    "set": [
+     1,
+     1,
+     2,
+     2,
+     2,
+     3,
+     1,
+     1
+    ]
+   },
+   "expect": {
+    "set": {
+     "{0;0}": [
+      1,
+      2,
+      3,
+      1
+     ]
+    },
+    "count": {
+     "{0}": [
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "wrap_merges_ends",
+   "inputs": {
+    "set": [
+     1,
+     1,
+     2,
+     3,
+     1,
+     1
+    ],
+    "wrap": [
+     true
+    ]
+   },
+   "expect": {
+    "set": {
+     "{0;0}": [
+      1,
+      2,
+      3
+     ]
+    },
+    "count": {
+     "{0}": [
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "types_differ",
+   "inputs": {
+    "set": [
+     1,
+     1.0,
+     true,
+     "a",
+     "a"
+    ]
+   },
+   "expect": {
+    "set": {
+     "{0;0}": [
+      1,
+      1.0,
+      true,
+      "a"
+     ]
+    },
+    "count": {
+     "{0}": [
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "set": {
+     "0": [
+      1,
+      1
+     ],
+     "1": [
+      2,
+      3,
+      3,
+      2
+     ]
+    },
+    "wrap": [
+     false,
+     true
+    ]
+   },
+   "expect": {
+    "set": {
+     "{0;0}": [
+      1
+     ],
+     "{0;1}": [
+      1
+     ],
+     "{1;0}": [
+      2,
+      3,
+      2
+     ],
+     "{1;1}": [
+      2,
+      3
+     ]
+    },
+    "count": {
+     "{0}": [
+      1,
+      1
+     ],
+     "{1}": [
+      1,
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty",
+   "inputs": {
+    "set": {
+     "0": []
+    }
+   },
+   "expect": {
+    "set": {
+     "{0;0}": []
+    },
+    "count": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.SetIntersection.SetIntersection",
+ "gh_guid": "82f19c48-9e73-43a4-ae6c-3a8368099b08",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "order_of_b",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     2,
+     3,
+     5
+    ],
+    "set_b": [
+     5,
+     3,
+     3,
+     7
+    ]
+   },
+   "expect": {
+    "union": {
+     "{0}": [
+      5,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "set_a": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      3
+     ]
+    },
+    "set_b": {
+     "0": [
+      2,
+      9
+     ],
+     "1": [
+      4
+     ]
+    }
+   },
+   "expect": {
+    "union": {
+     "{0}": [
+      2
+     ],
+     "{1}": []
+    }
+   }
+  },
+  {
+   "name": "only_a_distinct",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     2
+    ]
+   },
+   "expect": {
+    "union": {
+     "{0}": [
+      1,
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "types_differ",
+   "inputs": {
+    "set_a": [
+     1,
+     "1",
+     true
+    ],
+    "set_b": [
+     1.0,
+     "1"
+    ]
+   },
+   "expect": {
+    "union": {
+     "{0}": [
+      "1"
+     ]
+    }
+   }
+  }
+ ]
+}

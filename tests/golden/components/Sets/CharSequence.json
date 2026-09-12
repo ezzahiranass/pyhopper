@@ -1,0 +1,146 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.CharSequence.CharSequence",
+ "gh_guid": "01640871-69ea-40ac-9380-4660d6d28bd2",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "pool_ab",
+   "inputs": {
+    "count": [
+     8
+    ],
+    "char_pool": [
+     "AB"
+    ]
+   },
+   "expect": {
+    "sequence": {
+     "{0;0}": [
+      "A",
+      "B",
+      "AA",
+      "AB",
+      "BA",
+      "BB",
+      "AAA",
+      "AAB"
+     ]
+    }
+   }
+  },
+  {
+   "name": "format",
+   "inputs": {
+    "count": [
+     3
+    ],
+    "format": [
+     "Item {0}!"
+    ]
+   },
+   "expect": {
+    "sequence": {
+     "{0;0}": [
+      "Item A!",
+      "Item B!",
+      "Item C!"
+     ]
+    }
+   }
+  },
+  {
+   "name": "wraps_past_z",
+   "inputs": {
+    "count": [
+     28
+    ]
+   },
+   "expect": {
+    "sequence": {
+     "{0;0}": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+      "AA",
+      "AB"
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "count": {
+     "0": [
+      2
+     ],
+     "1": [
+      3
+     ]
+    },
+    "char_pool": [
+     "xy"
+    ]
+   },
+   "expect": {
+    "sequence": {
+     "{0;0}": [
+      "x",
+      "y"
+     ],
+     "{1;0}": [
+      "x",
+      "y",
+      "xx"
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_pool_and_zero_count",
+   "inputs": {
+    "count": [
+     3,
+     0
+    ],
+    "char_pool": [
+     "",
+     "AB"
+    ]
+   },
+   "expect": {
+    "sequence": {
+     "{0;0}": [],
+     "{0;1}": []
+    }
+   }
+  }
+ ]
+}
