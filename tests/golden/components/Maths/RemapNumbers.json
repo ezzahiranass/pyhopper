@@ -1,0 +1,141 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.RemapNumbers.RemapNumbers",
+ "gh_guid": "2fcc2743-8339-4cdf-a046-a1f17439191d",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     0,
+     5,
+     10,
+     15,
+     -5
+    ],
+    "source": {
+     "type": "Interval",
+     "start": 0,
+     "end": 10
+    },
+    "target": {
+     "type": "Interval",
+     "start": 0,
+     "end": 1
+    }
+   },
+   "expect": {
+    "mapped": {
+     "{0}": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      -0.5
+     ]
+    },
+    "clipped": {
+     "{0}": [
+      0.0,
+      0.5,
+      1.0,
+      1.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "reversed_target",
+   "inputs": {
+    "value": [
+     2.5
+    ],
+    "source": {
+     "type": "Interval",
+     "start": 0,
+     "end": 10
+    },
+    "target": {
+     "type": "Interval",
+     "start": 100,
+     "end": 0
+    }
+   },
+   "expect": {
+    "mapped": {
+     "{0}": [
+      75.0
+     ]
+    },
+    "clipped": {
+     "{0}": [
+      75.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "value": {
+     "0": [
+      0,
+      10
+     ],
+     "1": [
+      5
+     ]
+    },
+    "source": {
+     "type": "Interval",
+     "start": 0,
+     "end": 10
+    },
+    "target": {
+     "type": "Interval",
+     "start": 0,
+     "end": 100
+    }
+   },
+   "expect": {
+    "mapped": {
+     "{0}": [
+      0.0,
+      100.0
+     ],
+     "{1}": [
+      50.0
+     ]
+    },
+    "clipped": {
+     "{0}": [
+      0.0,
+      100.0
+     ],
+     "{1}": [
+      50.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_length_source_raises",
+   "inputs": {
+    "value": [
+     1
+    ],
+    "source": {
+     "type": "Interval",
+     "start": 3,
+     "end": 3
+    }
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.Square.Square",
+ "gh_guid": "2280dde4-9fa2-4b4a-ae2f-37d554861367",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     0,
+     1.5,
+     -3
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      2
+     ],
+     "1": [
+      3,
+      4
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "default_is_zero",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Minimum.Minimum",
+ "gh_guid": "57308b30-772d-4919-ac67-e86c18f3a996",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "a": [
+     1,
+     5,
+     3
+    ],
+    "b": [
+     2,
+     2,
+     2
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "a": {
+     "0": [
+      1,
+      9
+     ],
+     "1": [
+      -2
+     ]
+    },
+    "b": 4
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "defaults_are_zero",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

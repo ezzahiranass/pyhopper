@@ -323,8 +323,8 @@ class Component:
         if not bound.iterated:
             # Zero-input component, or every input is TREE access: one call at {0}.
             placed = self._run_generate(tree_kwargs, Path.root(), 0, 1, collectors)
-            if not placed:
-                for collector in collectors:
+            for collector, did_place in zip(collectors, placed):
+                if not did_place:
                     collector.setdefault(Path.root(), [])
             return self._build_result(collectors)
 
@@ -362,7 +362,7 @@ class Component:
             indices = list(_iteration_indices([len(branch) for _, branch in active_items], self.match_rule))
 
         count = len(indices)
-        placed_any = False
+        placed = [False] * len(collectors)
         for iteration_index, combo in enumerate(indices):
             values = list(list_values)
             for (item, branch), item_index in zip(active_items, combo):
@@ -372,12 +372,12 @@ class Component:
             target = path
             if self.match_rule == MatchRule.CROSS_REFERENCE and combo:
                 target = path.append(combo[0])
-            if self._run_generate(kwargs, target, iteration_index, count, collectors):
-                placed_any = True
+            for output_index, did_place in enumerate(self._run_generate(kwargs, target, iteration_index, count, collectors)):
+                placed[output_index] = placed[output_index] or did_place
 
-        if not placed_any:
-            # Keep the branch topology: an empty or silent branch stays an empty branch.
-            for collector in collectors:
+        # Keep the branch topology per output: an empty or silent branch stays an empty branch.
+        for collector, did_place in zip(collectors, placed):
+            if not did_place:
                 collector.setdefault(path, [])
 
     @staticmethod
@@ -401,8 +401,8 @@ class Component:
         index: int,
         count: int,
         collectors: list[dict[Path, list[Any]]],
-    ) -> bool:
-        """Call generate() once and collect its outputs; returns True if anything was placed."""
+    ) -> list[bool]:
+        """Call generate() once and collect its outputs; one flag per output says whether it placed anything."""
         self.iteration = IterationContext(path, index, count)
         result = self.generate(**kwargs)
         return self._collect(result, path, index, count, collectors)
@@ -416,7 +416,7 @@ class Component:
         index: int,
         count: int,
         collectors: list[dict[Path, list[Any]]],
-    ) -> bool:
+    ) -> list[bool]:
         num_outputs = len(self.outputs)
         if num_outputs > 1:
             if not isinstance(result, (tuple, list)) or len(result) != num_outputs:
@@ -429,11 +429,7 @@ class Component:
         else:
             values = [result]
 
-        placed = False
-        for collector, value in zip(collectors, values):
-            if self._place_value(collector, path, index, count, value):
-                placed = True
-        return placed
+        return [self._place_value(collector, path, index, count, value) for collector, value in zip(collectors, values)]
 
     @staticmethod
     def _place_value(

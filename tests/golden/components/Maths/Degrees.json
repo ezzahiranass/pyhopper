@@ -1,0 +1,68 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.Degrees.Degrees",
+ "gh_guid": "0d77c51e-584f-44e8-aed2-c2ddf4803888",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "radians": [
+     0,
+     3.141592653589793,
+     1.5707963267948966,
+     -0.7853981633974483
+    ]
+   },
+   "expect": {
+    "degrees": {
+     "{0}": [
+      0.0,
+      180.0,
+      90.0,
+      -45.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "radians": {
+     "0": [
+      6.283185307179586
+     ],
+     "1": [
+      1.0471975511965976,
+      0.5235987755982988
+     ]
+    }
+   },
+   "expect": {
+    "degrees": {
+     "{0}": [
+      360.0
+     ],
+     "{1}": [
+      59.99999999999999,
+      29.999999999999996
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_is_zero",
+   "inputs": {},
+   "expect": {
+    "degrees": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  }
+ ]
+}

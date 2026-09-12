@@ -1,0 +1,120 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Round.Round",
+ "gh_guid": "a50c4a3b-0177-4c91-8556-db95de6c56c8",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "halves_away_from_zero",
+   "inputs": {
+    "number": [
+     2.5,
+     -2.5,
+     2.4,
+     -2.6,
+     0.5,
+     3
+    ]
+   },
+   "expect": {
+    "nearest": {
+     "{0}": [
+      3,
+      -3,
+      2,
+      -3,
+      1,
+      3
+     ]
+    },
+    "floor": {
+     "{0}": [
+      2,
+      -3,
+      2,
+      -3,
+      0,
+      3
+     ]
+    },
+    "ceiling": {
+     "{0}": [
+      3,
+      -2,
+      3,
+      -2,
+      1,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "number": {
+     "0": [
+      1.25
+     ],
+     "1": [
+      -0.75,
+      7.5
+     ]
+    }
+   },
+   "expect": {
+    "nearest": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      -1,
+      8
+     ]
+    },
+    "floor": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      -1,
+      7
+     ]
+    },
+    "ceiling": {
+     "{0}": [
+      2
+     ],
+     "{1}": [
+      0,
+      8
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_is_zero",
+   "inputs": {},
+   "expect": {
+    "nearest": {
+     "{0}": [
+      0
+     ]
+    },
+    "floor": {
+     "{0}": [
+      0
+     ]
+    },
+    "ceiling": {
+     "{0}": [
+      0
+     ]
+    }
+   }
+  }
+ ]
+}

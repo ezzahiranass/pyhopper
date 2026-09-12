@@ -1,0 +1,51 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.DivideDomain.DivideDomain",
+ "gh_guid": "75ef4190-91a2-42d9-a245-32a7162b0384",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "paths": "simplified",
+ "notes": "Grasshopper always emits list outputs at {path;iteration}; pyhopper sub-branches only when a branch runs several iterations",
+ "cases": [
+  {
+   "name": "unit_domain_four",
+   "inputs": {
+    "count": 4
+   },
+   "compare": [
+    "Segments"
+   ]
+  },
+  {
+   "name": "custom_domain",
+   "inputs": {
+    "domain": {
+     "type": "Interval",
+     "start": 2,
+     "end": 5
+    },
+    "count": 3
+   },
+   "compare": [
+    "Segments"
+   ]
+  },
+  {
+   "name": "two_counts_sub_branch",
+   "inputs": {
+    "domain": {
+     "type": "Interval",
+     "start": 0,
+     "end": 10
+    },
+    "count": [
+     2,
+     5
+    ]
+   },
+   "compare": [
+    "Segments"
+   ]
+  }
+ ]
+}

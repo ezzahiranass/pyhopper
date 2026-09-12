@@ -1,0 +1,100 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.Equality.Equality",
+ "gh_guid": "5db0fb89-4f22-4f09-a777-fa5e55aed7ec",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "first_number": [
+     1,
+     2.5,
+     3
+    ],
+    "second_number": [
+     1,
+     2,
+     3
+    ]
+   },
+   "expect": {
+    "equality": {
+     "{0}": [
+      true,
+      false,
+      true
+     ]
+    },
+    "inequality": {
+     "{0}": [
+      false,
+      true,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "first_number": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      3
+     ]
+    },
+    "second_number": 1
+   },
+   "expect": {
+    "equality": {
+     "{0}": [
+      true,
+      false
+     ],
+     "{1}": [
+      false
+     ]
+    },
+    "inequality": {
+     "{0}": [
+      false,
+      true
+     ],
+     "{1}": [
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "int_equals_float",
+   "inputs": {
+    "first_number": [
+     2
+    ],
+    "second_number": [
+     2.0
+    ]
+   },
+   "expect": {
+    "equality": {
+     "{0}": [
+      true
+     ]
+    },
+    "inequality": {
+     "{0}": [
+      false
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateNot.GateNot",
+ "gh_guid": "cb2c7d3c-41b4-4c6d-a6bd-9235bd2851bb",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "2;1": [
+      false,
+      false
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "default_is_false",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  }
+ ]
+}

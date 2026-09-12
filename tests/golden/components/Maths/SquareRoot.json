@@ -1,0 +1,66 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.SquareRoot.SquareRoot",
+ "gh_guid": "ad476cb7-b6d1-41c8-986b-0df243a64146",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     0,
+     4,
+     2,
+     6.25
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      0.0,
+      2.0,
+      1.4142135623730951,
+      2.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      9
+     ],
+     "1": [
+      16,
+      1
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      3.0
+     ],
+     "{1}": [
+      4.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "negative_raises",
+   "inputs": {
+    "value": [
+     -1
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

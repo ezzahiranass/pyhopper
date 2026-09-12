@@ -1,0 +1,134 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.MassAddition.MassAddition",
+ "gh_guid": "5b850221-b527-4bd6-8c62-e94168cd6efa",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "numbers",
+   "inputs": {
+    "input": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "compare": [
+    "Result",
+    "Partial Results"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "input": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      10,
+      20,
+      30
+     ]
+    }
+   },
+   "compare": [
+    "Result",
+    "Partial Results"
+   ]
+  },
+  {
+   "name": "vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    ]
+   },
+   "compare": [
+    "Result",
+    "Partial Results"
+   ]
+  },
+  {
+   "name": "point_plus_vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     }
+    ]
+   },
+   "compare": [
+    "Result",
+    "Partial Results"
+   ]
+  },
+  {
+   "name": "text_concatenates",
+   "inputs": {
+    "input": [
+     "a",
+     "b",
+     "c"
+    ]
+   },
+   "compare": [
+    "Result",
+    "Partial Results"
+   ],
+   "gh": {
+    "skip": "Grasshopper rejects text ('Not all input data types are supported'); pyhopper concatenates"
+   }
+  },
+  {
+   "name": "empty_branch_preserved",
+   "inputs": {
+    "input": {
+     "0": [],
+     "1": [
+      5
+     ]
+    }
+   },
+   "compare": [
+    "Result",
+    "Partial Results"
+   ]
+  }
+ ]
+}

@@ -205,6 +205,20 @@ class OutputPlacementTests(unittest.TestCase):
         result = _Pick(tree(["a", "b"]), tree([0, 9, 1]))
         assert_tree_equal(self, result, {"0": ["a", "b"]})
 
+    def test_branch_topology_is_kept_per_output(self):
+        class _Total(Component):
+            inputs = [InputParam("list", None, Access.LIST)]
+            outputs = [OutputParam("total"), OutputParam("partials")]
+
+            def generate(self, list=None):
+                items = list or []
+                return (Component.NO_OUTPUT if not items else sum(items)), items
+
+        result = _Total(tree({"0": [], "1": [2, 3]}))
+        # the silent output still records {0} as an empty branch even though the other output placed a list
+        assert_tree_equal(self, result.output("total"), {"0": [], "1": [5]})
+        assert_tree_equal(self, result.output("partials"), {"0": [], "1": [2, 3]})
+
     def test_sub_branches_helper_paths(self):
         result = _Chunks(tree({"0": [1, 2, 3], "5": []}))
         assert_tree_equal(self, result, {"0;0": [1, 2], "0;1": [3], "5;0": []})

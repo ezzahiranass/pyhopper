@@ -1,0 +1,72 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Minimum.Minimum",
+ "gh_guid": "57308b30-772d-4919-ac67-e86c18f3a996",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "a": [
+     1,
+     5,
+     3
+    ],
+    "b": [
+     2,
+     2,
+     2
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0,
+      2.0,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "a": {
+     "0": [
+      1,
+      9
+     ],
+     "1": [
+      -2
+     ]
+    },
+    "b": 4
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0,
+      4.0
+     ],
+     "{1}": [
+      -2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "defaults_are_zero",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  }
+ ]
+}

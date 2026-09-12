@@ -1,0 +1,50 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Pi.Pi",
+ "gh_guid": "0d2ccfb3-9d41-4759-9452-da6a522c3eaa",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "default_factor_is_one",
+   "inputs": {},
+   "compare": [
+    "Output"
+   ],
+   "gh": {
+    "skip": "pyhopper default value; Grasshopper has no persistent value on this port"
+   }
+  },
+  {
+   "name": "factors",
+   "inputs": {
+    "factor": [
+     0.5,
+     2,
+     -1,
+     0
+    ]
+   },
+   "compare": [
+    "Output"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "factor": {
+     "0": [
+      1
+     ],
+     "1": [
+      0.25,
+      4
+     ]
+    }
+   },
+   "compare": [
+    "Output"
+   ]
+  }
+ ]
+}

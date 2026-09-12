@@ -45,6 +45,11 @@ PORT_OVERRIDES: dict[tuple[str, str], str] = {
     ("Set Difference (S)", "ExDifference"): "symmetric_difference",
     ("Plane Surface", "Plane"): "surface",                      # output port; the input plane keeps "plane"
     ("Sort List", "Values A"): "values",                        # variadic collapse
+    # "output" shadows ComponentResult.output(); the constants follow the Maths "Result" convention
+    ("Pi", "Output"): "result",
+    ("Golden Ratio", "Output"): "result",
+    ("Epsilon", "Output"): "result",
+    ("Natural logarithm", "Output"): "result",
 }
 
 # Second occurrence of a duplicated GH output name (mapped by position when names repeat).
