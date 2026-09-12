@@ -1,0 +1,153 @@
+{
+ "component": "pyhopper.Components.Vector.Point.PointGroups.PointGroups",
+ "gh_guid": "81f6afc9-22d9-49f0-8579-1fd7e0df6fa6",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_chains",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.5
+    ]
+   },
+   "compare": [
+    "Groups",
+    "Indices"
+   ]
+  },
+  {
+   "name": "singletons",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 9,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Groups",
+    "Indices"
+   ]
+  },
+  {
+   "name": "zero_distance_groups_coincident",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     0.0
+    ]
+   },
+   "compare": [
+    "Groups",
+    "Indices"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "distance": [
+     1.5
+    ]
+   },
+   "compare": [
+    "Groups",
+    "Indices"
+   ]
+  }
+ ]
+}

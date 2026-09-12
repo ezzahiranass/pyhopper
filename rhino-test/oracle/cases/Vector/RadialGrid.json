@@ -1,0 +1,80 @@
+{
+ "component": "pyhopper.Components.Vector.Grid.RadialGrid.RadialGrid",
+ "gh_guid": "66eedc35-187d-4dab-b49b-408491b1255f",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_rings_four_sectors",
+   "inputs": {
+    "extent_r": [
+     2
+    ],
+    "extent_p": [
+     4
+    ]
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  },
+  {
+   "name": "one_ring_three_sectors_size_two",
+   "inputs": {
+    "size": [
+     2.0
+    ],
+    "extent_r": [
+     1
+    ],
+    "extent_p": [
+     3
+    ]
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  },
+  {
+   "name": "tilted_plane",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "extent_r": [
+     1
+    ],
+    "extent_p": [
+     4
+    ]
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  }
+ ]
+}

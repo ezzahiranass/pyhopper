@@ -1,0 +1,117 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.RotatePlane.RotatePlane",
+ "gh_guid": "f6f14b09-6497-4564-8403-09e4eb5a6b82",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "quarter_turn",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "angle": [
+     1.5707963267948966
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "angle": {
+     "0": [
+      3.141592653589793
+     ],
+     "1": [
+      0.7853981633974483,
+      -1.5707963267948966
+     ]
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "full_turn",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "angle": [
+     6.283185307179586
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  }
+ ]
+}

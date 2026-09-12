@@ -1,0 +1,177 @@
+{
+ "component": "pyhopper.Components.Vector.Point.Barycentric.Barycentric",
+ "gh_guid": "9adffd61-f5d1-4e9e-9572-e8d9145730dc",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "weights",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "coordinate_u": [
+     1.0,
+     2.0,
+     1.0
+    ],
+    "coordinate_v": [
+     0.0,
+     1.0,
+     1.0
+    ],
+    "coordinate_w": [
+     0.0,
+     1.0,
+     1.0
+    ]
+   },
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1.3333333333333333,
+       "y": 1.3333333333333333,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch_centroid",
+   "inputs": {
+    "point_a": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 3
+      }
+     ]
+    },
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_sum_raises",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "coordinate_u": [
+     0.0
+    ],
+    "coordinate_v": [
+     0.0
+    ],
+    "coordinate_w": [
+     0.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

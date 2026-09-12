@@ -1,0 +1,73 @@
+{
+ "component": "pyhopper.Components.Vector.Vector.UnitVector.UnitVector",
+ "gh_guid": "d2da1306-259a-4994-85a4-672d8a4c7805",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "vector": [
+     {
+      "type": "Vector3d",
+      "x": 3,
+      "y": 0,
+      "z": 4
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Vector"
+   ]
+  },
+  {
+   "name": "zero_stays_zero",
+   "inputs": {
+    "vector": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Vector"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "vector": {
+     "0": [
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": -5
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Vector"
+   ]
+  }
+ ]
+}

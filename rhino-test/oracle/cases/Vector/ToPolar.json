@@ -1,0 +1,120 @@
+{
+ "component": "pyhopper.Components.Vector.Point.ToPolar.ToPolar",
+ "gh_guid": "61647ba2-31eb-4921-9632-df81e3286f7d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "world_system",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": -1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Phi",
+    "Theta",
+    "Radius"
+   ]
+  },
+  {
+   "name": "tilted_system",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 4,
+      "z": 3
+     }
+    ],
+    "system": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Phi",
+    "Theta",
+    "Radius"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 4,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 5
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 1
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Phi",
+    "Theta",
+    "Radius"
+   ]
+  }
+ ]
+}

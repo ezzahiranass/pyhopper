@@ -1,0 +1,170 @@
+{
+ "component": "pyhopper.Components.Vector.Point.NumbersToPoints.NumbersToPoints",
+ "gh_guid": "0ae07da9-951b-4b9b-98ca-d312c252374d",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "mask_xy",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     3.0,
+     4.0
+    ],
+    "mask": [
+     "XY"
+    ]
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 4.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "mask_lowercase_xz",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     3.0,
+     4.0
+    ],
+    "mask": [
+     "xz"
+    ]
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 2.0
+      },
+      {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 0.0,
+       "z": 4.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "mask_z_and_order_zyx",
+   "inputs": {
+    "numbers": {
+     "0": [
+      1.0,
+      2.0
+     ],
+     "1": [
+      1.0,
+      2.0,
+      3.0
+     ]
+    },
+    "mask": {
+     "0": [
+      "Z"
+     ],
+     "1": [
+      "ZYX"
+     ]
+    }
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 2.0
+      }
+     ],
+     "{1;0}": [
+      {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 2.0,
+       "z": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 3.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "count_not_multiple_raises",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     3.0,
+     4.0,
+     5.0,
+     6.0,
+     7.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "bad_mask_raises",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     3.0
+    ],
+    "mask": [
+     "QQ"
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

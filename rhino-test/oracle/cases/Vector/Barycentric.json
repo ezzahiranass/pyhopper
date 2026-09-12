@@ -1,0 +1,98 @@
+{
+ "component": "pyhopper.Components.Vector.Point.Barycentric.Barycentric",
+ "gh_guid": "9adffd61-f5d1-4e9e-9572-e8d9145730dc",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "weights",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "coordinate_u": [
+     1.0,
+     2.0,
+     1.0
+    ],
+    "coordinate_v": [
+     0.0,
+     1.0,
+     1.0
+    ],
+    "coordinate_w": [
+     0.0,
+     1.0,
+     1.0
+    ]
+   },
+   "compare": [
+    "Point"
+   ]
+  },
+  {
+   "name": "per_branch_centroid",
+   "inputs": {
+    "point_a": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 3
+      }
+     ]
+    },
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Point"
+   ]
+  }
+ ]
+}

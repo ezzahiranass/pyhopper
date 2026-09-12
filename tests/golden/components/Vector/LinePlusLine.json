@@ -1,0 +1,284 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.LinePlusLine.LinePlusLine",
+ "gh_guid": "d788ad7f-6d68-4106-8b2f-9e55e6e107c0",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "crossing_lines",
+   "inputs": {
+    "line_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "line_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 5
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 3,
+       "z": 5
+      }
+     }
+    ]
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 1,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "line_a": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 2
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "line_b": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       }
+      }
+     ]
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "collinear_raises",
+   "inputs": {
+    "line_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "line_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "parallel_raises",
+   "inputs": {
+    "line_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "line_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}
