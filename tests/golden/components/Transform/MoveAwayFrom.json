@@ -1,0 +1,956 @@
+{
+ "component": "pyhopper.Components.Transform.Euclidian.MoveAwayFrom.MoveAwayFrom",
+ "gh_guid": "dd9f597a-4db0-42b1-9cb2-5607ec97db09",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "point_from_point",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        2.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "line_from_point",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "point_from_line",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 7.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        2.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "point_from_plane_square",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 3
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 6.6,
+       "z": 4.2
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        1.0,
+        1.2000000000000002,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "point_from_plane_far_corner",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": -2,
+      "z": 3
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 5.784464540552737,
+       "y": -2.196116135138184,
+       "z": 3.588348405414552
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.7844645405527362,
+        0.0,
+        1.0,
+        0.0,
+        -0.19611613513818404,
+        0.0,
+        0.0,
+        1.0,
+        0.5883484054145521,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "line_from_line",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 2,
+       "z": 0
+      }
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.4472135954999579,
+        "y": 2.8944271909999157,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4.447213595499958,
+        "y": 2.8944271909999157,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.4472135954999579,
+        0.0,
+        1.0,
+        0.0,
+        0.8944271909999159,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "circle_from_point",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1.0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 1.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "point_from_rectangle_edge",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0.5,
+      "z": 2
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Rectangle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 2.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 5.832050294337844,
+       "y": 0.5,
+       "z": 2.5547001962252294
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.8320502943378437,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.5547001962252291,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "coincident_stays",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "negative_moves_toward",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     -1.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        1.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_distance",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 13.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        10.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "geometry": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 4,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 2
+      }
+     ]
+    },
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "expect": {
+    "geometry": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 5.0,
+       "z": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 3.0
+      }
+     ]
+    },
+    "transform": {
+     "{0}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      },
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Transform",
+       "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

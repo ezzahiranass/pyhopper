@@ -1,0 +1,464 @@
+{
+ "component": "pyhopper.Components.Transform.Euclidian.MoveAwayFrom.MoveAwayFrom",
+ "gh_guid": "dd9f597a-4db0-42b1-9cb2-5607ec97db09",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "point_from_point",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "line_from_point",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "point_from_line",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "point_from_plane_square",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 3
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "point_from_plane_far_corner",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": -2,
+      "z": 3
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "line_from_line",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 2,
+       "z": 0
+      }
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "circle_from_point",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1.0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "point_from_rectangle_edge",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0.5,
+      "z": 2
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Rectangle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 2.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "coincident_stays",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "negative_moves_toward",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     -1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "default_distance",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "geometry": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 4,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 2
+      }
+     ]
+    },
+    "emitter": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  }
+ ],
+ "notes": "Grasshopper moves along the line from the emitter's closest point (to the geometry's bounding-box centre) to that centre; a plane emitter is measured as the square [-1, 1]^2 on it."
+}

@@ -1,0 +1,234 @@
+{
+ "component": "pyhopper.Components.Transform.Affine.ProjectAlong.ProjectAlong",
+ "gh_guid": "06d7bc4a-ba3e-4445-8ab5-079613b52f28",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "default_direction",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 5
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "slanted",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 5
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": -3
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": -1
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "tilted_plane",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 5
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": -1
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "line_geometry",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2,
+       "y": 1,
+       "z": 3
+      }
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 1,
+      "z": -2
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "transform_only",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": -1
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "parallel_direction_raises",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 5
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

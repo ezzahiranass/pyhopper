@@ -1,0 +1,260 @@
+{
+ "component": "pyhopper.Components.Transform.Array.Kaleidoscope.Kaleidoscope",
+ "gh_guid": "b90eaa92-6e38-4054-a915-afcf486224b3",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "three_segments",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0.5,
+      "z": 0
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "segments": [
+     3
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "four_segments",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0.5,
+      "z": 0
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "segments": [
+     4
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "single_segment_identity",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0.5,
+      "z": 0
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "segments": [
+     1
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "line_two_segments",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "segments": [
+     2
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "default_ten",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0.5,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "tilted_plane",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "segments": [
+     3
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  }
+ ],
+ "notes": "Grasshopper emits S images at {path;iteration}: even images rotate by k*2pi/S about the plane normal, odd images mirror across the line at the geometry's plane angle plus k*pi/S."
+}

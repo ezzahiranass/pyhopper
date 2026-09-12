@@ -1,0 +1,234 @@
+{
+ "component": "pyhopper.Components.Transform.Euclidian.RotateDirection.RotateDirection",
+ "gh_guid": "5edaea74-32cb-4586-bd72-66694eb73160",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "x_to_y",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "center": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "from_vector": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "to": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "off_centre_x_to_z",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "center": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "from_vector": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "to": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "opposite_half_turn",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "center": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "from_vector": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "to": [
+     {
+      "type": "Vector3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "non_unit_directions_do_not_scale",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "center": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "from_vector": [
+     {
+      "type": "Vector3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "to": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "transform_only",
+   "inputs": {
+    "center": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "from_vector": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "to": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Transform"
+   ]
+  }
+ ]
+}
