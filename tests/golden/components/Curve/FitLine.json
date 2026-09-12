@@ -1,0 +1,208 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.FitLine.FitLine",
+ "gh_guid": "1f798a28-9de6-47b5-8201-cac57256b777",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "least_squares",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0.1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": -0.1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "line": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0006040983002235656,
+        "y": 0.030096220951798237,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.9993959016997764,
+        "y": -0.030096220951798237,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "order_does_not_matter",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0.1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": -0.1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "line": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0006040983002235656,
+        "y": 0.030096220951798237,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.9993959016997764,
+        "y": -0.030096220951798237,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "two_points_and_per_branch",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 5
+      },
+      {
+       "type": "Point3d",
+       "x": 0.1,
+       "y": 0,
+       "z": 2
+      }
+     ]
+    }
+   },
+   "expect": {
+    "line": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": -2.220446049250313e-16,
+        "y": -2.220446049250313e-16,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.039476601418270585,
+        "y": 0.0,
+        "z": 0.00010393977817368949
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0.026311960353474172,
+        "y": 0.0,
+        "z": 5.0000692779830125
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "one_point_raises",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

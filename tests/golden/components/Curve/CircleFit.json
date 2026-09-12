@@ -1,0 +1,247 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.CircleFit.CircleFit",
+ "gh_guid": "be52336f-a2e1-43b1-b5f5-178ba489508a",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "least_squares",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -2.2,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": -0.10249177939650633,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": -0.0
+        }
+       },
+       "radius": 2.051312209658389
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      2.051312209658389
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.05117956973811699
+     ]
+    }
+   }
+  },
+  {
+   "name": "exact_circle",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": -3,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -3,
+      "z": 1
+     }
+    ]
+   },
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": -0.0
+        }
+       },
+       "radius": 3.0
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      3.0
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "three_points",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": -0.0
+        }
+       },
+       "radius": 1.0
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      1.0
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "collinear_raises",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.FitLine.FitLine",
+ "gh_guid": "1f798a28-9de6-47b5-8201-cac57256b777",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "least_squares",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0.1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": -0.1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Line"
+   ]
+  },
+  {
+   "name": "order_does_not_matter",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0.1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": -0.1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Line"
+   ]
+  },
+  {
+   "name": "two_points_and_per_branch",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 5
+      },
+      {
+       "type": "Point3d",
+       "x": 0.1,
+       "y": 0,
+       "z": 2
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Line"
+   ]
+  }
+ ]
+}

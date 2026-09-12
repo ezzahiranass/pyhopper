@@ -1,0 +1,223 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.ModifiedArc.ModifiedArc",
+ "gh_guid": "9d8dec9c-3fd1-481c-9c3d-75ea5e15eb1a",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "new_radius",
+   "inputs": {
+    "arc": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.3,
+       "end": 2.0
+      }
+     }
+    ],
+    "radius": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Arc"
+   ]
+  },
+  {
+   "name": "new_angle",
+   "inputs": {
+    "arc": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.3,
+       "end": 2.0
+      }
+     }
+    ],
+    "angle": [
+     {
+      "type": "Interval",
+      "start": 1.0,
+      "end": 1.5
+     }
+    ]
+   },
+   "compare": [
+    "Arc"
+   ]
+  },
+  {
+   "name": "both_and_per_branch",
+   "inputs": {
+    "arc": {
+     "0": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.5707963267948966
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 3
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 1,
+         "z": 0
+        }
+       },
+       "radius": 2.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.3,
+        "end": 2.0
+       }
+      }
+     ]
+    },
+    "radius": [
+     1.0
+    ],
+    "angle": [
+     {
+      "type": "Interval",
+      "start": 0.0,
+      "end": 3.141592653589793
+     }
+    ]
+   },
+   "compare": [
+    "Arc"
+   ]
+  },
+  {
+   "name": "nothing_changes",
+   "inputs": {
+    "arc": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.3,
+       "end": 2.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Arc"
+   ]
+  }
+ ]
+}

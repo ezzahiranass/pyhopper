@@ -1,0 +1,249 @@
+{
+ "component": "pyhopper.Components.Curve.Util.FlipCurve.FlipCurve",
+ "gh_guid": "22990b1f-9be6-477c-ad89-f775cd347105",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "always_without_guide",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     },
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 1,
+        "z": 4
+       }
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Flag"
+   ]
+  },
+  {
+   "name": "guide_agrees",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "guide": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 5,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3,
+       "y": 5,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Flag"
+   ]
+  },
+  {
+   "name": "guide_opposes",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "guide": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 3,
+       "y": 5,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 5,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Flag"
+   ]
+  },
+  {
+   "name": "perpendicular_guide_leaves_arc",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ],
+    "guide": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 5,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": -3,
+       "y": 5,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Flag"
+   ]
+  },
+  {
+   "name": "arc_reversed",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Flag"
+   ]
+  }
+ ]
+}

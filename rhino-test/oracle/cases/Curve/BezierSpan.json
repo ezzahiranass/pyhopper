@@ -1,0 +1,145 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.BezierSpan.BezierSpan",
+ "gh_guid": "30ce59ce-22a1-49ee-9e21-e6d16b3684a8",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "full_length_tangents",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": -3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "unit_tangents",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": -1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 3,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 5,
+       "z": 2
+      }
+     ]
+    },
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  }
+ ]
+}

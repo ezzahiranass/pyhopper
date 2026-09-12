@@ -1,0 +1,125 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.PolygonEdge.PolygonEdge",
+ "gh_guid": "f4568ce6-aade-4511-8f32-f27d8a6bf9e9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "square",
+   "inputs": {
+    "edge_start": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "edge_end": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "plane_point": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "segments": [
+     4
+    ]
+   },
+   "compare": [
+    "Polygon",
+    "Centre",
+    "Corner Radius",
+    "Edge Radius"
+   ]
+  },
+  {
+   "name": "hexagon_on_the_other_side",
+   "inputs": {
+    "edge_start": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "edge_end": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "plane_point": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": -5,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Polygon",
+    "Centre",
+    "Corner Radius",
+    "Edge Radius"
+   ]
+  },
+  {
+   "name": "per_branch_triangle_pentagon",
+   "inputs": {
+    "edge_start": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "edge_end": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 1
+     }
+    ],
+    "plane_point": [
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 1,
+      "z": 1
+     }
+    ],
+    "segments": {
+     "0": [
+      3
+     ],
+     "1": [
+      5
+     ]
+    }
+   },
+   "compare": [
+    "Polygon",
+    "Centre",
+    "Corner Radius",
+    "Edge Radius"
+   ]
+  }
+ ]
+}

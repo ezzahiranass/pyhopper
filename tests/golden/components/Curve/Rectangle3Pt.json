@@ -1,0 +1,239 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.Rectangle3Pt.Rectangle3Pt",
+ "gh_guid": "9bc98a1d-2ecc-407e-948a-09a09ed3e69d",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "point_above",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "rectangle": {
+     "{0}": [
+      {
+       "type": "Rectangle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 1.5,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "x_size": 4.0,
+       "y_size": 3.0
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      14.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "point_below_flips_normal",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": -2,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "rectangle": {
+     "{0}": [
+      {
+       "type": "Rectangle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": -1.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": -1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "x_size": 4.0,
+       "y_size": 2.0
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      12.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "tilted",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 6,
+      "z": 3
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 5
+     }
+    ]
+   },
+   "expect": {
+    "rectangle": {
+     "{0}": [
+      {
+       "type": "Rectangle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.5,
+         "y": 4.0,
+         "z": 4.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.8944271909999159,
+         "y": 0.0,
+         "z": 0.4472135954999579
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 1.0,
+         "z": 0.0
+        }
+       },
+       "x_size": 4.0,
+       "y_size": 2.23606797749979
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      12.47213595499958
+     ]
+    }
+   }
+  },
+  {
+   "name": "collinear_raises",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

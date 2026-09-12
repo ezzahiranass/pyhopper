@@ -1,0 +1,215 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.Line4Pt.Line4Pt",
+ "gh_guid": "b9fde5fa-d654-4306-8ee1-6b69e6757604",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "projections",
+   "inputs": {
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": -3,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": -1,
+      "z": 5
+     }
+    ]
+   },
+   "expect": {
+    "line": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": -3.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 7.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "point_a": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 5,
+       "y": 1,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": -2,
+       "z": 3
+      }
+     ]
+    },
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 4,
+      "z": 1
+     }
+    ]
+   },
+   "expect": {
+    "line": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 4.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": -2.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 4.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "reversed_points_reverse_the_line",
+   "inputs": {
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": -3,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "line": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 7.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": -3.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
