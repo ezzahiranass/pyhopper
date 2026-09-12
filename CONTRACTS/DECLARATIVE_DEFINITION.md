@@ -7,7 +7,11 @@ This project should allow a pyhopper definition to read like a Grasshopper graph
 - Define each step as one component call.
 - Pass plain values, atoms, branches, `DataTree`s, or prior component results directly.
 - Prefer `next_comp = NextComponent(prev_comp, value, other_comp)`.
-- Prefer assigning literal atoms and literal numbers to variables before feeding them into components.
+- Assign literal atoms to variables before feeding them into components.
+- Assign a number to a variable when it is a knob worth exposing: the studio importer turns
+  named numbers into sliders. Pass a constant inline (`Polygon(plane, 1.5, 6, 0.0)`) when it is a
+  fixed setting: it stays on that input port as an inline literal (numbers, booleans and text on
+  `float`/`int`/`bool`/`str` inputs; a wire on the same input always wins).
 - Do not reach into atom internals such as `.normal`, `.x_axis`, `.points`, `.line`.
 - Do not index into outputs or lists inside the definition (`[0]`, `[12]`, `["key"]`).
 - Do not reshape component outputs manually in the definition layer.

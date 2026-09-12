@@ -1,4 +1,4 @@
-"""Declarative authored values: schema validation, the emitter registry and the hook."""
+"""Declarative authored values and inline literals: validation, emitters, the hook."""
 
 from __future__ import annotations
 
@@ -14,6 +14,10 @@ NUMBER_SLIDER = "pyhopper.Components.Params.Input.NumberSlider.NumberSlider"
 PANEL = "pyhopper.Components.Params.Input.Panel.Panel"
 POINT_ON_CURVE = "pyhopper.Components.Curve.Analysis.PointOnCurve.PointOnCurve"
 SERIES = "pyhopper.Components.Maths.Series.Series"
+LENGTH = "pyhopper.Components.Curve.Analysis.Length.Length"
+MASS_ADDITION = "pyhopper.Components.Maths.Operators.MassAddition.MassAddition"
+TEXT_JOIN = "pyhopper.Components.Sets.Text.TextJoin.TextJoin"
+POLYLINE = "pyhopper.Components.Curve.Spline.Polyline.Polyline"
 
 
 class Gate(Component):
@@ -126,9 +130,38 @@ class AuthoredValidationTests(unittest.TestCase):
         errors = errors_of(document([node("p", PANEL, values={"textAlign": "justify"})]))
         self.assertEqual(errors, [("nodes[0].values.textAlign", "Unsupported textAlign 'justify'")])
 
-    def test_components_without_authored_values_reject_values(self):
-        errors = errors_of(document([node("s", SERIES, values={"count": 5})]))
-        self.assertEqual(errors, [("nodes[0].values.count", "Series does not declare authored values")])
+    def test_inline_literals_are_type_checked_against_the_input(self):
+        self.assertEqual(errors_of(document([node("s", SERIES, values={"count": 5, "step": 0.5})])), [])
+        errors = errors_of(document([node("s", SERIES, values={"count": "5", "start": True})]))
+        self.assertEqual(
+            errors,
+            [
+                ("nodes[0].values.count", "'count' must be an integer"),
+                ("nodes[0].values.start", "'start' must be numeric"),
+            ],
+        )
+
+    def test_only_primitive_non_variadic_inputs_accept_literals(self):
+        def value_errors(doc):
+            return [error for error in errors_of(doc) if ".values." in error[0]]
+
+        # a geometry input is not literal-capable ...
+        errors = value_errors(document([node("p", POLYLINE, values={"vertices": "points", "closed": False})]))
+        self.assertEqual(errors, [("nodes[0].values.vertices", "Unknown authored value 'vertices'")])
+        # ... nor the variadic port, even when it is primitive-typed
+        errors = value_errors(document([node("m", MASS_ADDITION, values={"values": 1.0})]))
+        self.assertEqual(errors, [("nodes[0].values.values", "MassAddition has no authored values or literal inputs")])
+        errors = value_errors(document([node("l", LENGTH, values={"curve": "line"})]))
+        self.assertEqual(errors, [("nodes[0].values.curve", "Length has no authored values or literal inputs")])
+
+    def test_an_inline_literal_satisfies_a_required_input(self):
+        self.assertEqual(errors_of(document([node("j", TEXT_JOIN, values={"text": "a", "join": ", "})])), [])
+        errors = errors_of(document([node("j", TEXT_JOIN, values={"join": ", "})]))
+        self.assertEqual(errors, [("nodes[j].inputs.text", "Required input 'text' is missing")])
+
+    def test_components_without_any_literal_input_reject_values(self):
+        errors = errors_of(document([node("m", "pyhopper.Components.Sets.Tree.Merge.Merge", values={"data": 1})]))
+        self.assertEqual(errors, [("nodes[0].values.data", "Merge has no authored values or literal inputs")])
 
     def test_settings_emitter_validates_settings_strictly(self):
         errors = errors_of(document([node("s", NUMBER_SLIDER, settings={"value": 0.5, "rounding": "banker", "colour": "red"})]))
@@ -189,6 +222,29 @@ class AuthoredEmissionTests(unittest.TestCase):
         source = compile_graph_document(doc).source
         self.assertNotIn("parameter=0.75", source)
         self.assertIn("parameter=node_", source)
+
+    def test_inline_literals_become_keyword_arguments(self):
+        doc = document([
+            node("s", SERIES, values={"count": 5.0, "start": 2}),
+            node("j", TEXT_JOIN, values={"text": "a", "join": ", "}),
+            node("p", POLYLINE, values={"closed": True}),
+            node("q", "pyhopper.Components.Vector.Point.ConstructPoint.ConstructPoint", values={"x_coordinate": 1, "y_coordinate": 2.5}),
+        ], [edge("e1", "q", "point", "p", "vertices")])
+        source = compile_graph_document(doc).source
+        self.assertIn("Series(start=2.0, count=5)", source)  # coerced to the input types
+        self.assertIn("TextJoin(text='a', join=', ')", source)
+        self.assertIn("Polyline(vertices=node_", source)
+        self.assertIn(", closed=True)", source)
+        self.assertIn("ConstructPoint(x_coordinate=1.0, y_coordinate=2.5)", source)
+
+    def test_a_wire_wins_over_an_inline_literal(self):
+        doc = document(
+            [node("s", SERIES, values={"count": 5}), node("n", NUMBER_SLIDER, settings={"value": 3.0})],
+            [edge("e1", "n", "value", "s", "count")],
+        )
+        source = compile_graph_document(doc).source
+        self.assertIn("Series(count=node_", source)
+        self.assertNotIn("count=5", source)
 
     def test_graph_mapper_needs_its_wire(self):
         errors = errors_of(document([node("m", GRAPH_MAPPER, values={"graphType": "sine"})]))

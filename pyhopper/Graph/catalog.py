@@ -29,7 +29,25 @@ def _json_safe(value: Any) -> Any:
     return repr(value)
 
 
-def serialize_input(param: InputParam) -> dict[str, Any]:
+# Inline literals: a node may carry ``values[<input>]`` for any primitive-typed input that
+# is not the variadic port (Grasshopper's "Set Data Item" on an unwired input).
+LITERAL_INPUT_TYPES: dict[type, str] = {float: "float", int: "int", bool: "bool", str: "string"}
+
+
+def literal_input_names(component_cls: type[Component] | None) -> dict[str, dict[str, Any]]:
+    """Inputs that accept an inline literal, as ``{name: {"type": schema type}}`` specs."""
+    if component_cls is None:
+        return {}
+    inputs = list(getattr(component_cls, "inputs", []))
+    variadic = inputs[-1].name if getattr(component_cls, "variadic_inputs", False) and inputs else None
+    return {
+        param.name: {"type": LITERAL_INPUT_TYPES[param.type_hint]}
+        for param in inputs
+        if param.type_hint in LITERAL_INPUT_TYPES and param.name != variadic
+    }
+
+
+def serialize_input(param: InputParam, *, literal: bool = False) -> dict[str, Any]:
     return {
         "name": param.name,
         "type": type_name(param.type_hint),
@@ -37,6 +55,7 @@ def serialize_input(param: InputParam) -> dict[str, Any]:
         "access": param.access.value,
         "default": _json_safe(param.default),
         "optional": param.optional,
+        "literal": literal,
     }
 
 
@@ -62,7 +81,8 @@ def _schema_defaults(schema: dict[str, Any]) -> dict[str, Any]:
 
 
 def serialize_component(tab: str, category: str, component_cls: type[Component]) -> dict[str, Any]:
-    inputs = [serialize_input(param) for param in getattr(component_cls, "inputs", [])]
+    literal_inputs = literal_input_names(component_cls)
+    inputs = [serialize_input(param, literal=param.name in literal_inputs) for param in getattr(component_cls, "inputs", [])]
     outputs = [serialize_output(param) for param in getattr(component_cls, "outputs", [])]
     settings_schema = _schema(component_cls, "settings_schema")
     authored_values = _schema(component_cls, "authored_values")
