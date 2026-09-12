@@ -57,7 +57,46 @@
      0.5
     ]
    },
-   "expect": {}
+   "expect": {
+    "polyline": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.05,
+         "y": 0.05,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 3,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 3,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "count": {
+     "{0}": [
+      2
+     ]
+    }
+   }
   },
   {
    "name": "closed_keeps_seam",
@@ -109,7 +148,52 @@
      0.5
     ]
    },
-   "expect": {}
+   "expect": {
+    "polyline": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 3,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 3,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "count": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "nothing_short",
@@ -143,7 +227,40 @@
      0.5
     ]
    },
-   "expect": {}
+   "expect": {
+    "polyline": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 3,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "count": {
+     "{0}": [
+      0
+     ]
+    }
+   }
   },
   {
    "name": "shortest_first_chain",
@@ -189,7 +306,40 @@
      0.5
     ]
    },
-   "expect": {}
+   "expect": {
+    "polyline": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.075,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "count": {
+     "{0}": [
+      2
+     ]
+    }
+   }
   },
   {
    "name": "two_short_in_a_row",
@@ -235,7 +385,46 @@
      0.15
     ]
    },
-   "expect": {}
+   "expect": {
+    "polyline": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.05,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 6,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "count": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "never_below_two_points",
@@ -269,7 +458,34 @@
      0.5
     ]
    },
-   "expect": {}
+   "expect": {
+    "polyline": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0.2,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "count": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -365,7 +581,86 @@
      0.5
     ]
    },
-   "expect": {}
+   "expect": {
+    "polyline": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      },
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 5,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 5,
+         "y": 5,
+         "z": 0
+        }
+       ]
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.075,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "count": {
+     "{0}": [
+      1,
+      0
+     ],
+     "{1}": [
+      2
+     ]
+    }
+   }
   },
   {
    "name": "not_a_polyline_raises",

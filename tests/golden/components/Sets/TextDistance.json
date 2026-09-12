@@ -17,7 +17,13 @@
      "sitting"
     ]
    },
-   "expect": {}
+   "expect": {
+    "distance": {
+     "{0}": [
+      3
+     ]
+    }
+   }
   },
   {
    "name": "case_sensitive",
@@ -32,7 +38,13 @@
      true
     ]
    },
-   "expect": {}
+   "expect": {
+    "distance": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "case_insensitive",
@@ -47,7 +59,13 @@
      false
     ]
    },
-   "expect": {}
+   "expect": {
+    "distance": {
+     "{0}": [
+      0
+     ]
+    }
+   }
   },
   {
    "name": "empty_text",
@@ -59,7 +77,13 @@
      "abc"
     ]
    },
-   "expect": {}
+   "expect": {
+    "distance": {
+     "{0}": [
+      3
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -82,12 +106,28 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "distance": {
+     "{0}": [
+      2,
+      0
+     ],
+     "{1}": [
+      0
+     ]
+    }
+   }
   },
   {
    "name": "pyhopper_defaults",
    "inputs": {},
-   "expect": {}
+   "expect": {
+    "distance": {
+     "{0}": [
+      0
+     ]
+    }
+   }
   }
  ]
 }

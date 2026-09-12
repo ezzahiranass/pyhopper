@@ -1,0 +1,792 @@
+{
+ "component": "pyhopper.Components.Surface.Analysis.OsculatingCircles.OsculatingCircles",
+ "gh_guid": "b799b7c0-76df-4bdb-b3cc-401b1d021aa5",
+ "mode": "geometry",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "cylinder",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 2,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "First circle",
+    "Second circle"
+   ]
+  },
+  {
+   "name": "dome_off_centre",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.25,
+      "y": 0.6,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "First circle",
+    "Second circle"
+   ]
+  },
+  {
+   "name": "saddle",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": -1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": -1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "First circle",
+    "Second circle"
+   ]
+  },
+  {
+   "name": "flat_gives_lines",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "First circle",
+    "Second circle"
+   ]
+  },
+  {
+   "name": "dome_umbilic",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.5,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "First circle",
+    "Second circle"
+   ],
+   "gh": {
+    "skip": "at an umbilic point Grasshopper's principal directions (and so the circle planes) are arbitrary"
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "surface": {
+     "0": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 1.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 2.0,
+          "z": 1.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 2.0,
+          "z": 3.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 1.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 4.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 4.0,
+          "z": 1.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 4.0,
+          "z": 0.0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        3,
+        3
+       ],
+       "v_mults": [
+        3,
+        3
+       ],
+       "u_degree": 2,
+       "v_degree": 2,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ],
+     "1": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 1.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 2.0,
+          "z": -1.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": -1.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 4.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 4.0,
+          "z": 1.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 4.0,
+          "z": 0.0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        3,
+        3
+       ],
+       "v_mults": [
+        3,
+        3
+       ],
+       "u_degree": 2,
+       "v_degree": 2,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ]
+    },
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.2,
+      "y": 0.7,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0.9,
+      "y": 0.1,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "First circle",
+    "Second circle"
+   ]
+  }
+ ]
+}

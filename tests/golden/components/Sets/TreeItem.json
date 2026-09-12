@@ -43,7 +43,13 @@
      1
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0;0}": [
+      "b"
+     ]
+    }
+   }
   },
   {
    "name": "wrapped_index",
@@ -84,7 +90,13 @@
      true
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0;0}": [
+      "b"
+     ]
+    }
+   }
   },
   {
    "name": "out_of_range_without_wrap",
@@ -125,7 +137,11 @@
      false
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0;0}": []
+    }
+   }
   },
   {
    "name": "negative_wraps",
@@ -166,7 +182,13 @@
      true
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0;0}": [
+      "c"
+     ]
+    }
+   }
   },
   {
    "name": "two_lookups",
@@ -212,7 +234,14 @@
      3
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0;0}": [
+      "a",
+      "j"
+     ]
+    }
+   }
   },
   {
    "name": "missing_path",
@@ -249,7 +278,11 @@
      0
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0;0}": []
+    }
+   }
   },
   {
    "name": "paths_from_a_tree",
@@ -305,7 +338,17 @@
      0
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0}": [
+      "a"
+     ],
+     "{1}": [
+      "g",
+      "d"
+     ]
+    }
+   }
   },
   {
    "name": "index_tree_sets_the_path",
@@ -346,7 +389,14 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{5;1}": [
+      "a",
+      "b"
+     ]
+    }
+   }
   },
   {
    "name": "flat_tree",
@@ -372,7 +422,13 @@
      0
     ]
    },
-   "expect": {}
+   "expect": {
+    "element": {
+     "{0}": [
+      "c"
+     ]
+    }
+   }
   }
  ]
 }

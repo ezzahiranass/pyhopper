@@ -19,7 +19,13 @@
      4
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "overlapping",
@@ -33,7 +39,13 @@
      4
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "empty_a_is_disjoint",
@@ -46,7 +58,13 @@
      4
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "type_strict",
@@ -58,7 +76,13 @@
      1.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -80,7 +104,16 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ],
+     "{1}": [
+      true
+     ]
+    }
+   }
   }
  ]
 }

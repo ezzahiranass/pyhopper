@@ -22,7 +22,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "1.5 and two"
+     ]
+    }
+   }
   },
   {
    "name": "standard_numeric_formats",
@@ -36,7 +42,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "1234.57|1234.6|1,234.57|1.23E+003|123,456.8 %|1234.5678|1234.568|1234.5678|1234.5678|"
+     ]
+    }
+   }
   },
   {
    "name": "integer_formats",
@@ -50,7 +62,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "0042|2A|2a|042|42.00"
+     ]
+    }
+   }
   },
   {
    "name": "brace_escapes",
@@ -64,7 +82,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "{literal} v"
+     ]
+    }
+   }
   },
   {
    "name": "point_vector_boolean",
@@ -94,7 +118,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "1,2.5,3|1,0,0|True"
+     ]
+    }
+   }
   },
   {
    "name": "missing_argument_is_blank",
@@ -108,7 +138,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "1 "
+     ]
+    }
+   }
   },
   {
    "name": "no_data",
@@ -117,7 +153,13 @@
      "{0}"
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      ""
+     ]
+    }
+   }
   },
   {
    "name": "shortest_round_trip_floats",
@@ -137,7 +179,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "0.30000000000000004|1E-07|123456789.123"
+     ]
+    }
+   }
   },
   {
    "name": "integer_and_whole_float",
@@ -154,7 +202,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "3|3"
+     ]
+    }
+   }
   },
   {
    "name": "culture_de_de",
@@ -171,7 +225,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "1.234,50"
+     ]
+    }
+   }
   },
   {
    "name": "negative_and_sections",
@@ -185,7 +245,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "-2.35|(2.3)"
+     ]
+    }
+   }
   },
   {
    "name": "percent_pictures",
@@ -199,7 +265,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "25.60 %|%|26%"
+     ]
+    }
+   }
   },
   {
    "name": "alignment",
@@ -213,7 +285,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "    42|42    |"
+     ]
+    }
+   }
   },
   {
    "name": "grouping_and_exponent_pictures",
@@ -227,7 +305,13 @@
      ]
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "1,234,567.89|1.2E+06|1.235E6"
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -260,7 +344,17 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "text": {
+     "{0}": [
+      "a-b",
+      "b-a"
+     ],
+     "{1}": [
+      "<c>"
+     ]
+    }
+   }
   },
   {
    "name": "malformed_raises",

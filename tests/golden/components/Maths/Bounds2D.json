@@ -31,7 +31,25 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": -2,
+        "end": 4
+       },
+       "v": {
+        "type": "Interval",
+        "start": 3,
+        "end": 5
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "single_point",
@@ -45,7 +63,25 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 1,
+        "end": 1
+       },
+       "v": {
+        "type": "Interval",
+        "start": 5,
+        "end": 5
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -87,7 +123,40 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0,
+        "end": 3
+       },
+       "v": {
+        "type": "Interval",
+        "start": -2,
+        "end": 0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": -1,
+        "end": 1
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0,
+        "end": 2
+       }
+      }
+     ]
+    }
+   }
   },
   {
    "name": "empty_raises",

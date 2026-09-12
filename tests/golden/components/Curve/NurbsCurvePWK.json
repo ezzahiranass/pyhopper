@@ -52,7 +52,80 @@
      2.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 6,
+         "y": 1,
+         "z": 0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0
+       ],
+       "degree": 3
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      7.235239574953312
+     ]
+    },
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      }
+     ]
+    }
+   }
   },
   {
    "name": "weighted",
@@ -98,7 +171,72 @@
      1.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       "weights": [
+        1.0,
+        2.0,
+        2.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      5.559868631148109
+     ]
+    },
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ]
+    }
+   }
   },
   {
    "name": "linear",
@@ -129,7 +267,62 @@
      5.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 2,
+         "z": 0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        1.0,
+        5.0,
+        5.0
+       ],
+       "degree": 1
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      4.23606797749979
+     ]
+    },
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 5.0
+      }
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -199,7 +392,121 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 2,
+         "z": 0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 2
+      }
+     ],
+     "{1}": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 6,
+         "y": 2,
+         "z": 0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      3.8222462219104334
+     ],
+     "{1}": [
+      6.536574849400811
+     ]
+    },
+    "domain": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ]
+    }
+   }
   },
   {
    "name": "bad_knot_count_raises",

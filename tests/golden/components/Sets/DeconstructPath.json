@@ -21,7 +21,15 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "indices": {
+     "{0;0}": [
+      0,
+      2,
+      1
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -53,12 +61,32 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "indices": {
+     "{0;0}": [
+      0,
+      2
+     ],
+     "{1;0}": [
+      3
+     ],
+     "{1;1}": [
+      4,
+      4
+     ]
+    }
+   }
   },
   {
    "name": "grasshopper_defaults",
    "inputs": {},
-   "expect": {}
+   "expect": {
+    "indices": {
+     "{0;0}": [
+      0
+     ]
+    }
+   }
   }
  ]
 }

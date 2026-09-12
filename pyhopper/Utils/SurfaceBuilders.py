@@ -304,6 +304,27 @@ def reverse_surface(surface: AtomicSurface, reverse_u: bool, reverse_v: bool) ->
     )
 
 
+def redomain_surface(surface: AtomicSurface, u_domain: tuple[float, float], v_domain: tuple[float, float]) -> AtomicSurface:
+    """Affinely remap the knot vectors onto the given U and V domains (the geometry is unchanged)."""
+    def remap(knots, domain):
+        start, end = knots[0], knots[-1]
+        scale = (domain[1] - domain[0]) / (end - start) if end > start else 1.0
+        return tuple(domain[0] + (knot - start) * scale for knot in knots)
+
+    return AtomicSurface(
+        poles=surface.poles,
+        weights=surface.weights,
+        u_knots=remap(surface.u_knots, u_domain),
+        v_knots=remap(surface.v_knots, v_domain),
+        u_mults=surface.u_mults,
+        v_mults=surface.v_mults,
+        u_degree=surface.u_degree,
+        v_degree=surface.v_degree,
+        u_periodic=surface.u_periodic,
+        v_periodic=surface.v_periodic,
+    )
+
+
 def offset_surface_loose(surface: AtomicSurface, distance: float) -> AtomicSurface:
     """Move every control point ``distance`` along the unit surface normal at its Greville parameters
     (Grasshopper's Offset Surface Loose)."""

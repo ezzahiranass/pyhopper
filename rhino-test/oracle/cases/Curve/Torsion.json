@@ -1,0 +1,326 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.Torsion.Torsion",
+ "gh_guid": "dbe9fce4-b6b3-465f-9615-34833c4763bd",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "cubic",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "parameter": [
+     0.3
+    ]
+   },
+   "compare": [
+    "Point",
+    "Torsion"
+   ]
+  },
+  {
+   "name": "twisted",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 2.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 3.0
+       },
+       {
+        "type": "Point3d",
+        "x": 6.0,
+        "y": 1.0,
+        "z": 4.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "parameter": [
+     0.6
+    ]
+   },
+   "compare": [
+    "Point",
+    "Torsion"
+   ]
+  },
+  {
+   "name": "planar_circle",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "parameter": [
+     0.125
+    ]
+   },
+   "compare": [
+    "Point",
+    "Torsion"
+   ]
+  },
+  {
+   "name": "line",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "parameter": [
+     0.25
+    ]
+   },
+   "compare": [
+    "Point",
+    "Torsion"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve": {
+     "0": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ],
+     "1": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 2.0,
+         "z": 2.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 6.0,
+         "y": 1.0,
+         "z": 4.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ]
+    },
+    "parameter": [
+     0.25,
+     0.75
+    ]
+   },
+   "compare": [
+    "Point",
+    "Torsion"
+   ]
+  }
+ ]
+}

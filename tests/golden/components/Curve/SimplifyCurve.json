@@ -48,7 +48,40 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 4,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "angle_tolerance_blocks",
@@ -91,7 +124,46 @@
      0.08726646259971647
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0.05,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "nothing_to_simplify",
@@ -122,7 +194,40 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "straight_nurbs_becomes_line",
@@ -176,7 +281,32 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "curved_nurbs_untouched_but_flagged",
@@ -230,7 +360,63 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "line_stays",
@@ -253,7 +439,32 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "closed_polyline",
@@ -302,7 +513,52 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 4,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 4,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "single_segment_becomes_line",
@@ -327,7 +583,32 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "quadratic_straight_nurbs",
@@ -372,7 +653,32 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      true
+     ]
+    }
+   }
   },
   {
    "name": "circle_stays",
@@ -405,7 +711,42 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 2
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      false
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -484,7 +825,84 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "curve": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      },
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "simplified": {
+     "{0}": [
+      true,
+      false
+     ],
+     "{1}": [
+      false
+     ]
+    }
+   }
   }
  ]
 }

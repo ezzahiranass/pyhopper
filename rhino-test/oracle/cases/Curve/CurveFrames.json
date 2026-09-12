@@ -1,0 +1,321 @@
+{
+ "component": "pyhopper.Components.Curve.Division.CurveFrames.CurveFrames",
+ "gh_guid": "0e94542a-2e46-4793-9f98-2200b06b28f4",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "cubic",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "count": [
+     4
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "line",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "count": [
+     2
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "polyline",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "count": [
+     2
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "circle",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "count": [
+     4
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve": {
+     "0": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "count": [
+     2
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ]
+}

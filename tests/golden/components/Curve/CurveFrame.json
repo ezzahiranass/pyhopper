@@ -1,0 +1,535 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.CurveFrame.CurveFrame",
+ "gh_guid": "6b2a5853-07aa-4329-ba84-0a5d46b51dbd",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": [
+   "curve"
+  ]
+ },
+ "cases": [
+  {
+   "name": "cubic",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "parameter": [
+     0.3
+    ]
+   },
+   "expect": {
+    "frame": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.1160000000000003,
+        "y": 1.26,
+        "z": 0.18900000000000003
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.22800768910187402,
+        "y": -0.0030811849878631527,
+        "z": -0.9736544561647597
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.853920063119551,
+        "y": 0.4810817257011554,
+        "z": 0.1984462118517266
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "circle",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "parameter": [
+     0.125
+    ]
+   },
+   "expect": {
+    "frame": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.4142135623730951,
+        "y": 1.4142135623730951,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": -0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -0.7071067811865476,
+        "y": 0.7071067811865476,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "line_along_x",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "expect": {
+    "frame": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": -0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "vertical_line",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 4.0
+      }
+     }
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "expect": {
+    "frame": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 2.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": -0.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "polyline_segment",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "parameter": [
+     0.5
+    ]
+   },
+   "expect": {
+    "frame": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": -0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve": {
+     "0": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ],
+     "1": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 2.0,
+         "z": 2.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 6.0,
+         "y": 1.0,
+         "z": 4.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ]
+    },
+    "parameter": [
+     0.25,
+     0.75
+    ]
+   },
+   "expect": {
+    "frame": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.90625,
+        "y": 1.125,
+        "z": 0.140625
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.2595710028769546,
+        "y": -0.055622357759347395,
+        "z": -0.9641208678286884
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.795411678668406,
+        "y": 0.5784812208497498,
+        "z": 0.18077538151554684
+       }
+      },
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 3.09375,
+        "y": 1.125,
+        "z": 0.421875
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.22889388031779997,
+        "y": 0.47413732351544274,
+        "z": -0.8501772697518284
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.8038625047660566,
+        "y": -0.5846272761934957,
+        "z": -0.10961761428628047
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.46875,
+        "y": 1.6875,
+        "z": 1.1875
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.5178262684736356,
+        "y": 0.1176877882894626,
+        "z": -0.847352075684131
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.7894736842105263,
+        "y": 0.3157894736842105,
+        "z": 0.5263157894736842
+       }
+      },
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 3.90625,
+        "y": 0.6875,
+        "z": 2.8125
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": -0.5093206514768635,
+        "y": 0.1414779587435732,
+        "z": 0.8488677524614392
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.7894736842105263,
+        "y": -0.3157894736842105,
+        "z": 0.5263157894736842
+       }
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

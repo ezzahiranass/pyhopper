@@ -19,7 +19,18 @@
      3
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      2
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "number_tie_takes_lowest_index",
@@ -33,7 +44,18 @@
      3.0
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      2.0
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "text_edit_distance",
@@ -47,7 +69,18 @@
      "help"
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      "hello"
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "nearest_point",
@@ -81,7 +114,23 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0.5,
+       "z": 0
+      }
+     ]
+    },
+    "index": {
+     "{0}": [
+      2
+     ]
+    }
+   }
   },
   {
    "name": "mixed_kinds_by_text",
@@ -100,7 +149,18 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      "a"
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    }
+   }
   },
   {
    "name": "vectors_by_text",
@@ -128,7 +188,23 @@
      }
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    }
+   }
   },
   {
    "name": "number_against_text",
@@ -141,7 +217,18 @@
      "3"
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      "2"
+     ]
+    },
+    "index": {
+     "{0}": [
+      0
+     ]
+    }
+   }
   },
   {
    "name": "booleans",
@@ -154,7 +241,18 @@
      true
     ]
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      true
+     ]
+    },
+    "index": {
+     "{0}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "multi_branch",
@@ -180,7 +278,26 @@
      ]
     }
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": [
+      2,
+      1
+     ],
+     "{1}": [
+      "b"
+     ]
+    },
+    "index": {
+     "{0}": [
+      1,
+      0
+     ],
+     "{1}": [
+      1
+     ]
+    }
+   }
   },
   {
    "name": "empty_set_emits_nothing",
@@ -192,7 +309,14 @@
      "0": []
     }
    },
-   "expect": {}
+   "expect": {
+    "hit": {
+     "{0}": []
+    },
+    "index": {
+     "{0}": []
+    }
+   }
   }
  ]
 }
