@@ -1,0 +1,395 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.TreeItem.TreeItem",
+ "gh_guid": "c1ec65a3-bda4-4fad-87d0-edf86ed9d81c",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "second_item",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       0
+      ]
+     }
+    ],
+    "index": [
+     1
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "wrapped_index",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       0
+      ]
+     }
+    ],
+    "index": [
+     4
+    ],
+    "wrap": [
+     true
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "out_of_range_without_wrap",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       0
+      ]
+     }
+    ],
+    "index": [
+     4
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "negative_wraps",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       0
+      ]
+     }
+    ],
+    "index": [
+     -1
+    ],
+    "wrap": [
+     true
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "two_lookups",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       0
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       2,
+       3
+      ]
+     }
+    ],
+    "index": [
+     0,
+     3
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "missing_path",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       7
+      ]
+     }
+    ],
+    "index": [
+     0
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "paths_from_a_tree",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": {
+     "0": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        0
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Path",
+       "indices": [
+        2,
+        3
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "index": [
+     0
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "index_tree_sets_the_path",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       0
+      ]
+     }
+    ],
+    "index": {
+     "5;1": [
+      0,
+      1
+     ]
+    }
+   },
+   "compare": [
+    "Element"
+   ]
+  },
+  {
+   "name": "flat_tree",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "c"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       1
+      ]
+     }
+    ],
+    "index": [
+     0
+    ]
+   },
+   "compare": [
+    "Element"
+   ]
+  }
+ ],
+ "notes": "Grasshopper places the items at the tree's first path when the path/index inputs are single default branches, otherwise at the item inputs' paths (reproduced by the base class)."
+}

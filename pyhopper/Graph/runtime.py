@@ -9,6 +9,7 @@ from typing import Any, Callable
 
 from pyhopper.Core.Component import Component, ComponentResult, InputParam, OutputParam
 from pyhopper.Core.DataTree import DataTree
+from pyhopper.Core.Path import Path as TreePath
 from pyhopper.Graph.catalog import literal_input_names
 from pyhopper.Utils.Exporters import export_glb_with_manifest
 
@@ -81,6 +82,11 @@ def _truncate_preview_text(value: str, limit: int = 120) -> str:
     return f"{value[: limit - 3]}..."
 
 
+def _preview_text(item: Any) -> str:
+    """Grasshopper's spelling for previews: paths print as ``{0;1}``, everything else as its repr."""
+    return str(item) if isinstance(item, TreePath) else repr(item)
+
+
 def serialize_preview_value(value: Any) -> dict[str, Any]:
     if isinstance(value, ComponentResult):
         primary_output_name = value.output_names[0] if value.output_names else "result"
@@ -91,7 +97,7 @@ def serialize_preview_value(value: Any) -> dict[str, Any]:
         item_count = 0
         for path, branch in value.branches():
             items = [
-                {"index": index, "value": _truncate_preview_text(repr(item))}
+                {"index": index, "value": _truncate_preview_text(_preview_text(item))}
                 for index, item in enumerate(branch)
             ]
             item_count += len(items)
@@ -105,7 +111,7 @@ def serialize_preview_value(value: Any) -> dict[str, Any]:
 
     return {
         "kind": "value",
-        "value": _truncate_preview_text(repr(value)),
+        "value": _truncate_preview_text(_preview_text(value)),
     }
 
 

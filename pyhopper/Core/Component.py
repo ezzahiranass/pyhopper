@@ -383,17 +383,34 @@ class Component:
         tree_kwargs = self._group_values([(item.param, item.tree, item.stream_index) for item in bound.tree_inputs])
 
         if not bound.iterated:
-            # Zero-input component, or every input is TREE access: one call at {0}.
-            touched = self._run_generate(tree_kwargs, Path.root(), 0, 1, collectors)
-            self._keep_topology(Path.root(), collectors, touched)
+            # Zero-input component, or every input is TREE access: one call, placed like Grasshopper
+            # at the first path of the tree input (or {0} without one).
+            base = self._tree_base_path(bound)
+            touched = self._run_generate(tree_kwargs, base, 0, 1, collectors)
+            self._keep_topology(base, collectors, touched)
             return self._build_result(collectors)
 
         principal = DataTree.principal([item.tree for item in bound.iterated])
+        if bound.tree_inputs and all(item.tree.paths == [Path.root()] for item in bound.iterated):
+            # Grasshopper quirk: single-branch item inputs next to a tree input take the tree's first path.
+            base = self._tree_base_path(bound)
+            branches = [item.tree.nearest_branch(Path.root()) for item in bound.iterated]
+            self._solve_branch(bound, base, branches, tree_kwargs, collectors)
+            return self._build_result(collectors)
         for path in principal.paths:
             branches = [item.tree.nearest_branch(path) for item in bound.iterated]
             self._solve_branch(bound, path, branches, tree_kwargs, collectors)
 
         return self._build_result(collectors)
+
+    @staticmethod
+    def _tree_base_path(bound: "_BoundInputs") -> Path:
+        """The first path of the first non-empty TREE input — where Grasshopper puts the outputs of a
+        component whose other inputs are single default branches — or {0}."""
+        for item in bound.tree_inputs:
+            if item.tree.paths:
+                return item.tree.paths[0]
+        return Path.root()
 
     def _solve_branch(
         self,

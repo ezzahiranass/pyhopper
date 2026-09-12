@@ -1,0 +1,157 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.SplitTree.SplitTree",
+ "gh_guid": "d8b1e7ac-cd31-4748-b262-e07e53068afc",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "run_mask",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{0;*}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_masks",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{0;0}",
+     "{2;*}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "nothing_matches",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{7}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "everything_matches",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{*}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "bad_mask_raises",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "0;0"
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

@@ -1,0 +1,437 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.PathCompare.PathCompare",
+ "gh_guid": "1d8b0e2c-e772-4fa9-b7f7-b158251b34b8",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "exact",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       2
+      ]
+     }
+    ],
+    "mask": [
+     "{0;1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "single_wildcard",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1,
+       2
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       3,
+       1
+      ]
+     }
+    ],
+    "mask": [
+     "{0;?}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "run_wildcard",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1,
+       2
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       3
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0
+      ]
+     }
+    ],
+    "mask": [
+     "{0;*}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "match_everything",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0
+      ]
+     }
+    ],
+    "mask": [
+     "{*}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "list",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       2
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       3
+      ]
+     }
+    ],
+    "mask": [
+     "{0;(1,2)}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "range",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       2
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       3
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       4
+      ]
+     }
+    ],
+    "mask": [
+     "{0;(1 to 3)}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "negation",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       2
+      ]
+     }
+    ],
+    "mask": [
+     "{0;!1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "run_in_the_middle",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       5,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       2,
+       3,
+       1
+      ]
+     }
+    ],
+    "mask": [
+     "{0;*;1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "leading_run",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       5,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       2,
+       3
+      ]
+     }
+    ],
+    "mask": [
+     "{*;1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "comparisons",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       2
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       3
+      ]
+     }
+    ],
+    "mask": [
+     "{>1}",
+     "{<2}",
+     "{>=2}",
+     "{<=1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "path_tree",
+   "inputs": {
+    "path": {
+     "0": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        1
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        2
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "mask": [
+     "{0;1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "pyhopper_default_mask",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "symbols_outside_braces_raise",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     }
+    ],
+    "mask": [
+     "0;1"
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "empty_rule_raises",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     }
+    ],
+    "mask": [
+     "{0;}"
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "negative_integer_raises",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     }
+    ],
+    "mask": [
+     "{0;-1}"
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

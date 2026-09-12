@@ -1,0 +1,258 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.TreeStatistics.TreeStatistics",
+ "gh_guid": "99bee19d-588c-41a0-b9b9-1d00fb03ea1a",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    }
+   },
+   "expect": {
+    "branch_paths": {
+     "{0;0}": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        1
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        1,
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        2,
+        3
+       ]
+      }
+     ]
+    },
+    "length": {
+     "{0;0}": [
+      3,
+      2,
+      1,
+      4
+     ]
+    },
+    "count": {
+     "{0;0}": [
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_branch_counts_zero",
+   "inputs": {
+    "tree": {
+     "0": [],
+     "1": [
+      1,
+      2
+     ]
+    }
+   },
+   "expect": {
+    "branch_paths": {
+     "{0}": [
+      {
+       "type": "Path",
+       "indices": [
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        1
+       ]
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      0,
+      2
+     ]
+    },
+    "count": {
+     "{0}": [
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "deep_paths",
+   "inputs": {
+    "tree": {
+     "3;7": [
+      "a"
+     ],
+     "4;1": [
+      "b",
+      "c"
+     ]
+    }
+   },
+   "expect": {
+    "branch_paths": {
+     "{3;7}": [
+      {
+       "type": "Path",
+       "indices": [
+        3,
+        7
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        4,
+        1
+       ]
+      }
+     ]
+    },
+    "length": {
+     "{3;7}": [
+      1,
+      2
+     ]
+    },
+    "count": {
+     "{3;7}": [
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "depth_three",
+   "inputs": {
+    "tree": {
+     "0;0;0": [
+      "a"
+     ],
+     "0;0;1": [
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "branch_paths": {
+     "{0;0;0}": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        0,
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        0,
+        1
+       ]
+      }
+     ]
+    },
+    "length": {
+     "{0;0;0}": [
+      1,
+      1
+     ]
+    },
+    "count": {
+     "{0;0;0}": [
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "mixed_depth",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "1;2": [
+      "b"
+     ]
+    }
+   },
+   "expect": {
+    "branch_paths": {
+     "{0}": [
+      {
+       "type": "Path",
+       "indices": [
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        1,
+        2
+       ]
+      }
+     ]
+    },
+    "length": {
+     "{0}": [
+      1,
+      1
+     ]
+    },
+    "count": {
+     "{0}": [
+      2
+     ]
+    }
+   }
+  }
+ ]
+}

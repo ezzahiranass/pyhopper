@@ -1,0 +1,403 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.RelativeItem.RelativeItem",
+ "gh_guid": "fac0d5be-e3ff-4bbb-9742-ec9a54900d41",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "next_branch",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;+1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "next_branch_wrapping_paths",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;+1}"
+    ],
+    "wrap_paths": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "first_dimension",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{+1;0}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "first_dimension_wrapping_paths",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{+1;0}"
+    ],
+    "wrap_paths": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "previous_branch",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;-1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "next_item",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;0}[+1]"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "next_item_wrapping_items",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;0}[+1]"
+    ],
+    "wrap_items": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "previous_item",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;0}[-1]"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "branch_and_item",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;+1}[+1]"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "branch_and_item_wrapping",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;+1}[+1]"
+    ],
+    "wrap_paths": [
+     true
+    ],
+    "wrap_items": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "unsigned_offsets",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "{0;1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "item_block_alone_raises",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     "[+1]"
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "empty_offset_raises",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "offset": [
+     ""
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

@@ -57,6 +57,9 @@ OUTPUT_PORT_OVERRIDES: dict[tuple[str, str], str] = {
     ("Replace Nulls", "Items"): "result",                       # "items" is a DataTree attribute
     ("Match Text", "Match"): "matched",                         # "match" is a DataTree attribute
     ("Construct Domain²", "2D Domain"): "domain",               # a leading digit makes no identifier
+    ("Tree Branch", "Branch"): "data",                          # "branch" is a DataTree attribute
+    ("Construct Path", "Branch"): "path",                       # "branch" is a DataTree attribute
+    ("Tree Statistics", "Paths"): "branch_paths",               # "paths" is a DataTree attribute
 }
 
 # Second occurrence of a duplicated GH output name (mapped by position when names repeat).
