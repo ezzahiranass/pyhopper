@@ -276,3 +276,57 @@ def surface_normal_at_centre(surface: AtomicSurface) -> AtomicVector:
     """Unit normal at the middle of the surface's domain."""
     (u0, u1), (v0, v1) = surface_domain(surface)
     return surface_normal(surface, 0.5 * (u0 + u1), 0.5 * (v0 + v1))
+
+
+def reverse_surface(surface: AtomicSurface, reverse_u: bool, reverse_v: bool) -> AtomicSurface:
+    """Reverse the U and/or V parameter direction like Rhino: poles flip along the axis and the knot
+    domain ``[a, b]`` becomes ``[-b, -a]``."""
+    poles, weights = [list(row) for row in surface.poles], [list(row) for row in surface.weights]
+    u_knots, u_mults, v_knots, v_mults = surface.u_knots, surface.u_mults, surface.v_knots, surface.v_mults
+    if reverse_u:
+        poles = [row[::-1] for row in poles]
+        weights = [row[::-1] for row in weights]
+        u_knots, u_mults = tuple(-k for k in reversed(u_knots)), tuple(reversed(u_mults))
+    if reverse_v:
+        poles, weights = poles[::-1], weights[::-1]
+        v_knots, v_mults = tuple(-k for k in reversed(v_knots)), tuple(reversed(v_mults))
+    return AtomicSurface(
+        poles=tuple(tuple(row) for row in poles),
+        weights=tuple(tuple(row) for row in weights),
+        u_knots=u_knots,
+        v_knots=v_knots,
+        u_mults=u_mults,
+        v_mults=v_mults,
+        u_degree=surface.u_degree,
+        v_degree=surface.v_degree,
+        u_periodic=surface.u_periodic,
+        v_periodic=surface.v_periodic,
+    )
+
+
+def offset_surface_loose(surface: AtomicSurface, distance: float) -> AtomicSurface:
+    """Move every control point ``distance`` along the unit surface normal at its Greville parameters
+    (Grasshopper's Offset Surface Loose)."""
+    from pyhopper.Utils.Nurbs import expand_knots, greville_abscissae
+
+    u_greville = greville_abscissae(expand_knots(surface.u_knots, surface.u_mults), surface.u_degree, len(surface.poles[0]))
+    v_greville = greville_abscissae(expand_knots(surface.v_knots, surface.v_mults), surface.v_degree, len(surface.poles))
+    rows = []
+    for v_index, row in enumerate(surface.poles):
+        moved = []
+        for u_index, pole in enumerate(row):
+            normal = surface_normal(surface, u_greville[u_index], v_greville[v_index])
+            moved.append(AtomicPoint(pole.x + normal.x * distance, pole.y + normal.y * distance, pole.z + normal.z * distance))
+        rows.append(tuple(moved))
+    return AtomicSurface(
+        poles=tuple(rows),
+        weights=surface.weights,
+        u_knots=surface.u_knots,
+        v_knots=surface.v_knots,
+        u_mults=surface.u_mults,
+        v_mults=surface.v_mults,
+        u_degree=surface.u_degree,
+        v_degree=surface.v_degree,
+        u_periodic=surface.u_periodic,
+        v_periodic=surface.v_periodic,
+    )
