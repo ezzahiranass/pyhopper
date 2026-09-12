@@ -13,6 +13,6 @@ echo "== docs (mkdocs build --strict)"
 DISABLE_MKDOCS_2_WARNING=true "$py" -m mkdocs build --strict -f "$root/mkdocs.yml"
 if [ "${RHINO_ORACLE:-0}" = "1" ]; then
   echo "== Rhino 8 oracle suite (rhino-test/oracle)"
-  "$root/rhino-test/.venv/Scripts/python.exe" -m unittest discover -s "$root/rhino-test/oracle" -v
+  "$root/rhino-test/.venv/Scripts/python.exe" -m unittest discover -s "$root/rhino-test/oracle" -t "$root/rhino-test" -v
 fi
 echo "== all checks passed"
