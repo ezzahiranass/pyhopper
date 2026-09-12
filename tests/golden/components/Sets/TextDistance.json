@@ -1,0 +1,93 @@
+{
+ "component": "pyhopper.Components.Sets.Text.TextDistance.TextDistance",
+ "gh_guid": "f7608c4d-836c-4adf-9d1f-3b04e6a2647d",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "kitten_sitting",
+   "inputs": {
+    "text_a": [
+     "kitten"
+    ],
+    "text_b": [
+     "sitting"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "case_sensitive",
+   "inputs": {
+    "text_a": [
+     "Hello"
+    ],
+    "text_b": [
+     "hello"
+    ],
+    "case": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "case_insensitive",
+   "inputs": {
+    "text_a": [
+     "Hello"
+    ],
+    "text_b": [
+     "hello"
+    ],
+    "case": [
+     false
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "empty_text",
+   "inputs": {
+    "text_a": [
+     ""
+    ],
+    "text_b": [
+     "abc"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "text_a": {
+     "0": [
+      "flaw",
+      "lawn"
+     ],
+     "1": [
+      "abc"
+     ]
+    },
+    "text_b": {
+     "0": [
+      "lawn"
+     ],
+     "1": [
+      "abc"
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "expect": {}
+  }
+ ]
+}

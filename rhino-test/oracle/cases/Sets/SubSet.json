@@ -1,0 +1,133 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.SubSet.SubSet",
+ "gh_guid": "4cfc0bb0-0745-4772-a520-39f9bf3d99bc",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "b_inside_a",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     3
+    ],
+    "set_b": [
+     1,
+     2
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "a_inside_b_is_false",
+   "inputs": {
+    "set_a": [
+     1,
+     2
+    ],
+    "set_b": [
+     1,
+     2,
+     3
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "equal_sets",
+   "inputs": {
+    "set_a": [
+     1,
+     2
+    ],
+    "set_b": [
+     2,
+     1
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "no_inclusion",
+   "inputs": {
+    "set_a": [
+     1,
+     5
+    ],
+    "set_b": [
+     1,
+     2,
+     3
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "empty_a",
+   "inputs": {
+    "set_a": {
+     "0": []
+    },
+    "set_b": [
+     1,
+     2,
+     3
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "empty_b",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     3
+    ],
+    "set_b": {
+     "0": []
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "set_a": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      "x"
+     ]
+    },
+    "set_b": {
+     "0": [
+      2
+     ],
+     "1": [
+      "y"
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

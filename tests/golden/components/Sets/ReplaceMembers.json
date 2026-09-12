@@ -1,0 +1,142 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.ReplaceMembers.ReplaceMembers",
+ "gh_guid": "bafac914-ede4-4a59-a7b2-cc41bc3de961",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "single_replacement",
+   "inputs": {
+    "set": [
+     1,
+     2,
+     3,
+     2
+    ],
+    "find": [
+     2
+    ],
+    "replace": [
+     9
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "paired_replacements",
+   "inputs": {
+    "set": [
+     1,
+     2,
+     3,
+     2,
+     4
+    ],
+    "find": [
+     2,
+     4
+    ],
+    "replace": [
+     9,
+     8
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "no_replacements_remove",
+   "inputs": {
+    "set": [
+     1,
+     2,
+     3,
+     2
+    ],
+    "find": [
+     2
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "type_strict",
+   "inputs": {
+    "set": [
+     1,
+     2.0,
+     "2"
+    ],
+    "find": [
+     2
+    ],
+    "replace": [
+     "two"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "set": {
+     "0": [
+      "a",
+      "b",
+      "a"
+     ],
+     "1": [
+      "c"
+     ]
+    },
+    "find": [
+     "a"
+    ],
+    "replace": [
+     "z"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "count_mismatch_raises",
+   "inputs": {
+    "set": [
+     1,
+     2,
+     3,
+     2,
+     4
+    ],
+    "find": [
+     2,
+     4
+    ],
+    "replace": [
+     9
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "too_many_replacements_raise",
+   "inputs": {
+    "set": [
+     1,
+     2,
+     3
+    ],
+    "find": [
+     2
+    ],
+    "replace": [
+     9,
+     8
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

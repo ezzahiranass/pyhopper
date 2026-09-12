@@ -1,0 +1,197 @@
+{
+ "component": "pyhopper.Components.Sets.List.PickNChoose.PickNChoose",
+ "gh_guid": "03b801eb-87cd-476a-a591-257fe5d5bf0f",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "alternating",
+   "inputs": {
+    "pattern": [
+     0,
+     1,
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a0",
+      "a1",
+      "a2",
+      "a3"
+     ],
+     [
+      "b0",
+      "b1",
+      "b2",
+      "b3"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "pattern_does_not_repeat",
+   "inputs": {
+    "pattern": [
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a0",
+      "a1",
+      "a2",
+      "a3"
+     ],
+     [
+      "b0",
+      "b1",
+      "b2",
+      "b3"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "short_streams_pad_with_none",
+   "inputs": {
+    "pattern": [
+     0,
+     1,
+     0,
+     1,
+     0,
+     1
+    ],
+    "streams": [
+     [
+      "a0",
+      "a1"
+     ],
+     [
+      "b0",
+      "b1",
+      "b2"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "index_without_stream_is_skipped",
+   "inputs": {
+    "pattern": [
+     0,
+     2,
+     1
+    ],
+    "streams": [
+     [
+      "a0",
+      "a1",
+      "a2"
+     ],
+     [
+      "b0",
+      "b1",
+      "b2"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "negative_index_is_skipped",
+   "inputs": {
+    "pattern": [
+     -1,
+     0
+    ],
+    "streams": [
+     [
+      "a0",
+      "a1"
+     ],
+     [
+      "b0",
+      "b1"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "single_stream",
+   "inputs": {
+    "pattern": [
+     0,
+     0,
+     0
+    ],
+    "streams": [
+     [
+      "a0",
+      "a1"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "grasshopper_default_pattern",
+   "inputs": {
+    "streams": [
+     [
+      "a0",
+      "a1"
+     ],
+     [
+      "b0",
+      "b1"
+     ]
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "pattern": {
+     "0": [
+      1,
+      0
+     ],
+     "1": [
+      0
+     ]
+    },
+    "streams": [
+     {
+      "0": [
+       1,
+       2
+      ],
+      "1": [
+       3
+      ]
+     },
+     {
+      "0": [
+       10,
+       20
+      ],
+      "1": [
+       30
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  }
+ ]
+}

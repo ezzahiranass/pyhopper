@@ -58,6 +58,19 @@ def format_value(value: Any) -> str:
     return str(value)
 
 
+def levenshtein(a: str, b: str) -> int:
+    """Edit distance between two strings (insertions, deletions and substitutions cost 1)."""
+    if len(a) < len(b):
+        a, b = b, a
+    previous = list(range(len(b) + 1))
+    for i, char_a in enumerate(a, start=1):
+        current = [i]
+        for j, char_b in enumerate(b, start=1):
+            current.append(min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + (char_a != char_b)))
+        previous = current
+    return previous[-1]
+
+
 def _strip_accents(value: str) -> str:
     return "".join(char for char in unicodedata.normalize("NFKD", value) if not unicodedata.combining(char))
 

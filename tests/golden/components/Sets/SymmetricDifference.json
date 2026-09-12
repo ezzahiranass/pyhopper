@@ -1,0 +1,93 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.SymmetricDifference.SymmetricDifference",
+ "gh_guid": "d2461702-3164-4894-8c10-ed1fc4b52965",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "keeps_duplicates",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     3,
+     2
+    ],
+    "set_b": [
+     3,
+     4,
+     4,
+     5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "type_strict",
+   "inputs": {
+    "set_a": [
+     1,
+     "x"
+    ],
+    "set_b": [
+     1.0,
+     "x",
+     "y"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "disjoint_sets",
+   "inputs": {
+    "set_a": [
+     "a",
+     "b"
+    ],
+    "set_b": [
+     "c"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "identical_sets_are_empty",
+   "inputs": {
+    "set_a": [
+     1,
+     2
+    ],
+    "set_b": [
+     2,
+     1
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch_and_empty",
+   "inputs": {
+    "set_a": {
+     "0": [
+      1,
+      2
+     ],
+     "1": []
+    },
+    "set_b": {
+     "0": [
+      2,
+      3
+     ],
+     "1": [
+      5
+     ]
+    }
+   },
+   "expect": {}
+  }
+ ]
+}

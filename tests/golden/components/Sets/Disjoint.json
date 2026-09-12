@@ -1,0 +1,86 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.Disjoint.Disjoint",
+ "gh_guid": "81800098-1060-4e2b-80d4-17f835cc825f",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "disjoint",
+   "inputs": {
+    "set_a": [
+     1,
+     2
+    ],
+    "set_b": [
+     3,
+     4
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "overlapping",
+   "inputs": {
+    "set_a": [
+     1,
+     2
+    ],
+    "set_b": [
+     2,
+     4
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "empty_a_is_disjoint",
+   "inputs": {
+    "set_a": {
+     "0": []
+    },
+    "set_b": [
+     2,
+     4
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "type_strict",
+   "inputs": {
+    "set_a": [
+     1
+    ],
+    "set_b": [
+     1.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "set_a": {
+     "0": [
+      1
+     ],
+     "1": [
+      2
+     ]
+    },
+    "set_b": {
+     "0": [
+      1
+     ],
+     "1": [
+      3
+     ]
+    }
+   },
+   "expect": {}
+  }
+ ]
+}
