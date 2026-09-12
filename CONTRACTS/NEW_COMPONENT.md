@@ -56,6 +56,16 @@ Do not add suffixes like `CircleComponent` to avoid collisions with atoms.
 If there is a naming conflict with the core data model, the atom should carry the
 disambiguation instead, for example `AtomicCircle`, `AtomicLine`, `AtomicPoint`.
 
+Class and port names are *derived* from the Grasshopper names by
+`pyhopper/Graph/naming.py` (`class_name_for`, `port_name_for`) and checked by
+`tests/test_component_naming.py` / `tests/test_component_metadata.py`:
+`Line | Line` → `LineLine`, `Line + Pt` → `LinePlusPt`, `Tangent Lines (Ex)` →
+`TangentLinesEx`, `Rectangle 2Pt` → `Rectangle2Pt`, `Pick'n'Choose` →
+`PickNChoose`; ports become snake_case (`X coordinate` → `x_coordinate`,
+`Values A` → `values`, numbered `Stream N` ports collapse into one variadic
+`streams`). Exceptions go into the override tables in that module, never into
+ad-hoc names. Class names must be unique across all tabs except `Params`.
+
 ---
 
 ## 3. Respect the inherited solve model

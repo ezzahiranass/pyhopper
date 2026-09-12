@@ -85,9 +85,13 @@ def serialize_component(tab: str, category: str, component_cls: type[Component])
 
     return {
         "component_key": f"{component_cls.__module__}.{component_cls.__name__}",
+        "module": component_cls.__module__,
         "tab": tab,
         "category": category,
         "component": component_cls.__name__,
+        "display_name": getattr(component_cls, "display_name", None) or component_cls.__name__,
+        "nickname": getattr(component_cls, "nickname", None) or component_cls.__name__,
+        "gh_guid": getattr(component_cls, "gh_guid", None),
         "description": getdoc(component_cls) or "",
         "settings_schema": _json_safe(settings_schema if isinstance(settings_schema, dict) else {}),
         "settings_defaults": settings_defaults,
