@@ -1,0 +1,102 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.SetMajority.SetMajority",
+ "gh_guid": "d4136a7b-7422-4660-9404-640474bd2725",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "intersections_in_order",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     3
+    ],
+    "set_b": [
+     2,
+     3,
+     4
+    ],
+    "set_c": [
+     3,
+     4,
+     5,
+     1
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "duplicates_once",
+   "inputs": {
+    "set_a": [
+     1,
+     1,
+     2
+    ],
+    "set_b": [
+     1
+    ],
+    "set_c": [
+     9
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "all_disjoint",
+   "inputs": {
+    "set_a": [
+     1
+    ],
+    "set_b": [
+     2
+    ],
+    "set_c": [
+     3
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "set_a": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      1
+     ]
+    },
+    "set_b": {
+     "0": [
+      "b"
+     ],
+     "1": [
+      1
+     ]
+    },
+    "set_c": {
+     "0": [
+      "a"
+     ],
+     "1": [
+      2
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

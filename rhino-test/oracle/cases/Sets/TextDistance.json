@@ -1,0 +1,106 @@
+{
+ "component": "pyhopper.Components.Sets.Text.TextDistance.TextDistance",
+ "gh_guid": "f7608c4d-836c-4adf-9d1f-3b04e6a2647d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "kitten_sitting",
+   "inputs": {
+    "text_a": [
+     "kitten"
+    ],
+    "text_b": [
+     "sitting"
+    ]
+   },
+   "compare": [
+    "Distance"
+   ]
+  },
+  {
+   "name": "case_sensitive",
+   "inputs": {
+    "text_a": [
+     "Hello"
+    ],
+    "text_b": [
+     "hello"
+    ],
+    "case": [
+     true
+    ]
+   },
+   "compare": [
+    "Distance"
+   ]
+  },
+  {
+   "name": "case_insensitive",
+   "inputs": {
+    "text_a": [
+     "Hello"
+    ],
+    "text_b": [
+     "hello"
+    ],
+    "case": [
+     false
+    ]
+   },
+   "compare": [
+    "Distance"
+   ]
+  },
+  {
+   "name": "empty_text",
+   "inputs": {
+    "text_a": [
+     ""
+    ],
+    "text_b": [
+     "abc"
+    ]
+   },
+   "compare": [
+    "Distance"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "text_a": {
+     "0": [
+      "flaw",
+      "lawn"
+     ],
+     "1": [
+      "abc"
+     ]
+    },
+    "text_b": {
+     "0": [
+      "lawn"
+     ],
+     "1": [
+      "abc"
+     ]
+    }
+   },
+   "compare": [
+    "Distance"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Distance"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ]
+}

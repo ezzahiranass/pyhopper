@@ -1,0 +1,128 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.KeyValueSearch.KeyValueSearch",
+ "gh_guid": "1edcc3cf-cf84-41d4-8204-561162cfe510",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "found",
+   "inputs": {
+    "keys": [
+     "a",
+     "b",
+     "c"
+    ],
+    "values": [
+     1,
+     2,
+     3
+    ],
+    "search": [
+     "b"
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "first_duplicate_wins",
+   "inputs": {
+    "keys": [
+     "a",
+     "b",
+     "b"
+    ],
+    "values": [
+     1,
+     2,
+     3
+    ],
+    "search": [
+     "b"
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "missing_emits_nothing",
+   "inputs": {
+    "keys": [
+     "a",
+     "b",
+     "c"
+    ],
+    "values": [
+     1,
+     2,
+     3
+    ],
+    "search": [
+     "z"
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "type_strict_miss",
+   "inputs": {
+    "keys": [
+     1,
+     2,
+     3
+    ],
+    "values": [
+     "one",
+     "two",
+     "three"
+    ],
+    "search": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "keys": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "x"
+     ]
+    },
+    "values": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      24
+     ]
+    },
+    "search": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "x"
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

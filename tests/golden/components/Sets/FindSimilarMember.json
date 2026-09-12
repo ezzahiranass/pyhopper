@@ -1,0 +1,198 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.FindSimilarMember.FindSimilarMember",
+ "gh_guid": "b4d4235f-14ff-4d4e-a29a-b358dcd2baf4",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "nearest_number",
+   "inputs": {
+    "data": [
+     2.4
+    ],
+    "set": [
+     1,
+     2,
+     3
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "number_tie_takes_lowest_index",
+   "inputs": {
+    "data": [
+     2.5
+    ],
+    "set": [
+     1.0,
+     2.0,
+     3.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "text_edit_distance",
+   "inputs": {
+    "data": [
+     "helo"
+    ],
+    "set": [
+     "world",
+     "hello",
+     "help"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "nearest_point",
+   "inputs": {
+    "data": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "set": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0.5,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "mixed_kinds_by_text",
+   "inputs": {
+    "data": [
+     2
+    ],
+    "set": [
+     "a",
+     3.0,
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "vectors_by_text",
+   "inputs": {
+    "data": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "set": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Vector3d",
+      "x": 0.9,
+      "y": 0.1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "number_against_text",
+   "inputs": {
+    "data": [
+     2.0
+    ],
+    "set": [
+     "2",
+     "3"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "booleans",
+   "inputs": {
+    "data": [
+     true
+    ],
+    "set": [
+     false,
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "data": {
+     "0": [
+      2.4,
+      0.6
+     ],
+     "1": [
+      "b"
+     ]
+    },
+    "set": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      "a",
+      "b"
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "empty_set_emits_nothing",
+   "inputs": {
+    "data": [
+     1.0
+    ],
+    "set": {
+     "0": []
+    }
+   },
+   "expect": {}
+  }
+ ]
+}

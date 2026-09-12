@@ -1,0 +1,69 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.CarthesianProduct.CarthesianProduct",
+ "gh_guid": "deffaf1e-270a-4c15-a693-9216b68afd4a",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "pairs_text",
+   "inputs": {
+    "set_a": [
+     "a",
+     "b"
+    ],
+    "set_b": [
+     "x",
+     "y"
+    ]
+   },
+   "compare": [
+    "Product"
+   ]
+  },
+  {
+   "name": "pairs_numbers",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     3
+    ],
+    "set_b": [
+     10,
+     20,
+     30
+    ]
+   },
+   "compare": [
+    "Product"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "set_a": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      7
+     ]
+    },
+    "set_b": {
+     "0": [
+      10,
+      20
+     ],
+     "1": [
+      70
+     ]
+    }
+   },
+   "compare": [
+    "Product"
+   ]
+  }
+ ]
+}

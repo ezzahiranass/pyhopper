@@ -1,0 +1,101 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.SymmetricDifference.SymmetricDifference",
+ "gh_guid": "d2461702-3164-4894-8c10-ed1fc4b52965",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "keeps_duplicates",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     3,
+     2
+    ],
+    "set_b": [
+     3,
+     4,
+     4,
+     5
+    ]
+   },
+   "compare": [
+    "ExDifference"
+   ]
+  },
+  {
+   "name": "type_strict",
+   "inputs": {
+    "set_a": [
+     1,
+     "x"
+    ],
+    "set_b": [
+     1.0,
+     "x",
+     "y"
+    ]
+   },
+   "compare": [
+    "ExDifference"
+   ]
+  },
+  {
+   "name": "disjoint_sets",
+   "inputs": {
+    "set_a": [
+     "a",
+     "b"
+    ],
+    "set_b": [
+     "c"
+    ]
+   },
+   "compare": [
+    "ExDifference"
+   ]
+  },
+  {
+   "name": "identical_sets_are_empty",
+   "inputs": {
+    "set_a": [
+     1,
+     2
+    ],
+    "set_b": [
+     2,
+     1
+    ]
+   },
+   "compare": [
+    "ExDifference"
+   ]
+  },
+  {
+   "name": "multi_branch_and_empty",
+   "inputs": {
+    "set_a": {
+     "0": [
+      1,
+      2
+     ],
+     "1": []
+    },
+    "set_b": {
+     "0": [
+      2,
+      3
+     ],
+     "1": [
+      5
+     ]
+    }
+   },
+   "compare": [
+    "ExDifference"
+   ]
+  }
+ ]
+}
