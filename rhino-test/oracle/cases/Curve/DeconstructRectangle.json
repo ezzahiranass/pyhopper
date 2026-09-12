@@ -1,0 +1,141 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.DeconstructRectangle.DeconstructRectangle",
+ "gh_guid": "e5c33a79-53d5-4f2b-9a97-d3d45c780edc",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_rectangles",
+   "inputs": {
+    "rectangle": [
+     {
+      "type": "Rectangle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 2.0
+     },
+     {
+      "type": "Rectangle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Base Plane",
+    "X Interval",
+    "Y Interval"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "rectangle": {
+     "0": [
+      {
+       "type": "Rectangle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "x_size": 4.0,
+       "y_size": 2.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Rectangle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "x_size": 1.0,
+       "y_size": 5.0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Base Plane",
+    "X Interval",
+    "Y Interval"
+   ]
+  }
+ ]
+}

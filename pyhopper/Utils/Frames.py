@@ -25,6 +25,14 @@ from pyhopper.Utils.Vectors import dot, is_zero, scale, sub, unit
 _STRAIGHT = 1e-9
 
 
+def horizontal_frame(point: AtomicPoint, tangent: AtomicVector) -> AtomicPlane:
+    """Frame with world Z up and X along the tangent's horizontal projection (world X when vertical)."""
+    flat = AtomicVector(tangent.x, tangent.y, 0.0)
+    if is_zero(flat):
+        flat = AtomicVector(1.0, 0.0, 0.0)
+    return AtomicPlane(point, AtomicVector(0.0, 0.0, 1.0), unit(flat))
+
+
 def perpendicular_frame(point: AtomicPoint, tangent: AtomicVector) -> AtomicPlane:
     """Frame with Z along the tangent and Rhino's default X axis."""
     return plane_from_normal(point, tangent)

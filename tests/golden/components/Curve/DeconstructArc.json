@@ -1,0 +1,369 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.DeconstructArc.DeconstructArc",
+ "gh_guid": "23862862-049a-40be-b558-2418aacbd916",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "two_arcs",
+   "inputs": {
+    "arc": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.3,
+       "end": 2.0
+      }
+     },
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ]
+   },
+   "expect": {
+    "base_plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      2.0,
+      2.0
+     ]
+    },
+    "angle": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.3,
+       "end": 2.0
+      },
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "reversed_domain_flips_plane",
+   "inputs": {
+    "arc": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.5
+      }
+     }
+    ]
+   },
+   "expect": {
+    "base_plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": -0.0,
+        "y": -0.0,
+        "z": -1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      2.0
+     ]
+    },
+    "angle": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": -2.0,
+       "end": -0.5
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "arc": {
+     "0": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.5707963267948966
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 3
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 1,
+         "z": 0
+        }
+       },
+       "radius": 2.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.3,
+        "end": 2.0
+       }
+      }
+     ]
+    }
+   },
+   "expect": {
+    "base_plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      2.0
+     ],
+     "{1}": [
+      2.0
+     ]
+    },
+    "angle": {
+     "{0}": [
+      {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Interval",
+       "start": 0.3,
+       "end": 2.0
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

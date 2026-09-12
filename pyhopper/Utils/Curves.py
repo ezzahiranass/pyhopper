@@ -9,8 +9,10 @@ from pyhopper.Core.Atoms import (
     AtomicCircle,
     AtomicLine,
     AtomicNurbsCurve,
+    AtomicPlane,
     AtomicPoint,
     AtomicPolyline,
+    AtomicRectangle,
     AtomicVector,
 )
 from pyhopper.Utils.Nurbs import (
@@ -757,3 +759,57 @@ def _unit_between(a: AtomicPoint, b: AtomicPoint) -> AtomicVector:
 def _angle_between(a: AtomicVector, b: AtomicVector) -> float:
     dot = a.x * b.x + a.y * b.y + a.z * b.z
     return math.acos(max(-1.0, min(1.0, dot)))
+
+
+def curve_segments(curve) -> list[tuple[float, float, float]]:
+    """``(start parameter, end parameter, length)`` per segment: one per polyline edge, else the whole curve."""
+    if isinstance(curve, AtomicPolyline):
+        segments = _polyline_segments(curve)
+        count = len(segments)
+        return [(index / count, (index + 1) / count, _distance(start, end)) for index, (start, end) in enumerate(segments)]
+    start, end = curve_domain_of(curve)
+    return [(start, end, curve_length(curve))]
+
+
+def curve_planarity(curve, samples: int = 256) -> tuple[AtomicPlane, float]:
+    """``(plane, deviation)`` for any curve atom.
+
+    Arcs, circles and rectangles report their own plane; a line lies in the
+    plane through it whose normal is world Z rejected from the direction (then
+    X); a planar polyline reports its first vertex, Newell normal and first
+    segment; everything else is the least-squares plane of ``samples`` points
+    along the curve with the largest distance as deviation.
+    """
+    from pyhopper.Utils.Fitting import fit_plane  # local import: Fitting depends on Vectors only
+
+    if isinstance(curve, (AtomicArc, AtomicCircle, AtomicRectangle)):
+        return curve.plane, 0.0
+    if isinstance(curve, AtomicLine):
+        direction = _unit_between(curve.start, curve.end)
+        for reference in (AtomicVector(0.0, 0.0, 1.0), AtomicVector(1.0, 0.0, 0.0)):
+            normal = _reject_vector(reference, direction)
+            if normal.length > 1e-9:
+                return AtomicPlane(curve.start, normal, direction), 0.0
+        return AtomicPlane(curve.start, AtomicVector(0.0, 0.0, 1.0), AtomicVector(1.0, 0.0, 0.0)), 0.0
+    if isinstance(curve, AtomicPolyline):
+        points = list(curve.points)
+        if len(points) >= 3:
+            from pyhopper.Utils.Planes import newell_normal
+
+            normal = newell_normal(points)
+            if normal.length > 1e-9:
+                deviation = max(abs(_dot((p.x - points[0].x, p.y - points[0].y, p.z - points[0].z), normal.unitize())) for p in points)
+                if deviation <= 1e-9:
+                    return AtomicPlane(points[0], normal, _unit_between(points[0], points[1])), 0.0
+    start, end = curve_domain_of(curve)
+    sampled = [curve_point_at(curve, start + (end - start) * index / samples) for index in range(samples + 1)]
+    return fit_plane(sampled)
+
+
+def _reject_vector(vector: AtomicVector, direction: AtomicVector) -> AtomicVector:
+    projection = vector.x * direction.x + vector.y * direction.y + vector.z * direction.z
+    return AtomicVector(vector.x - projection * direction.x, vector.y - projection * direction.y, vector.z - projection * direction.z)
+
+
+def _dot(a, b: AtomicVector) -> float:
+    return a[0] * b.x + a[1] * b.y + a[2] * b.z

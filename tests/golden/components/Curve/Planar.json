@@ -1,0 +1,432 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.Planar.Planar",
+ "gh_guid": "5816ec9c-f170-4c59-ac44-364401ff84cd",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "flat_polyline",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 2,
+        "z": 0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "planar": {
+     "{0}": [
+      true
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "vertical_polyline",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 2
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 2
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "planar": {
+     "{0}": [
+      true
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "line_and_arc",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     },
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.3,
+       "end": 2.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "planar": {
+     "{0}": [
+      true,
+      true
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "non_planar_polyline",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 1,
+        "z": 4
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "planar": {
+     "{0}": [
+      false
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.07278752283279859,
+        "y": -0.2703607974919352,
+        "z": 0.05139382728770291
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.2556951383618994,
+        "y": -0.9497498861327286,
+        "z": 0.18054126954510477
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -0.9656174823279793,
+        "y": -0.2599670706504476,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.4794237285032444
+     ]
+    }
+   }
+  },
+  {
+   "name": "non_planar_nurbs",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 2,
+        "z": 1
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ]
+   },
+   "expect": {
+    "planar": {
+     "{0}": [
+      false
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.009977370543160289,
+        "y": 0.03503903178151553,
+        "z": -0.1382291956217002
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": -0.06979641463602496,
+        "y": -0.2451145600023873,
+        "z": 0.9669784449401094
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.9372396641299797e-18,
+        "y": 0.9693424224555809,
+        "z": 0.24571379291351614
+       }
+      }
+     ]
+    },
+    "deviation": {
+     "{0}": [
+      0.14294961417703733
+     ]
+    }
+   }
+  }
+ ]
+}

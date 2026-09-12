@@ -100,3 +100,15 @@ def align_plane(plane: AtomicPlane, direction: AtomicVector) -> tuple[AtomicPlan
     new_x = unit(projected)
     angle = math.atan2(dot(cross(plane.x_axis, new_x), normal), dot(plane.x_axis, new_x))
     return AtomicPlane(origin=plane.origin, normal=plane.normal, x_axis=new_x), angle
+
+
+def newell_normal(points) -> AtomicVector:
+    """Newell's polygon normal (unnormalised) for a closed or open vertex loop."""
+    nx = ny = nz = 0.0
+    count = len(points)
+    for index in range(count):
+        current, following = points[index], points[(index + 1) % count]
+        nx += (current.y - following.y) * (current.z + following.z)
+        ny += (current.z - following.z) * (current.x + following.x)
+        nz += (current.x - following.x) * (current.y + following.y)
+    return AtomicVector(nx, ny, nz)

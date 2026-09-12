@@ -1,0 +1,108 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.Rectangle3Pt.Rectangle3Pt",
+ "gh_guid": "9bc98a1d-2ecc-407e-948a-09a09ed3e69d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "point_above",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  },
+  {
+   "name": "point_below_flips_normal",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": -2,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  },
+  {
+   "name": "tilted",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 6,
+      "z": 3
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 5
+     }
+    ]
+   },
+   "compare": [
+    "Rectangle",
+    "Length"
+   ]
+  }
+ ]
+}

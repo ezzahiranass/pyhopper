@@ -150,3 +150,47 @@ class RoundedRectangleTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WaveB4FittingTests(unittest.TestCase):
+    """Curve fitting helpers behind Fit Line, Circle Fit, Rebuild, Catenary and Curve To Polyline."""
+
+    def test_fit_circle_matches_grasshopper_geometric_fit(self):
+        from pyhopper.Core.Atoms import AtomicPoint
+        from pyhopper.Utils.CurveFitting import fit_circle
+
+        circle, deviation = fit_circle([AtomicPoint(2, 0, 0), AtomicPoint(0, 2, 0), AtomicPoint(-2, 0, 0), AtomicPoint(0, -2.2, 0)])
+        self.assertAlmostEqual(circle.plane.origin.y, -0.10249177939650633, places=9)
+        self.assertAlmostEqual(circle.radius, 2.051312209658389, places=9)
+        self.assertAlmostEqual(deviation, 0.05117956973811699, places=9)
+
+    def test_rebuild_reproduces_a_line_and_keeps_structure(self):
+        from pyhopper.Core.Atoms import AtomicArc, AtomicInterval, AtomicLine, AtomicPlane, AtomicPoint
+        from pyhopper.Utils.CurveFitting import rebuild_curve
+
+        line = rebuild_curve(AtomicLine(AtomicPoint(0, 0, 0), AtomicPoint(4, 0, 0)), 3)
+        self.assertEqual([(p.x, p.y, p.z) for p in line.control_points], [(0.0, 0.0, 0.0), (2.0, 0.0, 0.0), (4.0, 0.0, 0.0)])
+        self.assertEqual(line.knots, (0.0, 0.0, 1.0, 2.0, 2.0))
+        arc = rebuild_curve(AtomicArc(AtomicPlane.world_xy(), 2.0, AtomicInterval(0.0, math.pi / 2)), 5, 2)
+        self.assertEqual((len(arc.control_points), arc.degree, arc.knots), (5, 2, (0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 3.0, 3.0)))
+        self.assertAlmostEqual(math.hypot(arc.control_points[2].x, arc.control_points[2].y), 2.07, places=2)  # middle control point sits just outside the arc
+
+    def test_catenary_hangs_with_the_requested_length(self):
+        from pyhopper.Core.Atoms import AtomicPoint, AtomicPolyline, AtomicVector
+        from pyhopper.Utils.CurveFitting import catenary_points
+        from pyhopper.Utils.Curves import curve_length
+
+        points = catenary_points(AtomicPoint(0, 0, 0), AtomicPoint(4, 0, 0), 6.0, AtomicVector(0, 0, -1))
+        self.assertEqual(len(points), 50)
+        self.assertAlmostEqual(curve_length(AtomicPolyline(tuple(points))), 6.0, places=2)
+        self.assertLess(min(p.z for p in points), -2.0)
+        self.assertIsNone(catenary_points(AtomicPoint(0, 0, 0), AtomicPoint(4, 0, 0), 3.0, AtomicVector(0, 0, -1)))
+
+    def test_curve_to_polyline_segment_counts_match_grasshopper(self):
+        from pyhopper.Core.Atoms import AtomicArc, AtomicCircle, AtomicInterval, AtomicPlane
+        from pyhopper.Utils.CurveFitting import curve_to_polyline
+
+        arc = AtomicArc(AtomicPlane.world_xy(), 2.0, AtomicInterval(0.0, math.pi / 2))
+        self.assertEqual(len(curve_to_polyline(arc, 0.1).points) - 1, 3)
+        self.assertEqual(len(curve_to_polyline(arc, 0.01).points) - 1, 8)
+        self.assertEqual(len(curve_to_polyline(AtomicCircle(AtomicPlane.world_xy(), 1.5), 0.1, max_edge=1.0).points) - 1, 10)

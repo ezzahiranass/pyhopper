@@ -1,0 +1,374 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.InCircle.InCircle",
+ "gh_guid": "28b1c4d4-ab1c-4309-accd-1b7a954ed948",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "right_triangle",
+   "inputs": {
+    "corner_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 1.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 1.0
+      }
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "vertical_triangle",
+   "inputs": {
+    "corner_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_b": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "corner_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    ]
+   },
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 1.0,
+         "z": 1.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 1.0,
+         "z": 0.0
+        }
+       },
+       "radius": 1.0
+      }
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "corner_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_b": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": 0,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "corner_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 6,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "circle": {
+     "{0}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1.757359312880715,
+         "y": 1.757359312880715,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 1.757359312880715
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.8377223398316206,
+         "y": 0.8377223398316206,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 0.8377223398316206
+      }
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.757359312880715,
+        "y": 1.757359312880715,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.8377223398316206,
+        "y": 0.8377223398316206,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      1.757359312880715
+     ],
+     "{1}": [
+      0.8377223398316206
+     ]
+    }
+   }
+  },
+  {
+   "name": "degenerate_raises",
+   "inputs": {
+    "corner_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_b": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_c": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

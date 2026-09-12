@@ -1,0 +1,191 @@
+{
+ "component": "pyhopper.Components.Curve.Division.HorizontalFrames.HorizontalFrames",
+ "gh_guid": "8d058945-ce47-4e7c-82af-3269295d7890",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "line_in_two",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "count": [
+     2
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "arc_in_three",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Arc",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2.0,
+      "angle": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.5707963267948966
+      }
+     }
+    ],
+    "count": [
+     3
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "closed_circle_in_four",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1.5
+     }
+    ],
+    "count": [
+     4
+    ]
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "curve": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.5707963267948966
+       }
+      }
+     ]
+    },
+    "count": {
+     "0": [
+      1
+     ],
+     "1": [
+      2
+     ]
+    }
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.CircleFit.CircleFit",
+ "gh_guid": "be52336f-a2e1-43b1-b5f5-178ba489508a",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "least_squares",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -2.2,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Circle",
+    "Radius",
+    "Deviation"
+   ]
+  },
+  {
+   "name": "exact_circle",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": -3,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -3,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Circle",
+    "Radius",
+    "Deviation"
+   ]
+  },
+  {
+   "name": "three_points",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Circle",
+    "Radius",
+    "Deviation"
+   ]
+  }
+ ]
+}

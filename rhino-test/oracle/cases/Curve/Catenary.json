@@ -1,0 +1,98 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.Catenary.Catenary",
+ "gh_guid": "275671d4-3e87-40bd-8aff-8e6a5fdbb892",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "hanging_chain",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "length": [
+     6.0
+    ]
+   },
+   "compare": [
+    "Catenary"
+   ]
+  },
+  {
+   "name": "taut_chain_is_a_line",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "length": [
+     3.0
+    ]
+   },
+   "compare": [
+    "Catenary"
+   ]
+  },
+  {
+   "name": "sloped_and_sideways_gravity",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 2
+     }
+    ],
+    "length": [
+     5.0
+    ],
+    "gravity": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": -1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Catenary"
+   ]
+  }
+ ]
+}
