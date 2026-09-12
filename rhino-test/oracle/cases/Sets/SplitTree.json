@@ -1,0 +1,138 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.SplitTree.SplitTree",
+ "gh_guid": "d8b1e7ac-cd31-4748-b262-e07e53068afc",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "run_mask",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{0;*}"
+    ]
+   },
+   "compare": [
+    "Positive",
+    "Negative"
+   ]
+  },
+  {
+   "name": "two_masks",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{0;0}",
+     "{2;*}"
+    ]
+   },
+   "compare": [
+    "Positive",
+    "Negative"
+   ]
+  },
+  {
+   "name": "nothing_matches",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{7}"
+    ]
+   },
+   "compare": [
+    "Positive",
+    "Negative"
+   ]
+  },
+  {
+   "name": "everything_matches",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "masks": [
+     "{*}"
+    ]
+   },
+   "compare": [
+    "Positive",
+    "Negative"
+   ]
+  }
+ ]
+}

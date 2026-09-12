@@ -1,0 +1,64 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.DeconstructPath.DeconstructPath",
+ "gh_guid": "df6d9197-9a6e-41a2-9c9d-d2221accb49e",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "branch": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       2,
+       1
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "branch": {
+     "0": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        2
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Path",
+       "indices": [
+        3
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        4,
+        4
+       ]
+      }
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "expect": {}
+  }
+ ]
+}

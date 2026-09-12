@@ -1,0 +1,217 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.RelativeItems.RelativeItems",
+ "gh_guid": "2653b135-4df1-4a6b-820c-55e2ad3bc1e0",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "next_branch_of_the_other_tree",
+   "inputs": {
+    "tree_a": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "tree_b": {
+     "0;0": [
+      "A",
+      "B",
+      "C"
+     ],
+     "0;1": [
+      "D",
+      "E"
+     ]
+    },
+    "offset": [
+     "{0;+1}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "same_branch_next_item",
+   "inputs": {
+    "tree_a": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "tree_b": {
+     "0;0": [
+      "A",
+      "B",
+      "C"
+     ],
+     "0;1": [
+      "D",
+      "E"
+     ]
+    },
+    "offset": [
+     "{0;0}[+1]"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "wrapping_items",
+   "inputs": {
+    "tree_a": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "tree_b": {
+     "0;0": [
+      "A",
+      "B",
+      "C"
+     ],
+     "0;1": [
+      "D",
+      "E"
+     ]
+    },
+    "offset": [
+     "{0;0}[+1]"
+    ],
+    "wrap_items": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "wrapping_paths",
+   "inputs": {
+    "tree_a": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "tree_b": {
+     "0;0": [
+      "A",
+      "B",
+      "C"
+     ],
+     "0;1": [
+      "D",
+      "E"
+     ]
+    },
+    "offset": [
+     "{0;+1}"
+    ],
+    "wrap_paths": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "empty_offset_raises",
+   "inputs": {
+    "tree_a": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "tree_b": {
+     "0;0": [
+      "A",
+      "B",
+      "C"
+     ],
+     "0;1": [
+      "D",
+      "E"
+     ]
+    },
+    "offset": [
+     ""
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

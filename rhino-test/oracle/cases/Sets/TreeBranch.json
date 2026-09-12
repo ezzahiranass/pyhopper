@@ -1,0 +1,250 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.TreeBranch.TreeBranch",
+ "gh_guid": "3a710c1e-1809-4e19-8c15-82adce31cd62",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "existing_path",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Branch"
+   ]
+  },
+  {
+   "name": "two_paths",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       2,
+       3
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Branch"
+   ]
+  },
+  {
+   "name": "missing_path_is_empty",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       5
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Branch"
+   ]
+  },
+  {
+   "name": "paths_from_a_tree",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": {
+     "0": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        0
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Path",
+       "indices": [
+        1,
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        1
+       ]
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Branch"
+   ]
+  },
+  {
+   "name": "repeated_path_concatenates",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Branch"
+   ]
+  },
+  {
+   "name": "flat_tree",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "c"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       1
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Branch"
+   ]
+  }
+ ]
+}

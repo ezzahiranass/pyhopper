@@ -1,0 +1,85 @@
+{
+ "component": "pyhopper.Components.Params.Primitive.DataPath.DataPath",
+ "gh_guid": "56c9c942-791f-4eeb-a4f0-82b93f1c0909",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       1
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "path": {
+     "0": [
+      {
+       "type": "Path",
+       "indices": [
+        0
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        2,
+        3,
+        1
+       ]
+      }
+     ],
+     "1;2": [
+      {
+       "type": "Path",
+       "indices": [
+        5
+       ]
+      }
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "text_coerces",
+   "inputs": {
+    "path": [
+     "{0;1}",
+     "{4}"
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "empty_branch",
+   "inputs": {
+    "path": {
+     "0": [],
+     "1": [
+      {
+       "type": "Path",
+       "indices": [
+        0
+       ]
+      }
+     ]
+    }
+   },
+   "expect": {}
+  }
+ ]
+}

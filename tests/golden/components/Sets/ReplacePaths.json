@@ -1,0 +1,248 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.ReplacePaths.ReplacePaths",
+ "gh_guid": "bfaaf799-77dc-4f31-9ad8-2f7d1a80aeb0",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "single_mask",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "search": [
+     "{0;1}"
+    ],
+    "replace": [
+     {
+      "type": "Path",
+      "indices": [
+       9
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "wildcard_merges",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "search": [
+     "{0;*}"
+    ],
+    "replace": [
+     {
+      "type": "Path",
+      "indices": [
+       9
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_masks",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "search": [
+     "{0;0}",
+     "{2;3}"
+    ],
+    "replace": [
+     {
+      "type": "Path",
+      "indices": [
+       5
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       6
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "first_match_wins",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "search": [
+     "{0;*}",
+     "{0;1}"
+    ],
+    "replace": [
+     {
+      "type": "Path",
+      "indices": [
+       9
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       8
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "nothing_matches",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "search": [
+     "{7}"
+    ],
+    "replace": [
+     {
+      "type": "Path",
+      "indices": [
+       9
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "count_mismatch_raises",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    },
+    "search": [
+     "{0;0}",
+     "{2;3}"
+    ],
+    "replace": [
+     {
+      "type": "Path",
+      "indices": [
+       5
+      ]
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

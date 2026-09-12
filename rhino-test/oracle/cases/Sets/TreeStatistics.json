@@ -1,0 +1,112 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.TreeStatistics.TreeStatistics",
+ "gh_guid": "99bee19d-588c-41a0-b9b9-1d00fb03ea1a",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "0;1": [
+      "d",
+      "e"
+     ],
+     "1;0": [
+      "f"
+     ],
+     "2;3": [
+      "g",
+      "h",
+      "i",
+      "j"
+     ]
+    }
+   },
+   "compare": [
+    "Paths",
+    "Length",
+    "Count"
+   ]
+  },
+  {
+   "name": "empty_branch_counts_zero",
+   "inputs": {
+    "tree": {
+     "0": [],
+     "1": [
+      1,
+      2
+     ]
+    }
+   },
+   "compare": [
+    "Paths",
+    "Length",
+    "Count"
+   ]
+  },
+  {
+   "name": "deep_paths",
+   "inputs": {
+    "tree": {
+     "3;7": [
+      "a"
+     ],
+     "4;1": [
+      "b",
+      "c"
+     ]
+    }
+   },
+   "compare": [
+    "Paths",
+    "Length",
+    "Count"
+   ]
+  },
+  {
+   "name": "depth_three",
+   "inputs": {
+    "tree": {
+     "0;0;0": [
+      "a"
+     ],
+     "0;0;1": [
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Paths",
+    "Length",
+    "Count"
+   ]
+  },
+  {
+   "name": "mixed_depth",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "1;2": [
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Paths",
+    "Length",
+    "Count"
+   ]
+  }
+ ],
+ "notes": "Outputs land at the tree's first path, like Grasshopper."
+}

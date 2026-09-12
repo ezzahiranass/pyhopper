@@ -1,0 +1,71 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.DeconstructPath.DeconstructPath",
+ "gh_guid": "df6d9197-9a6e-41a2-9c9d-d2221accb49e",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "branch": [
+     {
+      "type": "Path",
+      "indices": [
+       0,
+       2,
+       1
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Indices"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "branch": {
+     "0": [
+      {
+       "type": "Path",
+       "indices": [
+        0,
+        2
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Path",
+       "indices": [
+        3
+       ]
+      },
+      {
+       "type": "Path",
+       "indices": [
+        4,
+        4
+       ]
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Indices"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Indices"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ]
+}
