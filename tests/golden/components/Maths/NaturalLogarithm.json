@@ -1,0 +1,86 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.NaturalLogarithm.NaturalLogarithm",
+ "gh_guid": "23afc7aa-2d2f-4ae7-b876-bf366246b826",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     1.0,
+     2.718281828459045,
+     10.0,
+     0.5
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      0.0,
+      1.0,
+      2.302585092994046,
+      -0.6931471805599453
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      2.0
+     ],
+     "1;1": [
+      3.0,
+      4.0
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      0.6931471805599453
+     ],
+     "{1;1}": [
+      1.0986122886681098,
+      1.3862943611198906
+     ]
+    }
+   }
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_raises",
+   "inputs": {
+    "value": [
+     0.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "negative_raises",
+   "inputs": {
+    "value": [
+     -1.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

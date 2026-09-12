@@ -1,0 +1,72 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.Sinc.Sinc",
+ "gh_guid": "a2d9503d-a83c-4d71-81e0-02af8d09cd0c",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     0.0,
+     1.0,
+     0.5,
+     3.141592653589793,
+     -1.0,
+     -2.0
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0,
+      0.8414709848078965,
+      0.958851077208406,
+      3.8981718325193755e-17,
+      0.8414709848078965,
+      0.45464871341284085
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.25
+     ],
+     "1": [
+      3.0,
+      6.0
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      0.9896158370180917
+     ],
+     "{1}": [
+      0.0470400026866224,
+      -0.04656924969982098
+     ]
+    }
+   }
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

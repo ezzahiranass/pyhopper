@@ -1,0 +1,402 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.TriangleTrigonometry.TriangleTrigonometry",
+ "gh_guid": "92af1a02-9b87-43a0-8c45-0ce1b81555ec",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "sss",
+   "inputs": {
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "sas",
+   "inputs": {
+    "gamma": [
+     1.5707963267948966
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "sas_alpha_b_c_obtuse_gamma",
+   "inputs": {
+    "alpha": [
+     0.5
+    ],
+    "b_length": [
+     3.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "asa",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "beta": [
+     0.9272952180016122
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "aas",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "beta": [
+     0.9272952180016122
+    ],
+    "a_length": [
+     3.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "ssa_acute",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "ssa_ambiguous_takes_acute",
+   "inputs": {
+    "alpha": [
+     0.5
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "ssa_obtuse_given",
+   "inputs": {
+    "alpha": [
+     2.5
+    ],
+    "a_length": [
+     5.0
+    ],
+    "b_length": [
+     3.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "ssa_beta_a_b",
+   "inputs": {
+    "beta": [
+     0.5
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "ssa_gamma_a_c",
+   "inputs": {
+    "gamma": [
+     0.5
+    ],
+    "a_length": [
+     3.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "two_sides_only_echo",
+   "inputs": {
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "two_angles_give_third",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "beta": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "three_angles_only",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "beta": [
+     1.0
+    ],
+    "gamma": [
+     1.1415926535897931
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "three_angles_and_a_side",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "beta": [
+     1.0
+    ],
+    "gamma": [
+     1.1415926535897931
+    ],
+    "a_length": [
+     3.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "over_specified_keeps_alpha",
+   "inputs": {
+    "alpha": [
+     0.3
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "degenerate_sides",
+   "inputs": {
+    "a_length": [
+     1.0
+    ],
+    "b_length": [
+     2.0
+    ],
+    "c_length": [
+     3.0
+    ]
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a_length": {
+     "0": [
+      3.0,
+      5.0
+     ],
+     "1": [
+      2.0
+     ]
+    },
+    "b_length": {
+     "0": [
+      4.0,
+      5.0
+     ],
+     "1": [
+      2.0
+     ]
+    },
+    "c_length": {
+     "0": [
+      5.0,
+      5.0
+     ],
+     "1": [
+      2.0
+     ]
+    }
+   },
+   "compare": [
+    "Alpha",
+    "Beta",
+    "Gamma",
+    "A length",
+    "B length",
+    "C length"
+   ]
+  }
+ ],
+ "notes": "Grasshopper's solver never terminates for SSA data without a solution; those cases are golden-only raises."
+}

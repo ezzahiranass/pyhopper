@@ -1,0 +1,46 @@
+{
+ "component": "pyhopper.Components.Maths.Util.EulerNumber.EulerNumber",
+ "gh_guid": "b6cac37c-21b9-46c6-bd0d-17ff67796578",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "factor": [
+     1.0,
+     2.0,
+     -0.5
+    ]
+   },
+   "compare": [
+    "Output"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "factor": {
+     "0": [
+      3.0
+     ],
+     "1;1": [
+      0.0,
+      1.5
+     ]
+    }
+   },
+   "compare": [
+    "Output"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Output"
+   ]
+  }
+ ]
+}

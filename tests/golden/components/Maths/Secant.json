@@ -1,0 +1,68 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.Secant.Secant",
+ "gh_guid": "60103def-1bb7-4700-b294-3a89100525c4",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     1.0,
+     1.5707963267948966,
+     -0.7,
+     2.5
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.8508157176809255,
+      1.633123935319537e+16,
+      1.3074592597335937,
+      -1.2482156514688179
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.3,
+      0.6
+     ],
+     "1;2": [
+      1.2
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0467516015380856,
+      1.2116283145123166
+     ],
+     "{1;2}": [
+      2.759703601332406
+     ]
+    }
+   }
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

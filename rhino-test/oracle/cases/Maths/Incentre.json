@@ -1,0 +1,232 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.Incentre.Incentre",
+ "gh_guid": "c3342ea2-e181-46aa-a9b9-e438ccbfb831",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "acute",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Incentre",
+    "Bisector A",
+    "Bisector B",
+    "Bisector C"
+   ]
+  },
+  {
+   "name": "obtuse",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Incentre",
+    "Bisector A",
+    "Bisector B",
+    "Bisector C"
+   ]
+  },
+  {
+   "name": "right",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Incentre",
+    "Bisector A",
+    "Bisector B",
+    "Bisector C"
+   ]
+  },
+  {
+   "name": "tilted_3d",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 2
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 5
+     }
+    ]
+   },
+   "compare": [
+    "Incentre",
+    "Bisector A",
+    "Bisector B",
+    "Bisector C"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "point_a": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "point_b": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 2
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "point_c": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 3,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 3,
+       "z": 5
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": 1,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Incentre",
+    "Bisector A",
+    "Bisector B",
+    "Bisector C"
+   ]
+  }
+ ]
+}

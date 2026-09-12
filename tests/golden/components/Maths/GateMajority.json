@@ -1,0 +1,123 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateMajority.GateMajority",
+ "gh_guid": "78669f9c-4fea-44fd-ab12-2a69eeec58de",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "b": [
+     true,
+     false,
+     true,
+     false
+    ],
+    "c": [
+     false,
+     false,
+     false,
+     true
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      true,
+      false,
+      false,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "two_of_three",
+   "inputs": {
+    "a": [
+     true,
+     false,
+     true
+    ],
+    "b": [
+     true,
+     true,
+     false
+    ],
+    "c": [
+     false,
+     true,
+     true
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      true,
+      true,
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "1": [
+      false
+     ]
+    },
+    "b": {
+     "0": [
+      true
+     ],
+     "1": [
+      false
+     ]
+    },
+    "c": {
+     "0": [
+      false
+     ],
+     "1": [
+      true
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      true
+     ],
+     "{1}": [
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ]
+    }
+   }
+  }
+ ]
+}

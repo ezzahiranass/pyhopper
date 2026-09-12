@@ -1,0 +1,50 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.Secant.Secant",
+ "gh_guid": "60103def-1bb7-4700-b294-3a89100525c4",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     1.0,
+     1.5707963267948966,
+     -0.7,
+     2.5
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.3,
+      0.6
+     ],
+     "1;2": [
+      1.2
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ]
+}

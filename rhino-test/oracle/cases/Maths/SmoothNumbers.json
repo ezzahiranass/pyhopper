@@ -1,0 +1,50 @@
+{
+ "component": "pyhopper.Components.Maths.Util.SmoothNumbers.SmoothNumbers",
+ "gh_guid": "5b424e1c-d061-43cd-8c20-db84564b0502",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "tree_passes_through",
+   "inputs": {
+    "numbers": {
+     "0": [
+      1.0,
+      5.0,
+      9.0
+     ],
+     "1": [
+      2.0
+     ]
+    }
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "single",
+   "inputs": {
+    "numbers": [
+     3.5
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "empty_branch",
+   "inputs": {
+    "numbers": {
+     "0": []
+    }
+   },
+   "compare": [
+    "Numbers"
+   ]
+  }
+ ],
+ "notes": "Stateful in Grasshopper (smooths across solutions); a single solution passes the tree through, which is what pyhopper does."
+}
