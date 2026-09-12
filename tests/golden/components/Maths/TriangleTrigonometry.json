@@ -1,0 +1,362 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.TriangleTrigonometry.TriangleTrigonometry",
+ "gh_guid": "92af1a02-9b87-43a0-8c45-0ce1b81555ec",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "sss",
+   "inputs": {
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "sas",
+   "inputs": {
+    "gamma": [
+     1.5707963267948966
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "sas_alpha_b_c_obtuse_gamma",
+   "inputs": {
+    "alpha": [
+     0.5
+    ],
+    "b_length": [
+     3.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "asa",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "beta": [
+     0.9272952180016122
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "aas",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "beta": [
+     0.9272952180016122
+    ],
+    "a_length": [
+     3.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "ssa_acute",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "ssa_ambiguous_takes_acute",
+   "inputs": {
+    "alpha": [
+     0.5
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "ssa_obtuse_given",
+   "inputs": {
+    "alpha": [
+     2.5
+    ],
+    "a_length": [
+     5.0
+    ],
+    "b_length": [
+     3.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "ssa_beta_a_b",
+   "inputs": {
+    "beta": [
+     0.5
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "ssa_gamma_a_c",
+   "inputs": {
+    "gamma": [
+     0.5
+    ],
+    "a_length": [
+     3.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_sides_only_echo",
+   "inputs": {
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_angles_give_third",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "beta": [
+     1.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "three_angles_only",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "beta": [
+     1.0
+    ],
+    "gamma": [
+     1.1415926535897931
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "three_angles_and_a_side",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "beta": [
+     1.0
+    ],
+    "gamma": [
+     1.1415926535897931
+    ],
+    "a_length": [
+     3.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "over_specified_keeps_alpha",
+   "inputs": {
+    "alpha": [
+     0.3
+    ],
+    "a_length": [
+     3.0
+    ],
+    "b_length": [
+     4.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "degenerate_sides",
+   "inputs": {
+    "a_length": [
+     1.0
+    ],
+    "b_length": [
+     2.0
+    ],
+    "c_length": [
+     3.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a_length": {
+     "0": [
+      3.0,
+      5.0
+     ],
+     "1": [
+      2.0
+     ]
+    },
+    "b_length": {
+     "0": [
+      4.0,
+      5.0
+     ],
+     "1": [
+      2.0
+     ]
+    },
+    "c_length": {
+     "0": [
+      5.0,
+      5.0
+     ],
+     "1": [
+      2.0
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "angles_not_summing_to_pi_raise",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "beta": [
+     1.0
+    ],
+    "gamma": [
+     1.0
+    ],
+    "a_length": [
+     3.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "two_angles_over_pi_raise",
+   "inputs": {
+    "alpha": [
+     2.0
+    ],
+    "beta": [
+     2.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "impossible_sides_raise",
+   "inputs": {
+    "a_length": [
+     1.0
+    ],
+    "b_length": [
+     1.0
+    ],
+    "c_length": [
+     5.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "zero_side_raises",
+   "inputs": {
+    "a_length": [
+     0.0
+    ],
+    "b_length": [
+     4.0
+    ],
+    "c_length": [
+     4.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "ssa_without_solution_raises",
+   "inputs": {
+    "alpha": [
+     1.0
+    ],
+    "a_length": [
+     1.0
+    ],
+    "b_length": [
+     5.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

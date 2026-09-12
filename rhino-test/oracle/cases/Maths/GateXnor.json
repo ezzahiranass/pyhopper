@@ -1,0 +1,65 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateXnor.GateXnor",
+ "gh_guid": "b6aedcac-bf43-42d4-899e-d763612f834d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "b": [
+     true,
+     false,
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "1": [
+      false,
+      true
+     ]
+    },
+    "b": {
+     "0": [
+      false
+     ],
+     "1": [
+      false,
+      true
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ]
+}

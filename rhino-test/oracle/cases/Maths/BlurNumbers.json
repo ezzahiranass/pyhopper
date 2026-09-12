@@ -1,0 +1,314 @@
+{
+ "component": "pyhopper.Components.Maths.Util.BlurNumbers.BlurNumbers",
+ "gh_guid": "57e1d392-e3fb-4de9-be98-982854a92351",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "full_strength_unlocked",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0
+    ],
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "full_strength_wrapped",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0
+    ],
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     true
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "half_strength_unlocked",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0
+    ],
+    "strength": [
+     0.5
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "two_iterations",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     4.0,
+     8.0,
+     16.0
+    ],
+    "strength": [
+     0.5
+    ],
+    "iterations": [
+     2
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "asymmetric",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     4.0,
+     8.0
+    ],
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "two_items",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0
+    ],
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "one_item",
+   "inputs": {
+    "numbers": [
+     7.0
+    ],
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "zero_iterations",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0,
+     0.0
+    ],
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     0
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "over_strength_extrapolates",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0
+    ],
+    "strength": [
+     2.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     false
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "wrap_overrides_lock",
+   "inputs": {
+    "numbers": [
+     0.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0
+    ],
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     true
+    ],
+    "wrap": [
+     true
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "multi_branch_and_empty",
+   "inputs": {
+    "numbers": {
+     "0": [
+      0.0,
+      10.0,
+      0.0,
+      10.0,
+      0.0
+     ],
+     "1": []
+    },
+    "strength": [
+     1.0
+    ],
+    "iterations": [
+     1
+    ],
+    "lock": [
+     true
+    ],
+    "wrap": [
+     false
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  }
+ ]
+}

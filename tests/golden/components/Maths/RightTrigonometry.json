@@ -1,0 +1,209 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.RightTrigonometry.RightTrigonometry",
+ "gh_guid": "e75d4624-8ee2-4067-ac8d-c56bdc901d83",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "two_legs",
+   "inputs": {
+    "p_length": [
+     3.0
+    ],
+    "q_length": [
+     4.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "leg_and_hypotenuse",
+   "inputs": {
+    "p_length": [
+     3.0
+    ],
+    "r_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "other_leg_and_hypotenuse",
+   "inputs": {
+    "q_length": [
+     4.0
+    ],
+    "r_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "alpha_and_hypotenuse",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "r_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "alpha_and_leg",
+   "inputs": {
+    "alpha": [
+     0.6435011087932844
+    ],
+    "p_length": [
+     3.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "beta_and_leg",
+   "inputs": {
+    "beta": [
+     0.9272952180016122
+    ],
+    "q_length": [
+     4.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "angles_and_hypotenuse",
+   "inputs": {
+    "alpha": [
+     0.5
+    ],
+    "beta": [
+     1.0707963267948966
+    ],
+    "r_length": [
+     2.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "only_a_leg_echoes",
+   "inputs": {
+    "p_length": [
+     3.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "only_alpha_gives_beta",
+   "inputs": {
+    "alpha": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "three_sides_law_of_cosines",
+   "inputs": {
+    "p_length": [
+     3.0
+    ],
+    "q_length": [
+     4.0
+    ],
+    "r_length": [
+     6.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "over_specified_angle_and_legs",
+   "inputs": {
+    "alpha": [
+     0.3
+    ],
+    "p_length": [
+     3.0
+    ],
+    "q_length": [
+     4.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "over_specified_angle_leg_hypotenuse",
+   "inputs": {
+    "alpha": [
+     0.3
+    ],
+    "q_length": [
+     4.0
+    ],
+    "r_length": [
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "p_length": {
+     "0": [
+      3.0,
+      6.0
+     ],
+     "1": [
+      1.0
+     ]
+    },
+    "q_length": {
+     "0": [
+      4.0,
+      8.0
+     ],
+     "1": [
+      1.0
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "angles_not_right_raise",
+   "inputs": {
+    "alpha": [
+     0.5
+    ],
+    "beta": [
+     1.0
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "leg_longer_than_hypotenuse_raises",
+   "inputs": {
+    "p_length": [
+     6.0
+    ],
+    "r_length": [
+     5.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

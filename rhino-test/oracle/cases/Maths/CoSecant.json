@@ -1,0 +1,41 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.CoSecant.CoSecant",
+ "gh_guid": "d222500b-dfd5-45e0-933e-eabefd07cbfa",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     1.0,
+     1.5707963267948966,
+     -0.7,
+     2.5
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.3,
+      0.6
+     ],
+     "1;2": [
+      1.2
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ],
+ "notes": "Grasshopper emits the largest double at the singularity; pyhopper raises (golden-only case)."
+}

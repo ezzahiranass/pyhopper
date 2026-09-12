@@ -1,0 +1,100 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateMajority.GateMajority",
+ "gh_guid": "78669f9c-4fea-44fd-ab12-2a69eeec58de",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "b": [
+     true,
+     false,
+     true,
+     false
+    ],
+    "c": [
+     false,
+     false,
+     false,
+     true
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "two_of_three",
+   "inputs": {
+    "a": [
+     true,
+     false,
+     true
+    ],
+    "b": [
+     true,
+     true,
+     false
+    ],
+    "c": [
+     false,
+     true,
+     true
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "1": [
+      false
+     ]
+    },
+    "b": {
+     "0": [
+      true
+     ],
+     "1": [
+      false
+     ]
+    },
+    "c": {
+     "0": [
+      false
+     ],
+     "1": [
+      true
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Result"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ]
+}

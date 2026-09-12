@@ -33,6 +33,16 @@ def add(a: Any, b: Any, component: str = "Addition") -> Any:
     raise TypeError(f"{component} cannot add {type(a).__name__} and {type(b).__name__}")
 
 
+def subtract(a: Any, b: Any, component: str = "Subtraction") -> Any:
+    """``a - b`` for numbers (ints stay ints), vectors and points (point - point -> vector)."""
+    if is_number(a) and is_number(b):
+        return a - b if isinstance(a, int) and isinstance(b, int) else float(a) - float(b)
+    if isinstance(a, Spatial) and isinstance(b, Spatial):
+        result = _vector_add(a, _scale(b, -1.0))
+        return AtomicVector(result.x, result.y, result.z) if isinstance(a, AtomicPoint) and isinstance(b, AtomicPoint) else result
+    raise TypeError(f"{component} cannot subtract {type(b).__name__} from {type(a).__name__}")
+
+
 def multiply(a: Any, b: Any, component: str = "Multiplication") -> Any:
     """``a * b`` the Grasshopper way: numbers, number * vector/point (scaled), vector * vector
     (dot product), point * point (component-wise)."""

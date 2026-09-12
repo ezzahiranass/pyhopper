@@ -1,0 +1,232 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.Centroid.Centroid",
+ "gh_guid": "afbcbad4-2a2a-4954-8040-d999e316d2bd",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "acute",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Centroid",
+    "Median AB",
+    "Median BC",
+    "Median CA"
+   ]
+  },
+  {
+   "name": "obtuse",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Centroid",
+    "Median AB",
+    "Median BC",
+    "Median CA"
+   ]
+  },
+  {
+   "name": "right",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Centroid",
+    "Median AB",
+    "Median BC",
+    "Median CA"
+   ]
+  },
+  {
+   "name": "tilted_3d",
+   "inputs": {
+    "point_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "point_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 2
+     }
+    ],
+    "point_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 5
+     }
+    ]
+   },
+   "compare": [
+    "Centroid",
+    "Median AB",
+    "Median BC",
+    "Median CA"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "point_a": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "point_b": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 2
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "point_c": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 3,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 3,
+       "z": 5
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": 1,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Centroid",
+    "Median AB",
+    "Median BC",
+    "Median CA"
+   ]
+  }
+ ]
+}

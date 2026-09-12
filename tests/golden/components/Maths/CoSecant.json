@@ -1,0 +1,66 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.CoSecant.CoSecant",
+ "gh_guid": "d222500b-dfd5-45e0-933e-eabefd07cbfa",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     1.0,
+     1.5707963267948966,
+     -0.7,
+     2.5
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.1883951057781212,
+      1.0,
+      -1.552270326957104,
+      1.67092154555868
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.3,
+      0.6
+     ],
+     "1;2": [
+      1.2
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      3.383863361824123,
+      1.7710321966877254
+     ],
+     "{1;2}": [
+      1.0729163777098973
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_raises",
+   "inputs": {
+    "value": [
+     0.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

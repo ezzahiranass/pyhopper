@@ -1,0 +1,113 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.RelativeDifferences.RelativeDifferences",
+ "gh_guid": "dd17d442-3776-40b3-ad5b-5e188b56bd4c",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "numbers",
+   "inputs": {
+    "values": [
+     1.0,
+     4.0,
+     9.0,
+     16.0
+    ]
+   },
+   "compare": [
+    "Differenced"
+   ]
+  },
+  {
+   "name": "integers_stay_integers",
+   "inputs": {
+    "values": [
+     1,
+     4,
+     9
+    ]
+   },
+   "compare": [
+    "Differenced"
+   ]
+  },
+  {
+   "name": "points_give_vectors",
+   "inputs": {
+    "values": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Differenced"
+   ]
+  },
+  {
+   "name": "vectors",
+   "inputs": {
+    "values": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Differenced"
+   ]
+  },
+  {
+   "name": "single_item",
+   "inputs": {
+    "values": [
+     5.0
+    ]
+   },
+   "compare": [
+    "Differenced"
+   ]
+  },
+  {
+   "name": "multi_branch_and_empty",
+   "inputs": {
+    "values": {
+     "0": [
+      2.0,
+      3.5,
+      3.0
+     ],
+     "1": []
+    }
+   },
+   "compare": [
+    "Differenced"
+   ]
+  }
+ ]
+}
