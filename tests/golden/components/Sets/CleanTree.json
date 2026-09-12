@@ -1,0 +1,114 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.CleanTree.CleanTree",
+ "gh_guid": "071c3940-a12d-4b77-bb23-42b5d3314a0d",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "defaults",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null,
+      "b"
+     ],
+     "1": [],
+     "2": [
+      null
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a",
+      "b"
+     ],
+     "{1}": [],
+     "{2}": []
+    }
+   }
+  },
+  {
+   "name": "remove_empty",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null,
+      "b"
+     ],
+     "1": [],
+     "2": [
+      null
+     ]
+    },
+    "remove_empty": true
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "keep_nulls",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null,
+      "b"
+     ],
+     "1": []
+    },
+    "remove_nulls": false
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a",
+      null,
+      "b"
+     ],
+     "{1}": []
+    }
+   }
+  },
+  {
+   "name": "keep_nulls_remove_empty",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null
+     ],
+     "1": [],
+     "2": [
+      null
+     ]
+    },
+    "remove_nulls": false,
+    "remove_empty": true
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a",
+      null
+     ],
+     "{2}": [
+      null
+     ]
+    }
+   }
+  }
+ ]
+}

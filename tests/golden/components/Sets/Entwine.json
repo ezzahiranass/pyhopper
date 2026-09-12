@@ -1,0 +1,111 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.Entwine.Entwine",
+ "gh_guid": "c9785b8e-2f30-4f90-8ee3-cca710f82402",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "two_streams",
+   "inputs": {
+    "branches": [
+     {
+      "0": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "0": [
+       "c"
+      ],
+      "1": [
+       "d"
+      ]
+     }
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0;0}": [
+      "a",
+      "b"
+     ],
+     "{0;1}": [
+      "c",
+      "d"
+     ]
+    }
+   }
+  },
+  {
+   "name": "three_streams",
+   "inputs": {
+    "branches": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ],
+     [
+      "c",
+      "d"
+     ]
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0;0}": [
+      "a"
+     ],
+     "{0;1}": [
+      "b"
+     ],
+     "{0;2}": [
+      "c",
+      "d"
+     ]
+    }
+   }
+  },
+  {
+   "name": "deep_stream_is_flattened",
+   "inputs": {
+    "branches": [
+     {
+      "3;1": [
+       "a"
+      ],
+      "3;2": [
+       "b"
+      ]
+     },
+     [
+      "c"
+     ]
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0;0}": [
+      "a",
+      "b"
+     ],
+     "{0;1}": [
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "no_streams",
+   "inputs": {},
+   "expect": {
+    "result": {}
+   }
+  }
+ ]
+}

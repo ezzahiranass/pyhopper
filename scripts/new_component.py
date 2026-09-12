@@ -43,6 +43,7 @@ DEFAULTS = {
     "AtomicVector": "AtomicVector.unit_z()",
     "AtomicPoint": "AtomicPoint.origin()",
     "AtomicInterval": "AtomicInterval(0.0, 1.0)",
+    "Path": "Path(0)",
 }
 CHECKLIST = """
 Next steps
@@ -142,6 +143,8 @@ def render_module(record: dict, class_name: str, inputs: list[dict], outputs: li
     if atom_imports:
         lines.append(f"from pyhopper.Core.Atoms import {', '.join(atom_imports)}")
     lines.append("from pyhopper.Core.Component import Access, Component, InputParam, OutputParam")
+    if "Path" in hints_used:
+        lines.append("from pyhopper.Core.Path import Path")
     if spec_imports:
         lines.append(f"from pyhopper.Core.TypeSystem import {', '.join(spec_imports)}")
     lines += ["", "", f"class {class_name}(Component):", f'    """{record["description"].rstrip(".")}.', ""]

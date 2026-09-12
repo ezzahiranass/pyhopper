@@ -1,0 +1,108 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.FlattenTree.FlattenTree",
+ "gh_guid": "f80cfe18-9510-4b89-8301-8e58faf423bb",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "default_path",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "c"
+     ],
+     "2": []
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "custom_path",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1": [
+      "c"
+     ]
+    },
+    "path": {
+     "type": "Path",
+     "indices": [
+      2,
+      3
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "path_from_text",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a",
+      "b"
+     ]
+    },
+    "path": "{4;1}"
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "empty_tree",
+   "inputs": {
+    "tree": {
+     "5": []
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "two_paths_flatten_twice",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      "b"
+     ]
+    },
+    "path": [
+     {
+      "type": "Path",
+      "indices": [
+       5
+      ]
+     },
+     {
+      "type": "Path",
+      "indices": [
+       7
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Tree"
+   ],
+   "gh": {
+    "skip": "Grasshopper keeps only the last path when several are supplied; pyhopper flattens into each"
+   }
+  }
+ ]
+}

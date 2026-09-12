@@ -1,0 +1,87 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.CleanTree.CleanTree",
+ "gh_guid": "071c3940-a12d-4b77-bb23-42b5d3314a0d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "nulls": "keep",
+ "notes": "nulls are the subject of the component; compare them",
+ "cases": [
+  {
+   "name": "defaults",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null,
+      "b"
+     ],
+     "1": [],
+     "2": [
+      null
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "remove_empty",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null,
+      "b"
+     ],
+     "1": [],
+     "2": [
+      null
+     ]
+    },
+    "remove_empty": true
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "keep_nulls",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null,
+      "b"
+     ],
+     "1": []
+    },
+    "remove_nulls": false
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "keep_nulls_remove_empty",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a",
+      null
+     ],
+     "1": [],
+     "2": [
+      null
+     ]
+    },
+    "remove_nulls": false,
+    "remove_empty": true
+   },
+   "compare": [
+    "Tree"
+   ]
+  }
+ ]
+}

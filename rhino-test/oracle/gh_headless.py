@@ -66,10 +66,12 @@ def _call(component, name: str, *args):
 
 
 def to_net(value: Any):
-    """pyhopper item -> .NET object Grasshopper can wrap as goo."""
+    """pyhopper item -> .NET object Grasshopper can wrap as goo (``None`` stays a null)."""
     import System  # type: ignore
 
     Rhino = load()
+    if value is None:
+        return None
     if isinstance(value, bool):
         return System.Boolean(value)
     if isinstance(value, int):
@@ -88,6 +90,8 @@ def to_net(value: Any):
         return to_plane(value)
     if isinstance(value, AtomicLine):
         return to_line(value)
+    if isinstance(value, Path):
+        return _gh_path(value)
     raise TypeError(f"no Grasshopper conversion for {type(value).__name__}")
 
 
@@ -112,6 +116,9 @@ def to_python(goo: Any):
         return AtomicLine(AtomicPoint(float(value.From.X), float(value.From.Y), float(value.From.Z)), AtomicPoint(float(value.To.X), float(value.To.Y), float(value.To.Z)))
     if isinstance(value, (bool, int, float, str)):
         return value
+    Grasshopper = load_grasshopper()
+    if isinstance(value, Grasshopper.Kernel.Data.GH_Path):
+        return _path_from_gh(value)
     type_name = value.GetType().FullName if hasattr(value, "GetType") else type(value).__name__
     raise TypeError(f"no pyhopper conversion for Grasshopper value of type {type_name}")
 

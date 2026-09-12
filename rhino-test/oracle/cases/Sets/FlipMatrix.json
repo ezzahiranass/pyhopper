@@ -1,0 +1,115 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.FlipMatrix.FlipMatrix",
+ "gh_guid": "41aa4112-9c9b-42f4-847e-503b9d90e4c7",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "nulls": "keep",
+ "notes": "shorter branches are padded with nulls on both sides",
+ "cases": [
+  {
+   "name": "ragged_pads_with_none",
+   "inputs": {
+    "data": {
+     "0": [
+      "a",
+      "b",
+      "c"
+     ],
+     "1": [
+      "d",
+      "e"
+     ]
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "deep_paths",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "0;1": [
+      "c",
+      "d"
+     ]
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "single_branch",
+   "inputs": {
+    "data": {
+     "3": [
+      "a",
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "differing_first_index",
+   "inputs": {
+    "data": {
+     "0;0": [
+      "a",
+      "b"
+     ],
+     "1;0": [
+      "c",
+      "d"
+     ]
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "three_deep_non_zero",
+   "inputs": {
+    "data": {
+     "2;5;1": [
+      "a",
+      "b",
+      "c"
+     ],
+     "2;5;3": [
+      "d",
+      "e",
+      "f"
+     ]
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "empty_branch_pads",
+   "inputs": {
+    "data": {
+     "0": [
+      "a",
+      "b"
+     ],
+     "1": []
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  }
+ ]
+}

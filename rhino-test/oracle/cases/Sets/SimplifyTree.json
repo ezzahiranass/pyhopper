@@ -1,0 +1,178 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.SimplifyTree.SimplifyTree",
+ "gh_guid": "1303da7b-e339-4e65-a051-82c4dce8224d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "shared_ends",
+   "inputs": {
+    "tree": {
+     "0;0;5": [
+      "a"
+     ],
+     "0;1;5": [
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "shared_ends_front",
+   "inputs": {
+    "tree": {
+     "0;0;5": [
+      "a"
+     ],
+     "0;1;5": [
+      "b"
+     ]
+    },
+    "front": true
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "single_branch_unchanged",
+   "inputs": {
+    "tree": {
+     "0;3;2": [
+      "a",
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "nothing_shared",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a"
+     ],
+     "0;1": [
+      "b"
+     ],
+     "1;0": [
+      "c"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "ragged_keeps_first_index",
+   "inputs": {
+    "tree": {
+     "2;1": [
+      "a"
+     ],
+     "2;1;0": [
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "ragged_three",
+   "inputs": {
+    "tree": {
+     "4;1": [
+      "a"
+     ],
+     "4;1;0": [
+      "b"
+     ],
+     "4;1;0;7": [
+      "c"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "middle_shared",
+   "inputs": {
+    "tree": {
+     "0;7;1": [
+      "a"
+     ],
+     "1;7;2": [
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "middle_shared_front_unchanged",
+   "inputs": {
+    "tree": {
+     "0;7;1": [
+      "a"
+     ],
+     "1;7;2": [
+      "b"
+     ]
+    },
+    "front": true
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "prefix_and_deeper",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "0;1": [
+      "b"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  },
+  {
+   "name": "mixed_depths",
+   "inputs": {
+    "tree": {
+     "0;0;1;2": [
+      "a"
+     ],
+     "0;0;1": [
+      "b"
+     ],
+     "0;0;5": [
+      "c"
+     ]
+    }
+   },
+   "compare": [
+    "Tree"
+   ]
+  }
+ ]
+}

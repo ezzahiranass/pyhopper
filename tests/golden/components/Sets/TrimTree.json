@@ -1,0 +1,150 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.TrimTree.TrimTree",
+ "gh_guid": "1177d6ee-3993-4226-9558-52b7fd63e1e3",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "depth_1_drops_short_branch",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;0;2": [
+      "b"
+     ],
+     "0;1;0": [
+      "c"
+     ],
+     "3": [
+      "d"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0;0}": [
+      "a",
+      "b"
+     ],
+     "{0;1}": [
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "depth_2",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;0;2": [
+      "b"
+     ],
+     "0;1;0": [
+      "c"
+     ],
+     "3": [
+      "d"
+     ]
+    },
+    "depth": 2
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a",
+      "b",
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "depth_0_unchanged",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;1;0": [
+      "c"
+     ]
+    },
+    "depth": 0
+   },
+   "expect": {
+    "tree": {
+     "{0;0;1}": [
+      "a"
+     ],
+     "{0;1;0}": [
+      "c"
+     ]
+    }
+   }
+  },
+  {
+   "name": "mixed_lengths",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;1": [
+      "b"
+     ],
+     "0;2": [
+      "c"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "b",
+      "c"
+     ],
+     "{0;0}": [
+      "a"
+     ]
+    }
+   }
+  },
+  {
+   "name": "depth_beyond_all_branches",
+   "inputs": {
+    "tree": {
+     "0;0;1": [
+      "a"
+     ],
+     "0;1;0": [
+      "c"
+     ]
+    },
+    "depth": 5
+   },
+   "expect": {
+    "tree": {}
+   }
+  },
+  {
+   "name": "negative_depth_raises",
+   "inputs": {
+    "tree": {
+     "0;0": [
+      "a"
+     ]
+    },
+    "depth": -1
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

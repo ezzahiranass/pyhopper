@@ -1,0 +1,148 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.PruneTree.PruneTree",
+ "gh_guid": "fe769f85-8900-45dd-ba11-ec9cd6c778c6",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "defaults_keep_everything",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "1": [
+      "b",
+      "c"
+     ],
+     "2": [],
+     "3": [
+      "d",
+      "e",
+      "f"
+     ]
+    }
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a"
+     ],
+     "{1}": [
+      "b",
+      "c"
+     ],
+     "{2}": [],
+     "{3}": [
+      "d",
+      "e",
+      "f"
+     ]
+    }
+   }
+  },
+  {
+   "name": "minimum_2",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "1": [
+      "b",
+      "c"
+     ],
+     "2": [],
+     "3": [
+      "d",
+      "e",
+      "f"
+     ]
+    },
+    "minimum": 2
+   },
+   "expect": {
+    "tree": {
+     "{1}": [
+      "b",
+      "c"
+     ],
+     "{3}": [
+      "d",
+      "e",
+      "f"
+     ]
+    }
+   }
+  },
+  {
+   "name": "maximum_2",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "1": [
+      "b",
+      "c"
+     ],
+     "2": [],
+     "3": [
+      "d",
+      "e",
+      "f"
+     ]
+    },
+    "maximum": 2
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a"
+     ],
+     "{1}": [
+      "b",
+      "c"
+     ],
+     "{2}": []
+    }
+   }
+  },
+  {
+   "name": "minimum_1_maximum_2",
+   "inputs": {
+    "tree": {
+     "0": [
+      "a"
+     ],
+     "1": [
+      "b",
+      "c"
+     ],
+     "2": [],
+     "3": [
+      "d",
+      "e",
+      "f"
+     ]
+    },
+    "minimum": 1,
+    "maximum": 2
+   },
+   "expect": {
+    "tree": {
+     "{0}": [
+      "a"
+     ],
+     "{1}": [
+      "b",
+      "c"
+     ]
+    }
+   }
+  }
+ ]
+}
