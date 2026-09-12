@@ -1,0 +1,181 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.PlaneNormal.PlaneNormal",
+ "gh_guid": "cfb6b17f-ca82-4f5d-b604-d4f69f569de3",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "unit_z",
+   "inputs": {
+    "origin": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 2,
+     "z": 3
+    },
+    "z_axis": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 0,
+     "z": 1
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": -0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "tilted",
+   "inputs": {
+    "z_axis": {
+     "type": "Vector3d",
+     "x": 1,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.7071067811865476,
+        "y": 0.7071067811865476,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -0.7071067811865476,
+        "y": 0.7071067811865476,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "unit_x",
+   "inputs": {
+    "z_axis": {
+     "type": "Vector3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "generic",
+   "inputs": {
+    "z_axis": {
+     "type": "Vector3d",
+     "x": 0.3,
+     "y": -0.5,
+     "z": 0.8
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.3030457633656632,
+        "y": -0.5050762722761053,
+        "z": 0.8081220356417687
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -1.6822419200183302e-17,
+        "y": 0.847998304005088,
+        "z": 0.5299989400031799
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_normal_raises",
+   "inputs": {
+    "z_axis": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

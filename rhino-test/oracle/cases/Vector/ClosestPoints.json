@@ -1,0 +1,164 @@
+{
+ "component": "pyhopper.Components.Vector.Point.ClosestPoints.ClosestPoints",
+ "gh_guid": "446014c4-c11c-45a7-8839-c45dc60950d6",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "nearest_first",
+   "inputs": {
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0.0
+     }
+    ],
+    "count": 2
+   },
+   "compare": [
+    "Closest Point",
+    "CP Index",
+    "Distance"
+   ]
+  },
+  {
+   "name": "count_capped_at_cloud",
+   "inputs": {
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     }
+    ],
+    "count": 5
+   },
+   "compare": [
+    "Closest Point",
+    "CP Index",
+    "Distance"
+   ]
+  },
+  {
+   "name": "two_points",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 10,
+      "y": 0,
+      "z": 0.0
+     }
+    ],
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 9,
+      "y": 0,
+      "z": 0.0
+     }
+    ],
+    "count": 2
+   },
+   "compare": [
+    "Closest Point",
+    "CP Index",
+    "Distance"
+   ]
+  },
+  {
+   "name": "default_count",
+   "inputs": {
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Closest Point",
+    "CP Index",
+    "Distance"
+   ]
+  }
+ ]
+}

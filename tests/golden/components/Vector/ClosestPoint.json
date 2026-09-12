@@ -1,0 +1,166 @@
+{
+ "component": "pyhopper.Components.Vector.Point.ClosestPoint.ClosestPoint",
+ "gh_guid": "571ca323-6e55-425a-bf9e-ee103c7ba4b9",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "tie_goes_to_lowest_index",
+   "inputs": {
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0.0
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    },
+    "cp_index": {
+     "{0}": [
+      0
+     ]
+    },
+    "distance": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "two_points_repeat_cloud",
+   "inputs": {
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 10,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    },
+    "cloud": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0.0
+     }
+    ]
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    },
+    "cp_index": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      0
+     ]
+    },
+    "distance": {
+     "{0}": [
+      1.0
+     ],
+     "{1}": [
+      7.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_cloud_emits_nothing",
+   "inputs": {
+    "point": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "cloud": []
+   },
+   "expect": {
+    "closest_point": {
+     "{0}": []
+    },
+    "cp_index": {
+     "{0}": []
+    },
+    "distance": {
+     "{0}": []
+    }
+   }
+  }
+ ]
+}

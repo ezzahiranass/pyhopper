@@ -1,0 +1,69 @@
+{
+ "component": "pyhopper.Components.Vector.Point.PointPolar.PointPolar",
+ "gh_guid": "a435f5c8-28a2-43e8-a52a-0b6e73c2e300",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "quarter_turn",
+   "inputs": {
+    "xy_angle": 1.5707963267948966,
+    "z_angle": 0.0,
+    "offset": 2.0
+   },
+   "compare": [
+    "Point"
+   ]
+  },
+  {
+   "name": "elevation",
+   "inputs": {
+    "xy_angle": 0.0,
+    "z_angle": 0.7853981633974483,
+    "offset": 2.0
+   },
+   "compare": [
+    "Point"
+   ]
+  },
+  {
+   "name": "defaults_unit_x",
+   "inputs": {},
+   "compare": [
+    "Point"
+   ]
+  },
+  {
+   "name": "custom_plane",
+   "inputs": {
+    "base_plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "xy_angle": 1.5707963267948966,
+    "offset": 3.0
+   },
+   "compare": [
+    "Point"
+   ]
+  }
+ ]
+}

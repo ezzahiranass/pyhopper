@@ -55,11 +55,53 @@ PRUNE = "fe769f85-8900-45dd-ba11-ec9cd6c778c6"
 CLEAN = "071c3940-a12d-4b77-bb23-42b5d3314a0d"
 from pyhopper.Core.Path import Path as TP
 
+CP = "571ca323-6e55-425a-bf9e-ee103c7ba4b9"
+CPS = "446014c4-c11c-45a7-8839-c45dc60950d6"
+CULL_DUP = "6eaffbb2-3392-441a-8556-2dc126aa8910"
+POLAR = "a435f5c8-28a2-43e8-a52a-0b6e73c2e300"
+SORT_PTS = "4e86ba36-05e2-4cc0-a0f5-3ad57c91f04e"
+PL_NORMAL = "cfb6b17f-ca82-4f5d-b604-d4f69f569de3"
+PL_3PT = "c98a6015-7a2f-423c-bc66-bdc505249b45"
+ALIGN = "e76040ec-3b91-41e1-8e00-c74c23b89391"
+REC_GRID = "1a25aae0-0b56-497a-85b2-cc5bf7e4b96b"
+SQ_GRID = "717a1e25-a075-4530-bc80-d43ecc2500d9"
+POP2D = "e2d958e8-9f08-44f7-bf47-a684882d0b2a"
+from pyhopper.Core.Atoms import AtomicVector as V, AtomicPlane, AtomicRectangle
+import math
+
 PROBES = [
-    ("Simplify single {0;0}", SIMPLIFY, {0: T({"0;0": ["a", "b"]})}),
-    ("Simplify single {0;0} front", SIMPLIFY, {0: T({"0;0": ["a", "b"]}), 1: T([True])}),
-    ("Simplify single {0}", SIMPLIFY, {0: T({"0": ["a", "b"]})}),
-    ("Simplify single {0;0;0}", SIMPLIFY, {0: T({"0;0;0": ["a"]})}),
+    ("CP tie", CP, {0: T([P(0, 0, 0)]), 1: T([P(1, 0, 0), P(0, 2, 0), P(-1, 0, 0)])}),
+    ("CP empty cloud", CP, {0: T([P(0, 0, 0)]), 1: T([])}),
+    ("CPs count 2", CPS, {0: T([P(0, 0, 0)]), 1: T([P(3, 0, 0), P(1, 0, 0), P(0, 2, 0)]), 2: T([2])}),
+    ("CPs count exceeds cloud", CPS, {0: T([P(0, 0, 0)]), 1: T([P(3, 0, 0), P(1, 0, 0)]), 2: T([5])}),
+    ("CPs two points", CPS, {0: T([P(0, 0, 0), P(10, 0, 0)]), 1: T([P(3, 0, 0), P(1, 0, 0), P(9, 0, 0)]), 2: T([2])}),
+    ("Cull dup", CULL_DUP, {0: T([P(0, 0, 0), P(0, 0, 0.0005), P(1, 0, 0), P(0, 0, 0), P(1, 0.0004, 0)]), 1: T([0.001])}),
+    ("Cull dup chain", CULL_DUP, {0: T([P(0, 0, 0), P(0.0008, 0, 0), P(0.0016, 0, 0)]), 1: T([0.001])}),
+    ("Cull dup none", CULL_DUP, {0: T([P(0, 0, 0), P(5, 0, 0)]), 1: T([0.001])}),
+    ("Polar", POLAR, {1: T([math.pi / 2]), 2: T([0.0]), 3: T([2.0])}),
+    ("Polar z angle", POLAR, {1: T([0.0]), 2: T([math.pi / 4]), 3: T([2.0])}),
+    ("Sort points", SORT_PTS, {0: T([P(1, 0, 0), P(0, 5, 0), P(0, 0, 3), P(0, 0, 1), P(0, 0, 1)])}),
+    ("Plane normal z", PL_NORMAL, {0: T([P(1, 2, 3)]), 1: T([V(0, 0, 1)])}),
+    ("Plane normal tilted", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(1, 1, 0)])}),
+    ("Plane normal x", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(1, 0, 0)])}),
+    ("Plane normal generic", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(0.3, -0.5, 0.8)])}),
+    ("Plane normal zero", PL_NORMAL, {0: T([P(0, 0, 0)]), 1: T([V(0, 0, 0)])}),
+    ("Plane 3pt", PL_3PT, {0: T([P(0, 0, 0)]), 1: T([P(2, 0, 0)]), 2: T([P(0, 3, 0)])}),
+    ("Plane 3pt other side", PL_3PT, {0: T([P(0, 0, 0)]), 1: T([P(2, 0, 0)]), 2: T([P(1, -3, 0)])}),
+    ("Plane 3pt collinear", PL_3PT, {0: T([P(0, 0, 0)]), 1: T([P(1, 0, 0)]), 2: T([P(2, 0, 0)])}),
+    ("Align xy to y", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, 1, 0)])}),
+    ("Align xy to diag", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(1, 1, 0)])}),
+    ("Align xy to tilted", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, 1, 1)])}),
+    ("Align xy to -x", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(-1, 0, 0)])}),
+    ("Align xy to normal", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, 0, 1)])}),
+    ("Align xy to -y", ALIGN, {0: T([AtomicPlane.world_xy()]), 1: T([V(0, -1, 0)])}),
+    ("Rec grid 2x3 sizes 2,1", REC_GRID, {1: T([2.0]), 2: T([1.0]), 3: T([2]), 4: T([3])}),
+    ("Rec grid 1x1", REC_GRID, {1: T([2.0]), 2: T([1.0]), 3: T([1]), 4: T([1])}),
+    ("Rec grid 0 extent", REC_GRID, {1: T([2.0]), 2: T([1.0]), 3: T([0]), 4: T([2])}),
+    ("Rec grid two sizes", REC_GRID, {1: T([1.0, 2.0]), 2: T([1.0]), 3: T([1]), 4: T([1])}),
+    ("Sq grid 2x1", SQ_GRID, {1: T([3.0]), 2: T([2]), 3: T([1])}),
+    ("Pop2D 5", POP2D, {0: T([AtomicRectangle(AtomicPlane.world_xy(P(5, 5, 0)), 10.0, 10.0)]), 1: T([5]), 2: T([1])}),
+    ("Pop2D seed points", POP2D, {0: T([AtomicRectangle(AtomicPlane.world_xy(P(5, 5, 0)), 10.0, 10.0)]), 1: T([4]), 2: T([1]), 3: T([P(5, 5, 0)])}),
 ]
 
 for label, guid, inputs in PROBES:

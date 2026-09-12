@@ -1,7 +1,9 @@
-"""Plane helpers: coercion, local coordinates and construction from a normal."""
+"""Plane helpers: coercion, local coordinates, construction and alignment."""
+
+import math
 
 from pyhopper.Core.Atoms import AtomicPlane, AtomicPoint, AtomicVector
-from pyhopper.Utils.Vectors import dot, perpendicular, unit
+from pyhopper.Utils.Vectors import cross, dot, is_zero, perpendicular, scale, sub, unit
 
 
 def coerce_base_plane(base, input_name: str = "base") -> AtomicPlane:
@@ -73,3 +75,28 @@ def plane_from_normal(origin: AtomicPoint, normal: AtomicVector) -> AtomicPlane:
     if z_axis.length == 0.0:
         raise ValueError("plane_from_normal requires a non-zero normal")
     return AtomicPlane(origin=origin, normal=z_axis, x_axis=perpendicular(z_axis))
+
+
+def plane_from_points(a: AtomicPoint, b: AtomicPoint, c: AtomicPoint) -> AtomicPlane:
+    """Plane through three points: origin ``a``, x axis towards ``b``, normal ``(b - a) x (c - a)``."""
+    x_axis = sub(b, a)
+    normal = cross(x_axis, sub(c, a))
+    if is_zero(normal):
+        raise ValueError("plane_from_points requires three non-collinear points")
+    return AtomicPlane(origin=a, normal=unit(normal), x_axis=unit(x_axis))
+
+
+def align_plane(plane: AtomicPlane, direction: AtomicVector) -> tuple[AtomicPlane, float]:
+    """Rotate ``plane`` about its normal so its x axis follows ``direction`` (Grasshopper Align Plane).
+
+    Returns the aligned plane and the signed rotation angle in radians. The
+    direction is projected onto the plane first; a direction parallel to the
+    normal cannot be aligned to and raises ``ValueError``.
+    """
+    normal = unit(plane.normal)
+    projected = sub(direction, scale(normal, dot(direction, normal)))
+    if is_zero(projected):
+        raise ValueError("align_plane direction must not be parallel to the plane normal")
+    new_x = unit(projected)
+    angle = math.atan2(dot(cross(plane.x_axis, new_x), normal), dot(plane.x_axis, new_x))
+    return AtomicPlane(origin=plane.origin, normal=plane.normal, x_axis=new_x), angle

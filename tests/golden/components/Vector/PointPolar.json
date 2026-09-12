@@ -1,0 +1,107 @@
+{
+ "component": "pyhopper.Components.Vector.Point.PointPolar.PointPolar",
+ "gh_guid": "a435f5c8-28a2-43e8-a52a-0b6e73c2e300",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "quarter_turn",
+   "inputs": {
+    "xy_angle": 1.5707963267948966,
+    "z_angle": 0.0,
+    "offset": 2.0
+   },
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.2246467991473532e-16,
+       "y": 2.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "elevation",
+   "inputs": {
+    "xy_angle": 0.0,
+    "z_angle": 0.7853981633974483,
+    "offset": 2.0
+   },
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.4142135623730951,
+       "y": 0.0,
+       "z": 1.4142135623730951
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "defaults_unit_x",
+   "inputs": {},
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "custom_plane",
+   "inputs": {
+    "base_plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "xy_angle": 1.5707963267948966,
+    "offset": 3.0
+   },
+   "expect": {
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0000000000000002,
+       "y": 1.0,
+       "z": -2.0
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

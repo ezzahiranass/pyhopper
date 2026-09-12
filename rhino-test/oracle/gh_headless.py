@@ -17,7 +17,7 @@ from typing import Any
 
 from oracle.support import load, to_line, to_plane, to_point, to_vector
 
-from pyhopper.Core.Atoms import AtomicInterval, AtomicLine, AtomicPlane, AtomicPoint, AtomicVector
+from pyhopper.Core.Atoms import AtomicInterval, AtomicLine, AtomicPlane, AtomicPoint, AtomicRectangle, AtomicVector
 from pyhopper.Core.DataTree import DataTree
 from pyhopper.Core.Path import Path
 
@@ -90,6 +90,10 @@ def to_net(value: Any):
         return to_plane(value)
     if isinstance(value, AtomicLine):
         return to_line(value)
+    if isinstance(value, AtomicRectangle):
+        # pyhopper rectangles are centred on their plane; Rhino's carry corner intervals
+        half_x, half_y = float(value.x_size) / 2.0, float(value.y_size) / 2.0
+        return Rhino.Geometry.Rectangle3d(to_plane(value.plane), Rhino.Geometry.Interval(-half_x, half_x), Rhino.Geometry.Interval(-half_y, half_y))
     if isinstance(value, Path):
         return _gh_path(value)
     raise TypeError(f"no Grasshopper conversion for {type(value).__name__}")
@@ -114,6 +118,13 @@ def to_python(goo: Any):
         return AtomicPlane(origin, AtomicVector(float(value.ZAxis.X), float(value.ZAxis.Y), float(value.ZAxis.Z)), AtomicVector(float(value.XAxis.X), float(value.XAxis.Y), float(value.XAxis.Z)))
     if isinstance(value, Rhino.Geometry.Line):
         return AtomicLine(AtomicPoint(float(value.From.X), float(value.From.Y), float(value.From.Z)), AtomicPoint(float(value.To.X), float(value.To.Y), float(value.To.Z)))
+    if isinstance(value, Rhino.Geometry.Rectangle3d):
+        plane = value.Plane
+        centre = plane.PointAt(value.X.Mid, value.Y.Mid)
+        origin = AtomicPoint(float(centre.X), float(centre.Y), float(centre.Z))
+        normal = AtomicVector(float(plane.ZAxis.X), float(plane.ZAxis.Y), float(plane.ZAxis.Z))
+        x_axis = AtomicVector(float(plane.XAxis.X), float(plane.XAxis.Y), float(plane.XAxis.Z))
+        return AtomicRectangle(AtomicPlane(origin, normal, x_axis), float(value.X.Length), float(value.Y.Length))
     if isinstance(value, (bool, int, float, str)):
         return value
     Grasshopper = load_grasshopper()

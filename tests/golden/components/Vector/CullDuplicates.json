@@ -1,0 +1,264 @@
+{
+ "component": "pyhopper.Components.Vector.Point.CullDuplicates.CullDuplicates",
+ "gh_guid": "6eaffbb2-3392-441a-8556-2dc126aa8910",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "averages_groups",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0.0005
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0.0004,
+      "z": 0
+     }
+    ],
+    "tolerance": 0.001
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.00016666666666666666
+      },
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 0.0002,
+       "z": 0.0
+      }
+     ]
+    },
+    "indices": {
+     "{0;0}": [
+      -1,
+      -1
+     ]
+    },
+    "valence": {
+     "{0;0}": [
+      3,
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "greedy_against_group_seed",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0.0008,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0.0016,
+      "y": 0,
+      "z": 0.0
+     }
+    ],
+    "tolerance": 0.001
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0004,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 0.0016,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "indices": {
+     "{0;0}": [
+      -1,
+      2
+     ]
+    },
+    "valence": {
+     "{0;0}": [
+      2,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "no_duplicates",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0.0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0,
+      "z": 0.0
+     }
+    ],
+    "tolerance": 0.001
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "indices": {
+     "{0;0}": [
+      0,
+      1
+     ]
+    },
+    "valence": {
+     "{0;0}": [
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch_default_tolerance",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 0.05,
+       "y": 0,
+       "z": 0.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0.0
+      }
+     ]
+    }
+   },
+   "expect": {
+    "points": {
+     "{0;0}": [
+      {
+       "type": "Point3d",
+       "x": 0.025,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ],
+     "{1;0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "indices": {
+     "{0;0}": [
+      -1
+     ],
+     "{1;0}": [
+      0,
+      1
+     ]
+    },
+    "valence": {
+     "{0;0}": [
+      2
+     ],
+     "{1;0}": [
+      1,
+      1
+     ]
+    }
+   }
+  }
+ ]
+}

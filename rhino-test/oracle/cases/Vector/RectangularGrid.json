@@ -1,0 +1,85 @@
+{
+ "component": "pyhopper.Components.Vector.Grid.RectangularGrid.RectangularGrid",
+ "gh_guid": "1a25aae0-0b56-497a-85b2-cc5bf7e4b96b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_by_three",
+   "inputs": {
+    "size_x": 2.0,
+    "size_y": 1.0,
+    "extent_x": 2,
+    "extent_y": 3
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  },
+  {
+   "name": "one_cell",
+   "inputs": {
+    "size_x": 2.0,
+    "size_y": 1.0,
+    "extent_x": 1,
+    "extent_y": 1
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  },
+  {
+   "name": "two_sizes_iterate",
+   "inputs": {
+    "size_x": [
+     1.0,
+     2.0
+    ],
+    "size_y": 1.0,
+    "extent_x": 1,
+    "extent_y": 1
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  },
+  {
+   "name": "custom_plane",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 10,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "size_x": 1.0,
+    "size_y": 1.0,
+    "extent_x": 1,
+    "extent_y": 2
+   },
+   "compare": [
+    "Cells",
+    "Points"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,189 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.AlignPlane.AlignPlane",
+ "gh_guid": "e76040ec-3b91-41e1-8e00-c74c23b89391",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "to_y",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Plane",
+    "Angle"
+   ]
+  },
+  {
+   "name": "to_diagonal",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 1,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Plane",
+    "Angle"
+   ]
+  },
+  {
+   "name": "tilted_direction_is_projected",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 1,
+     "z": 1
+    }
+   },
+   "compare": [
+    "Plane",
+    "Angle"
+   ]
+  },
+  {
+   "name": "to_minus_x",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": -1,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Plane",
+    "Angle"
+   ]
+  },
+  {
+   "name": "to_minus_y_negative_angle",
+   "inputs": {
+    "plane": {
+     "type": "Plane",
+     "origin": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "normal": {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     "x_axis": {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": -1,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Plane",
+    "Angle"
+   ]
+  }
+ ]
+}

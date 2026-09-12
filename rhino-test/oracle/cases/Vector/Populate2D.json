@@ -1,0 +1,125 @@
+{
+ "component": "pyhopper.Components.Vector.Grid.Populate2D.Populate2D",
+ "gh_guid": "e2d958e8-9f08-44f7-bf47-a684882d0b2a",
+ "mode": "structural",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "notes": "best-candidate sampling; pyhopper's point sequence differs from Grasshopper's, only paths and counts compare",
+ "cases": [
+  {
+   "name": "five_points_shape",
+   "inputs": {
+    "region": {
+     "type": "Rectangle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 5,
+       "y": 5,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "x_size": 10.0,
+     "y_size": 10.0
+    },
+    "count": 5,
+    "seed": 1
+   },
+   "compare": [
+    "Population"
+   ]
+  },
+  {
+   "name": "seed_points_repel_shape",
+   "inputs": {
+    "region": {
+     "type": "Rectangle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 5,
+       "y": 5,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "x_size": 10.0,
+     "y_size": 10.0
+    },
+    "count": 4,
+    "seed": 1,
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 5,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Population"
+   ]
+  },
+  {
+   "name": "zero_count",
+   "inputs": {
+    "region": {
+     "type": "Rectangle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "x_size": 2.0,
+     "y_size": 2.0
+    },
+    "count": 0
+   },
+   "compare": [
+    "Population"
+   ]
+  }
+ ]
+}
