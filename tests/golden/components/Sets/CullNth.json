@@ -1,0 +1,116 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.CullNth.CullNth",
+ "gh_guid": "932b9817-fcc6-4ac3-b5fd-c0e8eeadc53f",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "every_second",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e",
+     "f"
+    ],
+    "cull_frequency": 2
+   },
+   "expect": {
+    "list": {
+     "{0;0}": [
+      "a",
+      "c",
+      "e"
+     ]
+    }
+   }
+  },
+  {
+   "name": "every_third",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e",
+     "f",
+     "g"
+    ],
+    "cull_frequency": 3
+   },
+   "expect": {
+    "list": {
+     "{0;0}": [
+      "a",
+      "b",
+      "d",
+      "e",
+      "g"
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch_repeats_last",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "1": [
+      5,
+      6,
+      7,
+      8
+     ]
+    },
+    "cull_frequency": [
+     2,
+     4
+    ]
+   },
+   "expect": {
+    "list": {
+     "{0;0}": [
+      1,
+      3
+     ],
+     "{0;1}": [
+      1,
+      2,
+      3
+     ],
+     "{1;0}": [
+      5,
+      7
+     ],
+     "{1;1}": [
+      5,
+      6,
+      7
+     ]
+    }
+   }
+  },
+  {
+   "name": "frequency_below_two_raises",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "cull_frequency": 1
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

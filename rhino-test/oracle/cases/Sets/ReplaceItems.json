@@ -1,0 +1,87 @@
+{
+ "component": "pyhopper.Components.Sets.List.ReplaceItems.ReplaceItems",
+ "gh_guid": "7a218bfb-b93d-4c1f-83d3-5a0b909dd60b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_indices",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d"
+    ],
+    "item": [
+     "X",
+     "Y"
+    ],
+    "indices": [
+     0,
+     3
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "items_cycle",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d"
+    ],
+    "item": [
+     "X"
+    ],
+    "indices": [
+     1,
+     2
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "wrap",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c"
+    ],
+    "item": [
+     "X"
+    ],
+    "indices": [
+     4
+    ],
+    "wrap": true
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "no_indices_pass_through",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "item": [
+     "X"
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  }
+ ]
+}

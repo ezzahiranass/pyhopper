@@ -1,0 +1,67 @@
+{
+ "component": "pyhopper.Components.Sets.Text.TextJoin.TextJoin",
+ "gh_guid": "1274d51a-81e6-4ccf-ad1f-0edf4c769cac",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "default_separator",
+   "inputs": {
+    "text": [
+     "a",
+     "b",
+     "c"
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "separator",
+   "inputs": {
+    "text": [
+     "a",
+     "b",
+     "c"
+    ],
+    "join": ", "
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "numbers_are_formatted",
+   "inputs": {
+    "text": [
+     1.0,
+     2.5,
+     true,
+     1e-07
+    ],
+    "join": "|"
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "per_branch_with_empty",
+   "inputs": {
+    "text": {
+     "0": [
+      "x",
+      "y"
+     ],
+     "1": []
+    },
+    "join": "-"
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,99 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.Jitter.Jitter",
+ "gh_guid": "f02a20f6-bb49-4e3d-b155-8ed5d3c6b000",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "zero_jitter_keeps_order",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "jitter": 0.0,
+    "seed": 1
+   },
+   "expect": {
+    "values": {
+     "{0;0}": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
+     ]
+    },
+    "indices": {
+     "{0;0}": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "full_jitter_shape",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "jitter": 1.0,
+    "seed": 1
+   },
+   "expect": {
+    "values": {
+     "{0;0}": 5
+    },
+    "indices": {
+     "{0;0}": 5
+    }
+   },
+   "shape_only": true
+  },
+  {
+   "name": "per_branch_shape",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "jitter": 0.5,
+    "seed": 7
+   },
+   "expect": {
+    "values": {
+     "{0;0}": 3,
+     "{1;0}": 4
+    },
+    "indices": {
+     "{0;0}": 3,
+     "{1;0}": 4
+    }
+   },
+   "shape_only": true
+  }
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "component": "pyhopper.Components.Sets.List.SiftPattern.SiftPattern",
+ "gh_guid": "3249222f-f536-467a-89f4-f0353fba455a",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "nulls": "keep",
+ "notes": "outputs keep index alignment with nulls on both sides",
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "sift_pattern": [
+     0,
+     1
+    ]
+   },
+   "compare": [
+    "Output 0",
+    "Output 1"
+   ]
+  },
+  {
+   "name": "pattern_longer_than_list",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "sift_pattern": [
+     1,
+     1,
+     0,
+     0
+    ]
+   },
+   "compare": [
+    "Output 0",
+    "Output 1"
+   ]
+  },
+  {
+   "name": "per_branch_default_pattern",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "1": [
+      6
+     ]
+    }
+   },
+   "compare": [
+    "Output 0",
+    "Output 1"
+   ]
+  }
+ ]
+}

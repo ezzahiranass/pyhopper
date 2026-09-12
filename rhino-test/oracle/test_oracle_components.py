@@ -14,12 +14,14 @@ Fixture options (all optional):
 - ``paths``: ``"exact"`` (default) or ``"simplified"`` — compare simplified
   trees when pyhopper's list-output rule places items differently from
   Grasshopper's ``{path;iteration}``;
+- ``nulls``: ``"drop"`` (default) removes Grasshopper nulls before comparing
+  (they are the analogue of ``Component.NO_OUTPUT``); ``"keep"`` compares them
+  against pyhopper ``None`` items for components that keep index alignment
+  (Sift Pattern, Insert Items);
 - per case ``"gh": {"skip": "reason"}`` — a documented deviation; the case is
   still exercised in pyhopper but not compared.
 
-Grasshopper nulls are dropped before comparing (they are the analogue of
-``Component.NO_OUTPUT``). Parameter containers (no Grasshopper component
-params) are skipped.
+Parameter containers (no Grasshopper component params) are skipped.
 """
 
 from __future__ import annotations
@@ -96,6 +98,7 @@ def _make_test(fixture_path: FilePath):
         mode = fixture.get("mode", "exact")
         tolerance = float(fixture.get("tolerance", 1e-6))
         simplified = fixture.get("paths") == "simplified"
+        drop_nulls = fixture.get("nulls", "drop") != "keep"
         extra = len(getattr(component_cls, "gh_extra_inputs", ()))
         gh_input_names = [param.name for param in component_cls.inputs][: len(component_cls.inputs) - extra]
 
@@ -109,8 +112,16 @@ def _make_test(fixture_path: FilePath):
                 gh_inputs: dict[int, DataTree] = {}
                 for name, value in kwargs.items():
                     self.assertIn(name, gh_input_names, f"{name} is not a Grasshopper-mapped input")
-                    gh_inputs[gh_input_names.index(name)] = DataTree.coerce(value)
-                theirs, messages = solve_component(fixture["gh_guid"], gh_inputs)
+                    index = gh_input_names.index(name)
+                    if isinstance(value, list):
+                        # variadic streams occupy Grasshopper's numbered ports from the variadic index on
+                        if index + len(value) > len(record["inputs"]):
+                            self.skipTest(f"{name}: {len(value)} streams exceed the {len(record['inputs']) - index} Grasshopper ports")
+                        for offset, stream in enumerate(value):
+                            gh_inputs[index + offset] = DataTree.coerce(stream)
+                    else:
+                        gh_inputs[index] = DataTree.coerce(value)
+                theirs, messages = solve_component(fixture["gh_guid"], gh_inputs, drop_nulls=drop_nulls)
                 for gh_name in case.get("compare", gh_output_names):
                     self.assertIn(gh_name, gh_output_names, f"{gh_name} is not an output of {record['name']}")
                     our_name = pyhopper_output_names[gh_output_names.index(gh_name)]

@@ -1,0 +1,92 @@
+{
+ "component": "pyhopper.Components.Sets.List.ItemIndex.ItemIndex",
+ "gh_guid": "a759fd55-e6be-4673-8365-c28d5b52c6c0",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "found_and_missing",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "a"
+    ],
+    "item": [
+     "a",
+     "z",
+     "b"
+    ]
+   },
+   "compare": [
+    "Index"
+   ],
+   "gh": {
+    "skip": "Grasshopper compares object references and returns -1 for volatile data; pyhopper compares by type and value"
+   }
+  },
+  {
+   "name": "numbers_by_value",
+   "inputs": {
+    "list": [
+     1.0,
+     2.0,
+     3.0
+    ],
+    "item": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Index"
+   ],
+   "gh": {
+    "skip": "Grasshopper compares object references and returns -1 for volatile data; pyhopper compares by type and value"
+   }
+  },
+  {
+   "name": "type_sensitive",
+   "inputs": {
+    "list": [
+     1,
+     2.0,
+     true
+    ],
+    "item": [
+     2,
+     2.0,
+     1,
+     true
+    ]
+   },
+   "compare": [
+    "Index"
+   ],
+   "gh": {
+    "skip": "Grasshopper compares object references and returns -1 for volatile data; pyhopper compares by type and value"
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "list": {
+     "0": [
+      "x",
+      "y"
+     ],
+     "1": [
+      "y"
+     ]
+    },
+    "item": "y"
+   },
+   "compare": [
+    "Index"
+   ],
+   "gh": {
+    "skip": "Grasshopper compares object references and returns -1 for volatile data; pyhopper compares by type and value"
+   }
+  }
+ ]
+}

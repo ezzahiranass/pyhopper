@@ -1,0 +1,125 @@
+{
+ "component": "pyhopper.Components.Sets.List.Dispatch.Dispatch",
+ "gh_guid": "d8332545-21b2-4716-96e3-8559a9876e17",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "pattern_cycles",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "dispatch_pattern": [
+     true,
+     false
+    ]
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      "a",
+      "c",
+      "e"
+     ]
+    },
+    "list_b": {
+     "{0}": [
+      "b",
+      "d"
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4,
+      5
+     ]
+    },
+    "dispatch_pattern": [
+     false,
+     true,
+     true
+    ]
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      2,
+      3
+     ],
+     "{1}": [
+      5
+     ]
+    },
+    "list_b": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_pattern_dispatches_nothing",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "dispatch_pattern": []
+   },
+   "expect": {
+    "list_a": {
+     "{0}": []
+    },
+    "list_b": {
+     "{0}": []
+    }
+   }
+  },
+  {
+   "name": "default_pattern",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "expect": {
+    "list_a": {
+     "{0}": [
+      1,
+      3
+     ]
+    },
+    "list_b": {
+     "{0}": [
+      2,
+      4
+     ]
+    }
+   }
+  }
+ ]
+}

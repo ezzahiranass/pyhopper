@@ -1,0 +1,73 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.MemberIndex.MemberIndex",
+ "gh_guid": "3ff27857-b988-417a-b495-b24c733dbd00",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "all_occurrences",
+   "inputs": {
+    "set": [
+     "a",
+     "b",
+     "a"
+    ],
+    "member": [
+     "a",
+     "b"
+    ]
+   },
+   "compare": [
+    "Index",
+    "Count"
+   ]
+  },
+  {
+   "name": "type_sensitive",
+   "inputs": {
+    "set": [
+     1,
+     2.0,
+     2
+    ],
+    "member": 2.0
+   },
+   "compare": [
+    "Index",
+    "Count"
+   ]
+  },
+  {
+   "name": "missing_member",
+   "inputs": {
+    "set": [
+     "a",
+     "b"
+    ],
+    "member": "z"
+   },
+   "compare": [
+    "Index",
+    "Count"
+   ]
+  },
+  {
+   "name": "empty_set_branch",
+   "inputs": {
+    "set": {
+     "0": [],
+     "1": [
+      "a",
+      "b"
+     ]
+    },
+    "member": "b"
+   },
+   "compare": [
+    "Index",
+    "Count"
+   ]
+  }
+ ]
+}

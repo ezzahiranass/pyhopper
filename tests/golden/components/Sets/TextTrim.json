@@ -1,0 +1,88 @@
+{
+ "component": "pyhopper.Components.Sets.Text.TextTrim.TextTrim",
+ "gh_guid": "e4cb7168-5e32-4c54-b425-5a31c6fd685a",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "defaults",
+   "inputs": {
+    "text": [
+     "  hi there  ",
+     "\t tab\n"
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "hi there",
+      "tab"
+     ]
+    }
+   }
+  },
+  {
+   "name": "start_only",
+   "inputs": {
+    "text": "  hi  ",
+    "start": true,
+    "end": false
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "hi  "
+     ]
+    }
+   }
+  },
+  {
+   "name": "end_only",
+   "inputs": {
+    "text": "  hi  ",
+    "start": false,
+    "end": true
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "  hi"
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch_repeats_last",
+   "inputs": {
+    "text": {
+     "0": [
+      " a ",
+      " b "
+     ],
+     "1": [
+      " c "
+     ]
+    },
+    "start": [
+     true,
+     false
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      "a",
+      " b"
+     ],
+     "{1}": [
+      "c",
+      " c"
+     ]
+    }
+   }
+  }
+ ]
+}

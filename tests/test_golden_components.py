@@ -5,8 +5,11 @@ of cases: inputs, optional settings, and either expected output trees, an
 expected exception, or ``shape_only`` branch counts. One test method is
 generated per fixture so failures point at the component.
 
-Regenerate expectations from the current code with
-``PYHOPPER_UPDATE_GOLDEN=1`` (cases keep their inputs; ``expect`` is rewritten).
+Inputs are atom JSON, path-keyed trees (``{"0": [...], "2;1": [...]}``),
+plain lists (one branch) or scalars; a variadic port takes a list of those
+(``"streams": [["a", "b"], ["x"]]`` = two streams). Regenerate expectations
+from the current code with ``PYHOPPER_UPDATE_GOLDEN=1`` (cases keep their
+inputs; ``expect`` is rewritten).
 """
 
 from __future__ import annotations

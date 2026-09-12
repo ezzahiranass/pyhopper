@@ -1,0 +1,104 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.DuplicateData.DuplicateData",
+ "gh_guid": "dd8134c0-109b-4012-92be-51d843edfff7",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "order_true",
+   "inputs": {
+    "data": [
+     "a",
+     "b"
+    ],
+    "number": 3,
+    "order": true
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [
+      "a",
+      "b",
+      "a",
+      "b",
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "order_false",
+   "inputs": {
+    "data": [
+     "a",
+     "b"
+    ],
+    "number": 3,
+    "order": false
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [
+      "a",
+      "a",
+      "a",
+      "b",
+      "b",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "defaults",
+   "inputs": {
+    "data": [
+     1,
+     2,
+     3
+    ]
+   },
+   "expect": {
+    "data": {
+     "{0;0}": [
+      1,
+      2,
+      3,
+      1,
+      2,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_copies",
+   "inputs": {
+    "data": [
+     "a",
+     "b"
+    ],
+    "number": 0
+   },
+   "expect": {
+    "data": {
+     "{0;0}": []
+    }
+   }
+  },
+  {
+   "name": "negative_raises",
+   "inputs": {
+    "data": [
+     "a"
+    ],
+    "number": -2
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

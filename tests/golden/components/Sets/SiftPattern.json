@@ -1,0 +1,134 @@
+{
+ "component": "pyhopper.Components.Sets.List.SiftPattern.SiftPattern",
+ "gh_guid": "3249222f-f536-467a-89f4-f0353fba455a",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "sift_pattern": [
+     0,
+     1
+    ]
+   },
+   "expect": {
+    "output_0": {
+     "{0}": [
+      "a",
+      null,
+      "c",
+      null,
+      "e"
+     ]
+    },
+    "output_1": {
+     "{0}": [
+      null,
+      "b",
+      null,
+      "d",
+      null
+     ]
+    }
+   }
+  },
+  {
+   "name": "pattern_longer_than_list",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "sift_pattern": [
+     1,
+     1,
+     0,
+     0
+    ]
+   },
+   "expect": {
+    "output_0": {
+     "{0}": [
+      null,
+      null
+     ]
+    },
+    "output_1": {
+     "{0}": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch_default_pattern",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "1": [
+      6
+     ]
+    }
+   },
+   "expect": {
+    "output_0": {
+     "{0}": [
+      1,
+      2,
+      null,
+      null,
+      5
+     ],
+     "{1}": [
+      6
+     ]
+    },
+    "output_1": {
+     "{0}": [
+      null,
+      null,
+      3,
+      4,
+      null
+     ],
+     "{1}": [
+      null
+     ]
+    }
+   }
+  },
+  {
+   "name": "index_beyond_outputs_raises",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c"
+    ],
+    "sift_pattern": [
+     0,
+     3
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

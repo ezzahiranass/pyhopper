@@ -1,0 +1,83 @@
+{
+ "component": "pyhopper.Components.Sets.List.Dispatch.Dispatch",
+ "gh_guid": "d8332545-21b2-4716-96e3-8559a9876e17",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "pattern_cycles",
+   "inputs": {
+    "list": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ],
+    "dispatch_pattern": [
+     true,
+     false
+    ]
+   },
+   "compare": [
+    "List A",
+    "List B"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4,
+      5
+     ]
+    },
+    "dispatch_pattern": [
+     false,
+     true,
+     true
+    ]
+   },
+   "compare": [
+    "List A",
+    "List B"
+   ]
+  },
+  {
+   "name": "empty_pattern_dispatches_nothing",
+   "inputs": {
+    "list": [
+     "a",
+     "b"
+    ],
+    "dispatch_pattern": []
+   },
+   "compare": [
+    "List A",
+    "List B"
+   ]
+  },
+  {
+   "name": "default_pattern",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "compare": [
+    "List A",
+    "List B"
+   ]
+  }
+ ]
+}
