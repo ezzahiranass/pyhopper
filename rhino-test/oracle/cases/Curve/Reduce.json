@@ -1,0 +1,320 @@
+{
+ "component": "pyhopper.Components.Curve.Util.Reduce.Reduce",
+ "gh_guid": "884646c3-0e70-4ad1-90c5-42601ee26450",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "loose_tolerance",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": -0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.05,
+        "y": 6,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Reduction"
+   ]
+  },
+  {
+   "name": "tight_tolerance_keeps_all",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": -0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.05,
+        "y": 6,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.01
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Reduction"
+   ]
+  },
+  {
+   "name": "closed",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 4,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 4,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Reduction"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": -0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.05,
+        "y": 6,
+        "z": 0
+       }
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Reduction"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "polyline": {
+     "0": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0.1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": -0.1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 3,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.05,
+         "y": 6,
+         "z": 0
+        }
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Reduction"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,189 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.InEllipse.InEllipse",
+ "gh_guid": "679a9c6a-ab97-4c20-b02c-680f9a9a1a44",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "scalene",
+   "inputs": {
+    "corner_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Ellipse",
+    "Plane"
+   ]
+  },
+  {
+   "name": "equilateral",
+   "inputs": {
+    "corner_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_b": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "corner_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1.7320508075688772,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Ellipse",
+    "Plane"
+   ]
+  },
+  {
+   "name": "tilted_3d",
+   "inputs": {
+    "corner_a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ],
+    "corner_b": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 2
+     }
+    ],
+    "corner_c": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 5
+     }
+    ]
+   },
+   "compare": [
+    "Ellipse",
+    "Plane"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "corner_a": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "corner_b": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 2
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "corner_c": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 3,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 3,
+       "z": 5
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1.7320508075688772,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Ellipse",
+    "Plane"
+   ]
+  }
+ ]
+}

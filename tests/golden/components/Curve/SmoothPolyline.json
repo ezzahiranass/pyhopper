@@ -1,0 +1,369 @@
+{
+ "component": "pyhopper.Components.Curve.Util.SmoothPolyline.SmoothPolyline",
+ "gh_guid": "5c5fbc42-3e1d-4081-9cf1-148d0b1d9610",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "full_strength",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "strength": [
+     1.0
+    ],
+    "times": [
+     1
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "half_strength",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "strength": [
+     0.5
+    ],
+    "times": [
+     1
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_passes",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "strength": [
+     1.0
+    ],
+    "times": [
+     2
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "closed_wraps",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 4,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 4,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "strength": [
+     1.0
+    ],
+    "times": [
+     1
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "polyline": {
+     "0": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 3,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "strength": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "negative_passes_raise",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 4,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "times": [
+     -1
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

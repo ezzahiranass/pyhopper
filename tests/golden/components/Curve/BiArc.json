@@ -1,0 +1,362 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.BiArc.BiArc",
+ "gh_guid": "75f4b0fd-9721-47b1-99e7-9c098b342e67",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "general_3d",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0.5,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 2,
+      "z": 1
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": -1,
+      "z": 0
+     }
+    ],
+    "ratio": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "parallel_tangents",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "ratio": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "cocircular_single_arc",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "tangent_length_ignored",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 5,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ],
+    "ratio": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "ratio_moves_the_joint",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "ratio": [
+     0.3
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": -2,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 6,
+       "z": 3
+      }
+     ]
+    },
+    "end_tangent": {
+     "0": [
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Vector3d",
+       "x": -1,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "ratio": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "straight_arc_raises",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "ratio": [
+     0.5
+    ]
+   },
+   "raises": "ValueError"
+  },
+  {
+   "name": "ratio_out_of_range_raises",
+   "inputs": {
+    "start_point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "start_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "end_point": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "end_tangent": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "ratio": [
+     1.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

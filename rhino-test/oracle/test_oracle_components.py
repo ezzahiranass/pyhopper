@@ -9,7 +9,8 @@ keeps both port lists in Grasshopper order.
 
 Fixture options (all optional):
 
-- ``mode``: ``exact`` (paths and values within ``tolerance``) or ``structural``
+- ``mode``: ``exact`` (paths and values within ``tolerance``), ``geometry`` (exact, but circles
+  compare by centre, radius and unsigned normal) or ``structural``
   (paths and item counts only);
 - ``reparametrize``: input names whose curves are mapped to the [0, 1] domain on
   both sides (pyhopper's Reparametrize port op, Grasshopper's Reparameterize
@@ -74,8 +75,21 @@ def compare_trees(testcase: unittest.TestCase, ours: DataTree, theirs: DataTree,
         if mode == "structural":
             continue
         for index, (a, b) in enumerate(zip(mine, gh)):
-            if not items_close(a, b, places):
+            close = geometry_close(a, b, places) if mode == "geometry" else items_close(a, b, places)
+            if not close:
                 testcase.fail(f"{label}: item {index} at {path} differs: pyhopper {a!r} != grasshopper {b!r}")
+
+
+def geometry_close(a, b, places: int) -> bool:
+    """Like ``items_close`` but circles compare as the same set of points (centre, radius and the
+    normal up to its sign) — Rhino's fitted circles carry arbitrary frames."""
+    from pyhopper.Core.Atoms import AtomicCircle
+
+    if isinstance(a, AtomicCircle) and isinstance(b, AtomicCircle):
+        na, nb = a.plane.normal, b.plane.normal
+        parallel = items_close([na.x, na.y, na.z], [nb.x, nb.y, nb.z], places) or items_close([na.x, na.y, na.z], [-nb.x, -nb.y, -nb.z], places)
+        return parallel and items_close(a.plane.origin, b.plane.origin, places) and items_close(float(a.radius), float(b.radius), places)
+    return items_close(a, b, places)
 
 
 @requires_rhino
