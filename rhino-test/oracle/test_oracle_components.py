@@ -83,8 +83,11 @@ def compare_trees(testcase: unittest.TestCase, ours: DataTree, theirs: DataTree,
 def geometry_close(a, b, places: int) -> bool:
     """Like ``items_close`` but circles compare as the same set of points (centre, radius and the
     normal up to its sign) — Rhino's fitted circles carry arbitrary frames — arcs by their start, middle
-    and end points plus radius (Rhino stores some arcs from their end with negative angles), and
-    polycurves segment by segment with the same leniency."""
+    and end points plus radius (Rhino stores some arcs from their end with negative angles), straight
+    curves by their vertices whatever Rhino's representation (line curve, polyline, degree-1 NURBS or a
+    polycurve of such segments; closed rings up to a rotation and reversal of their vertices, since
+    Rhino's section and region seams are arbitrary), and polycurves segment by segment with the same
+    leniency."""
     from pyhopper.Core.Atoms import AtomicArc, AtomicCircle, AtomicPolyCurve
     from pyhopper.Utils.Curves import curve_point_at
 
@@ -96,6 +99,9 @@ def geometry_close(a, b, places: int) -> bool:
         return items_close(abs(float(a.radius)), abs(float(b.radius)), places) and all(
             items_close(curve_point_at(a, t), curve_point_at(b, t), places) for t in (0.0, 0.5, 1.0)
         )
+    vertices_a, vertices_b = _straight_vertices(a), _straight_vertices(b)
+    if vertices_a is not None and vertices_b is not None:
+        return _vertices_close(vertices_a, vertices_b, places)
     if isinstance(a, AtomicPolyCurve) and isinstance(b, AtomicPolyCurve):
         return (
             len(a.segments) == len(b.segments)
@@ -104,6 +110,40 @@ def geometry_close(a, b, places: int) -> bool:
             and all(geometry_close(_normalised_segment(x), _normalised_segment(y), places) for x, y in zip(a.segments, b.segments))
         )
     return items_close(a, b, places)
+
+
+def _straight_vertices(curve):
+    """The vertex list of a curve made of straight pieces, whatever its representation; None otherwise."""
+    from pyhopper.Core.Atoms import AtomicLine, AtomicNurbsCurve, AtomicPolyCurve, AtomicPolyline
+
+    if isinstance(curve, AtomicLine):
+        return [curve.start, curve.end]
+    if isinstance(curve, AtomicPolyline):
+        return list(curve.points)
+    if isinstance(curve, AtomicNurbsCurve) and curve.degree == 1 and all(abs(w - 1.0) <= 1e-12 for w in curve.weights):
+        return list(curve.control_points)
+    if isinstance(curve, AtomicPolyCurve):
+        vertices = []
+        for segment in curve.segments:
+            piece = _straight_vertices(segment)
+            if piece is None:
+                return None
+            vertices.extend(piece if not vertices else piece[1:])
+        return vertices
+    return None
+
+
+def _vertices_close(a, b, places: int) -> bool:
+    if len(a) != len(b):
+        return False
+    if len(a) > 3 and items_close(a[0], a[-1], places) and items_close(b[0], b[-1], places):
+        ring_a, ring_b = list(a[:-1]), list(b[:-1])
+        for candidate in (ring_b, ring_b[::-1]):
+            for rotation in range(len(candidate)):
+                if items_close(ring_a, candidate[rotation:] + candidate[:rotation], places):
+                    return True
+        return False
+    return items_close(a, b, places) or items_close(a, b[::-1], places)
 
 
 def _normalised_segment(segment):

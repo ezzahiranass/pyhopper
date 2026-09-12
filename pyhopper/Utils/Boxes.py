@@ -45,13 +45,14 @@ def box_to_brep(box: AtomicBox) -> AtomicBrep:
         for y in (-1, 1)
         for z in (-1, 1)
     }
+    # Rhino's face order for a box brep: bottom, then the sides -y, +x, +y, -x, then the top
     return AtomicBrep(faces=(
         _quad_surface(corners[(-1, -1, -1)], corners[(1, -1, -1)], corners[(-1, 1, -1)], corners[(1, 1, -1)]),
-        _quad_surface(corners[(-1, -1, 1)], corners[(1, -1, 1)], corners[(-1, 1, 1)], corners[(1, 1, 1)]),
         _quad_surface(corners[(-1, -1, -1)], corners[(1, -1, -1)], corners[(-1, -1, 1)], corners[(1, -1, 1)]),
+        _quad_surface(corners[(1, -1, -1)], corners[(1, 1, -1)], corners[(1, -1, 1)], corners[(1, 1, 1)]),
         _quad_surface(corners[(-1, 1, -1)], corners[(1, 1, -1)], corners[(-1, 1, 1)], corners[(1, 1, 1)]),
         _quad_surface(corners[(-1, -1, -1)], corners[(-1, 1, -1)], corners[(-1, -1, 1)], corners[(-1, 1, 1)]),
-        _quad_surface(corners[(1, -1, -1)], corners[(1, 1, -1)], corners[(1, -1, 1)], corners[(1, 1, 1)]),
+        _quad_surface(corners[(-1, -1, 1)], corners[(1, -1, 1)], corners[(-1, 1, 1)], corners[(1, 1, 1)]),
     ))
 
 

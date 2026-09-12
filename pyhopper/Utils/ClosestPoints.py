@@ -297,8 +297,7 @@ def surface_line_hits(surface: AtomicSurface, origin: AtomicPoint, direction: At
     for i in range(grid + 1):
         for j in range(grid + 1):
             u, v = u0 + (u1 - u0) * i / grid, v0 + (v1 - v0) * j / grid
-            converged = False
-            for _ in range(30):
+            for _ in range(40):
                 ders = surface_derivatives(surface, u, v, 1)
                 offset = sub(ders.point, origin)
                 g1, g2 = dot(offset, e1), dot(offset, e2)
@@ -309,17 +308,12 @@ def surface_line_hits(surface: AtomicSurface, origin: AtomicPoint, direction: At
                     break
                 du = (g1 * j22 - g2 * j12) / det
                 dv = (j11 * g2 - j21 * g1) / det
-                u_new, v_new = u - du, v - dv
-                if not (u0 - 0.5 * (u1 - u0) <= u_new <= u1 + 0.5 * (u1 - u0) and v0 - 0.5 * (v1 - v0) <= v_new <= v1 + 0.5 * (v1 - v0)):
-                    break  # ran away from the surface
+                # the evaluator clamps into the domain, so keep the iterate inside it too
+                u_new, v_new = min(u1, max(u0, u - du)), min(v1, max(v0, v - dv))
                 step = max(abs(u_new - u), abs(v_new - v))
                 u, v = u_new, v_new
-                if step <= 1e-14:
-                    converged = True
+                if step <= 1e-13 * max(1.0, u1 - u0, v1 - v0):
                     break
-            if not converged or not (u0 - 1e-9 <= u <= u1 + 1e-9 and v0 - 1e-9 <= v <= v1 + 1e-9):
-                continue
-            u, v = min(u1, max(u0, u)), min(v1, max(v0, v))
             p = surface_derivatives(surface, u, v, 1).point
             offset = sub(p, origin)
             if math.hypot(dot(offset, e1), dot(offset, e2)) > 1e-9 * max(1.0, length(offset)):

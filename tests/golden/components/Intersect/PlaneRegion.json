@@ -1,0 +1,1028 @@
+{
+ "component": "pyhopper.Components.Intersect.Mathematical.PlaneRegion.PlaneRegion",
+ "gh_guid": "80e3614a-25ae-43e7-bb0a-760e68ade864",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "geometry",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "square_with_two_bounds_through_the_origin",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bounds": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": -1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 3.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "region": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": -10.0,
+         "y": -10.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": -10.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -10.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -10.0,
+         "y": -10.0,
+         "z": 0.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "offset_origin",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bounds": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": -1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 3.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "region": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "triangle",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bounds": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.7071067811865475,
+       "y": 0.7071067811865475,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": -3.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": -0.7071067811865475,
+       "y": 0.7071067811865475,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "region": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": -4.000000000000001,
+         "y": -1.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.000000000000002,
+         "y": -1.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 8.881784197001252e-16,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -4.000000000000001,
+         "y": -1.0,
+         "z": 0.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "far_bounds_widen_the_clip",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bounds": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": -40.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 40.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": -30.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 30.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "region": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 40.0,
+         "y": -30.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 40.0,
+         "y": 29.999999999999993,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -40.0,
+         "y": 30.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -40.0,
+         "y": -30.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 40.0,
+         "y": -30.0,
+         "z": 0.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "orientation_is_irrelevant",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": -1.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bounds": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 3.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": -1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "region": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": -1.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": -10.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -1.0,
+         "y": -10.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -1.0,
+         "y": 3.0,
+         "z": 0.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "plane": {
+     "0": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "bounds": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": -1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 3.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "region": {
+     "{0}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": -10.0,
+         "y": -10.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": -10.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -10.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": -10.0,
+         "y": -10.0,
+         "z": 0.0
+        }
+       ]
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "one_effective_bound",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 1.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "bounds": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     },
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": -1.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

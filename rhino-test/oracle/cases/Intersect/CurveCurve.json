@@ -1,0 +1,539 @@
+{
+ "component": "pyhopper.Components.Intersect.Physical.CurveCurve.CurveCurve",
+ "gh_guid": "84627490-0fb2-4498-8138-ad134ee4cb36",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve_a",
+  "curve_b"
+ ],
+ "cases": [
+  {
+   "name": "wave_and_line",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": -3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "circle_and_line",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": -3.0,
+       "y": 0.5,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 0.5,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "collinear_overlap",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 6.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "tangent_at_the_seam",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "near_within_tolerance",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": -1.0,
+       "z": 0.005
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 1.0,
+       "z": 0.005
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "polylines",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": -1.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 1.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 3.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "two_circles",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "miss",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve_a": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 2.0
+      }
+     ]
+    },
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": -1.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Points",
+    "Params A",
+    "Params B"
+   ]
+  }
+ ],
+ "notes": "Points are the midpoints of the two curve points; a closed curve's seam counts once."
+}

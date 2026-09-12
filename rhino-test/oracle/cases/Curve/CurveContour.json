@@ -1,0 +1,664 @@
+{
+ "component": "pyhopper.Components.Curve.Division.CurveContour.CurveContour",
+ "gh_guid": "88cff285-7f5e-41b3-96d5-9588ff9a52b1",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "wave",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": -3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "start_inside_the_extent",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": -3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1.5,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "reversed_direction",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": -3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": -1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "distance": [
+     1.5
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "negative_distance_walks_back",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": -3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 3.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "distance": [
+     -1.0
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "circle_seam_twice",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "radius": 2.0
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 1.0,
+      "z": 0.0
+     }
+    ],
+    "distance": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "polyline",
+   "inputs": {
+    "curve": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 2.0,
+        "z": 0.0
+       }
+      ]
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve": {
+     "0": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": -3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ],
+     "1": [
+      {
+       "type": "NurbsCurve",
+       "control_points": [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 3.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "knots": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "degree": 3
+      }
+     ]
+    },
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.5,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "default_distance",
+   "inputs": {
+    "curve": [
+     {
+      "type": "NurbsCurve",
+      "control_points": [
+       {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 2.0,
+        "z": 0.0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       {
+        "type": "Point3d",
+        "x": 4.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      ],
+      "weights": [
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "knots": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      "degree": 3
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ]
+   },
+   "compare": [
+    "Contours",
+    "Parameters"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  }
+ ],
+ "notes": "Branches are {iteration;k} — Grasshopper uses the running iteration count, not the input path; a closed curve's seam is reported at both its start and end parameter."
+}

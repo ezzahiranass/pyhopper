@@ -1,0 +1,496 @@
+{
+ "component": "pyhopper.Components.Intersect.Mathematical.Contour.Contour",
+ "gh_guid": "3b112fb6-3eba-42d2-ba75-0f903c18faab",
+ "mode": "structural",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "box_along_z",
+   "inputs": {
+    "shape": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "distance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Contours"
+   ],
+   "gh": {
+    "skip": "Grasshopper's Contour components for shapes throw a NullReferenceException headless (they need a Rhino document); the plane rule is the one verified on Curve Contour"
+   }
+  },
+  {
+   "name": "negative_distance_walks_back",
+   "inputs": {
+    "shape": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "distance": [
+     -0.5
+    ]
+   },
+   "compare": [
+    "Contours"
+   ],
+   "gh": {
+    "skip": "Grasshopper's Contour components for shapes throw a NullReferenceException headless (they need a Rhino document); the plane rule is the one verified on Curve Contour"
+   }
+  },
+  {
+   "name": "dome_brep",
+   "inputs": {
+    "shape": [
+     {
+      "type": "Brep",
+      "faces": [
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 2.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 2.0,
+           "z": 3.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 1.0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 4.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 4.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 4.0,
+           "z": 0.0
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         3,
+         3
+        ],
+        "v_mults": [
+         3,
+         3
+        ],
+        "u_degree": 2,
+        "v_degree": 2,
+        "u_periodic": false,
+        "v_periodic": false
+       }
+      ]
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.5
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Contours"
+   ],
+   "gh": {
+    "skip": "Grasshopper's Contour components for shapes throw a NullReferenceException headless (they need a Rhino document); the plane rule is the one verified on Curve Contour"
+   }
+  },
+  {
+   "name": "box_slanted",
+   "inputs": {
+    "shape": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2.0,
+      "y": 2.0,
+      "z": 0.0
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "distance": [
+     1.5
+    ]
+   },
+   "compare": [
+    "Contours"
+   ],
+   "gh": {
+    "skip": "Grasshopper's Contour components for shapes throw a NullReferenceException headless (they need a Rhino document); the plane rule is the one verified on Curve Contour"
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "shape": {
+     "0": [
+      {
+       "type": "Box",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "x_size": 4.0,
+       "y_size": 4.0,
+       "z_size": 2.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Brep",
+       "faces": [
+        {
+         "type": "Surface",
+         "poles": [
+          [
+           {
+            "type": "Point3d",
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+           },
+           {
+            "type": "Point3d",
+            "x": 2.0,
+            "y": 0.0,
+            "z": 1.0
+           },
+           {
+            "type": "Point3d",
+            "x": 4.0,
+            "y": 0.0,
+            "z": 0.0
+           }
+          ],
+          [
+           {
+            "type": "Point3d",
+            "x": 0.0,
+            "y": 2.0,
+            "z": 1.0
+           },
+           {
+            "type": "Point3d",
+            "x": 2.0,
+            "y": 2.0,
+            "z": 3.0
+           },
+           {
+            "type": "Point3d",
+            "x": 4.0,
+            "y": 2.0,
+            "z": 1.0
+           }
+          ],
+          [
+           {
+            "type": "Point3d",
+            "x": 0.0,
+            "y": 4.0,
+            "z": 0.0
+           },
+           {
+            "type": "Point3d",
+            "x": 2.0,
+            "y": 4.0,
+            "z": 1.0
+           },
+           {
+            "type": "Point3d",
+            "x": 4.0,
+            "y": 4.0,
+            "z": 0.0
+           }
+          ]
+         ],
+         "weights": [
+          [
+           1.0,
+           1.0,
+           1.0
+          ],
+          [
+           1.0,
+           1.0,
+           1.0
+          ],
+          [
+           1.0,
+           1.0,
+           1.0
+          ]
+         ],
+         "u_knots": [
+          0.0,
+          1.0
+         ],
+         "v_knots": [
+          0.0,
+          1.0
+         ],
+         "u_mults": [
+          3,
+          3
+         ],
+         "v_mults": [
+          3,
+          3
+         ],
+         "u_degree": 2,
+         "v_degree": 2,
+         "u_periodic": false,
+         "v_periodic": false
+        }
+       ]
+      }
+     ]
+    },
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.5
+     }
+    ],
+    "direction": [
+     {
+      "type": "Vector3d",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 1.0
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Contours"
+   ],
+   "gh": {
+    "skip": "Grasshopper's Contour components for shapes throw a NullReferenceException headless (they need a Rhino document); the plane rule is the one verified on Curve Contour"
+   }
+  }
+ ],
+ "notes": "Grasshopper's Contour throws a NullReferenceException headless (documented skips); the plane rule is verified on Curve Contour."
+}

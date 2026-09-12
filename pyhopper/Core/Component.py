@@ -80,11 +80,13 @@ NO_OUTPUT = _NoOutput()
 
 @dataclass(frozen=True)
 class IterationContext:
-    """Where the current generate() call writes: branch path, item index, item count."""
+    """Where the current generate() call writes: branch path, item index, item count — and ``run``,
+    the running count of generate() calls over the whole solve (Grasshopper's ``DA.Iteration``)."""
 
     path: Path
     index: int = 0
     count: int = 1
+    run: int = 0
 
 
 @dataclass
@@ -379,6 +381,7 @@ class Component:
 
     def _solve(self, *args: Any, **kwargs: Any) -> ComponentResult:
         bound = self._bind_inputs(*args, **kwargs)
+        self._runs = 0
         collectors: list[dict[Path, list[Any]]] = [{} for _ in self.outputs]
         tree_kwargs = self._group_values([(item.param, item.tree, item.stream_index) for item in bound.tree_inputs])
 
@@ -491,7 +494,8 @@ class Component:
         collectors: list[dict[Path, list[Any]]],
     ) -> list[bool]:
         """Call generate() once and collect its outputs; one flag per output says whether it touched its tree."""
-        self.iteration = IterationContext(path, index, count)
+        self.iteration = IterationContext(path, index, count, getattr(self, "_runs", 0))
+        self._runs = self.iteration.run + 1
         result = self.generate(**kwargs)
         return self._collect(result, path, index, count, collectors)
 

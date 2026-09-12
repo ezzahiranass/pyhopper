@@ -1,0 +1,641 @@
+{
+ "component": "pyhopper.Components.Intersect.Mathematical.BrepLine.BrepLine",
+ "gh_guid": "ed0742f9-6647-4d95-9dfd-9ad17080ae9c",
+ "mode": "geometry",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "box",
+   "inputs": {
+    "brep": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": -1.0,
+       "y": 2.0,
+       "z": 1.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 2.0,
+       "z": 1.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  },
+  {
+   "name": "box_diagonal_through_edges",
+   "inputs": {
+    "brep": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": -1.0,
+       "y": -1.0,
+       "z": 1.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 5.0,
+       "y": 5.0,
+       "z": 1.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  },
+  {
+   "name": "box_vertical",
+   "inputs": {
+    "brep": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": -1.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": 5.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  },
+  {
+   "name": "segment_inside_is_infinite",
+   "inputs": {
+    "brep": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 2.0,
+       "z": 1.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 2.0,
+       "z": 1.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  },
+  {
+   "name": "top_face_overlap",
+   "inputs": {
+    "brep": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 2.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 1.0,
+       "z": 2.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  },
+  {
+   "name": "dome_brep",
+   "inputs": {
+    "brep": [
+     {
+      "type": "Brep",
+      "faces": [
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 0.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 0.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 0.0,
+           "z": 0.0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 2.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 2.0,
+           "z": 3.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 2.0,
+           "z": 1.0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0.0,
+           "y": 4.0,
+           "z": 0.0
+          },
+          {
+           "type": "Point3d",
+           "x": 2.0,
+           "y": 4.0,
+           "z": 1.0
+          },
+          {
+           "type": "Point3d",
+           "x": 4.0,
+           "y": 4.0,
+           "z": 0.0
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         3,
+         3
+        ],
+        "v_mults": [
+         3,
+         3
+        ],
+        "u_degree": 2,
+        "v_degree": 2,
+        "u_periodic": false,
+        "v_periodic": false
+       }
+      ]
+     }
+    ],
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 5.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  },
+  {
+   "name": "miss",
+   "inputs": {
+    "brep": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 4.0,
+      "z_size": 2.0
+     }
+    ],
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 10.0,
+       "y": 10.0,
+       "z": 0.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 10.0,
+       "y": 10.0,
+       "z": 5.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "brep": {
+     "0": [
+      {
+       "type": "Box",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "x_size": 4.0,
+       "y_size": 4.0,
+       "z_size": 2.0
+      }
+     ],
+     "1": [
+      {
+       "type": "Brep",
+       "faces": [
+        {
+         "type": "Surface",
+         "poles": [
+          [
+           {
+            "type": "Point3d",
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+           },
+           {
+            "type": "Point3d",
+            "x": 2.0,
+            "y": 0.0,
+            "z": 1.0
+           },
+           {
+            "type": "Point3d",
+            "x": 4.0,
+            "y": 0.0,
+            "z": 0.0
+           }
+          ],
+          [
+           {
+            "type": "Point3d",
+            "x": 0.0,
+            "y": 2.0,
+            "z": 1.0
+           },
+           {
+            "type": "Point3d",
+            "x": 2.0,
+            "y": 2.0,
+            "z": 3.0
+           },
+           {
+            "type": "Point3d",
+            "x": 4.0,
+            "y": 2.0,
+            "z": 1.0
+           }
+          ],
+          [
+           {
+            "type": "Point3d",
+            "x": 0.0,
+            "y": 4.0,
+            "z": 0.0
+           },
+           {
+            "type": "Point3d",
+            "x": 2.0,
+            "y": 4.0,
+            "z": 1.0
+           },
+           {
+            "type": "Point3d",
+            "x": 4.0,
+            "y": 4.0,
+            "z": 0.0
+           }
+          ]
+         ],
+         "weights": [
+          [
+           1.0,
+           1.0,
+           1.0
+          ],
+          [
+           1.0,
+           1.0,
+           1.0
+          ],
+          [
+           1.0,
+           1.0,
+           1.0
+          ]
+         ],
+         "u_knots": [
+          0.0,
+          1.0
+         ],
+         "v_knots": [
+          0.0,
+          1.0
+         ],
+         "u_mults": [
+          3,
+          3
+         ],
+         "v_mults": [
+          3,
+          3
+         ],
+         "u_degree": 2,
+         "v_degree": 2,
+         "u_periodic": false,
+         "v_periodic": false
+        }
+       ]
+      }
+     ]
+    },
+    "line": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": -1.0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 2.0,
+       "y": 2.0,
+       "z": 5.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Curves",
+    "Points"
+   ]
+  }
+ ],
+ "notes": "Points come face by face in Rhino's box face order (bottom, -y, +x, +y, -x, top); overlaps are lines where Rhino has degree-1 NURBS curves."
+}
