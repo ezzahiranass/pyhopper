@@ -1,0 +1,260 @@
+{
+ "component": "pyhopper.Components.Surface.Freeform.ExtrudeLinear.ExtrudeLinear",
+ "gh_guid": "8efd5eb9-a896-486e-9f98-d8d1a07a49f3",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "profile"
+ ],
+ "cases": [
+  {
+   "name": "line_to_surface",
+   "inputs": {
+    "profile": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "axis": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 3
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Extrusion"
+   ]
+  },
+  {
+   "name": "circle_to_surface",
+   "inputs": {
+    "profile": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1.0
+     }
+    ],
+    "axis": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 2
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Extrusion"
+   ]
+  },
+  {
+   "name": "rectangle_to_four_faces",
+   "inputs": {
+    "profile": [
+     {
+      "type": "Rectangle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 4.0,
+      "y_size": 2.0
+     }
+    ],
+    "axis": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 3
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Extrusion"
+   ],
+   "gh": {
+    "skip": "the headless runner cannot convert a multi-face Brep to a pyhopper atom"
+   }
+  },
+  {
+   "name": "polyline_oriented",
+   "inputs": {
+    "profile": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 2,
+        "y": 2,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "profile_orientation": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "axis": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 2
+      }
+     }
+    ],
+    "axis_orientation": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 5,
+       "y": 5,
+       "z": 5
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Extrusion"
+   ],
+   "gh": {
+    "skip": "the headless runner cannot convert a multi-face Brep to a pyhopper atom"
+   }
+  }
+ ]
+}

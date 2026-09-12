@@ -49,11 +49,15 @@ def line_plane_intersection(line: AtomicLine, plane: AtomicPlane) -> tuple[Atomi
 
 
 def plane_plane_intersection(plane_a: AtomicPlane, plane_b: AtomicPlane) -> AtomicLine | None:
-    """Unit-length intersection line, or None for parallel planes."""
+    """Intersection line, or None for parallel planes.
+
+    The line runs along ``nB x nA`` at that vector's own length (Grasshopper does
+    not normalise it, so perpendicular planes give a unit line and a dihedral
+    angle of 45 degrees a line of length sin 45).
+    """
     direction = cross(plane_b.normal, plane_a.normal)
     if is_zero(direction, _PARALLEL):
         return None
-    direction = unit(direction)
     # a point on both planes: solve for the point closest to the origins' midpoint
     midpoint = AtomicPoint(
         (plane_a.origin.x + plane_b.origin.x) / 2.0,

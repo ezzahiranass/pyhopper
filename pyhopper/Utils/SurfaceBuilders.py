@@ -17,8 +17,20 @@ from __future__ import annotations
 
 import math
 
-from pyhopper.Core.Atoms import AtomicInterval, AtomicNurbsCurve, AtomicPlane, AtomicPoint, AtomicSurface
-from pyhopper.Utils.Nurbs import collapse_knots, expanded_surface_knots, greville_abscissae, surface_degrees
+from typing import Sequence
+
+from pyhopper.Core.Atoms import AtomicInterval, AtomicNurbsCurve, AtomicPlane, AtomicPoint, AtomicSurface, AtomicVector
+from pyhopper.Utils.Nurbs import (
+    basis_matrix,
+    collapse_knots,
+    expanded_surface_knots,
+    greville_abscissae,
+    interpolation_knots,
+    solve_linear_system,
+    surface_degrees,
+    surface_domain,
+    surface_normal,
+)
 from pyhopper.Utils.Planes import point_on_plane
 from pyhopper.Utils.Vectors import distance
 
@@ -128,3 +140,139 @@ def surface_dimensions(surface: AtomicSurface) -> tuple[float, float]:
     columns = list(zip(*rows)) if rows else []
     v_dimension = max((sum(distance(a, b) for a, b in zip(column, column[1:])) for column in columns), default=0.0)
     return u_dimension, v_dimension
+
+
+def extrude_along(curve: AtomicNurbsCurve, direction: AtomicVector) -> AtomicSurface:
+    """Ruled surface sweeping the curve along ``direction``.
+
+    Grasshopper's Extrude Linear layout: U runs along the extrusion with the
+    domain ``[0, |direction|]``, V follows the profile's own knots.
+    """
+    reach = math.sqrt(direction.x ** 2 + direction.y ** 2 + direction.z ** 2)
+    if reach <= 1e-12:
+        raise ValueError("Extrusion needs a non-zero direction")
+    weights = _weights(curve)
+    poles = tuple((point, AtomicPoint(point.x + direction.x, point.y + direction.y, point.z + direction.z)) for point in curve.control_points)
+    v_knots, v_mults = _curve_knot_data(curve)
+    return AtomicSurface(
+        poles=poles,
+        weights=tuple((w, w) for w in weights),
+        u_knots=(0.0, reach),
+        v_knots=v_knots,
+        u_mults=(2, 2),
+        v_mults=v_mults,
+        u_degree=1,
+        v_degree=int(curve.degree),
+    )
+
+
+def control_point_loft(curves: Sequence[AtomicNurbsCurve], degree: int) -> AtomicSurface:
+    """Surface whose pole rows are the curves' control points (Grasshopper Control Point Loft).
+
+    All curves need the same control-point count and degree; V is a clamped
+    uniform B-spline of ``min(degree, count - 1)`` through the rows.
+    """
+    if len(curves) < 2:
+        raise ValueError("Control Point Loft needs at least two curves")
+    reference = curves[0]
+    for curve in curves[1:]:
+        if len(curve.control_points) != len(reference.control_points) or int(curve.degree) != int(reference.degree):
+            raise ValueError("Control Point Loft needs curves with matching control-point counts and degrees")
+    v_degree = max(1, min(int(degree), len(curves) - 1))
+    u_knots, u_mults = _curve_knot_data(reference)
+    v_knots, v_mults = _uniform_clamped(len(curves), v_degree)
+    return AtomicSurface(
+        poles=tuple(tuple(curve.control_points) for curve in curves),
+        weights=tuple(_weights(curve) for curve in curves),
+        u_knots=u_knots,
+        v_knots=v_knots,
+        u_mults=u_mults,
+        v_mults=v_mults,
+        u_degree=int(reference.degree),
+        v_degree=v_degree,
+    )
+
+
+def _uniform_clamped(count: int, degree: int) -> tuple[tuple[float, ...], tuple[int, ...]]:
+    """Clamped uniform knots on [0, 1] as (unique knots, multiplicities)."""
+    spans = count - degree
+    if spans <= 1:
+        return (0.0, 1.0), (degree + 1, degree + 1)
+    return tuple(k / spans for k in range(spans + 1)), (degree + 1,) + (1,) * (spans - 1) + (degree + 1,)
+
+
+def _averaged_parameters(rows: Sequence[Sequence[AtomicPoint]]) -> list[float]:
+    """Chord-length parameters averaged over the rows (The NURBS Book, 9.2.5)."""
+    count = len(rows[0])
+    totals = [0.0] * count
+    for row in rows:
+        lengths = [distance(row[k - 1], row[k]) for k in range(1, count)]
+        total = sum(lengths) or 1.0
+        running = 0.0
+        for k in range(1, count):
+            running += lengths[k - 1]
+            totals[k] += running
+    return [value / len(rows) for value in totals]
+
+
+def surface_from_grid(grid: Sequence[Sequence[AtomicPoint]], interpolate: bool) -> AtomicSurface:
+    """Surface over ``grid[v][u]``: a control-point surface, or one interpolating the points.
+
+    Degrees are ``min(3, count - 1)`` per direction with clamped knots on [0, 1]
+    for control points; interpolation uses averaged chord-length parameters and
+    averaged knots (Grasshopper's Surface From Points).
+    """
+    v_count, u_count = len(grid), len(grid[0])
+    u_degree, v_degree = min(3, u_count - 1), min(3, v_count - 1)
+    if u_degree < 1 or v_degree < 1:
+        raise ValueError("A surface needs at least two points in each direction")
+    if not interpolate:
+        u_knots, u_mults = _uniform_clamped(u_count, u_degree)
+        v_knots, v_mults = _uniform_clamped(v_count, v_degree)
+        return AtomicSurface(poles=tuple(tuple(row) for row in grid), u_knots=u_knots, v_knots=v_knots, u_mults=u_mults, v_mults=v_mults, u_degree=u_degree, v_degree=v_degree)
+    u_parameters = _averaged_parameters(grid)
+    v_parameters = _averaged_parameters([[grid[v][u] for v in range(v_count)] for u in range(u_count)])
+    full_u = interpolation_knots(u_parameters, u_degree)
+    full_v = interpolation_knots(v_parameters, v_degree)
+    # interpolate every row along U, then the resulting columns along V
+    u_matrix = basis_matrix(u_parameters, full_u, u_degree)
+    rows = [solve_linear_system(u_matrix, [[p.x, p.y, p.z] for p in row], "Surface From Points could not interpolate") for row in grid]
+    v_matrix = basis_matrix(v_parameters, full_v, v_degree)
+    poles = [[None] * u_count for _ in range(v_count)]
+    for u in range(u_count):
+        column = solve_linear_system(v_matrix, [rows[v][u] for v in range(v_count)], "Surface From Points could not interpolate")
+        for v in range(v_count):
+            poles[v][u] = AtomicPoint(*column[v])
+    u_knots, u_mults = collapse_knots(full_u)
+    v_knots, v_mults = collapse_knots(full_v)
+    return AtomicSurface(poles=tuple(tuple(row) for row in poles), u_knots=u_knots, v_knots=v_knots, u_mults=u_mults, v_mults=v_mults, u_degree=u_degree, v_degree=v_degree)
+
+
+def rectangle_corners(rectangle) -> list[AtomicPoint]:
+    """The five vertices (closed loop) of a centred rectangle, counter-clockwise from (x-, y-)."""
+    half_x, half_y = float(rectangle.x_size) / 2.0, float(rectangle.y_size) / 2.0
+    corners = [point_on_plane(rectangle.plane, sx * half_x, sy * half_y) for sx, sy in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+    return corners + [corners[0]]
+
+
+def flip_surface(surface: AtomicSurface) -> AtomicSurface:
+    """The same surface with U and V swapped, which reverses its normal."""
+    v_count, u_count = len(surface.poles), len(surface.poles[0])
+    return AtomicSurface(
+        poles=tuple(tuple(surface.poles[v][u] for v in range(v_count)) for u in range(u_count)),
+        weights=tuple(tuple(surface.weights[v][u] for v in range(v_count)) for u in range(u_count)),
+        u_knots=surface.v_knots,
+        v_knots=surface.u_knots,
+        u_mults=surface.v_mults,
+        v_mults=surface.u_mults,
+        u_degree=surface.v_degree,
+        v_degree=surface.u_degree,
+        u_periodic=surface.v_periodic,
+        v_periodic=surface.u_periodic,
+    )
+
+
+def surface_normal_at_centre(surface: AtomicSurface) -> AtomicVector:
+    """Unit normal at the middle of the surface's domain."""
+    (u0, u1), (v0, v1) = surface_domain(surface)
+    return surface_normal(surface, 0.5 * (u0 + u1), 0.5 * (v0 + v1))

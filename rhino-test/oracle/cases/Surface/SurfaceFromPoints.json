@@ -1,0 +1,304 @@
+{
+ "component": "pyhopper.Components.Surface.Freeform.SurfaceFromPoints.SurfaceFromPoints",
+ "gh_guid": "4b04a1e1-cddf-405d-a7db-335aaa940541",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "three_by_three_control_points",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "u_count": [
+     3
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "three_by_three_interpolated",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "u_count": [
+     3
+    ],
+    "interpolate": [
+     true
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "two_by_three",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "u_count": [
+     3
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "four_by_four",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 1,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 3,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 3,
+      "z": 1
+     }
+    ],
+    "u_count": [
+     4
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,133 @@
+{
+ "component": "pyhopper.Components.Surface.Primitive.Sphere4Pt.Sphere4Pt",
+ "gh_guid": "b083c06d-9a71-4f40-b354-1d80bba1e858",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "unit_sphere",
+   "inputs": {
+    "point_1": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_2": [
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_3": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "point_4": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  },
+  {
+   "name": "coplanar_falls_back_to_circle",
+   "inputs": {
+    "point_1": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_2": [
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "point_3": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "point_4": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  },
+  {
+   "name": "offset_sphere",
+   "inputs": {
+    "point_1": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": 1
+     }
+    ],
+    "point_2": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 1
+     }
+    ],
+    "point_3": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 1
+     }
+    ],
+    "point_4": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 2,
+      "z": 2
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  }
+ ],
+ "notes": "The sphere surface is pyhopper's Sphere (knot domains [0, 1]); Grasshopper's spans [0, 2pi] x [-pi/2, pi/2]. Centre and radius are compared."
+}

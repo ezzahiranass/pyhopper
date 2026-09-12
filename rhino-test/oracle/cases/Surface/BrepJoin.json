@@ -1,0 +1,571 @@
+{
+ "component": "pyhopper.Components.Surface.Util.BrepJoin.BrepJoin",
+ "gh_guid": "1addcc85-b04e-46e6-bd4a-6f6c93bf7efd",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "box_faces_close",
+   "inputs": {
+    "breps": [
+     {
+      "type": "Brep",
+      "faces": [
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 3,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 0
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       },
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 4
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 3,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 4
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       },
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 4
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       },
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 3,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 3,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 4
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       },
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 3,
+           "z": 0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 3,
+           "z": 4
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       },
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 4
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       }
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Breps",
+    "Closed"
+   ],
+   "gh": {
+    "skip": "Grasshopper's Brep Join uses real edge topology; pyhopper concatenates faces and checks shared boundaries"
+   }
+  },
+  {
+   "name": "open_walls_stay_open",
+   "inputs": {
+    "breps": [
+     {
+      "type": "Brep",
+      "faces": [
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 0,
+           "y": 0,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 4
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       }
+      ]
+     },
+     {
+      "type": "Brep",
+      "faces": [
+       {
+        "type": "Surface",
+        "poles": [
+         [
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 0
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 0
+          }
+         ],
+         [
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 0,
+           "z": 4
+          },
+          {
+           "type": "Point3d",
+           "x": 2,
+           "y": 3,
+           "z": 4
+          }
+         ]
+        ],
+        "weights": [
+         [
+          1.0,
+          1.0
+         ],
+         [
+          1.0,
+          1.0
+         ]
+        ],
+        "u_knots": [
+         0.0,
+         1.0
+        ],
+        "v_knots": [
+         0.0,
+         1.0
+        ],
+        "u_mults": [
+         2,
+         2
+        ],
+        "v_mults": [
+         2,
+         2
+        ],
+        "u_degree": 1,
+        "v_degree": 1,
+        "u_periodic": false,
+        "v_periodic": false
+       }
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Breps",
+    "Closed"
+   ],
+   "gh": {
+    "skip": "Grasshopper's Brep Join uses real edge topology; pyhopper concatenates faces and checks shared boundaries"
+   }
+  },
+  {
+   "name": "empty",
+   "inputs": {
+    "breps": {
+     "0": []
+    }
+   },
+   "compare": [
+    "Breps",
+    "Closed"
+   ],
+   "gh": {
+    "skip": "empty input"
+   }
+  }
+ ]
+}

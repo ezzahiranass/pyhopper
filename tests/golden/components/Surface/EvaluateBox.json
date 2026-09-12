@@ -1,0 +1,288 @@
+{
+ "component": "pyhopper.Components.Surface.Analysis.EvaluateBox.EvaluateBox",
+ "gh_guid": "13b40e9c-3aed-4669-b2e8-60bd02091421",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "centre_by_default",
+   "inputs": {
+    "box": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 1.5,
+        "z": 2
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 2.0,
+      "y_size": 3.0,
+      "z_size": 4.0
+     }
+    ]
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 1.5,
+        "z": 2.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.5,
+       "z": 2.0
+      }
+     ]
+    },
+    "include": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "corner_and_outside",
+   "inputs": {
+    "box": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 1.5,
+        "z": 2
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 2.0,
+      "y_size": 3.0,
+      "z_size": 4.0
+     }
+    ],
+    "u_parameter": [
+     0.0,
+     1.5
+    ],
+    "v_parameter": [
+     0.0,
+     0.5
+    ],
+    "w_parameter": [
+     1.0,
+     0.5
+    ]
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 4.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 3.0,
+        "y": 1.5,
+        "z": 2.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 4.0
+      },
+      {
+       "type": "Point3d",
+       "x": 3.0,
+       "y": 1.5,
+       "z": 2.0
+      }
+     ]
+    },
+    "include": {
+     "{0}": [
+      true,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "tilted",
+   "inputs": {
+    "box": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 1,
+        "z": 0
+       }
+      },
+      "x_size": 2.0,
+      "y_size": 3.0,
+      "z_size": 4.0
+     }
+    ],
+    "u_parameter": [
+     0.25
+    ],
+    "v_parameter": [
+     0.5
+    ],
+    "w_parameter": [
+     1.0
+    ]
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": 1.5,
+        "z": 5.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "point": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.5,
+       "z": 5.0
+      }
+     ]
+    },
+    "include": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  }
+ ]
+}

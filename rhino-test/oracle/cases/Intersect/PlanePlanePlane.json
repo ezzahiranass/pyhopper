@@ -1,0 +1,249 @@
+{
+ "component": "pyhopper.Components.Intersect.Mathematical.PlanePlanePlane.PlanePlanePlane",
+ "gh_guid": "f1ea5a4b-1a4f-4cf4-ad94-1ecfb9302b6e",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "axis_planes",
+   "inputs": {
+    "plane_a": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "plane_b": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "plane_c": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Line AB",
+    "Line AC",
+    "Line BC"
+   ]
+  },
+  {
+   "name": "tilted",
+   "inputs": {
+    "plane_a": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "plane_b": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      }
+     }
+    ],
+    "plane_c": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Line AB",
+    "Line AC",
+    "Line BC"
+   ]
+  },
+  {
+   "name": "two_parallel_planes",
+   "inputs": {
+    "plane_a": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "plane_b": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "plane_c": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Point",
+    "Line AB",
+    "Line AC",
+    "Line BC"
+   ]
+  }
+ ]
+}

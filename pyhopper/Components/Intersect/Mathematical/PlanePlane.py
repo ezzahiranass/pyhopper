@@ -20,7 +20,7 @@ class PlanePlane(Component):
 
     Notes:
         Grasshopper: Intersect > Mathematical > Plane | Plane (PPX).
-        pyhopper decisions: a unit-length line starting at the projection of the two origins' midpoint onto the
+        pyhopper decisions: a line along ``nB x nA`` at that cross product's own length (unit for perpendicular planes, Grasshopper-verified) starting at the projection of the two origins' midpoint onto the
         intersection, running along ``normal_b x normal_a`` — Grasshopper's exact answer; parallel
         planes emit nothing.
     """
