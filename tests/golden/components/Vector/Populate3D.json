@@ -1,0 +1,194 @@
+{
+ "component": "pyhopper.Components.Vector.Grid.Populate3D.Populate3D",
+ "gh_guid": "e202025b-dc8e-4c51-ae19-4415b172886f",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "five_points",
+   "inputs": {
+    "region": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 2,
+      "y_size": 2,
+      "z_size": 2
+     }
+    ],
+    "count": [
+     5
+    ]
+   },
+   "expect": {
+    "population": {
+     "{0;0}": 5
+    }
+   },
+   "shape_only": true
+  },
+  {
+   "name": "per_branch_counts",
+   "inputs": {
+    "region": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 2,
+      "y_size": 2,
+      "z_size": 2
+     }
+    ],
+    "count": {
+     "0": [
+      3
+     ],
+     "1": [
+      2,
+      4
+     ]
+    }
+   },
+   "expect": {
+    "population": {
+     "{0;0}": 3,
+     "{1;0}": 2,
+     "{1;1}": 4
+    }
+   },
+   "shape_only": true
+  },
+  {
+   "name": "seed_points_repel_only",
+   "inputs": {
+    "region": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 2,
+      "y_size": 2,
+      "z_size": 2
+     }
+    ],
+    "count": [
+     4
+    ],
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "population": {
+     "{0;0}": 4
+    }
+   },
+   "shape_only": true
+  },
+  {
+   "name": "negative_count_raises",
+   "inputs": {
+    "region": [
+     {
+      "type": "Box",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "x_size": 2,
+      "y_size": 2,
+      "z_size": 2
+     }
+    ],
+    "count": [
+     -1
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

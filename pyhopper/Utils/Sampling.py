@@ -13,7 +13,7 @@ from __future__ import annotations
 import random
 from typing import Iterable, Sequence
 
-from pyhopper.Core.Atoms import AtomicPoint, AtomicRectangle
+from pyhopper.Core.Atoms import AtomicBox, AtomicPoint, AtomicRectangle
 from pyhopper.Utils.Planes import point_on_plane
 from pyhopper.Utils.Vectors import distance
 
@@ -29,6 +29,19 @@ def populate_rectangle(region: AtomicRectangle, count: int, seed: int, existing:
 
     def draw() -> AtomicPoint:
         return point_on_plane(region.plane, generator.uniform(-half_x, half_x), generator.uniform(-half_y, half_y))
+
+    return best_candidates(draw, count, existing, generator)
+
+
+def populate_box(region: AtomicBox, count: int, seed: int, existing: Iterable[AtomicPoint] = ()) -> list[AtomicPoint]:
+    """``count`` well-spread points inside ``region`` (its plane, centred sizes)."""
+    if count < 0:
+        raise ValueError("Populate count must not be negative")
+    generator = random.Random(int(seed))
+    half_x, half_y, half_z = float(region.x_size) / 2.0, float(region.y_size) / 2.0, float(region.z_size) / 2.0
+
+    def draw() -> AtomicPoint:
+        return point_on_plane(region.plane, generator.uniform(-half_x, half_x), generator.uniform(-half_y, half_y), generator.uniform(-half_z, half_z))
 
     return best_candidates(draw, count, existing, generator)
 

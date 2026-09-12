@@ -1,0 +1,131 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.LinePlusLine.LinePlusLine",
+ "gh_guid": "d788ad7f-6d68-4106-8b2f-9e55e6e107c0",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "crossing_lines",
+   "inputs": {
+    "line_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "line_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 5
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 3,
+       "z": 5
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "line_a": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 2
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ]
+    },
+    "line_b": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       }
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Plane"
+   ]
+  }
+ ]
+}

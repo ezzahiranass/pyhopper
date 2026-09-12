@@ -1,0 +1,225 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.FlipPlane.FlipPlane",
+ "gh_guid": "c73e1ed0-82a2-40b0-b4df-8f10e445d60b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "default_swap",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "reverse_x_only",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "reverse_x": [
+     true
+    ],
+    "swap_axes": [
+     false
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "reverse_y_only",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "reverse_y": [
+     true
+    ],
+    "swap_axes": [
+     false
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "reverse_x_and_swap",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "reverse_x": [
+     true
+    ],
+    "swap_axes": [
+     true
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "everything",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "reverse_x": [
+     true
+    ],
+    "reverse_y": [
+     true
+    ],
+    "swap_axes": [
+     true
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  },
+  {
+   "name": "nothing",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "swap_axes": [
+     false
+    ]
+   },
+   "compare": [
+    "Plane"
+   ]
+  }
+ ]
+}

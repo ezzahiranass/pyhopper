@@ -1,0 +1,116 @@
+{
+ "component": "pyhopper.Components.Vector.Vector.UnitVector.UnitVector",
+ "gh_guid": "d2da1306-259a-4994-85a4-672d8a4c7805",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "vector": [
+     {
+      "type": "Vector3d",
+      "x": 3,
+      "y": 0,
+      "z": 4
+     },
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 2,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "vector": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 0.6,
+       "y": 0.0,
+       "z": 0.8
+      },
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_stays_zero",
+   "inputs": {
+    "vector": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "vector": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "vector": {
+     "0": [
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": -5
+      }
+     ]
+    }
+   },
+   "expect": {
+    "vector": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 0.7071067811865475,
+       "y": 0.7071067811865475,
+       "z": 0.0
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Vector3d",
+       "x": 0.0,
+       "y": 0.0,
+       "z": -1.0
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

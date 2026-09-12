@@ -1,0 +1,146 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.PlaneFit.PlaneFit",
+ "gh_guid": "33bfc73c-19b2-480b-81e6-f3523a012ea6",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "nearly_flat",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 3,
+      "z": 0.2
+     }
+    ]
+   },
+   "compare": [
+    "Deviation"
+   ]
+  },
+  {
+   "name": "exact_plane",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 4,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Deviation"
+   ]
+  },
+  {
+   "name": "nearly_vertical",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 5,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 0.1,
+      "y": 5,
+      "z": 3
+     }
+    ]
+   },
+   "compare": [
+    "Deviation"
+   ]
+  },
+  {
+   "name": "raised_below",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 3,
+      "z": -0.2
+     }
+    ]
+   },
+   "compare": [
+    "Deviation"
+   ]
+  }
+ ],
+ "notes": "Grasshopper's normal sign comes out of its solver (it flips with the point arrangement); only the deviation is compared."
+}

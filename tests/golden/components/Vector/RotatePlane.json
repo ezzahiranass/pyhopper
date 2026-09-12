@@ -1,0 +1,235 @@
+{
+ "component": "pyhopper.Components.Vector.Plane.RotatePlane.RotatePlane",
+ "gh_guid": "f6f14b09-6497-4564-8403-09e4eb5a6b82",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "quarter_turn",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "angle": [
+     1.5707963267948966
+    ]
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -1.0,
+        "y": 6.123233995736766e-17,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "angle": {
+     "0": [
+      3.141592653589793
+     ],
+     "1": [
+      0.7853981633974483,
+      -1.5707963267948966
+     ]
+    }
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -1.0,
+        "y": 1.2246467991473532e-16,
+        "z": 0.0
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 0.7071067811865476,
+        "y": 0.7071067811865476,
+        "z": 0.0
+       }
+      },
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 6.123233995736766e-17,
+        "y": -1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "full_turn",
+   "inputs": {
+    "plane": [
+     {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      }
+     }
+    ],
+    "angle": [
+     6.283185307179586
+    ]
+   },
+   "expect": {
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1,
+        "y": 2,
+        "z": 3
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 2.4492935982947064e-16,
+        "y": 1.0,
+        "z": 0.0
+       }
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

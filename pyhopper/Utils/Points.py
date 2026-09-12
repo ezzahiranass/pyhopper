@@ -52,3 +52,38 @@ def group_coincident(points: Sequence[AtomicPoint], tolerance: float) -> list[li
 def average_point(points: Sequence[AtomicPoint]) -> AtomicPoint:
     count = len(points)
     return AtomicPoint(sum(p.x for p in points) / count, sum(p.y for p in points) / count, sum(p.z for p in points) / count)
+
+
+def group_by_distance(points: Sequence[AtomicPoint], distance_limit: float) -> list[list[int]]:
+    """Point-index groups linked by chains of points at most ``distance_limit`` apart.
+
+    Grasshopper's Point Groups order: groups appear in order of their highest
+    index, members from the highest index down (it walks the list backwards).
+    """
+    parent = list(range(len(points)))
+
+    def find(index: int) -> int:
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    for first in range(len(points)):
+        for second in range(first + 1, len(points)):
+            if distance(points[first], points[second]) <= distance_limit:
+                parent[find(second)] = find(first)
+    groups: dict[int, list[int]] = {}
+    for index in range(len(points) - 1, -1, -1):
+        groups.setdefault(find(index), []).append(index)
+    return list(groups.values())
+
+
+COORDINATE_INDICES = {"x": 0, "y": 1, "z": 2}
+
+
+def coordinate_mask(mask: str) -> list[int]:
+    """Coordinate indices named by a Grasshopper mask such as ``"XYZ"``, ``"xz"`` or ``"ZYX"``."""
+    letters = str(mask).strip()
+    if not letters or any(letter.lower() not in COORDINATE_INDICES for letter in letters):
+        raise ValueError(f"Coordinate mask {mask!r} must use only the letters X, Y and Z")
+    return [COORDINATE_INDICES[letter.lower()] for letter in letters]

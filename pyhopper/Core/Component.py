@@ -260,16 +260,18 @@ class Component:
 
     # ── Helpers available inside generate() ─────────────────────────
 
-    def sub_branches(self, lists: Iterable[Iterable[Any]]) -> DataTree:
+    def sub_branches(self, lists: Iterable[Iterable[Any]], *, iteration: bool = True) -> DataTree:
         """Build a tree with one branch per list under the current branch.
 
         Branch ``k`` lands at ``{path;k}`` for a component that runs once per
         branch (LIST/TREE inputs only, like Partition List), or at
         ``{path;index;k}`` under the iteration's own sub-branch when the
-        component iterates items.
+        component iterates items. Pass ``iteration=False`` for Grasshopper
+        components that append only the group index to the branch path even
+        though they iterate (Point Groups); iterations then share ``{path;k}``.
         """
         context = self.iteration or IterationContext(Path.root())
-        base = context.path.append(context.index) if self._iterates_items() else context.path
+        base = context.path.append(context.index) if iteration and self._iterates_items() else context.path
         branches: dict[Path, list[Any]] = {}
         for k, items in enumerate(lists):
             branches[base.append(k)] = list(items)

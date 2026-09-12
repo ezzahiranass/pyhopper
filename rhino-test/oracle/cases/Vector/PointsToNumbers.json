@@ -1,0 +1,91 @@
+{
+ "component": "pyhopper.Components.Vector.Point.PointsToNumbers.PointsToNumbers",
+ "gh_guid": "d24169cc-9922-4923-92bc-b9222efc413f",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "default_mask",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 5,
+      "z": 6
+     }
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "mask_yz",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 5,
+      "z": 6
+     }
+    ],
+    "mask": [
+     "YZ"
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  },
+  {
+   "name": "mask_zx_per_branch",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 7,
+       "y": 8,
+       "z": 9
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 1
+      }
+     ]
+    },
+    "mask": [
+     "ZX"
+    ]
+   },
+   "compare": [
+    "Numbers"
+   ]
+  }
+ ]
+}

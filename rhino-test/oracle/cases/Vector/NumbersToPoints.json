@@ -1,0 +1,77 @@
+{
+ "component": "pyhopper.Components.Vector.Point.NumbersToPoints.NumbersToPoints",
+ "gh_guid": "0ae07da9-951b-4b9b-98ca-d312c252374d",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "mask_xy",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     3.0,
+     4.0
+    ],
+    "mask": [
+     "XY"
+    ]
+   },
+   "compare": [
+    "Points"
+   ]
+  },
+  {
+   "name": "mask_lowercase_xz",
+   "inputs": {
+    "numbers": [
+     1.0,
+     2.0,
+     3.0,
+     4.0
+    ],
+    "mask": [
+     "xz"
+    ]
+   },
+   "compare": [
+    "Points"
+   ]
+  },
+  {
+   "name": "mask_z_and_order_zyx",
+   "inputs": {
+    "numbers": {
+     "0": [
+      1.0,
+      2.0
+     ],
+     "1": [
+      1.0,
+      2.0,
+      3.0
+     ]
+    },
+    "mask": {
+     "0": [
+      "Z"
+     ],
+     "1": [
+      "ZYX"
+     ]
+    }
+   },
+   "compare": [
+    "Points"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Points"
+   ]
+  }
+ ]
+}
