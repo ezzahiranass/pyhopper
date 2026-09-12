@@ -5,7 +5,7 @@ from heapq import heappop, heappush
 from importlib import import_module
 from pathlib import Path
 import re
-from typing import Any
+from typing import Any, Callable
 
 from pyhopper.Core.Component import Component, ComponentResult, InputParam, OutputParam
 from pyhopper.Core.DataTree import DataTree
@@ -178,6 +178,157 @@ def _source_expression(
     return _apply_port_operation(expr, target_node.port_operations.get(f"input:{target_port}"), imports)
 
 
+# ── Authored values ────────────────────────────────────────────────
+# Components declare what a person authors on a node: ``settings_schema`` for
+# call-time ``_settings`` and ``authored_values`` for data the compiler bakes
+# into the source; ``authored_emit`` names the strategy below that does so.
+# Both schemas share one vocabulary of types.
+
+SCHEMA_TYPE_CHECKS: dict[str, Callable[[Any], bool]] = {
+    "float": lambda value: isinstance(value, (int, float)) and not isinstance(value, bool),
+    "int": lambda value: (isinstance(value, int) and not isinstance(value, bool)) or (isinstance(value, float) and value.is_integer()),
+    "bool": lambda value: type(value) is bool,
+    "string": lambda value: isinstance(value, str),
+    "choice": lambda value: isinstance(value, str),
+    "list": lambda value: isinstance(value, list),
+}
+SCHEMA_TYPE_LABELS: dict[str, str] = {
+    "float": "numeric",
+    "int": "an integer",
+    "bool": "boolean",
+    "string": "a string",
+    "choice": "a string",
+    "list": "a list",
+}
+
+
+def _authored_schema(component_cls: type[Component] | None) -> dict[str, dict[str, Any]]:
+    schema = getattr(component_cls, "authored_values", None) if component_cls is not None else None
+    return schema if isinstance(schema, dict) else {}
+
+
+def _settings_schema(component_cls: type[Component] | None) -> dict[str, dict[str, Any]]:
+    schema = getattr(component_cls, "settings_schema", None) if component_cls is not None else None
+    return schema if isinstance(schema, dict) else {}
+
+
+def _coerce_to_schema(spec: dict[str, Any], value: Any) -> Any:
+    """Bring *value* to the Python type its spec declares; strings and lists pass through."""
+    kind = spec.get("type")
+    if kind == "float":
+        return float(value)
+    if kind == "int":
+        return int(value)
+    if kind == "bool":
+        return bool(value)
+    return value
+
+
+def _validate_against_schema(
+    path: str,
+    section: str,
+    data: dict[str, Any],
+    schema: dict[str, dict[str, Any]],
+    errors: list[dict[str, str]],
+    *,
+    strict: bool,
+) -> None:
+    """Type- and choice-check *data* against *schema*; unknown keys error only when *strict*."""
+    for key, value in data.items():
+        spec = schema.get(key)
+        if not isinstance(spec, dict):
+            if strict:
+                noun = "authored value" if section == "values" else "setting"
+                errors.append(_error(f"{path}.{section}.{key}", f"Unknown {noun} '{key}'"))
+            continue
+        kind = spec.get("type")
+        check = SCHEMA_TYPE_CHECKS.get(kind)
+        if check is not None and not check(value):
+            errors.append(_error(f"{path}.{section}.{key}", f"'{key}' must be {SCHEMA_TYPE_LABELS[kind]}"))
+        elif kind == "choice" and value not in spec.get("choices", ()):
+            errors.append(_error(f"{path}.{section}.{key}", f"Unsupported {key} '{value}'"))
+
+
+def _validate_node_authoring(
+    path: str,
+    component_cls: type[Component],
+    settings: dict[str, Any],
+    values: dict[str, Any],
+    errors: list[dict[str, str]],
+) -> None:
+    """Check a node's ``settings`` and ``values`` against what its component declares."""
+    emit = getattr(component_cls, "authored_emit", None)
+    if emit is not None and emit not in AUTHORED_EMITTERS:
+        errors.append(_error(f"{path}.componentKey", f"{component_cls.__name__} declares unknown authored_emit '{emit}'"))
+        return
+
+    before = len(errors)
+    authored = _authored_schema(component_cls)
+    if emit == "settings":
+        # The settings dict reaches the constructor, so every key must be declared. Documents
+        # from before slider settings existed stored the value under values[<primary output>].
+        primary = component_cls.outputs[0].name if component_cls.outputs else "value"
+        for key, value in values.items():
+            if key != primary:
+                errors.append(_error(f"{path}.values.{key}", f"{component_cls.__name__} stores authored values in settings"))
+            elif not SCHEMA_TYPE_CHECKS["float"](value):
+                errors.append(_error(f"{path}.values.{key}", "Slider values must be numeric"))
+        _validate_against_schema(path, "settings", settings, _settings_schema(component_cls), errors, strict=True)
+    else:
+        if authored:
+            _validate_against_schema(path, "values", values, authored, errors, strict=True)
+        else:
+            for key in values:
+                errors.append(_error(f"{path}.values.{key}", f"{component_cls.__name__} does not declare authored values"))
+        # settings the component never reads are ignored, declared ones must still type-check
+        _validate_against_schema(path, "settings", settings, _settings_schema(component_cls), errors, strict=False)
+
+    if len(errors) == before:
+        for section, data in (("settings", settings), ("values", values)):
+            for key, message in component_cls.validate_authored(section, data):
+                errors.append(_error(f"{path}.{section}.{key}" if key else f"{path}.{section}", message))
+
+
+@dataclass(frozen=True)
+class EmitContext:
+    """Everything an authored-value emitter needs to write one node's line."""
+
+    node: ResolvedNode
+    variable_name: str
+    imports: set[tuple[str, str]]
+    incoming_by_port: dict[tuple[str, str], list[ValidatedEdge]]
+    port_expressions: dict[tuple[str, str], str]
+
+    @property
+    def schema(self) -> dict[str, dict[str, Any]]:
+        return _authored_schema(self.node.component_cls)
+
+    def authored(self, key: str) -> Any:
+        """The node's value for *key*, else the declared default."""
+        return self.node.values.get(key, self.schema.get(key, {}).get("default"))
+
+    def typed(self, key: str) -> Any:
+        """``authored(key)`` coerced to the type the schema declares."""
+        return _coerce_to_schema(self.schema.get(key, {}), self.authored(key))
+
+    def wired(self, input_name: str) -> bool:
+        return bool(self.incoming_by_port.get((self.node.node_id, input_name)))
+
+    def source(self, input_name: str) -> str:
+        """Expression feeding *input_name* (its input port operation applied)."""
+        edge = self.incoming_by_port[(self.node.node_id, input_name)][0]
+        return _source_expression(edge, self.port_expressions, self.node, input_name, self.imports)
+
+    def module_name(self) -> str:
+        return self.node.component_key.rpartition(".")[0]
+
+    def import_component(self) -> str:
+        """Import the node's class and return its name."""
+        module_name, _, class_name = self.node.component_key.rpartition(".")
+        self.imports.add((module_name, class_name))
+        return class_name
+
+
 def _slider_value(node: ResolvedNode) -> float:
     output_name = node.outputs[0].name if node.outputs else "value"
     raw_value = node.settings.get("value", node.values.get(output_name))
@@ -188,7 +339,7 @@ def _slider_value(node: ResolvedNode) -> float:
     if isinstance(raw_value, (int, float)):
         return float(raw_value)
 
-    config_value = getattr(node.component_cls, "settings_schema", {}).get("value", {}).get("default")
+    config_value = _settings_schema(node.component_cls).get("value", {}).get("default")
     if isinstance(config_value, (int, float)) and not isinstance(config_value, bool):
         return float(config_value)
 
@@ -199,28 +350,68 @@ def _slider_value(node: ResolvedNode) -> float:
     return 0.0
 
 
-def _authored_value(node: ResolvedNode, key: str, fallback: Any) -> Any:
-    settings_schema = getattr(node.component_cls, "settings_schema", {}) if node.component_cls is not None else {}
-    default = settings_schema.get(key, {}).get("default", fallback) if isinstance(settings_schema, dict) else fallback
-    return node.values.get(key, default)
+def _emit_literal(ctx: EmitContext) -> str:
+    """The single authored value becomes a one-item tree (Boolean Toggle)."""
+    ctx.imports.add(("pyhopper.Core.DataTree", "DataTree"))
+    key = next(iter(ctx.schema))
+    return f"{ctx.variable_name} = DataTree.from_item({_literal_expression(ctx.typed(key))})"
 
 
-def _validate_authored_values(
-    path: str,
-    values: dict[str, Any],
-    allowed: dict[str, type],
-    errors: list[dict[str, str]],
-) -> None:
-    for key, value in values.items():
-        expected = allowed.get(key)
-        if expected is None:
-            errors.append(_error(f"{path}.values.{key}", f"Unknown authored value '{key}'"))
-        elif expected is float and (not isinstance(value, (int, float)) or isinstance(value, bool)):
-            errors.append(_error(f"{path}.values.{key}", f"'{key}' must be numeric"))
-        elif expected is bool and type(value) is not bool:
-            errors.append(_error(f"{path}.values.{key}", f"'{key}' must be boolean"))
-        elif expected is str and not isinstance(value, str):
-            errors.append(_error(f"{path}.values.{key}", f"'{key}' must be a string"))
+def _emit_vector(ctx: EmitContext) -> str:
+    """Authored ``x``/``y`` (and ``z`` when declared) become one AtomicVector (MD Slider)."""
+    ctx.imports.add(("pyhopper.Core.Atoms", "AtomicVector"))
+    ctx.imports.add(("pyhopper.Core.DataTree", "DataTree"))
+    x = float(ctx.authored("x"))
+    y = float(ctx.authored("y"))
+    z = float(ctx.authored("z")) if "z" in ctx.schema else 0.0
+    return f"{ctx.variable_name} = DataTree.from_item(AtomicVector({x!r}, {y!r}, {z!r}))"
+
+
+def _emit_panel(ctx: EmitContext) -> str | None:
+    """An unwired Panel is a text source; a wired one is an ordinary pass-through call."""
+    node = ctx.node
+    if not node.inputs or ctx.wired(node.inputs[0].name):
+        return None
+    ctx.imports.add(("pyhopper.Core.DataTree", "DataTree"))
+    text = str(ctx.authored("text"))
+    if bool(ctx.authored("multilineData")):
+        ctx.imports.add((ctx.module_name(), "parse_panel_lines"))
+        return f"{ctx.variable_name} = DataTree.from_list(parse_panel_lines({_literal_expression(text)}))"
+    ctx.imports.add((ctx.module_name(), "parse_panel_text"))
+    return f"{ctx.variable_name} = DataTree.from_item(parse_panel_text({_literal_expression(text)}))"
+
+
+def _emit_graph_mapper(ctx: EmitContext) -> str | None:
+    """The authored graph becomes the config of ``map_graph_tree`` over the wired input."""
+    node = ctx.node
+    if not node.inputs or not ctx.wired(node.inputs[0].name):
+        return None
+    ctx.imports.add((ctx.module_name(), "map_graph_tree"))
+    expr = ctx.source(node.inputs[0].name)
+    config = {key: ctx.typed(key) for key in ctx.schema}
+    return f"{ctx.variable_name} = map_graph_tree({expr}, {config!r})"
+
+
+def _emit_settings(ctx: EmitContext) -> str:
+    """The node's settings travel into the constructor as ``_settings`` (Number Slider)."""
+    node = ctx.node
+    class_name = ctx.import_component()
+    settings = dict(node.settings)
+    output_name = node.outputs[0].name if node.outputs else "value"
+    if output_name in node.values and "value" not in settings:
+        settings["value"] = _slider_value(node)  # legacy documents: value stored under the output name
+    return f"{ctx.variable_name} = {class_name}(_settings={settings!r})"
+
+
+# ``authored_emit`` name → emitter. An emitter returns the node's line, or None to
+# let the generic constructor call handle the node after all.
+AUTHORED_EMITTERS: dict[str, Callable[[EmitContext], str | None]] = {
+    "literal": _emit_literal,
+    "vector": _emit_vector,
+    "panel": _emit_panel,
+    "graph_mapper": _emit_graph_mapper,
+    "settings": _emit_settings,
+}
 
 
 def _sanitize_filename(graph_id: str) -> str:
@@ -382,57 +573,7 @@ def _validate_document(document: Any) -> tuple[str, dict[str, ResolvedNode], lis
             continue
 
         outputs = list(getattr(component_cls, "outputs", []))
-        component_name = component_cls.__name__
-
-        if component_name == "NumberSlider":
-            output_name = outputs[0].name if outputs else "value"
-            for key, value in values.items():
-                if key != output_name:
-                    errors.append(_error(f"{path}.values.{key}", "NumberSlider stores authored values in settings"))
-                    continue
-                if not isinstance(value, (int, float)) or isinstance(value, bool):
-                    errors.append(_error(f"{path}.values.{key}", "Slider values must be numeric"))
-            _validate_authored_values(
-                path,
-                settings,
-                {"value": float, "min": float, "max": float, "decimals": float, "rounding": str},
-                errors,
-            )
-            rounding = settings.get("rounding")
-            if rounding is not None and rounding not in {"real", "integer", "even", "odd"}:
-                errors.append(_error(f"{path}.settings.rounding", f"Unsupported slider rounding '{rounding}'"))
-        elif component_name == "PointOnCurve":
-            _validate_authored_values(path, values, {"parameter": float}, errors)
-        elif component_name == "BooleanToggle":
-            _validate_authored_values(path, values, {"value": bool}, errors)
-        elif component_name == "MDSlider":
-            _validate_authored_values(path, values, {"x": float, "y": float}, errors)
-        elif component_name == "GraphMapper":
-            _validate_authored_values(
-                path,
-                values,
-                {
-                    "graphType": str,
-                    "xMin": float,
-                    "xMax": float,
-                    "yMin": float,
-                    "yMax": float,
-                    "controlY1": float,
-                    "controlY2": float,
-                },
-                errors,
-            )
-            graph_type = values.get("graphType", "bezier")
-            if graph_type not in {"linear", "bezier", "sine", "gaussian"}:
-                errors.append(_error(f"{path}.values.graphType", f"Unsupported graph type '{graph_type}'"))
-        elif component_name == "Panel":
-            _validate_authored_values(path, values, {"text": str, "textAlign": str, "multilineData": bool}, errors)
-            text_align = values.get("textAlign", "left")
-            if text_align not in {"left", "center", "right"}:
-                errors.append(_error(f"{path}.values.textAlign", f"Unsupported Panel text alignment '{text_align}'"))
-        elif values:
-            for key in values.keys():
-                errors.append(_error(f"{path}.values.{key}", "Literal node values are only supported for slider-backed preset nodes"))
+        _validate_node_authoring(path, component_cls, settings, values, errors)
 
         resolved_nodes[node_id] = ResolvedNode(
             node_id=node_id,
@@ -548,6 +689,31 @@ def _topological_order(nodes: dict[str, ResolvedNode], edges: list[ValidatedEdge
     return ordered
 
 
+def _generic_call(ctx: EmitContext, order_index: dict[str, int]) -> str:
+    """``Class(input=expr, ...)`` — wired inputs from their sources, authored ones as literals."""
+    node = ctx.node
+    class_name = ctx.import_component()
+    authored = ctx.schema
+    variadic_port = node.inputs[-1].name if node.variadic_inputs and node.inputs else None
+    keyword_arguments: list[str] = []
+    for input_param in node.inputs:
+        connected_edges = ctx.incoming_by_port.get((node.node_id, input_param.name), [])
+        if input_param.name == variadic_port:
+            # Every edge on the variadic port becomes one stream, in evaluation order.
+            stream_edges = sorted(connected_edges, key=lambda edge: (order_index[edge.source_node_id], edge.edge_id))
+            if stream_edges:
+                streams = ", ".join(
+                    _source_expression(edge, ctx.port_expressions, node, input_param.name, ctx.imports) for edge in stream_edges
+                )
+                keyword_arguments.append(f"{input_param.name}=[{streams}]")
+        elif connected_edges:
+            keyword_arguments.append(f"{input_param.name}={ctx.source(input_param.name)}")
+        elif input_param.name in authored:
+            # an authored value that names an input stands in for the missing wire
+            keyword_arguments.append(f"{input_param.name}={_literal_expression(ctx.typed(input_param.name))}")
+    return f"{ctx.variable_name} = {class_name}({', '.join(keyword_arguments)})"
+
+
 def compile_graph_document(document: Any) -> CompiledGraph:
     graph_id, nodes, edges = _validate_document(document)
     ordered_node_ids = _topological_order(nodes, edges)
@@ -569,48 +735,8 @@ def compile_graph_document(document: Any) -> CompiledGraph:
         variable_name = f"node_{index:03d}_{_snake_case(node_name)}"
         variable_names[node_id] = variable_name
 
-        if node_name == "NumberSlider":
-            module_name, _, class_name = node.component_key.rpartition(".")
-            imports.add((module_name, class_name))
-            slider_settings = dict(node.settings)
-            output_name = node.outputs[0].name if node.outputs else "value"
-            if output_name in node.values and "value" not in slider_settings:
-                slider_settings["value"] = _slider_value(node)
-            lines.append(f"{variable_name} = {class_name}(_settings={slider_settings!r})")
-        elif node_name == "BooleanToggle":
-            imports.add(("pyhopper.Core.DataTree", "DataTree"))
-            lines.append(f"{variable_name} = DataTree.from_item({_literal_expression(bool(_authored_value(node, 'value', False)))})")
-        elif node_name == "MDSlider":
-            imports.add(("pyhopper.Core.Atoms", "AtomicVector"))
-            imports.add(("pyhopper.Core.DataTree", "DataTree"))
-            x = float(_authored_value(node, "x", 0.5))
-            y = float(_authored_value(node, "y", 0.5))
-            lines.append(f"{variable_name} = DataTree.from_item(AtomicVector({x!r}, {y!r}, 0.0))")
-        elif node_name == "Panel" and node.inputs and not incoming_by_port.get((node.node_id, node.inputs[0].name)):
-            imports.add(("pyhopper.Core.DataTree", "DataTree"))
-            text = str(_authored_value(node, "text", ""))
-            if bool(_authored_value(node, "multilineData", False)):
-                imports.add(("pyhopper.Components.Params.Input.Panel", "parse_panel_lines"))
-                lines.append(f"{variable_name} = DataTree.from_list(parse_panel_lines({_literal_expression(text)}))")
-            else:
-                imports.add(("pyhopper.Components.Params.Input.Panel", "parse_panel_text"))
-                lines.append(f"{variable_name} = DataTree.from_item(parse_panel_text({_literal_expression(text)}))")
-        elif node_name == "GraphMapper":
-            imports.add(("pyhopper.Components.Params.Input.GraphMapper", "map_graph_tree"))
-            input_param = node.inputs[0]
-            edge = incoming_by_port[(node.node_id, input_param.name)][0]
-            expr = _source_expression(edge, port_expressions, node, input_param.name, imports)
-            config = {
-                "graphType": _authored_value(node, "graphType", "bezier"),
-                "xMin": float(_authored_value(node, "xMin", 0.0)),
-                "xMax": float(_authored_value(node, "xMax", 1.0)),
-                "yMin": float(_authored_value(node, "yMin", 0.0)),
-                "yMax": float(_authored_value(node, "yMax", 1.0)),
-                "controlY1": float(_authored_value(node, "controlY1", 0.15)),
-                "controlY2": float(_authored_value(node, "controlY2", 0.85)),
-            }
-            lines.append(f"{variable_name} = map_graph_tree({expr}, {config!r})")
-        elif node_name == "ObjectReference":
+        if node.component_cls is None:
+            # Object references bake the scene atom and its placement into the source.
             imports.add(("pyhopper.Core.DataTree", "DataTree"))
             imports.add(("pyhopper.Core.Atoms", "AtomicTransform"))
             imports.add(("pyhopper.Core.Atoms", "atom_from_json"))
@@ -621,25 +747,10 @@ def compile_graph_document(document: Any) -> CompiledGraph:
                 f"atom_from_json({node.object_atom!r})))"
             )
         else:
-            module_name, _, class_name = node.component_key.rpartition(".")
-            imports.add((module_name, class_name))
-            variadic_port = node.inputs[-1].name if node.variadic_inputs and node.inputs else None
-            keyword_arguments: list[str] = []
-            for input_param in node.inputs:
-                connected_edges = incoming_by_port.get((node.node_id, input_param.name), [])
-                if input_param.name == variadic_port:
-                    # Every edge on the variadic port becomes one stream, in evaluation order.
-                    stream_edges = sorted(connected_edges, key=lambda edge: (order_index[edge.source_node_id], edge.edge_id))
-                    if stream_edges:
-                        streams = ", ".join(_source_expression(edge, port_expressions, node, input_param.name, imports) for edge in stream_edges)
-                        keyword_arguments.append(f"{input_param.name}=[{streams}]")
-                elif connected_edges:
-                    expr = _source_expression(connected_edges[0], port_expressions, node, input_param.name, imports)
-                    keyword_arguments.append(f"{input_param.name}={expr}")
-                elif node_name == "PointOnCurve" and input_param.name == "parameter":
-                    parameter = float(_authored_value(node, "parameter", 0.5))
-                    keyword_arguments.append(f"{input_param.name}={_literal_expression(parameter)}")
-            lines.append(f"{variable_name} = {class_name}({', '.join(keyword_arguments)})")
+            context = EmitContext(node, variable_name, imports, incoming_by_port, port_expressions)
+            emitter = AUTHORED_EMITTERS.get(getattr(node.component_cls, "authored_emit", None) or "")
+            line = emitter(context) if emitter else None
+            lines.append(line if line is not None else _generic_call(context, order_index))
 
         # Register how downstream nodes read each output. Output port operations get their
         # own variable so the node result (and its sibling outputs) is never rebound.

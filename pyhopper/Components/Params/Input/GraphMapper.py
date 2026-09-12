@@ -80,15 +80,16 @@ class GraphMapper(Component):
 
     inputs = [InputParam("numbers", float, Access.ITEM)]
     outputs = [OutputParam("mapped", float)]
-    settings_schema = {
-        "graphType": {"type": "choice", "default": "bezier", "choices": sorted(GRAPH_TYPES)},
-        "xMin": {"type": "float", "default": 0.0},
-        "xMax": {"type": "float", "default": 1.0},
-        "yMin": {"type": "float", "default": 0.0},
-        "yMax": {"type": "float", "default": 1.0},
-        "controlY1": {"type": "float", "default": 0.15},
-        "controlY2": {"type": "float", "default": 0.85},
+    authored_values = {
+        "graphType": {"type": "choice", "default": "bezier", "choices": sorted(GRAPH_TYPES), "label": "Graph type"},
+        "xMin": {"type": "float", "default": 0.0, "label": "X minimum"},
+        "xMax": {"type": "float", "default": 1.0, "label": "X maximum"},
+        "yMin": {"type": "float", "default": 0.0, "label": "Y minimum"},
+        "yMax": {"type": "float", "default": 1.0, "label": "Y maximum"},
+        "controlY1": {"type": "float", "default": 0.15, "min": 0.0, "max": 1.0, "label": "Control Y1"},
+        "controlY2": {"type": "float", "default": 0.85, "min": 0.0, "max": 1.0, "label": "Control Y2"},
     }
+    authored_emit = "graph_mapper"
 
     def generate(self, numbers=0.0) -> float:
         return evaluate_graph(float(numbers))

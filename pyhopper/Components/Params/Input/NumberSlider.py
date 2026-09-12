@@ -100,16 +100,19 @@ class NumberSlider(Component):
     inputs = []
     outputs = [OutputParam("value", float)]
     settings_schema = {
-        "value": {"type": "float", "default": DEFAULT_VALUE},
-        "min": {"type": "float", "default": DEFAULT_MIN},
-        "max": {"type": "float", "default": DEFAULT_MAX},
-        "decimals": {"type": "int", "default": DEFAULT_DECIMALS, "min": 0, "max": 12},
+        "value": {"type": "float", "default": DEFAULT_VALUE, "label": "Value"},
+        "min": {"type": "float", "default": DEFAULT_MIN, "label": "Minimum"},
+        "max": {"type": "float", "default": DEFAULT_MAX, "label": "Maximum"},
+        "decimals": {"type": "int", "default": DEFAULT_DECIMALS, "min": 0, "max": 12, "label": "Decimals"},
         "rounding": {
             "type": "choice",
             "default": DEFAULT_ROUNDING,
             "choices": ["real", "integer", "even", "odd"],
+            "label": "Rounding",
         },
     }
+    # the whole settings dict travels into the generated source as ``_settings``
+    authored_emit = "settings"
 
     def generate(self) -> float:
         """Return the authored numeric value after backend validation."""

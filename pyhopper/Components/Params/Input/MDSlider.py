@@ -12,15 +12,19 @@ class MDSlider(Component):
 
     inputs = []
     outputs = [OutputParam("vector", AtomicVector)]
+    # the pad's range and precision are settings; the handle position is authored
     settings_schema = {
-        "x": {"type": "float", "default": DEFAULT_X},
-        "y": {"type": "float", "default": DEFAULT_Y},
-        "x_min": {"type": "float", "default": 0.0},
-        "x_max": {"type": "float", "default": 1.0},
-        "y_min": {"type": "float", "default": 0.0},
-        "y_max": {"type": "float", "default": 1.0},
-        "decimals": {"type": "int", "default": 2},
+        "x_min": {"type": "float", "default": 0.0, "label": "X minimum"},
+        "x_max": {"type": "float", "default": 1.0, "label": "X maximum"},
+        "y_min": {"type": "float", "default": 0.0, "label": "Y minimum"},
+        "y_max": {"type": "float", "default": 1.0, "label": "Y maximum"},
+        "decimals": {"type": "int", "default": 2, "min": 0, "max": 12, "label": "Decimals"},
     }
+    authored_values = {
+        "x": {"type": "float", "default": DEFAULT_X, "label": "X"},
+        "y": {"type": "float", "default": DEFAULT_Y, "label": "Y"},
+    }
+    authored_emit = "vector"
 
     def generate(self) -> AtomicVector:
         return AtomicVector(self.DEFAULT_X, self.DEFAULT_Y, 0.0)
