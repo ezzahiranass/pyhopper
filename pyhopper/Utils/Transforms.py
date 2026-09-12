@@ -52,11 +52,14 @@ def _transform_plane(m: tuple[float, ...], plane: AtomicPlane) -> AtomicPlane:
         transformed_x.z * transformed_y.x - transformed_x.x * transformed_y.z,
         transformed_x.x * transformed_y.y - transformed_x.y * transformed_y.x,
     )
-    return AtomicPlane(
-        origin=_transform_point(m, plane.origin),
-        normal=normal,
-        x_axis=transformed_x,
-    )
+    try:
+        return AtomicPlane(
+            origin=_transform_point(m, plane.origin),
+            normal=normal,
+            x_axis=transformed_x,
+        )
+    except ValueError as exc:  # a singular transform (projection) collapsed the plane axes
+        raise ValueError("Transform collapses the plane: its axes become parallel or zero") from exc
 
 
 def _uniform_scale(m: tuple[float, ...]) -> float | None:
