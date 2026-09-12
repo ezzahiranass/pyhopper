@@ -1,0 +1,215 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.FindDomain.FindDomain",
+ "gh_guid": "0b5c7fad-0473-41aa-bf52-d7a861dcaa29",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "inside_and_first_match",
+   "inputs": {
+    "domains": [
+     {
+      "type": "Interval",
+      "start": 0,
+      "end": 1
+     },
+     {
+      "type": "Interval",
+      "start": 1,
+      "end": 2
+     },
+     {
+      "type": "Interval",
+      "start": 2,
+      "end": 3
+     }
+    ],
+    "number": [
+     1.5,
+     1.0,
+     2.0
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      1,
+      0,
+      1
+     ]
+    },
+    "neighbour": {
+     "{0}": [
+      1,
+      0,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "strict_excludes_bounds",
+   "inputs": {
+    "domains": [
+     {
+      "type": "Interval",
+      "start": 0,
+      "end": 1
+     },
+     {
+      "type": "Interval",
+      "start": 1,
+      "end": 2
+     },
+     {
+      "type": "Interval",
+      "start": 2,
+      "end": 3
+     }
+    ],
+    "number": [
+     1.0,
+     2.0
+    ],
+    "strict": [
+     true
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      -1,
+      -1
+     ]
+    },
+    "neighbour": {
+     "{0}": [
+      0,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "outside_neighbours",
+   "inputs": {
+    "domains": [
+     {
+      "type": "Interval",
+      "start": 0,
+      "end": 1
+     },
+     {
+      "type": "Interval",
+      "start": 2,
+      "end": 3
+     }
+    ],
+    "number": [
+     1.4,
+     1.6,
+     -5.0,
+     9.0,
+     1.5
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    "neighbour": {
+     "{0}": [
+      0,
+      1,
+      0,
+      1,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "overlapping_and_decreasing",
+   "inputs": {
+    "domains": {
+     "0": [
+      {
+       "type": "Interval",
+       "start": 0,
+       "end": 2
+      },
+      {
+       "type": "Interval",
+       "start": 1,
+       "end": 3
+      }
+     ],
+     "1": [
+      {
+       "type": "Interval",
+       "start": 3,
+       "end": 1
+      }
+     ]
+    },
+    "number": {
+     "0": [
+      1.5
+     ],
+     "1": [
+      2.0,
+      0.0
+     ]
+    }
+   },
+   "expect": {
+    "index": {
+     "{0}": [
+      0
+     ],
+     "{1}": [
+      0,
+      -1
+     ]
+    },
+    "neighbour": {
+     "{0}": [
+      0
+     ],
+     "{1}": [
+      0,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty_domains_emit_nothing",
+   "inputs": {
+    "domains": {
+     "0": []
+    },
+    "number": [
+     1.0
+    ]
+   },
+   "expect": {
+    "index": {
+     "{0}": []
+    },
+    "neighbour": {
+     "{0}": []
+    }
+   }
+  }
+ ]
+}

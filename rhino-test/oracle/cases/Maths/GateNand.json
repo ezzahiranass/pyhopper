@@ -1,0 +1,55 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateNand.GateNand",
+ "gh_guid": "5ca5de6b-bc71-46c4-a8f7-7f30d7040acb",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     false,
+     false,
+     true,
+     true
+    ],
+    "b": [
+     false,
+     true,
+     false,
+     true
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "1": [
+      false,
+      true
+     ]
+    },
+    "b": {
+     "0": [
+      true
+     ],
+     "1": [
+      true,
+      false
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

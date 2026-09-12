@@ -1,0 +1,40 @@
+{
+ "component": "pyhopper.Components.Maths.Trig.ArcSine.ArcSine",
+ "gh_guid": "cc15ba56-fae7-4f05-b599-cb7c43b60e11",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     0.0,
+     0.5,
+     1.0,
+     -1.0
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.25
+     ],
+     "1": [
+      -0.5,
+      0.75
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

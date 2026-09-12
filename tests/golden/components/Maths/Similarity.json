@@ -1,0 +1,131 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.Similarity.Similarity",
+ "gh_guid": "40177d8a-a35c-4622-bca7-d150031fe427",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "percent_of_larger_magnitude",
+   "inputs": {
+    "first_number": [
+     100.0,
+     100.0,
+     100.0,
+     10.0,
+     0.0
+    ],
+    "second_number": [
+     105.0,
+     105.0,
+     105.0,
+     11.0,
+     1.0
+    ],
+    "threshold": [
+     4.8,
+     4.0,
+     5.0,
+     0.1,
+     200.0
+    ]
+   },
+   "expect": {
+    "similarity": {
+     "{0}": [
+      true,
+      false,
+      true,
+      false,
+      true
+     ]
+    },
+    "absolute_difference": {
+     "{0}": [
+      5.0,
+      5.0,
+      5.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch_default_threshold",
+   "inputs": {
+    "first_number": {
+     "0": [
+      10.0
+     ],
+     "1": [
+      5.0,
+      -10.0
+     ]
+    },
+    "second_number": {
+     "0": [
+      10.5
+     ],
+     "1": [
+      5.0,
+      9.0
+     ]
+    }
+   },
+   "expect": {
+    "similarity": {
+     "{0}": [
+      false
+     ],
+     "{1}": [
+      true,
+      false
+     ]
+    },
+    "absolute_difference": {
+     "{0}": [
+      0.5
+     ],
+     "{1}": [
+      0.0,
+      19.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "sign_and_zero",
+   "inputs": {
+    "first_number": [
+     -100.0,
+     0.0
+    ],
+    "second_number": [
+     -105.0,
+     0.0
+    ],
+    "threshold": [
+     5.1,
+     0.0
+    ]
+   },
+   "expect": {
+    "similarity": {
+     "{0}": [
+      true,
+      true
+     ]
+    },
+    "absolute_difference": {
+     "{0}": [
+      5.0,
+      0.0
+     ]
+    }
+   }
+  }
+ ]
+}

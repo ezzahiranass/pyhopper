@@ -1,0 +1,109 @@
+{
+ "component": "pyhopper.Components.Maths.Util.WeightedAverage.WeightedAverage",
+ "gh_guid": "338666eb-14c5-4d9b-82e2-2b5be60655df",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "numbers",
+   "inputs": {
+    "input": [
+     1.0,
+     2.0,
+     3.0
+    ],
+    "weights": [
+     1.0,
+     1.0,
+     2.0
+    ]
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "input": {
+     "0": [
+      1.0,
+      3.0
+     ],
+     "1": [
+      10.0,
+      20.0,
+      30.0
+     ]
+    },
+    "weights": {
+     "0": [
+      -1.0,
+      3.0
+     ],
+     "1": [
+      1.0,
+      1.0,
+      2.0
+     ]
+    }
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  },
+  {
+   "name": "points",
+   "inputs": {
+    "input": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "weights": [
+     1.0,
+     3.0
+    ]
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  },
+  {
+   "name": "vectors",
+   "inputs": {
+    "input": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 0,
+      "z": 2
+     },
+     {
+      "type": "Vector3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "weights": [
+     1.0,
+     1.0
+    ]
+   },
+   "compare": [
+    "Arithmetic mean"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.OneOverX.OneOverX",
+ "gh_guid": "797d922f-3a1d-46fe-9155-358b009b5997",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     2.0,
+     -4.0,
+     0.5,
+     1.0
+    ]
+   },
+   "compare": [
+    "Result"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      8.0
+     ],
+     "1": [
+      -0.25,
+      10.0
+     ]
+    }
+   },
+   "compare": [
+    "Result"
+   ]
+  }
+ ]
+}

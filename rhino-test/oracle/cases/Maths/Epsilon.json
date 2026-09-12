@@ -1,0 +1,45 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Epsilon.Epsilon",
+ "gh_guid": "deadf87d-99a6-4980-90c3-f98350aa6f0f",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "factors",
+   "inputs": {
+    "factor": [
+     1.0,
+     1000000.0
+    ]
+   },
+   "compare": [
+    "Output"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "factor": {
+     "0": [
+      2.0
+     ],
+     "1": [
+      0.0,
+      10.0
+     ]
+    }
+   },
+   "compare": [
+    "Output"
+   ]
+  },
+  {
+   "name": "default_factor",
+   "inputs": {},
+   "compare": [
+    "Output"
+   ]
+  }
+ ]
+}

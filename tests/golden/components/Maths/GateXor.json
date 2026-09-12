@@ -1,0 +1,81 @@
+{
+ "component": "pyhopper.Components.Maths.Operators.GateXor.GateXor",
+ "gh_guid": "de4a0d86-2709-4564-935a-88bf4d40af89",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "truth_table",
+   "inputs": {
+    "a": [
+     false,
+     false,
+     true,
+     true
+    ],
+    "b": [
+     false,
+     true,
+     false,
+     true
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      false,
+      true,
+      true,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      true
+     ],
+     "1": [
+      false,
+      true
+     ]
+    },
+    "b": {
+     "0": [
+      true
+     ],
+     "1": [
+      true,
+      false
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      false
+     ],
+     "{1}": [
+      true,
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "missing_input_raises",
+   "inputs": {
+    "a": [
+     true
+    ]
+   },
+   "raises": "TypeError"
+  }
+ ]
+}

@@ -1,0 +1,66 @@
+{
+ "component": "pyhopper.Components.Maths.Util.GoldenRatio.GoldenRatio",
+ "gh_guid": "cb22d3ed-93d8-4629-bdf2-c0c7c25afd2c",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "factors",
+   "inputs": {
+    "factor": [
+     1.0,
+     2.0,
+     -0.5
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.618033988749895,
+      3.23606797749979,
+      -0.8090169943749475
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "factor": {
+     "0": [
+      3.0
+     ],
+     "1": [
+      0.0,
+      10.0
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      4.854101966249685
+     ],
+     "{1}": [
+      0.0,
+      16.18033988749895
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_factor",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      1.618033988749895
+     ]
+    }
+   }
+  }
+ ]
+}

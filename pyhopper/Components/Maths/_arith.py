@@ -1,7 +1,9 @@
 """Shared arithmetic over the value kinds Grasshopper's Maths components accept.
 
-Numbers, text (concatenation), vectors and points can be added; means are defined
-for numbers, vectors and points. Mixed kinds raise ``TypeError`` so a component
+Numbers, text (concatenation), vectors and points can be added; multiplication
+follows Grasshopper (number scales a vector or point, vector times vector is the
+dot product, point times point is component-wise); means are defined for
+numbers, vectors and points. Mixed kinds raise ``TypeError`` so a component
 fails loudly instead of guessing.
 """
 
@@ -10,7 +12,7 @@ from __future__ import annotations
 from typing import Any, Sequence
 
 from pyhopper.Core.Atoms import AtomicPoint, AtomicVector
-from pyhopper.Utils.Vectors import add as _vector_add
+from pyhopper.Utils.Vectors import add as _vector_add, dot as _dot, scale as _scale
 
 Spatial = (AtomicPoint, AtomicVector)
 
@@ -29,6 +31,22 @@ def add(a: Any, b: Any, component: str = "Addition") -> Any:
     if isinstance(a, Spatial) and isinstance(b, Spatial):
         return _vector_add(a, b)
     raise TypeError(f"{component} cannot add {type(a).__name__} and {type(b).__name__}")
+
+
+def multiply(a: Any, b: Any, component: str = "Multiplication") -> Any:
+    """``a * b`` the Grasshopper way: numbers, number * vector/point (scaled), vector * vector
+    (dot product), point * point (component-wise)."""
+    if is_number(a) and is_number(b):
+        return float(a) * float(b)
+    if is_number(a) and isinstance(b, Spatial):
+        return _scale(b, float(a))
+    if isinstance(a, Spatial) and is_number(b):
+        return _scale(a, float(b))
+    if isinstance(a, AtomicVector) and isinstance(b, AtomicVector):
+        return float(_dot(a, b))
+    if isinstance(a, AtomicPoint) and isinstance(b, AtomicPoint):
+        return AtomicPoint(a.x * b.x, a.y * b.y, a.z * b.z)
+    raise TypeError(f"{component} cannot multiply {type(a).__name__} and {type(b).__name__}")
 
 
 def mean(items: Sequence[Any], component: str = "Average") -> Any:

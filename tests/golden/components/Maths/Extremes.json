@@ -1,0 +1,240 @@
+{
+ "component": "pyhopper.Components.Maths.Util.Extremes.Extremes",
+ "gh_guid": "37084b3f-2b66-4f3a-9737-80d0b0b7f0cb",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "item_wise_longest_list",
+   "inputs": {
+    "a": [
+     1.0,
+     9.0,
+     4.0
+    ],
+    "b": [
+     5.0
+    ]
+   },
+   "expect": {
+    "minimum": {
+     "{0}": [
+      1.0,
+      5.0,
+      4.0
+     ]
+    },
+    "maximum": {
+     "{0}": [
+      5.0,
+      9.0,
+      5.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "a": {
+     "0": [
+      3.0,
+      8.0
+     ],
+     "1": [
+      2.0
+     ]
+    },
+    "b": {
+     "0": [
+      5.0,
+      1.0
+     ],
+     "1": [
+      7.0
+     ]
+    }
+   },
+   "expect": {
+    "minimum": {
+     "{0}": [
+      3.0,
+      1.0
+     ],
+     "{1}": [
+      2.0
+     ]
+    },
+    "maximum": {
+     "{0}": [
+      5.0,
+      8.0
+     ],
+     "{1}": [
+      7.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "only_a",
+   "inputs": {
+    "a": [
+     3.0,
+     8.0
+    ]
+   },
+   "expect": {
+    "minimum": {
+     "{0}": [
+      3.0,
+      8.0
+     ]
+    },
+    "maximum": {
+     "{0}": [
+      3.0,
+      8.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "text",
+   "inputs": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ]
+   },
+   "expect": {
+    "minimum": {
+     "{0}": [
+      "a"
+     ]
+    },
+    "maximum": {
+     "{0}": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "mixed_becomes_text",
+   "inputs": {
+    "a": [
+     3.0
+    ],
+    "b": [
+     "a"
+    ]
+   },
+   "expect": {
+    "minimum": {
+     "{0}": [
+      "3"
+     ]
+    },
+    "maximum": {
+     "{0}": [
+      "a"
+     ]
+    }
+   }
+  },
+  {
+   "name": "booleans",
+   "inputs": {
+    "a": [
+     true
+    ],
+    "b": [
+     false
+    ]
+   },
+   "expect": {
+    "minimum": {
+     "{0}": [
+      false
+     ]
+    },
+    "maximum": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "vectors_by_length",
+   "inputs": {
+    "a": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "b": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {
+    "minimum": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    },
+    "maximum": {
+     "{0}": [
+      {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 3,
+       "z": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "points_raise",
+   "inputs": {
+    "a": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "b": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     }
+    ]
+   },
+   "raises": "TypeError"
+  }
+ ]
+}

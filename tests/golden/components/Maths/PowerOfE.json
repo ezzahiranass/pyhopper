@@ -1,0 +1,68 @@
+{
+ "component": "pyhopper.Components.Maths.Polynomials.PowerOfE.PowerOfE",
+ "gh_guid": "c717f26f-e4a0-475c-8e1c-b8f77af1bc99",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "value": [
+     -1.0,
+     0.0,
+     1.0,
+     2.5
+    ]
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      0.36787944117144233,
+      1.0,
+      2.718281828459045,
+      12.182493960703473
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "value": {
+     "0": [
+      0.5
+     ],
+     "1": [
+      -2.0,
+      3.0
+     ]
+    }
+   },
+   "expect": {
+    "result": {
+     "{0}": [
+      1.6487212707001282
+     ],
+     "{1}": [
+      0.1353352832366127,
+      20.085536923187668
+     ]
+    }
+   }
+  },
+  {
+   "name": "default_value",
+   "inputs": {},
+   "expect": {
+    "result": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}
