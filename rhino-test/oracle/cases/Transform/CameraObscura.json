@@ -1,0 +1,205 @@
+{
+ "component": "pyhopper.Components.Transform.Affine.CameraObscura.CameraObscura",
+ "gh_guid": "407e35c6-7c40-4652-bd80-fde1eb7ec034",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "factor_two",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "factor": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "off_centre",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 5,
+      "z": 5
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     }
+    ],
+    "factor": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "line",
+   "inputs": {
+    "geometry": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 1
+     }
+    ],
+    "factor": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  },
+  {
+   "name": "transform_only",
+   "inputs": {
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "factor": [
+     0.25
+    ]
+   },
+   "compare": [
+    "Transform"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "geometry": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      }
+     ]
+    },
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 1
+      }
+     ]
+    },
+    "factor": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Geometry",
+    "Transform"
+   ]
+  }
+ ],
+ "notes": "Point reflection scaled by the factor — affine, no perspective."
+}

@@ -168,3 +168,29 @@ def minimum_signed_distance(geometry, plane: AtomicPlane) -> float:
     if extents is None:
         raise ValueError("Cannot measure the distance of empty geometry to a plane")
     return extents[2][0]
+
+
+def tight_extents(geometry, plane: AtomicPlane, samples: int = 96) -> Extents | None:
+    """Like :func:`geometry_extents` but NURBS curves and surfaces are sampled densely instead of
+    measured by their control points, so the box hugs the geometry (Grasshopper's Plane Through Shape)."""
+    from pyhopper.Utils.Nurbs import curve_domain, curve_point, surface_domain, surface_point
+
+    if isinstance(geometry, AtomicSurface):
+        (u0, u1), (v0, v1) = surface_domain(geometry)
+        points = [surface_point(geometry, u0 + (u1 - u0) * i / samples, v0 + (v1 - v0) * j / samples) for i in range(samples + 1) for j in range(samples + 1)]
+        return _extents(plane_coordinates(plane, p) for p in points)
+    if isinstance(geometry, AtomicTrimmedSurface):
+        return tight_extents(geometry.surface, plane, samples)
+    if isinstance(geometry, AtomicBrep):
+        result = None
+        for face in geometry.faces:
+            result = _merge(result, tight_extents(face, plane, samples))
+        return result
+    if isinstance(geometry, (AtomicNurbsCurve, AtomicEllipse, AtomicInterpolatedCurve, AtomicControlPointCurve)):
+        from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+
+        curve = as_nurbs_curve(geometry)
+        start, end = curve_domain(curve)
+        count = samples * max(1, len(curve.control_points))
+        return _extents(plane_coordinates(plane, curve_point(curve, start + (end - start) * i / count)) for i in range(count + 1))
+    return geometry_extents(geometry, plane)

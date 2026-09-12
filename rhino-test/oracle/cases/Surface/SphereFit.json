@@ -1,0 +1,320 @@
+{
+ "component": "pyhopper.Components.Surface.Primitive.SphereFit.SphereFit",
+ "gh_guid": "e7ffb3af-2d77-4804-a260-755308bf8285",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "exact_unit_sphere",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": -1
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  },
+  {
+   "name": "offset_sphere",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 4,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 0,
+      "z": 1
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": 3
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": -1
+     },
+     {
+      "type": "Point3d",
+      "x": 4.2,
+      "y": 3.6,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  },
+  {
+   "name": "noisy_cloud",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1.02,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -0.98,
+      "y": 0.01,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1.03,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -0.99,
+      "z": 0.02
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1.01
+     },
+     {
+      "type": "Point3d",
+      "x": 0.01,
+      "y": 0,
+      "z": -1.0
+     },
+     {
+      "type": "Point3d",
+      "x": 0.7,
+      "y": 0.7,
+      "z": 0.14
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  },
+  {
+   "name": "four_points",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  },
+  {
+   "name": "three_points_circle_sphere",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": -1,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": -1,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": -1
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 5,
+       "y": 2,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 4,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 2,
+       "z": -1
+      },
+      {
+       "type": "Point3d",
+       "x": 4.2,
+       "y": 3.6,
+       "z": 1
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Center",
+    "Radius"
+   ]
+  }
+ ],
+ "notes": "The sphere surface is pyhopper's Sphere grid; centre and radius are compared. Rhino's fit converges to the same geometric least squares (noisy cloud agrees to 1e-8)."
+}

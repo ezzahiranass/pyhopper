@@ -1,0 +1,719 @@
+{
+ "component": "pyhopper.Components.Surface.Util.ReverseSurface.ReverseSurface",
+ "gh_guid": "847cf05e-e195-4bc7-b472-e05459b9792b",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "unchanged",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 1
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 2
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 2,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "reverse_u",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 1
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 2
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 2,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "u": [
+     true
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "reverse_v",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 1
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 2
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 2,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "v": [
+     true
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "w_has_no_effect",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 1
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 2
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 2,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "w": [
+     true
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "reverse_u_and_v",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 1
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 2
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 2,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "u": [
+     true
+    ],
+    "v": [
+     true
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "surface": {
+     "0": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 0,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 2,
+          "y": 0,
+          "z": 1
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 0,
+          "z": 0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 2,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 2,
+          "y": 2,
+          "z": 2
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 2,
+          "z": 0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        3,
+        3
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 2,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      },
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 0,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 2,
+          "y": 0,
+          "z": 1
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 0,
+          "z": 0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 2,
+          "z": 1
+         },
+         {
+          "type": "Point3d",
+          "x": 2,
+          "y": 2,
+          "z": 3
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 2,
+          "z": 1
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 4,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 2,
+          "y": 4,
+          "z": 1
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 4,
+          "z": 0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        3,
+        3
+       ],
+       "v_mults": [
+        3,
+        3
+       ],
+       "u_degree": 2,
+       "v_degree": 2,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ],
+     "1": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 0,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 0,
+          "z": 0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 2,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 2,
+          "z": 0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        2,
+        2
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 1,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ]
+    },
+    "u": [
+     true
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  }
+ ],
+ "notes": "Reversing negates the knot domain like Rhino; the W flag changes nothing visible."
+}

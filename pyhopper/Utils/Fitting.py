@@ -80,3 +80,48 @@ def fit_plane(points: Sequence[AtomicPoint]) -> tuple[AtomicPlane, float]:
     plane = AtomicPlane(origin, normal, perpendicular(normal))
     deviation = max(abs((p.x - cx) * normal.x + (p.y - cy) * normal.y + (p.z - cz) * normal.z) for p in points)
     return plane, deviation
+
+
+def fit_sphere(points: Sequence[AtomicPoint]) -> tuple[AtomicPoint, float]:
+    """Least-squares sphere through ``points``: an algebraic fit refined by Gauss-Newton on the radial
+    residuals (which is what Rhino's ``Sphere.FitSphereToPoints`` converges to). Fewer than four
+    points, or coplanar points, give the sphere on their fitted circle instead."""
+    from pyhopper.Utils.CurveFitting import fit_circle
+    from pyhopper.Utils.Nurbs import solve_linear_system
+
+    pts = [p for p in points]
+    if len(pts) < 3:
+        raise ValueError("Sphere Fit needs at least three points")
+    plane, deviation = fit_plane(pts)
+    if len(pts) < 4 or deviation <= 1e-9:
+        circle, _ = fit_circle(pts)
+        return circle.plane.origin, float(circle.radius)
+    rows = [[2.0 * p.x, 2.0 * p.y, 2.0 * p.z, 1.0] for p in pts]
+    rhs = [p.x * p.x + p.y * p.y + p.z * p.z for p in pts]
+    normal = [[sum(r[i] * r[j] for r in rows) for j in range(4)] for i in range(4)]
+    solution = solve_linear_system(normal, [[sum(r[i] * v for r, v in zip(rows, rhs))] for i in range(4)], "Sphere Fit could not solve the points")
+    cx, cy, cz, d = (s[0] for s in solution)
+    radius = math.sqrt(max(d + cx * cx + cy * cy + cz * cz, 0.0))
+    for _ in range(60):  # geometric refinement: minimise sum(|p - c| - r)^2
+        jacobian, residuals = [], []
+        for p in pts:
+            dx, dy, dz = p.x - cx, p.y - cy, p.z - cz
+            dist = math.sqrt(dx * dx + dy * dy + dz * dz)
+            if dist <= 1e-15:
+                continue
+            residuals.append(dist - radius)
+            jacobian.append([-dx / dist, -dy / dist, -dz / dist, -1.0])
+        if len(residuals) < 4:
+            break
+        jtj = [[sum(row[i] * row[j] for row in jacobian) for j in range(4)] for i in range(4)]
+        jtf = [[-sum(row[i] * residual for row, residual in zip(jacobian, residuals))] for i in range(4)]
+        try:
+            step = [s[0] for s in solve_linear_system(jtj, jtf, "Sphere Fit refinement failed")]
+        except ValueError:
+            break
+        cx, cy, cz, radius = cx + step[0], cy + step[1], cz + step[2], radius + step[3]
+        if max(abs(s) for s in step) < 1e-15:
+            break
+    if radius <= 1e-12:
+        raise ValueError("Sphere Fit needs points that do not coincide")
+    return AtomicPoint(cx, cy, cz), radius
