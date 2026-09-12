@@ -1,0 +1,252 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.TangentLinesEx.TangentLinesEx",
+ "gh_guid": "d6d68c93-d00f-4cd5-ba89-903c7f6be64c",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "different_radii",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1
+     }
+    ]
+   },
+   "compare": [
+    "Tangent 1",
+    "Tangent 2"
+   ]
+  },
+  {
+   "name": "equal_radii",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 1,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ]
+   },
+   "compare": [
+    "Tangent 1",
+    "Tangent 2"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "circle_a": {
+     "0": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2
+      },
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 1
+      }
+     ],
+     "1": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 1
+      }
+     ]
+    },
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1
+     }
+    ]
+   },
+   "compare": [
+    "Tangent 1",
+    "Tangent 2"
+   ]
+  }
+ ]
+}

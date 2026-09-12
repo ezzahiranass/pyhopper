@@ -1,0 +1,407 @@
+{
+ "component": "pyhopper.Components.Curve.Util.PolylineCollapse.PolylineCollapse",
+ "gh_guid": "be298882-28c9-45b1-980d-7192a531c9a9",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "short_segments",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.1,
+        "y": 0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "closed_keeps_seam",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0.2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "nothing_short",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "shortest_first_chain",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_short_in_a_row",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 6,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.15
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "never_below_two_points",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.2,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "polyline": {
+     "0": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0.2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      },
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 5,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 5,
+         "y": 5,
+         "z": 0
+        }
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "tolerance": [
+     0.5
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "not_a_polyline_raises",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "raises": "TypeError"
+  }
+ ]
+}

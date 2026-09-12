@@ -1,0 +1,408 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.CircleTanTan.CircleTanTan",
+ "gh_guid": "50b204ef-d3de-41bb-a006-02fba2d3f709",
+ "mode": "geometry",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_lines",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 10,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 10,
+       "z": 0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 2,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Circle"
+   ]
+  },
+  {
+   "name": "two_lines_far_guide",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 10,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 10,
+       "z": 0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Circle"
+   ]
+  },
+  {
+   "name": "two_circles",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 8,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Circle"
+   ]
+  },
+  {
+   "name": "line_and_circle",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": -5,
+       "y": -3,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 5,
+       "y": -3,
+       "z": 0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": -2,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Circle"
+   ]
+  },
+  {
+   "name": "parallel_lines",
+   "inputs": {
+    "curve_a": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 10,
+       "y": 0,
+       "z": 0
+      }
+     }
+    ],
+    "curve_b": [
+     {
+      "type": "Line",
+      "start": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 4,
+       "z": 0
+      },
+      "end": {
+       "type": "Point3d",
+       "x": 10,
+       "y": 4,
+       "z": 0
+      }
+     }
+    ],
+    "point": [
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Circle"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "curve_a": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 10,
+        "y": 0,
+        "z": 0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2
+      }
+     ]
+    },
+    "curve_b": {
+     "0": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 10,
+        "z": 0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 8,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2
+      }
+     ]
+    },
+    "point": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 3,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Circle"
+   ]
+  }
+ ],
+ "notes": "Rhino's fitted circles carry arbitrary frames; compared as geometry. The circle touches curve B at its point closest to the guide and is tangent to curve A (Grasshopper-verified)."
+}

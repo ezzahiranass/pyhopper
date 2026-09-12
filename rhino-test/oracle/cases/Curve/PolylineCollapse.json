@@ -1,0 +1,390 @@
+{
+ "component": "pyhopper.Components.Curve.Util.PolylineCollapse.PolylineCollapse",
+ "gh_guid": "be298882-28c9-45b1-980d-7192a531c9a9",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "short_segments",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.1,
+        "y": 0.1,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Count"
+   ]
+  },
+  {
+   "name": "closed_keeps_seam",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 3,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0.2,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Count"
+   ]
+  },
+  {
+   "name": "nothing_short",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 3,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Count"
+   ]
+  },
+  {
+   "name": "shortest_first_chain",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 1.2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Count"
+   ]
+  },
+  {
+   "name": "two_short_in_a_row",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 3.2,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 6,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.15
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Count"
+   ]
+  },
+  {
+   "name": "never_below_two_points",
+   "inputs": {
+    "polyline": [
+     {
+      "type": "Polyline",
+      "points": [
+       {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.1,
+        "y": 0,
+        "z": 0
+       },
+       {
+        "type": "Point3d",
+        "x": 0.2,
+        "y": 0,
+        "z": 0
+       }
+      ]
+     }
+    ],
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Count"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "polyline": {
+     "0": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0.2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      },
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 5,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 5,
+         "y": 5,
+         "z": 0
+        }
+       ]
+      }
+     ],
+     "1": [
+      {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1.2,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 3,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      }
+     ]
+    },
+    "tolerance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Polyline",
+    "Count"
+   ]
+  }
+ ]
+}

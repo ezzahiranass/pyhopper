@@ -1,0 +1,305 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.TangentLinesIn.TangentLinesIn",
+ "gh_guid": "e0168047-c46a-48c6-8595-2fb3d8574f23",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "different_radii",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "equal_radii",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 1,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "circle_a": {
+     "0": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2
+      },
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 1
+      }
+     ],
+     "1": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 1
+      }
+     ]
+    },
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "intersecting_raises",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

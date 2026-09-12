@@ -1,0 +1,389 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.KinkyCurve.KinkyCurve",
+ "gh_guid": "6f0993e8-5f2f-4fc0-bd73-b84bc240e78e",
+ "mode": "exact",
+ "tolerance": 1e-05,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "mixed_runs",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 1.2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "degree": [
+     3
+    ],
+    "angle": [
+     0.5235987755982988
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "all_kinks_polyline",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 0.2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 4,
+      "z": 0
+     }
+    ],
+    "degree": [
+     3
+    ],
+    "angle": [
+     0.17453292519943295
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "no_kinks_uniform",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "degree": [
+     3
+    ],
+    "angle": [
+     2.0943951023931953
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "degree_one",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 1.2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "degree": [
+     1
+    ],
+    "angle": [
+     0.5235987755982988
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "two_points",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "degree": [
+     3
+    ],
+    "angle": [
+     0.5235987755982988
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 1.2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 2,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "vertices": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 1.2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 1,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": 2,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 3,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 5,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 7,
+       "y": 5,
+       "z": 0
+      }
+     ]
+    },
+    "angle": [
+     0.5235987755982988
+    ]
+   },
+   "compare": [
+    "Curve",
+    "Length",
+    "Domain"
+   ]
+  }
+ ],
+ "notes": "Runs between kinks: lines (length knots) and uniform-knot interpolations joined C0, as Grasshopper's PolyCurve converts to NURBS."
+}

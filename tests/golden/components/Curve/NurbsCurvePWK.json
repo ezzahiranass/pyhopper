@@ -1,0 +1,235 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.NurbsCurvePWK.NurbsCurvePWK",
+ "gh_guid": "1f8e1ff7-8278-4421-b39d-350e71d85d37",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "cubic",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "knots": [
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "weighted",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "weights": [
+     1.0,
+     2.0,
+     2.0,
+     1.0
+    ],
+    "knots": [
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "linear",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "knots": [
+     0.0,
+     1.0,
+     5.0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "points": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 2,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 6,
+       "y": 2,
+       "z": 0
+      }
+     ]
+    },
+    "knots": {
+     "0": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ],
+     "1": [
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "bad_knot_count_raises",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 2,
+      "z": 0
+     }
+    ],
+    "knots": [
+     0.0,
+     1.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

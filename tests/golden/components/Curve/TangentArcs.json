@@ -1,0 +1,648 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.TangentArcs.TangentArcs",
+ "gh_guid": "f1c0783b-60e9-42a7-8081-925bc755494c",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "equal_circles",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 8,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "radius": [
+     3.0
+    ]
+   },
+   "expect": {
+    "arc_a": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": -3.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": -0.0,
+         "y": -0.0,
+         "z": -1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.7999999999999999,
+         "y": 0.6000000000000002,
+         "z": 0.0
+        }
+       },
+       "radius": 3.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.8545904360032246
+       }
+      }
+     ]
+    },
+    "arc_b": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 3.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.7999999999999999,
+         "y": -0.6000000000000002,
+         "z": 0.0
+        }
+       },
+       "radius": 3.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.8545904360032246
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "uneven_circles",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 1
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 6,
+        "y": 2,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 3
+     }
+    ],
+    "radius": [
+     4.0
+    ]
+   },
+   "expect": {
+    "arc_a": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 2.729705854077836,
+         "y": -4.1891175622335055,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": -0.0,
+         "y": -0.0,
+         "z": -1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.5459411708155674,
+         "y": 0.8378235124467011,
+         "z": 0.0
+        }
+       },
+       "radius": 4.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0636161938951352
+       }
+      }
+     ]
+    },
+    "arc_b": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": -0.32970585407783504,
+         "y": 4.989117562233506,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 0.06594117081556689,
+         "y": -0.9978235124467014,
+         "z": 0.0
+        }
+       },
+       "radius": 4.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0636161938951354
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": {
+     "0": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 8,
+         "y": 0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2
+      },
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0,
+         "y": 8,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 2
+      }
+     ],
+     "1": [
+      {
+       "type": "Circle",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 8,
+         "y": 8,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0,
+         "y": 0,
+         "z": 1
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        }
+       },
+       "radius": 1
+      }
+     ]
+    },
+    "radius": [
+     6.0
+    ]
+   },
+   "expect": {
+    "arc_a": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": -6.928203230275509,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": -0.0,
+         "y": -0.0,
+         "z": -1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.5000000000000001,
+         "y": 0.8660254037844386,
+         "z": 0.0
+        }
+       },
+       "radius": 6.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0471975511965983
+       }
+      },
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 6.928203230275509,
+         "y": 4.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": -0.0,
+         "y": -0.0,
+         "z": -1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.8660254037844386,
+         "y": -0.5000000000000001,
+         "z": 0.0
+        }
+       },
+       "radius": 6.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0471975511965974
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 7.937218457042675,
+         "y": 1.000281542957325,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": -0.0,
+         "y": -0.0,
+         "z": -1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.9921523071303345,
+         "y": -0.1250351928696656,
+         "z": 0.0
+        }
+       },
+       "radius": 6.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.705128541216574
+       }
+      }
+     ]
+    },
+    "arc_b": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 6.928203230275509,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.5000000000000001,
+         "y": -0.8660254037844386,
+         "z": 0.0
+        }
+       },
+       "radius": 6.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.047197551196598
+       }
+      },
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": -6.928203230275509,
+         "y": 4.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 0.8660254037844386,
+         "y": -0.5000000000000001,
+         "z": 0.0
+        }
+       },
+       "radius": 6.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0471975511965979
+       }
+      }
+     ],
+     "{1}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1.000281542957325,
+         "y": 7.937218457042675,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.1250351928696656,
+         "y": -0.9921523071303345,
+         "z": 0.0
+        }
+       },
+       "radius": 6.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.7051285412165738
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "gap_too_large_raises",
+   "inputs": {
+    "circle_a": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "circle_b": [
+     {
+      "type": "Circle",
+      "plane": {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 8,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0,
+        "y": 0,
+        "z": 1
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1,
+        "y": 0,
+        "z": 0
+       }
+      },
+      "radius": 2
+     }
+    ],
+    "radius": [
+     1.0
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

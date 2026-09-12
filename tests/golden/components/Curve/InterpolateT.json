@@ -1,0 +1,509 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.InterpolateT.InterpolateT",
+ "gh_guid": "75eb156d-d023-42f9-a85e-2f2456b8bcce",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "estimated_tangents",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": 5,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "unit_tangents",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "tangent_start": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "tangent_end": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "tangent_length_ignored",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "tangent_start": [
+     {
+      "type": "Vector3d",
+      "x": 5,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "tangent_end": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 5,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "start_tangent_only",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "tangent_start": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "uniform_knots",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 2,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 7,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "tangent_start": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "tangent_end": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "knot_style": [
+     0
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "sqrt_chord_knots",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 7,
+      "z": 0
+     }
+    ],
+    "tangent_start": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "tangent_end": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "knot_style": [
+     2
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "three_points_estimated",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 4,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "asymmetric_estimated",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 3,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 7,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "five_points_estimated",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 2,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 3,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 6,
+      "y": 3,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_points_arc_rule",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ],
+    "tangent_start": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ],
+    "tangent_end": [
+     {
+      "type": "Vector3d",
+      "x": 0,
+      "y": -1,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "two_points_straight",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "vertices": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 3,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 5,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 7,
+       "y": 5,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": 1,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 5,
+       "y": 4,
+       "z": 0
+      }
+     ]
+    },
+    "tangent_start": [
+     {
+      "type": "Vector3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "single_point_raises",
+   "inputs": {
+    "vertices": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     }
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

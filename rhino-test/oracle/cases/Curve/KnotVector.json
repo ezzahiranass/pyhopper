@@ -1,0 +1,125 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.KnotVector.KnotVector",
+ "gh_guid": "846470bd-4918-4d00-9388-7e022b2cba73",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "clamped_cubic",
+   "inputs": {
+    "count": [
+     5
+    ],
+    "degree": [
+     3
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "compare": [
+    "Knots"
+   ]
+  },
+  {
+   "name": "periodic_cubic",
+   "inputs": {
+    "count": [
+     5
+    ],
+    "degree": [
+     3
+    ],
+    "periodic": [
+     true
+    ]
+   },
+   "compare": [
+    "Knots"
+   ]
+  },
+  {
+   "name": "linear",
+   "inputs": {
+    "count": [
+     4
+    ],
+    "degree": [
+     1
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "compare": [
+    "Knots"
+   ]
+  },
+  {
+   "name": "quadratic",
+   "inputs": {
+    "count": [
+     6
+    ],
+    "degree": [
+     2
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "compare": [
+    "Knots"
+   ]
+  },
+  {
+   "name": "degree_clamped_to_count",
+   "inputs": {
+    "count": [
+     3
+    ],
+    "degree": [
+     3
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "compare": [
+    "Knots"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "count": [
+     7
+    ]
+   },
+   "compare": [
+    "Knots"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "count": {
+     "0": [
+      4,
+      5
+     ],
+     "1": [
+      6
+     ]
+    },
+    "degree": [
+     2
+    ]
+   },
+   "compare": [
+    "Knots"
+   ]
+  }
+ ]
+}

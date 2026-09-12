@@ -1,0 +1,125 @@
+{
+ "component": "pyhopper.Components.Curve.Spline.KnotVector.KnotVector",
+ "gh_guid": "846470bd-4918-4d00-9388-7e022b2cba73",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "clamped_cubic",
+   "inputs": {
+    "count": [
+     5
+    ],
+    "degree": [
+     3
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "periodic_cubic",
+   "inputs": {
+    "count": [
+     5
+    ],
+    "degree": [
+     3
+    ],
+    "periodic": [
+     true
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "linear",
+   "inputs": {
+    "count": [
+     4
+    ],
+    "degree": [
+     1
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "quadratic",
+   "inputs": {
+    "count": [
+     6
+    ],
+    "degree": [
+     2
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "degree_clamped_to_count",
+   "inputs": {
+    "count": [
+     3
+    ],
+    "degree": [
+     3
+    ],
+    "periodic": [
+     false
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "count": [
+     7
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "count": {
+     "0": [
+      4,
+      5
+     ],
+     "1": [
+      6
+     ]
+    },
+    "degree": [
+     2
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "too_few_points_raise",
+   "inputs": {
+    "count": [
+     1
+    ],
+    "degree": [
+     1
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}
