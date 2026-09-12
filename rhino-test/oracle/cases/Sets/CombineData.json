@@ -1,0 +1,106 @@
+{
+ "component": "pyhopper.Components.Sets.List.CombineData.CombineData",
+ "gh_guid": "e7c80ff6-0299-4303-be36-3080977c14a1",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "first_non_null_wins",
+   "inputs": {
+    "inputs": [
+     [
+      null,
+      2,
+      null,
+      4
+     ],
+     [
+      1,
+      null,
+      null,
+      5
+     ]
+    ]
+   },
+   "compare": [
+    "Result",
+    "Index"
+   ],
+   "gh": {
+    "skip": "pyhopper keeps null items where Grasshopper's headless output drops them"
+   }
+  },
+  {
+   "name": "lengths_differ_repeat_last",
+   "inputs": {
+    "inputs": [
+     [
+      null,
+      2
+     ],
+     [
+      1,
+      null,
+      3,
+      4
+     ]
+    ]
+   },
+   "compare": [
+    "Result",
+    "Index"
+   ],
+   "gh": {
+    "skip": "pyhopper keeps null items where Grasshopper's headless output drops them"
+   }
+  },
+  {
+   "name": "single_stream",
+   "inputs": {
+    "inputs": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "compare": [
+    "Result",
+    "Index"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "inputs": [
+     {
+      "0": [
+       null,
+       1
+      ],
+      "1": [
+       5
+      ]
+     },
+     {
+      "0": [
+       7,
+       8
+      ],
+      "1": [
+       null
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Result",
+    "Index"
+   ],
+   "gh": {
+    "skip": "pyhopper keeps null items where Grasshopper's headless output drops them"
+   }
+  }
+ ]
+}

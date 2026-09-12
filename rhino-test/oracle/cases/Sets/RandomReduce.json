@@ -1,0 +1,95 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.RandomReduce.RandomReduce",
+ "gh_guid": "455925fd-23ff-4e57-a0e7-913a4165e659",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "removes_three",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "reduction": [
+     3
+    ]
+   },
+   "compare": [
+    "List"
+   ],
+   "gh": {
+    "skip": "pyhopper's random engine differs from Grasshopper's and keeps the original order"
+   }
+  },
+  {
+   "name": "remove_all_or_more",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3
+    ],
+    "reduction": [
+     5
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "remove_nothing",
+   "inputs": {
+    "list": [
+     1,
+     2,
+     3
+    ],
+    "reduction": [
+     0
+    ]
+   },
+   "compare": [
+    "List"
+   ]
+  },
+  {
+   "name": "per_branch_shape",
+   "inputs": {
+    "list": {
+     "0": [
+      1,
+      2,
+      3
+     ],
+     "1": [
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "reduction": [
+     1
+    ],
+    "seed": [
+     7
+    ]
+   },
+   "compare": [
+    "List"
+   ],
+   "gh": {
+    "skip": "pyhopper's random engine differs from Grasshopper's and keeps the original order"
+   }
+  }
+ ]
+}

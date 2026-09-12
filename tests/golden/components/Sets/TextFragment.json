@@ -1,0 +1,123 @@
+{
+ "component": "pyhopper.Components.Sets.Text.TextFragment.TextFragment",
+ "gh_guid": "07e0811f-034a-4504-bca0-2d03b2c46217",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "text": [
+     "Grasshopper"
+    ],
+    "start": [
+     5
+    ],
+    "count": [
+     3
+    ]
+   },
+   "expect": {
+    "fragment": {
+     "{0}": [
+      "hop"
+     ]
+    }
+   }
+  },
+  {
+   "name": "rest_of_text",
+   "inputs": {
+    "text": [
+     "Grasshopper"
+    ],
+    "start": [
+     5
+    ]
+   },
+   "expect": {
+    "fragment": {
+     "{0}": [
+      "hopper"
+     ]
+    }
+   }
+  },
+  {
+   "name": "clipped_and_beyond",
+   "inputs": {
+    "text": [
+     "Grass",
+     "Grass",
+     "Grass"
+    ],
+    "start": [
+     3,
+     9,
+     1
+    ],
+    "count": [
+     10,
+     2,
+     0
+    ]
+   },
+   "expect": {
+    "fragment": {
+     "{0}": [
+      "ss",
+      "",
+      ""
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "text": {
+     "0": [
+      "abc"
+     ],
+     "1": [
+      "defgh"
+     ]
+    },
+    "start": [
+     1
+    ],
+    "count": [
+     2
+    ]
+   },
+   "expect": {
+    "fragment": {
+     "{0}": [
+      "bc"
+     ],
+     "{1}": [
+      "ef"
+     ]
+    }
+   }
+  },
+  {
+   "name": "negative_start_raises",
+   "inputs": {
+    "text": [
+     "Grass"
+    ],
+    "start": [
+     -2
+    ],
+    "count": [
+     3
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

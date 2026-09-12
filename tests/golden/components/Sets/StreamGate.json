@@ -1,0 +1,105 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.StreamGate.StreamGate",
+ "gh_guid": "71fcc052-6add-4d70-8d97-cfb37ea9d169",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "gate_zero",
+   "inputs": {
+    "stream": {
+     "0": [
+      1,
+      2
+     ],
+     "3": [
+      4
+     ]
+    },
+    "gate": [
+     0
+    ]
+   },
+   "expect": {
+    "target_0": {
+     "{0}": [
+      1,
+      2
+     ],
+     "{3}": [
+      4
+     ]
+    },
+    "target_1": {}
+   }
+  },
+  {
+   "name": "gate_one",
+   "inputs": {
+    "stream": {
+     "0": [
+      1,
+      2
+     ],
+     "3": [
+      4
+     ]
+    },
+    "gate": [
+     1
+    ]
+   },
+   "expect": {
+    "target_0": {},
+    "target_1": {
+     "{0}": [
+      1,
+      2
+     ],
+     "{3}": [
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "gate_too_high_raises",
+   "inputs": {
+    "stream": {
+     "0": [
+      1,
+      2
+     ],
+     "3": [
+      4
+     ]
+    },
+    "gate": [
+     2
+    ]
+   },
+   "raises": "IndexError"
+  },
+  {
+   "name": "gate_negative_raises",
+   "inputs": {
+    "stream": {
+     "0": [
+      1,
+      2
+     ],
+     "3": [
+      4
+     ]
+    },
+    "gate": [
+     -1
+    ]
+   },
+   "raises": "IndexError"
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.ShiftPaths.ShiftPaths",
+ "gh_guid": "2d61f4e0-47c5-41d6-a41d-6afa96ee63af",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "default_drops_last_index",
+   "inputs": {
+    "data": {
+     "0;0": [
+      1
+     ],
+     "0;1": [
+      2
+     ],
+     "1;0": [
+      3
+     ]
+    }
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "positive_drops_first_index",
+   "inputs": {
+    "data": {
+     "0;0": [
+      1
+     ],
+     "0;1": [
+      2
+     ],
+     "1;0": [
+      3
+     ]
+    },
+    "offset": [
+     1
+    ]
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "merge_in_order",
+   "inputs": {
+    "data": {
+     "0;0": [
+      1,
+      2
+     ],
+     "0;1": [
+      3
+     ]
+    },
+    "offset": [
+     -1
+    ]
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "zero_keeps",
+   "inputs": {
+    "data": {
+     "0;0": [
+      1
+     ],
+     "0;1": [
+      2
+     ]
+    },
+    "offset": [
+     0
+    ]
+   },
+   "compare": [
+    "Data"
+   ]
+  },
+  {
+   "name": "shifted_out_of_existence",
+   "inputs": {
+    "data": {
+     "3": [
+      1
+     ],
+     "5": [
+      2
+     ]
+    },
+    "offset": [
+     -1
+    ]
+   },
+   "compare": [
+    "Data"
+   ],
+   "gh": {
+    "skip": "Grasshopper emits an empty result with warnings; pyhopper emits an empty tree"
+   }
+  }
+ ]
+}

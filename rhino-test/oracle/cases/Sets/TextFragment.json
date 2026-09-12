@@ -1,0 +1,85 @@
+{
+ "component": "pyhopper.Components.Sets.Text.TextFragment.TextFragment",
+ "gh_guid": "07e0811f-034a-4504-bca0-2d03b2c46217",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "basic",
+   "inputs": {
+    "text": [
+     "Grasshopper"
+    ],
+    "start": [
+     5
+    ],
+    "count": [
+     3
+    ]
+   },
+   "compare": [
+    "Fragment"
+   ]
+  },
+  {
+   "name": "rest_of_text",
+   "inputs": {
+    "text": [
+     "Grasshopper"
+    ],
+    "start": [
+     5
+    ]
+   },
+   "compare": [
+    "Fragment"
+   ]
+  },
+  {
+   "name": "clipped_and_beyond",
+   "inputs": {
+    "text": [
+     "Grass",
+     "Grass",
+     "Grass"
+    ],
+    "start": [
+     3,
+     9,
+     1
+    ],
+    "count": [
+     10,
+     2,
+     0
+    ]
+   },
+   "compare": [
+    "Fragment"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "text": {
+     "0": [
+      "abc"
+     ],
+     "1": [
+      "defgh"
+     ]
+    },
+    "start": [
+     1
+    ],
+    "count": [
+     2
+    ]
+   },
+   "compare": [
+    "Fragment"
+   ]
+  }
+ ]
+}

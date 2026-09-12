@@ -1,0 +1,129 @@
+{
+ "component": "pyhopper.Components.Sets.List.NullItem.NullItem",
+ "gh_guid": "c74efd0e-7fe3-4c2d-8c9d-295c5672fb13",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "kinds",
+   "inputs": {
+    "item": [
+     1,
+     null,
+     "text",
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     true
+    ]
+   },
+   "expect": {
+    "null_flags": {
+     "{0}": [
+      false,
+      true,
+      false,
+      false,
+      false
+     ]
+    },
+    "invalid_flags": {
+     "{0}": [
+      false,
+      true,
+      false,
+      false,
+      false
+     ]
+    },
+    "description": {
+     "{0}": [
+      "",
+      "Data does not exist",
+      "",
+      "",
+      ""
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "item": {
+     "0": [
+      null
+     ],
+     "1": [
+      2.5,
+      null
+     ]
+    }
+   },
+   "expect": {
+    "null_flags": {
+     "{0}": [
+      true
+     ],
+     "{1}": [
+      false,
+      true
+     ]
+    },
+    "invalid_flags": {
+     "{0}": [
+      true
+     ],
+     "{1}": [
+      false,
+      true
+     ]
+    },
+    "description": {
+     "{0}": [
+      "Data does not exist"
+     ],
+     "{1}": [
+      "",
+      "Data does not exist"
+     ]
+    }
+   }
+  },
+  {
+   "name": "all_valid",
+   "inputs": {
+    "item": [
+     1,
+     2
+    ]
+   },
+   "expect": {
+    "null_flags": {
+     "{0}": [
+      false,
+      false
+     ]
+    },
+    "invalid_flags": {
+     "{0}": [
+      false,
+      false
+     ]
+    },
+    "description": {
+     "{0}": [
+      "",
+      ""
+     ]
+    }
+   }
+  }
+ ]
+}

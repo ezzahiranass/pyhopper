@@ -1,0 +1,198 @@
+{
+ "component": "pyhopper.Components.Sets.Text.SortText.SortText",
+ "gh_guid": "cec16c67-7b8b-41f7-a5a5-f675177e524b",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "invariant_culture",
+   "inputs": {
+    "keys": [
+     "b",
+     "B",
+     "a",
+     "A",
+     "10",
+     "9",
+     "item2",
+     "item10"
+    ]
+   },
+   "expect": {
+    "keys": {
+     "{0;0}": [
+      "10",
+      "9",
+      "a",
+      "A",
+      "b",
+      "B",
+      "item10",
+      "item2"
+     ]
+    },
+    "values": {
+     "{0;0}": []
+    }
+   }
+  },
+  {
+   "name": "case_ties",
+   "inputs": {
+    "keys": [
+     "B",
+     "b",
+     "A",
+     "a",
+     "ab",
+     "Ab",
+     "aB"
+    ]
+   },
+   "expect": {
+    "keys": {
+     "{0;0}": [
+      "a",
+      "A",
+      "ab",
+      "aB",
+      "Ab",
+      "b",
+      "B"
+     ]
+    },
+    "values": {
+     "{0;0}": []
+    }
+   }
+  },
+  {
+   "name": "accents_and_punctuation",
+   "inputs": {
+    "keys": [
+     "b a",
+     "ba",
+     "b-a",
+     "é",
+     "e",
+     "f"
+    ]
+   },
+   "expect": {
+    "keys": {
+     "{0;0}": [
+      "b a",
+      "b-a",
+      "ba",
+      "e",
+      "é",
+      "f"
+     ]
+    },
+    "values": {
+     "{0;0}": []
+    }
+   }
+  },
+  {
+   "name": "values_follow_keys",
+   "inputs": {
+    "keys": [
+     "c",
+     "a",
+     "b"
+    ],
+    "values": [
+     3,
+     1,
+     2
+    ]
+   },
+   "expect": {
+    "keys": {
+     "{0;0}": [
+      "a",
+      "b",
+      "c"
+     ]
+    },
+    "values": {
+     "{0;0}": [
+      1,
+      2,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "keys": {
+     "0": [
+      "b",
+      "a"
+     ],
+     "1": [
+      "z",
+      "y",
+      "x"
+     ]
+    },
+    "values": {
+     "0": [
+      2,
+      1
+     ],
+     "1": [
+      26,
+      25,
+      24
+     ]
+    }
+   },
+   "expect": {
+    "keys": {
+     "{0;0}": [
+      "a",
+      "b"
+     ],
+     "{1;0}": [
+      "x",
+      "y",
+      "z"
+     ]
+    },
+    "values": {
+     "{0;0}": [
+      1,
+      2
+     ],
+     "{1;0}": [
+      24,
+      25,
+      26
+     ]
+    }
+   }
+  },
+  {
+   "name": "value_count_mismatch_raises",
+   "inputs": {
+    "keys": [
+     "c",
+     "a",
+     "b"
+    ],
+    "values": [
+     3,
+     1
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}

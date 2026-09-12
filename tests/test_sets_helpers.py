@@ -6,11 +6,11 @@ import unittest
 
 from tests.support.trees import assert_tree_equal, tree
 
-from pyhopper.Components.Sets._lists import cycle, pad_to, resolve_index
+from pyhopper.Components.Sets._lists import cycle, extend_last, pad_to, resolve_index
 from pyhopper.Core.Atoms import AtomicPoint
 from pyhopper.Core.TypeSystem import coerce_item
 from pyhopper.Utils.Items import index_of, indices_of, item_key
-from pyhopper.Utils.Text import format_number, format_value
+from pyhopper.Utils.Text import format_number, format_value, invariant_sort_key, wildcard_to_regex
 
 
 class ItemKeyTests(unittest.TestCase):
@@ -83,6 +83,48 @@ class ListHelperTests(unittest.TestCase):
     def test_pad_to(self):
         self.assertEqual(pad_to(["a"], 3), ["a", None, None])
         self.assertEqual(pad_to(["a", "b"], 1), ["a", "b"])
+
+    def test_extend_last(self):
+        self.assertEqual(extend_last(["a", "b"], 4), ["a", "b", "b", "b"])
+        self.assertEqual(extend_last([], 3), [])
+        self.assertEqual(extend_last(["a", "b"], 1), ["a", "b"])
+
+
+class WaveB2TextHelperTests(unittest.TestCase):
+    def test_invariant_sort_key_orders_like_dotnet(self):
+        self.assertEqual(sorted(["b", "B", "a", "A", "10", "9"], key=invariant_sort_key), ["10", "9", "a", "A", "b", "B"])
+        self.assertEqual(sorted(["ab", "Ab", "aB"], key=invariant_sort_key), ["ab", "aB", "Ab"])
+        self.assertEqual(sorted(["f", "é", "e"], key=invariant_sort_key), ["e", "é", "f"])
+
+    def test_wildcard_to_regex(self):
+        import re
+
+        pattern = re.compile(wildcard_to_regex("H?l*o#[bc].txt"))
+        self.assertTrue(pattern.fullmatch("Hello7b.txt"))
+        self.assertTrue(pattern.fullmatch("Halo0c.txt"))
+        self.assertFalse(pattern.fullmatch("Hello7d.txt"))
+        self.assertFalse(pattern.fullmatch("Hello7bXtxt"), "the dot is literal")
+
+    def test_null_item_flags_non_finite_numbers(self):
+        from pyhopper.Components.Sets.List.NullItem import NullItem
+
+        result = NullItem(tree([float("nan"), float("inf"), 1.0]))
+        self.assertEqual(result.output("null_flags").all_items(), [False, False, False])
+        self.assertEqual(result.output("invalid_flags").all_items(), [True, True, False])
+        self.assertEqual(result.output("description").all_items()[0], "Number is equal to the NaN constant.")
+
+
+class RandomReducePropertyTests(unittest.TestCase):
+    def test_seeded_reduction_keeps_order_and_is_deterministic(self):
+        from pyhopper.Components.Sets.Sequence.RandomReduce import RandomReduce
+
+        items = list(range(20))
+        first = RandomReduce(tree(items), 7, 3).all_items()
+        second = RandomReduce(tree(items), 7, 3).all_items()
+        self.assertEqual(first, second)
+        self.assertEqual(len(first), 13)
+        self.assertEqual(first, sorted(first), "survivors keep their original order")
+        self.assertNotEqual(RandomReduce(tree(items), 7, 4).all_items(), first)
 
 
 class JitterPropertyTests(unittest.TestCase):

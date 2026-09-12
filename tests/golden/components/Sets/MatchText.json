@@ -1,0 +1,169 @@
+{
+ "component": "pyhopper.Components.Sets.Text.MatchText.MatchText",
+ "gh_guid": "3756c55f-95c3-442c-a027-6b3ab0455a94",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "wildcard_star",
+   "inputs": {
+    "text": [
+     "Hello",
+     "hello",
+     "Help",
+     "Yellow"
+    ],
+    "pattern": [
+     "H*"
+    ]
+   },
+   "expect": {
+    "matched": {
+     "{0}": [
+      true,
+      false,
+      true,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "wildcard_question_hash_set",
+   "inputs": {
+    "text": [
+     "Hello",
+     "Hallo",
+     "Hllo",
+     "A1",
+     "AB",
+     "Ab",
+     "Ad"
+    ],
+    "pattern": [
+     "H?llo",
+     "H?llo",
+     "H?llo",
+     "A#",
+     "A#",
+     "A[bc]",
+     "A[bc]"
+    ]
+   },
+   "expect": {
+    "matched": {
+     "{0}": [
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "case_insensitive",
+   "inputs": {
+    "text": [
+     "hello"
+    ],
+    "pattern": [
+     "H*"
+    ],
+    "case": [
+     false
+    ]
+   },
+   "expect": {
+    "matched": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "regex",
+   "inputs": {
+    "text": [
+     "Hello",
+     "world"
+    ],
+    "regex": [
+     "^[A-Z]"
+    ]
+   },
+   "expect": {
+    "matched": {
+     "{0}": [
+      true,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "regex_case_insensitive",
+   "inputs": {
+    "text": [
+     "hello"
+    ],
+    "regex": [
+     "^H"
+    ],
+    "case": [
+     false
+    ]
+   },
+   "expect": {
+    "matched": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  },
+  {
+   "name": "both_must_match",
+   "inputs": {
+    "text": [
+     "Hello"
+    ],
+    "pattern": [
+     "H*"
+    ],
+    "regex": [
+     "z"
+    ]
+   },
+   "expect": {
+    "matched": {
+     "{0}": [
+      false
+     ]
+    }
+   }
+  },
+  {
+   "name": "nothing_to_match",
+   "inputs": {
+    "text": [
+     "Hello"
+    ]
+   },
+   "expect": {
+    "matched": {
+     "{0}": [
+      true
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "component": "pyhopper.Components.Sets.Sets.SetDifference.SetDifference",
+ "gh_guid": "e3b1a10c-4d49-4140-b8e6-0b5732a26c31",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "keeps_duplicates_of_a",
+   "inputs": {
+    "set_a": [
+     1,
+     2,
+     2,
+     3,
+     5
+    ],
+    "set_b": [
+     5,
+     3,
+     7
+    ]
+   },
+   "compare": [
+    "Union"
+   ]
+  },
+  {
+   "name": "types_differ",
+   "inputs": {
+    "set_a": [
+     1,
+     1.0,
+     "1",
+     true
+    ],
+    "set_b": [
+     1
+    ]
+   },
+   "compare": [
+    "Union"
+   ]
+  },
+  {
+   "name": "per_branch",
+   "inputs": {
+    "set_a": {
+     "0": [
+      1,
+      2
+     ],
+     "1": [
+      3,
+      4
+     ]
+    },
+    "set_b": {
+     "0": [
+      2
+     ],
+     "1": [
+      9
+     ]
+    }
+   },
+   "compare": [
+    "Union"
+   ]
+  }
+ ]
+}

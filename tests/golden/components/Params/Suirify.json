@@ -1,0 +1,109 @@
+{
+ "component": "pyhopper.Components.Params.Util.Suirify.Suirify",
+ "gh_guid": "5d4e1eeb-482e-42a7-aa2f-e5deb8a1018e",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "shared_prefix_removed",
+   "inputs": {
+    "data": {
+     "2;3;0": [
+      1
+     ],
+     "2;3;1": [
+      2,
+      3
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{0}": [
+      1
+     ],
+     "{1}": [
+      2,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "single_branch_unchanged",
+   "inputs": {
+    "data": {
+     "5;2;1": [
+      1,
+      2,
+      3
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{5;2;1}": [
+      1,
+      2,
+      3
+     ]
+    }
+   }
+  },
+  {
+   "name": "no_shared_prefix_unchanged",
+   "inputs": {
+    "data": {
+     "1": [
+      1,
+      2
+     ],
+     "3": [
+      4
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{1}": [
+      1,
+      2
+     ],
+     "{3}": [
+      4
+     ]
+    }
+   }
+  },
+  {
+   "name": "ragged_with_empty_branch",
+   "inputs": {
+    "data": {
+     "0;0": [
+      1,
+      2
+     ],
+     "0;1": [],
+     "0;2": [
+      3
+     ]
+    }
+   },
+   "expect": {
+    "data": {
+     "{0}": [
+      1,
+      2
+     ],
+     "{1}": [],
+     "{2}": [
+      3
+     ]
+    }
+   }
+  }
+ ]
+}

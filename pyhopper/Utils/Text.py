@@ -10,6 +10,8 @@ and exponent spellings need adjusting.
 from __future__ import annotations
 
 import math
+import re
+import unicodedata
 from typing import Any
 
 # .NET switches to exponent notation for magnitudes >= 1E+15; Python does so at 1e16.
@@ -54,3 +56,43 @@ def format_value(value: Any) -> str:
     if isinstance(value, (bool, int, float)):
         return format_number(value)
     return str(value)
+
+
+def _strip_accents(value: str) -> str:
+    return "".join(char for char in unicodedata.normalize("NFKD", value) if not unicodedata.combining(char))
+
+
+def invariant_sort_key(value: str) -> tuple[str, str, str]:
+    """Sort key approximating .NET's invariant-culture string comparison.
+
+    Case and accents are ignored first, then an accented letter follows its base
+    letter, then lowercase precedes uppercase ("a" < "A" < "ab" < "aB" < "Ab" < "b").
+    """
+    folded = value.casefold()
+    return (_strip_accents(folded), folded, value.swapcase())
+
+
+def wildcard_to_regex(pattern: str) -> str:
+    """Grasshopper's wildcard syntax as a regular expression: ``*`` any run, ``?`` one character,
+    ``#`` one digit, ``[abc]`` one of a set."""
+    parts: list[str] = []
+    index = 0
+    while index < len(pattern):
+        char = pattern[index]
+        if char == "*":
+            parts.append(".*")
+        elif char == "?":
+            parts.append(".")
+        elif char == "#":
+            parts.append(r"\d")
+        elif char == "[":
+            close = pattern.find("]", index + 1)
+            if close < 0:
+                parts.append(re.escape(char))
+            else:
+                parts.append("[" + pattern[index + 1: close].replace("\\", "\\\\") + "]")
+                index = close
+        else:
+            parts.append(re.escape(char))
+        index += 1
+    return "".join(parts)

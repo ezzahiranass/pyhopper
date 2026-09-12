@@ -54,6 +54,8 @@ PORT_OVERRIDES: dict[tuple[str, str], str] = {
 # Output ports whose Grasshopper name would collide with (or mislead next to) an input of the same name.
 OUTPUT_PORT_OVERRIDES: dict[tuple[str, str], str] = {
     ("Plane Surface", "Plane"): "surface",                      # the input plane keeps "plane"
+    ("Replace Nulls", "Items"): "result",                       # "items" is a DataTree attribute
+    ("Match Text", "Match"): "matched",                         # "match" is a DataTree attribute
 }
 
 # Second occurrence of a duplicated GH output name (mapped by position when names repeat).

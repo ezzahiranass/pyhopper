@@ -1,0 +1,63 @@
+{
+ "component": "pyhopper.Components.Sets.Tree.StreamFilter.StreamFilter",
+ "gh_guid": "eeafc956-268e-461d-8e73-ee05c6f72c01",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "gate_picks_stream",
+   "inputs": {
+    "gate": [
+     1
+    ],
+    "streams": [
+     {
+      "0": [
+       1,
+       2
+      ],
+      "1": [
+       3
+      ]
+     },
+     {
+      "5": [
+       "a"
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Stream"
+   ]
+  },
+  {
+   "name": "gate_zero",
+   "inputs": {
+    "gate": [
+     0
+    ],
+    "streams": [
+     {
+      "0": [
+       1,
+       2
+      ],
+      "1": [
+       3
+      ]
+     },
+     {
+      "5": [
+       "a"
+      ]
+     }
+    ]
+   },
+   "compare": [
+    "Stream"
+   ]
+  }
+ ]
+}

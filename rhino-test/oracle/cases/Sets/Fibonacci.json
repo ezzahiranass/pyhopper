@@ -1,0 +1,45 @@
+{
+ "component": "pyhopper.Components.Sets.Sequence.Fibonacci.Fibonacci",
+ "gh_guid": "fe99f302-3d0d-4389-8494-bd53f7935a02",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "compare": [
+    "Series"
+   ]
+  },
+  {
+   "name": "seeds",
+   "inputs": {
+    "seed_a": [
+     2.0
+    ],
+    "seed_b": [
+     3.0
+    ],
+    "number": [
+     6
+    ]
+   },
+   "compare": [
+    "Series"
+   ]
+  },
+  {
+   "name": "counts_one_and_zero",
+   "inputs": {
+    "number": [
+     1,
+     0
+    ]
+   },
+   "compare": [
+    "Series"
+   ]
+  }
+ ]
+}
