@@ -1,0 +1,97 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.Bounds2D.Bounds2D",
+ "gh_guid": "dd53b24c-003a-4a04-b185-a44d91633cbe",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "three_points",
+   "inputs": {
+    "coordinates": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": -2,
+      "y": 3,
+      "z": 9
+     },
+     {
+      "type": "Point3d",
+      "x": 4,
+      "y": 4,
+      "z": 1
+     }
+    ]
+   },
+   "compare": [
+    "Domain"
+   ]
+  },
+  {
+   "name": "single_point",
+   "inputs": {
+    "coordinates": [
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 5,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Domain"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "coordinates": {
+     "0": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 3,
+       "y": -2,
+       "z": 0
+      }
+     ],
+     "1": [
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 1,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 1,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": -1,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "compare": [
+    "Domain"
+   ]
+  }
+ ]
+}

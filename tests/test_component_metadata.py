@@ -75,7 +75,7 @@ class ComponentMetadataTests(unittest.TestCase):
         for entry in self.entries:
             record = self.dump[entry["gh_guid"]]
             with self.subTest(component=entry["component_key"]):
-                self.assertEqual(entry["component"], class_name_for(record["name"], record["category"], record["subcategory"]))
+                self.assertEqual(entry["component"], class_name_for(record["name"], record["category"], record["subcategory"], record["guid"]))
 
     def test_inputs_follow_the_grasshopper_port_contract(self) -> None:
         for entry in self.entries:

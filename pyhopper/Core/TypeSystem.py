@@ -16,6 +16,7 @@ from .Atoms import (
     AtomicCylinder,
     AtomicEllipse,
     AtomicInterpolatedCurve,
+    AtomicInterval2,
     AtomicLine,
     AtomicMesh,
     AtomicNurbsCurve,
@@ -132,6 +133,8 @@ def accepted_type_names(target: type | TypeSpec | None) -> list[str] | None:
         return ["AtomicSurface", "AtomicBrep"]
     if target is Path:
         return ["Path", "str", "int"]
+    if target is AtomicInterval2:
+        return ["AtomicInterval2"]
     return [target.__name__]
 
 

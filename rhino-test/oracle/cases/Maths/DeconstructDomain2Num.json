@@ -1,0 +1,130 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.DeconstructDomain2Num.DeconstructDomain2Num",
+ "gh_guid": "47c30f9d-b685-4d4d-9b20-5b60e48d5af8",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "U min",
+    "U max",
+    "V min",
+    "V max"
+   ]
+  },
+  {
+   "name": "reversed",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     }
+    ]
+   },
+   "compare": [
+    "U min",
+    "U max",
+    "V min",
+    "V max"
+   ]
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "compare": [
+    "U min",
+    "U max",
+    "V min",
+    "V max"
+   ],
+   "gh": {
+    "skip": "Grasshopper has no persistent default for this input; pyhopper's default is its own"
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "domain": {
+     "0": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 2.0,
+        "end": 0.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ]
+    }
+   },
+   "compare": [
+    "U min",
+    "U max",
+    "V min",
+    "V max"
+   ]
+  }
+ ]
+}

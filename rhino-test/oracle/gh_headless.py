@@ -23,6 +23,7 @@ from pyhopper.Core.Atoms import (
     AtomicBrep,
     AtomicCircle,
     AtomicInterval,
+    AtomicInterval2,
     AtomicLine,
     AtomicNurbsCurve,
     AtomicPlane,
@@ -106,6 +107,9 @@ def to_net(value: Any, *, reparametrize: bool = False):
         return System.String(value)
     if isinstance(value, AtomicInterval):
         return Rhino.Geometry.Interval(float(value.start), float(value.end))
+    if isinstance(value, AtomicInterval2):
+        Grasshopper = load_grasshopper()
+        return Grasshopper.Kernel.Types.UVInterval(Rhino.Geometry.Interval(float(value.u.start), float(value.u.end)), Rhino.Geometry.Interval(float(value.v.start), float(value.v.end)))
     if isinstance(value, AtomicPoint):
         return to_point(value)
     if isinstance(value, AtomicVector):
@@ -142,6 +146,8 @@ def to_python(goo: Any):
         return None
     if isinstance(value, Rhino.Geometry.Interval):
         return AtomicInterval(float(value.T0), float(value.T1))
+    if type(value).__name__ == "UVInterval":
+        return AtomicInterval2(AtomicInterval(float(value.U.T0), float(value.U.T1)), AtomicInterval(float(value.V.T0), float(value.V.T1)))
     if isinstance(value, Rhino.Geometry.Point3d):
         return AtomicPoint(float(value.X), float(value.Y), float(value.Z))
     if isinstance(value, Rhino.Geometry.Vector3d):

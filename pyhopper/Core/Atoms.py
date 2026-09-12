@@ -176,6 +176,29 @@ class AtomicInterval(Atom):
 
 
 @dataclass(frozen=True)
+class AtomicInterval2(Atom):
+    """A two-dimensional domain — a pair of intervals in U and V (Grasshopper's Domain²)."""
+
+    atom_type: ClassVar[str] = "Interval2"
+
+    u: AtomicInterval = None  # type: ignore[assignment]
+    v: AtomicInterval = None  # type: ignore[assignment]
+
+    def __post_init__(self):
+        if self.u is None:
+            object.__setattr__(self, "u", AtomicInterval(0.0, 1.0))
+        if self.v is None:
+            object.__setattr__(self, "v", AtomicInterval(0.0, 1.0))
+
+    def to_json(self) -> dict:
+        return {"type": "Interval2", "u": self.u.to_json(), "v": self.v.to_json()}
+
+    @classmethod
+    def from_json(cls, data: dict) -> AtomicInterval2:
+        return cls(u=AtomicInterval.from_json(data["u"]), v=AtomicInterval.from_json(data["v"]))
+
+
+@dataclass(frozen=True)
 class AtomicPlane(Atom):
     """Rhino-style orthonormal plane defined by origin, normal, and X axis.
 

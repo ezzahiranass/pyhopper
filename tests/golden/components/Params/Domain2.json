@@ -1,0 +1,107 @@
+{
+ "component": "pyhopper.Components.Params.Primitive.Domain2.Domain2",
+ "gh_guid": "90744326-eb53-4a0e-b7ef-4b45f5473d6e",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      }
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "domain": {
+     "0": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 2.0,
+        "end": 0.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ],
+     "1;2": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "empty_branch",
+   "inputs": {
+    "domain": {
+     "0": [],
+     "1": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      }
+     ]
+    }
+   },
+   "expect": {}
+  }
+ ]
+}

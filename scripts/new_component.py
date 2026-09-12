@@ -31,6 +31,7 @@ SUBCATEGORY_FOLDERS = {"Euclidean": "Euclidian"}  # the folder keeps its histori
 ATOM_HINTS = {
     "AtomicPoint", "AtomicVector", "AtomicPlane", "AtomicLine", "AtomicCircle", "AtomicArc",
     "AtomicRectangle", "AtomicBox", "AtomicMesh", "AtomicTransform", "AtomicBrep", "AtomicInterval",
+    "AtomicInterval2",
 }
 TYPESPEC_HINTS = {"CURVE", "SURFACE", "GEOMETRY"}
 # Default expressions for ports Grasshopper does not mark optional. Geometry stays required.
@@ -43,6 +44,7 @@ DEFAULTS = {
     "AtomicVector": "AtomicVector.unit_z()",
     "AtomicPoint": "AtomicPoint.origin()",
     "AtomicInterval": "AtomicInterval(0.0, 1.0)",
+    "AtomicInterval2": "AtomicInterval2()",
     "Path": "Path(0)",
 }
 CHECKLIST = """
@@ -63,8 +65,10 @@ def load_records(dump: Path) -> list[dict]:
     return json.loads(dump.read_text(encoding="utf-8"))
 
 
-def find_record(records: list[dict], name: str, tab: str | None, sub: str | None) -> dict:
+def find_record(records: list[dict], name: str, tab: str | None, sub: str | None, guid: str | None = None) -> dict:
     matches = [r for r in records if r["name"] == name]
+    if guid:
+        matches = [r for r in matches if r["guid"].lower().startswith(guid.lower())]
     if tab:
         matches = [r for r in matches if r["category"] == tab]
     if sub:
@@ -72,7 +76,7 @@ def find_record(records: list[dict], name: str, tab: str | None, sub: str | None
     if not matches:
         raise SystemExit(f"No Grasshopper component named {name!r}" + (f" in {tab}/{sub}" if tab or sub else ""))
     if len(matches) > 1:
-        options = ", ".join(f"--tab {r['category']} --sub {r['subcategory']}" for r in matches)
+        options = ", ".join(f"--tab {r['category']} --sub {r['subcategory']} --guid {r['guid'][:8]} ({r['nickname']})" for r in matches)
         raise SystemExit(f"{name!r} is ambiguous; pass one of: {options}")
     return matches[0]
 
@@ -270,7 +274,7 @@ def check_names(out_root: Path) -> int:
         guid = getattr(entry.cls, "gh_guid", None)
         display = getattr(entry.cls, "display_name", None)
         if guid and display:
-            expected = class_name_for(display, entry.tab, {"Euclidian": "Euclidean"}.get(entry.category, entry.category))
+            expected = class_name_for(display, entry.tab, {"Euclidian": "Euclidean"}.get(entry.category, entry.category), guid)
             if expected != entry.name:
                 problems += 1
                 print(f"  name mismatch  {entry.key}: expected {expected!r} from {display!r}")
@@ -291,6 +295,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=REPO_ROOT / "pyhopper" / "Components")
     parser.add_argument("--golden", type=Path, default=REPO_ROOT / "tests" / "golden" / "components")
     parser.add_argument("--oracle", type=Path, default=REPO_ROOT / "rhino-test" / "oracle" / "cases")
+    parser.add_argument("--guid", help="GUID (or prefix) when Grasshopper ships two components under one name")
     parser.add_argument("--force", action="store_true", help="overwrite existing files")
     parser.add_argument("--dry-run", action="store_true", help="print what would be written")
     parser.add_argument("--show", action="store_true", help="print the Grasshopper record and exit")
@@ -302,12 +307,12 @@ def main(argv: list[str] | None = None) -> int:
     if not args.name:
         parser.error("a Grasshopper component name is required (or --check-names)")
 
-    record = find_record(load_records(args.dump), args.name, args.tab, args.sub)
+    record = find_record(load_records(args.dump), args.name, args.tab, args.sub, args.guid)
     if args.show:
         print(json.dumps(record, indent=1, ensure_ascii=False))
         return 0
 
-    class_name = class_name_for(record["name"], record["category"], record["subcategory"])
+    class_name = class_name_for(record["name"], record["category"], record["subcategory"], record["guid"])
     folder = SUBCATEGORY_FOLDERS.get(record["subcategory"], record["subcategory"])
     module_dir = args.out / record["category"] / folder
     module_path = module_dir / f"{class_name}.py"

@@ -1,0 +1,88 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.ConstructDomain2Num.ConstructDomain2Num",
+ "gh_guid": "9083b87f-a98c-4e41-9591-077ae4220b19",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "u_min": [
+     0.0
+    ],
+    "u_max": [
+     2.0
+    ],
+    "v_min": [
+     -1.0
+    ],
+    "v_max": [
+     3.0
+    ]
+   },
+   "compare": [
+    "2D Domain"
+   ]
+  },
+  {
+   "name": "reversed_kept",
+   "inputs": {
+    "u_min": [
+     2.0
+    ],
+    "u_max": [
+     0.0
+    ],
+    "v_min": [
+     3.0
+    ],
+    "v_max": [
+     -1.0
+    ]
+   },
+   "compare": [
+    "2D Domain"
+   ]
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {},
+   "compare": [
+    "2D Domain"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "u_min": {
+     "0": [
+      0.0,
+      1.0
+     ],
+     "1": [
+      5.0
+     ]
+    },
+    "u_max": [
+     4.0
+    ],
+    "v_min": [
+     0.0
+    ],
+    "v_max": {
+     "0": [
+      1.0
+     ],
+     "1": [
+      2.0,
+      3.0
+     ]
+    }
+   },
+   "compare": [
+    "2D Domain"
+   ]
+  }
+ ]
+}

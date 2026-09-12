@@ -1,0 +1,209 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.DeconstructDomain2Num.DeconstructDomain2Num",
+ "gh_guid": "47c30f9d-b685-4d4d-9b20-5b60e48d5af8",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "typical",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "u_min": {
+     "{0}": [
+      0.0
+     ]
+    },
+    "u_max": {
+     "{0}": [
+      2.0
+     ]
+    },
+    "v_min": {
+     "{0}": [
+      -1.0
+     ]
+    },
+    "v_max": {
+     "{0}": [
+      3.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "reversed",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     }
+    ]
+   },
+   "expect": {
+    "u_min": {
+     "{0}": [
+      2.0
+     ]
+    },
+    "u_max": {
+     "{0}": [
+      0.0
+     ]
+    },
+    "v_min": {
+     "{0}": [
+      0.0
+     ]
+    },
+    "v_max": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "pyhopper_defaults",
+   "inputs": {},
+   "expect": {
+    "u_min": {
+     "{0}": [
+      0.0
+     ]
+    },
+    "u_max": {
+     "{0}": [
+      1.0
+     ]
+    },
+    "v_min": {
+     "{0}": [
+      0.0
+     ]
+    },
+    "v_max": {
+     "{0}": [
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "domain": {
+     "0": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 2.0,
+        "end": 0.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ]
+    }
+   },
+   "expect": {
+    "u_min": {
+     "{0}": [
+      0.0,
+      2.0
+     ],
+     "{1}": [
+      0.0
+     ]
+    },
+    "u_max": {
+     "{0}": [
+      2.0,
+      0.0
+     ],
+     "{1}": [
+      1.0
+     ]
+    },
+    "v_min": {
+     "{0}": [
+      -1.0,
+      0.0
+     ],
+     "{1}": [
+      0.0
+     ]
+    },
+    "v_max": {
+     "{0}": [
+      3.0,
+      1.0
+     ],
+     "{1}": [
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

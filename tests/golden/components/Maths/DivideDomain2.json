@@ -1,0 +1,229 @@
+{
+ "component": "pyhopper.Components.Maths.Domain.DivideDomain2.DivideDomain2",
+ "gh_guid": "75ac008b-1bc2-4edd-b967-667d628b9d24",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "two_by_three",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 5.0
+      }
+     }
+    ],
+    "u_count": [
+     2
+    ],
+    "v_count": [
+     3
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "one_by_one",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 5.0
+      }
+     }
+    ],
+    "u_count": [
+     1
+    ],
+    "v_count": [
+     1
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "zero_count_is_empty",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 5.0
+      }
+     }
+    ],
+    "u_count": [
+     0
+    ],
+    "v_count": [
+     2
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "reversed_domain",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 2.0,
+       "end": 0.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     }
+    ],
+    "u_count": [
+     2
+    ],
+    "v_count": [
+     1
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "grasshopper_defaults",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 1.0
+      }
+     }
+    ]
+   },
+   "expect": {}
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "domain": {
+     "0": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 2.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": -1.0,
+        "end": 3.0
+       }
+      },
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 2.0,
+        "end": 0.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ],
+     "1": [
+      {
+       "type": "Interval2",
+       "u": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       },
+       "v": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.0
+       }
+      }
+     ]
+    },
+    "u_count": [
+     2
+    ],
+    "v_count": {
+     "0": [
+      1
+     ],
+     "1": [
+      2
+     ]
+    }
+   },
+   "expect": {}
+  },
+  {
+   "name": "negative_count_raises",
+   "inputs": {
+    "domain": [
+     {
+      "type": "Interval2",
+      "u": {
+       "type": "Interval",
+       "start": 0.0,
+       "end": 2.0
+      },
+      "v": {
+       "type": "Interval",
+       "start": -1.0,
+       "end": 3.0
+      }
+     }
+    ],
+    "u_count": [
+     -1
+    ],
+    "v_count": [
+     2
+    ]
+   },
+   "raises": "ValueError"
+  }
+ ]
+}
