@@ -1,15 +1,11 @@
 from __future__ import annotations
 
-from importlib import import_module
-from inspect import getdoc, getmembers, isclass
-from pathlib import Path
+from inspect import getdoc
 from typing import Any
 
 from pyhopper.Core.Component import Component, InputParam, OutputParam
 from pyhopper.Core.TypeSystem import accepted_type_names, type_name
 
-
-COMPONENTS_ROOT = Path(__file__).resolve().parents[1] / "Components"
 
 
 def _json_safe(value: Any) -> Any:
@@ -106,30 +102,8 @@ def serialize_component(tab: str, category: str, component_cls: type[Component])
 
 
 def list_components() -> list[dict[str, Any]]:
-    components: list[dict[str, Any]] = []
+    from pyhopper.Components.registry import iter_component_classes
 
-    for src_path in sorted(COMPONENTS_ROOT.rglob("*.py")):
-        if src_path.name.startswith("_"):
-            continue
-
-        rel_parts = src_path.relative_to(COMPONENTS_ROOT).with_suffix("").parts
-        if not rel_parts:
-            continue
-
-        tab = rel_parts[0]
-        category = "/".join(rel_parts[1:-1]) if len(rel_parts) > 2 else "General"
-        module_name = ".".join(("pyhopper", "Components", *rel_parts))
-        module = import_module(module_name)
-
-        for _, member in getmembers(module, isclass):
-            if member is Component:
-                continue
-            if not issubclass(member, Component):
-                continue
-            if member.__module__ != module.__name__:
-                continue
-
-            components.append(serialize_component(tab, category, member))
-
+    components = [serialize_component(entry.tab, entry.category, entry.cls) for entry in iter_component_classes()]
     components.sort(key=lambda item: (item["tab"], item["category"], item["component"]))
     return components
