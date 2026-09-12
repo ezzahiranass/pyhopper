@@ -1,0 +1,8 @@
+# Python virtual environment (created by local setup)
+.venv/
+# Python bytecode
+__pycache__/
+*.pyc
+# vendored third-party download and scratch archives
+three-viewport-gizmo-main/
+cd_ph2.zip

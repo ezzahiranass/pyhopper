@@ -22,6 +22,12 @@ CORE_MODULES = [
 
 nav = mkdocs_gen_files.Nav()
 
+with mkdocs_gen_files.open("reference/index.md", "w") as f:
+    f.write("# Reference\n\n")
+    f.write("Auto-generated API reference for pyhopper's core types, components, and utilities.\n")
+
+nav["Overview"] = "index.md"
+
 # ── Core ────────────────────────────────────────────────────────────
 for dotted in CORE_MODULES:
     parts = dotted.split(".")
@@ -37,7 +43,7 @@ for dotted in CORE_MODULES:
         f.write(f"# {parts[-1]}\n\n")
         f.write(f"::: {full_dotted}\n")
 
-    nav["Reference", "Core", parts[-1]] = nav_doc_path.as_posix()
+    nav["Core", parts[-1]] = nav_doc_path.as_posix()
 
 # ── Components (auto-walk) ───────────────────────────────────────────
 components_root = PACKAGE_ROOT / "Components"
@@ -58,7 +64,7 @@ for src_path in sorted(components_root.rglob("*.py")):
     nav_doc_path = Path("Components", *rel_parts).with_suffix(".md")
 
     # Nav breadcrumbs:  Reference > Components > Transform > Move
-    nav_parts = ("Reference", "Components") + rel_parts
+    nav_parts = ("Components",) + rel_parts
 
     with mkdocs_gen_files.open(doc_path.as_posix(), "w") as f:
         title = rel_parts[-1]
@@ -77,7 +83,7 @@ for src_path in sorted((PACKAGE_ROOT / "Utils").rglob("*.py")):
     rel_parts = src_path.relative_to(PACKAGE_ROOT / "Utils").with_suffix("").parts
     doc_path  = Path("reference", "Utils", *rel_parts).with_suffix(".md")
     nav_doc_path = Path("Utils", *rel_parts).with_suffix(".md")
-    nav_parts = ("Reference", "Utils") + rel_parts
+    nav_parts = ("Utils",) + rel_parts
 
     with mkdocs_gen_files.open(doc_path.as_posix(), "w") as f:
         f.write(f"# {rel_parts[-1]}\n\n")

@@ -3,7 +3,7 @@
 import math
 
 from pyhopper.Core.Atoms import AtomicPlane
-from pyhopper.Core.Atoms import AtomicPoint, AtomicPolyline
+from pyhopper.Core.Atoms import AtomicPoint, AtomicPolyline, AtomicRectangle
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
 
 
@@ -19,10 +19,10 @@ def _point_on_plane(plane: AtomicPlane, x: float, y: float) -> AtomicPoint:
 
 
 class Rectangle(Component):
-    """Create an ``AtomicPolyline`` rectangle from a plane and side lengths.
+    """Create an ``AtomicRectangle`` from a plane and side lengths.
 
-    Returns the rectangle outline and its perimeter length. A non-zero radius
-    produces a rounded rectangle approximation.
+    Returns a named rectangle and its perimeter length. A non-zero radius
+    produces a rounded ``AtomicPolyline`` approximation.
     """
 
     inputs = [
@@ -42,14 +42,12 @@ class Rectangle(Component):
         fillet = max(0.0, min(float(radius), half_x, half_y))
 
         if fillet == 0.0:
-            local_points = [
-                (-half_x, -half_y),
-                (half_x, -half_y),
-                (half_x, half_y),
-                (-half_x, half_y),
-                (-half_x, -half_y),
-            ]
             perimeter = 2.0 * (abs(float(x_size)) + abs(float(y_size)))
+            return AtomicRectangle(
+                plane=plane,
+                x_size=abs(float(x_size)),
+                y_size=abs(float(y_size)),
+            ), perimeter
         else:
             corner_segments = 6
             local_points = []

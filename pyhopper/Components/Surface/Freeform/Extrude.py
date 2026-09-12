@@ -11,7 +11,11 @@ from pyhopper.Core.Atoms import (
     AtomicVector,
 )
 from pyhopper.Core.Component import Access, Component, InputParam, OutputParam
+from pyhopper.Core.TypeSystem import CURVE_TYPES, GEOMETRY, TypeSpec
 from pyhopper.Utils.Unifiers.unitypes import as_nurbs_curve
+
+
+EXTRUDABLE = TypeSpec("Extrudable", (AtomicPoint, *CURVE_TYPES, AtomicSurface))
 
 
 def _collapse_repeated_knots(knots: tuple[float, ...]) -> tuple[tuple[float, ...], tuple[int, ...]]:
@@ -165,16 +169,15 @@ class Extrude(Component):
     """Extrude a base shape along a direction vector.
 
     Accepts a point, any supported curve type, or a surface. Points extrude
-    into lines; curves extrude into surfaces; surfaces extrude into a list
-    of six boundary surfaces (bottom cap, top cap, and four side walls)
-    that together form a closed solid shell.
+    into lines; curves extrude into surfaces; surfaces extrude into an
+    ``AtomicBrep`` containing the bottom cap, top cap, and four side walls.
     """
 
     inputs = [
-        InputParam("base", None, Access.ITEM),
+        InputParam("base", EXTRUDABLE, Access.ITEM),
         InputParam("direction", AtomicVector, Access.ITEM, default=AtomicVector(0.0, 0.0, 1.0)),
     ]
-    outputs = [OutputParam("extrusion")]
+    outputs = [OutputParam("extrusion", GEOMETRY)]
 
     def generate(self, base=None, direction=AtomicVector(0.0, 0.0, 1.0)):
         if isinstance(base, AtomicPoint):

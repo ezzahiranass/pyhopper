@@ -12,6 +12,7 @@ class Rotate(Component):
 
     Accepts any geometry atom, a rotation angle in radians, and a plane
     whose origin is the center of rotation and whose normal is the axis.
+    A point input is automatically treated as a World-XY plane at that point.
     Returns the rotated geometry and the corresponding transformation matrix.
     """
 

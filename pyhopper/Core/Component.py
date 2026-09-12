@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any
 
+from .TypeSystem import TypeSpec
+
 from .Branch import Branch
 from .DataTree import DataTree, MatchRule
 from .Path import Path
@@ -29,7 +31,7 @@ class Access(Enum):
 @dataclass
 class InputParam:
     name: str
-    type_hint: type | None = None
+    type_hint: type | TypeSpec | None = None
     access: Access = Access.ITEM
     default: Any = None
     optional: bool = False
@@ -38,7 +40,7 @@ class InputParam:
 @dataclass
 class OutputParam:
     name: str
-    type_hint: type | None = None
+    type_hint: type | TypeSpec | None = None
 
 
 # ── ComponentResult ─────────────────────────────────────────────────
@@ -97,10 +99,32 @@ class Component:
     inputs: list[InputParam] = []
     outputs: list[OutputParam] = [OutputParam("result")]
     match_rule: MatchRule = MatchRule.LONGEST_LIST
+    settings_schema: dict[str, dict[str, Any]] = {}
 
     def __new__(cls, *args: Any, **kwargs: Any) -> ComponentResult:
+        settings = kwargs.pop("_settings", None)
         instance = object.__new__(cls)
+        instance.settings = instance._normalize_settings(settings)
         return instance._solve(*args, **kwargs)
+
+    def _normalize_settings(self, settings: Any) -> dict[str, Any]:
+        """Merge optional component settings with class defaults."""
+        schema = getattr(type(self), "settings_schema", {}) or {}
+        normalized = {
+            key: spec.get("default")
+            for key, spec in schema.items()
+            if isinstance(spec, dict) and "default" in spec
+        }
+        if settings is None:
+            return normalized
+        if not isinstance(settings, dict):
+            raise TypeError(f"{type(self).__name__} _settings must be a dictionary")
+
+        for key, value in settings.items():
+            if key not in schema:
+                raise ValueError(f"{type(self).__name__} does not support setting '{key}'")
+            normalized[key] = value
+        return normalized
 
     def generate(self, **kw: Any) -> Any:
         """Override in subclasses. Receives matched items as keyword args.
@@ -132,28 +156,37 @@ class Component:
     def _coerce_inputs(self, *args: Any, **kwargs: Any) -> dict[str, DataTree]:
         """Map positional/keyword args to input names, coerce to DataTrees."""
         input_trees: dict[str, DataTree] = {}
+        params_by_name = {param.name: param for param in self.inputs}
 
         # Positional args map to inputs in declaration order
         for i, arg in enumerate(args):
             if i < len(self.inputs):
-                name = self.inputs[i].name
-                input_trees[name] = DataTree.coerce(arg)
+                param = self.inputs[i]
+                input_trees[param.name] = self._coerce_input_tree(param, DataTree.coerce(arg))
 
         # Keyword args override
         for key, val in kwargs.items():
-            input_trees[key] = DataTree.coerce(val)
+            tree = DataTree.coerce(val)
+            input_trees[key] = self._coerce_input_tree(params_by_name[key], tree) if key in params_by_name else tree
 
         # Fill defaults for missing inputs
         for inp in self.inputs:
             if inp.name not in input_trees:
                 if inp.default is not None:
-                    input_trees[inp.name] = DataTree.coerce(inp.default)
+                    input_trees[inp.name] = self._coerce_input_tree(inp, DataTree.coerce(inp.default))
                 elif not inp.optional:
                     raise TypeError(
                         f"{type(self).__name__} missing required input: '{inp.name}'"
                     )
 
         return input_trees
+
+    @staticmethod
+    def _coerce_input_tree(param: InputParam, tree: DataTree) -> DataTree:
+        """Apply framework-level typed input conversions while preserving paths."""
+        from .TypeSystem import coerce_tree
+
+        return coerce_tree(tree, param.type_hint, input_name=param.name)
 
     def _get_access_mode(self) -> Access:
         """Determine the access mode from input declarations."""
@@ -172,7 +205,12 @@ class Component:
     # ── ITEM access solve ───────────────────────────────────────────
 
     def _solve_item(self, input_trees: dict[str, DataTree]) -> ComponentResult:
-        """Solve with ITEM access: generate called once per matched item-tuple."""
+        """Solve with ITEM access: generate called once per matched item-tuple.
+
+        When generate() returns a list and the branch has multiple items,
+        each invocation's list gets its own sub-branch at path.append(item_idx),
+        matching Grasshopper's automatic branching for list outputs.
+        """
         if not input_trees:
             # Zero-input component
             return self._build_result_from_single_call({})
@@ -195,9 +233,70 @@ class Component:
                     kw[name] = matched_items[j][item_idx]
 
                 result = self.generate(**kw)
-                self._collect_output(result, path, output_branches)
+                self._collect_item_output(
+                    result, path, item_idx, num_items, output_branches,
+                )
 
         return self._build_result(output_branches)
+
+    def _collect_item_output(
+        self,
+        result: Any,
+        path: Path,
+        item_idx: int,
+        num_items: int,
+        output_branches: list[dict[Path, list]],
+    ) -> None:
+        """Route a generate() result into the output branch collectors.
+
+        Like _collect_output but aware of the item iteration context so
+        list results create sub-branches when multiple items are iterated.
+        """
+        num_outputs = len(self.outputs)
+
+        if num_outputs > 1:
+            if not isinstance(result, (tuple, list)) or len(result) != num_outputs:
+                raise ValueError(
+                    f"{type(self).__name__}.generate() must return a tuple of "
+                    f"{num_outputs} elements (matching {num_outputs} outputs), "
+                    f"got {type(result).__name__}"
+                )
+            for i, val in enumerate(result):
+                self._place_item_value(
+                    output_branches[i], path, item_idx, num_items, val,
+                )
+        else:
+            self._place_item_value(
+                output_branches[0], path, item_idx, num_items, result,
+            )
+
+    @staticmethod
+    def _place_item_value(
+        collector: dict[Path, list],
+        path: Path,
+        item_idx: int,
+        num_items: int,
+        value: Any,
+    ) -> None:
+        """Place a single output value into the branch collector.
+
+        If the value is a list and multiple items are being iterated,
+        it gets its own sub-branch at path.append(item_idx) — matching
+        Grasshopper's behavior where list outputs auto-branch.
+        """
+        # List result with multiple iterations → sub-branch per invocation
+        if isinstance(value, list) and num_items > 1:
+            path = path.append(item_idx)
+
+        if path not in collector:
+            collector[path] = []
+
+        if isinstance(value, list):
+            collector[path].extend(value)
+        elif isinstance(value, DataTree):
+            collector[path].extend(value.all_items())
+        else:
+            collector[path].append(value)
 
     # ── LIST access solve ───────────────────────────────────────────
 
