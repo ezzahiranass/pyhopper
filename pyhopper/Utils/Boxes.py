@@ -82,3 +82,21 @@ def box_intervals(box: AtomicBox):
     from pyhopper.Core.Atoms import AtomicInterval
 
     return tuple(AtomicInterval(-float(size) / 2.0, float(size) / 2.0) for size in (box.x_size, box.y_size, box.z_size))
+
+
+def _boundary_rows(face) -> list[tuple]:
+    """The four pole-grid boundaries of a face, each as a tuple of rounded coordinates."""
+    poles = face.surface.poles if hasattr(face, "surface") else face.poles
+    rows = [poles[0], poles[-1], tuple(row[0] for row in poles), tuple(row[-1] for row in poles)]
+    return [tuple((round(p.x, 9), round(p.y, 9), round(p.z, 9)) for p in row) for row in rows]
+
+
+def shell_is_closed(brep) -> bool:
+    """True when every face boundary matches another face's boundary (either direction)."""
+    boundaries = [_boundary_rows(face) for face in brep.faces]
+    for index, rows in enumerate(boundaries):
+        for row in rows:
+            reversed_row = tuple(reversed(row))
+            if not any(row in other or reversed_row in other for other_index, other in enumerate(boundaries) if other_index != index):
+                return False
+    return True

@@ -1,0 +1,282 @@
+{
+ "component": "pyhopper.Components.Surface.Util.Untrim.Untrim",
+ "gh_guid": "fa92858a-a180-4545-ad4d-0dc644b3a2a8",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "untrimmed_passes_through",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 0,
+         "z": 1
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 2,
+         "y": 2,
+         "z": 2
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 2,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     },
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 0,
+         "z": 0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 2,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 4,
+         "y": 2,
+         "z": 0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "trimmed_returns_base",
+   "inputs": {
+    "surface": [
+     {
+      "type": "TrimmedSurface",
+      "surface": {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 0,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 2,
+          "y": 0,
+          "z": 1
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 0,
+          "z": 0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0,
+          "y": 2,
+          "z": 0
+         },
+         {
+          "type": "Point3d",
+          "x": 2,
+          "y": 2,
+          "z": 2
+         },
+         {
+          "type": "Point3d",
+          "x": 4,
+          "y": 2,
+          "z": 0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        3,
+        3
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 2,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      },
+      "outer": {
+       "type": "Polyline",
+       "points": [
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 0,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 1,
+         "y": 1,
+         "z": 0
+        },
+        {
+         "type": "Point3d",
+         "x": 0,
+         "y": 0,
+         "z": 0
+        }
+       ]
+      },
+      "holes": []
+     }
+    ]
+   },
+   "compare": [
+    "Surface"
+   ],
+   "gh": {
+    "skip": "pyhopper trimmed surfaces do not round-trip through the headless runner"
+   }
+  }
+ ]
+}

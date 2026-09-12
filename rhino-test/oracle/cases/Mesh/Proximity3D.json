@@ -1,0 +1,152 @@
+{
+ "component": "pyhopper.Components.Mesh.Triangulation.Proximity3D.Proximity3D",
+ "gh_guid": "e504d619-4467-437a-92fa-c6822d16b066",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "two_neighbours",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "group": [
+     2
+    ]
+   },
+   "compare": [
+    "Links",
+    "Topology"
+   ]
+  },
+  {
+   "name": "radius_window",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 5,
+      "y": 5,
+      "z": 0
+     }
+    ],
+    "group": [
+     1
+    ],
+    "min_radius": [
+     0.5
+    ],
+    "max_radius": [
+     2.0
+    ]
+   },
+   "compare": [
+    "Links",
+    "Topology"
+   ]
+  },
+  {
+   "name": "default_group_with_few_points",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 1,
+      "z": 0
+     }
+    ]
+   },
+   "compare": [
+    "Links",
+    "Topology"
+   ]
+  },
+  {
+   "name": "elevation_counts",
+   "inputs": {
+    "points": [
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 9
+     },
+     {
+      "type": "Point3d",
+      "x": 0,
+      "y": 3,
+      "z": 0
+     }
+    ],
+    "group": [
+     1
+    ]
+   },
+   "compare": [
+    "Links",
+    "Topology"
+   ]
+  }
+ ]
+}
