@@ -66,6 +66,7 @@ OUTPUT_PORT_OVERRIDES: dict[tuple[str, str], str] = {
 DUPLICATE_OUTPUT_OVERRIDES: dict[tuple[str, str], str] = {
     ("Length Parameter", "Length"): "length_after",
     ("Bounding Box", "Box"): "plane_box",
+    ("Curvature", "Curvature"): "circle",                       # the vector keeps "curvature", the circle follows
 }
 
 # Python keywords get a type word appended; extend as new ports need it.

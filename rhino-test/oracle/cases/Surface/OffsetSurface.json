@@ -1,0 +1,536 @@
+{
+ "component": "pyhopper.Components.Surface.Util.OffsetSurface.OffsetSurface",
+ "gh_guid": "b25c5762-f90e-4839-9fc5-74b74ab42b1e",
+ "mode": "structural",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "flat",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "distance": [
+     1.0
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "wall",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       2,
+       2
+      ],
+      "v_mults": [
+       2,
+       2
+      ],
+      "u_degree": 1,
+      "v_degree": 1,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "distance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "dome_refit",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "distance": [
+     0.5
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "zero_distance",
+   "inputs": {
+    "surface": [
+     {
+      "type": "Surface",
+      "poles": [
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 2.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 2.0,
+         "z": 3.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 2.0,
+         "z": 1.0
+        }
+       ],
+       [
+        {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 4.0,
+         "z": 0.0
+        },
+        {
+         "type": "Point3d",
+         "x": 2.0,
+         "y": 4.0,
+         "z": 1.0
+        },
+        {
+         "type": "Point3d",
+         "x": 4.0,
+         "y": 4.0,
+         "z": 0.0
+        }
+       ]
+      ],
+      "weights": [
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ],
+       [
+        1.0,
+        1.0,
+        1.0
+       ]
+      ],
+      "u_knots": [
+       0.0,
+       1.0
+      ],
+      "v_knots": [
+       0.0,
+       1.0
+      ],
+      "u_mults": [
+       3,
+       3
+      ],
+      "v_mults": [
+       3,
+       3
+      ],
+      "u_degree": 2,
+      "v_degree": 2,
+      "u_periodic": false,
+      "v_periodic": false
+     }
+    ],
+    "distance": [
+     0.0
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  },
+  {
+   "name": "multi_branch",
+   "inputs": {
+    "surface": {
+     "0": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 2.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 4.0,
+          "y": 2.0,
+          "z": 0.0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        2,
+        2
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 1,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ],
+     "1": [
+      {
+       "type": "Surface",
+       "poles": [
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 0.0
+         }
+        ],
+        [
+         {
+          "type": "Point3d",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 1.0
+         },
+         {
+          "type": "Point3d",
+          "x": 2.0,
+          "y": 0.0,
+          "z": 1.0
+         }
+        ]
+       ],
+       "weights": [
+        [
+         1.0,
+         1.0
+        ],
+        [
+         1.0,
+         1.0
+        ]
+       ],
+       "u_knots": [
+        0.0,
+        1.0
+       ],
+       "v_knots": [
+        0.0,
+        1.0
+       ],
+       "u_mults": [
+        2,
+        2
+       ],
+       "v_mults": [
+        2,
+        2
+       ],
+       "u_degree": 1,
+       "v_degree": 1,
+       "u_periodic": false,
+       "v_periodic": false
+      }
+     ]
+    },
+    "distance": [
+     1.0,
+     -1.0
+    ]
+   },
+   "compare": [
+    "Surface"
+   ]
+  }
+ ],
+ "notes": "Rhino refits curved offsets with its own tolerance-driven algorithm; planar surfaces translate exactly on both sides."
+}

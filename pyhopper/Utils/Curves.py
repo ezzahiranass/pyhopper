@@ -559,6 +559,37 @@ def curve_curvature_vector(curve, parameter: float) -> AtomicVector:
     return vector
 
 
+def curve_derivatives_at(curve, parameter: float) -> tuple[AtomicPoint, AtomicVector, AtomicVector, AtomicVector]:
+    """Point and the first three derivatives at *parameter*, in each atom's own parameterisation.
+
+    Lines and polylines (uniform per segment) are exact, arcs and circles are
+    differentiated in angle, everything else goes through its NURBS form.
+    """
+    t = float(parameter)
+    zero = AtomicVector(0.0, 0.0, 0.0)
+    if isinstance(curve, AtomicLine):
+        return curve_point_at(curve, t), AtomicVector(curve.end.x - curve.start.x, curve.end.y - curve.start.y, curve.end.z - curve.start.z), zero, zero
+    if isinstance(curve, AtomicPolyline):
+        index, local = _polyline_locate(curve, t)
+        segments = _polyline_segments(curve)
+        start, end = segments[index]
+        count = len(segments)
+        return _lerp_point(start, end, local), AtomicVector((end.x - start.x) * count, (end.y - start.y) * count, (end.z - start.z) * count), zero, zero
+    if isinstance(curve, (AtomicArc, AtomicCircle)):
+        centre, x_axis, y_axis, radius, start_angle, sweep = _arc_geometry(curve)
+        angle = start_angle + sweep * t
+        cos_a, sin_a = math.cos(angle), math.sin(angle)
+        radial = AtomicVector(*(radius * (cos_a * x + sin_a * y) for x, y in zip((x_axis.x, x_axis.y, x_axis.z), (y_axis.x, y_axis.y, y_axis.z))))
+        first = AtomicVector(*(radius * sweep * (-sin_a * x + cos_a * y) for x, y in zip((x_axis.x, x_axis.y, x_axis.z), (y_axis.x, y_axis.y, y_axis.z))))
+        second = AtomicVector(-sweep * sweep * radial.x, -sweep * sweep * radial.y, -sweep * sweep * radial.z)
+        third = AtomicVector(-sweep * sweep * first.x, -sweep * sweep * first.y, -sweep * sweep * first.z)
+        return AtomicPoint(centre.x + radial.x, centre.y + radial.y, centre.z + radial.z), first, second, third
+    from pyhopper.Utils.Nurbs import curve_derivatives
+
+    point, (first, second, third) = curve_derivatives(_as_nurbs(curve), t, 3)
+    return point, first, second, third
+
+
 def curve_start_end(curve) -> tuple[AtomicPoint, AtomicPoint]:
     start, end = curve_domain_of(curve)
     return curve_point_at(curve, start), curve_point_at(curve, end)
