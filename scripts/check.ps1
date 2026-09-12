@@ -5,7 +5,7 @@ $root = Split-Path -Parent $PSScriptRoot
 $py = Join-Path $root ".venv\Scripts\python.exe"
 
 Write-Host "== unit tests (tests/)"
-& $py -m unittest discover -s (Join-Path $root "tests") -v
+& $py -m unittest discover -s (Join-Path $root "tests") -t $root -v
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "== API tests (pyhopper-web/api/test_*.py)"

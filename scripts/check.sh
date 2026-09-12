@@ -6,7 +6,7 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 py="$root/.venv/Scripts/python.exe"; [ -x "$py" ] || py="$root/.venv/bin/python"
 
 echo "== unit tests (tests/)"
-"$py" -m unittest discover -s "$root/tests" -v
+"$py" -m unittest discover -s "$root/tests" -t "$root" -v
 echo "== API tests (pyhopper-web/api/test_*.py)"
 "$py" -m unittest discover -s "$root/pyhopper-web/api" -p "test_*.py" -v
 echo "== docs (mkdocs build --strict)"

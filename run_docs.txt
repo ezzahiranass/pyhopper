@@ -14,5 +14,5 @@ cd D:\Apps\pyhopper
 # Core library tests + tower example
 d:
 cd D:\Apps\pyhopper
-.venv\Scripts\python -m unittest discover -s tests -v
+.venv\Scripts\python -m unittest discover -s tests -t . -v
 .venv\Scripts\python pyhopper\Examples\first_test.py
