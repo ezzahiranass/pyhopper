@@ -6,3 +6,6 @@ __pycache__/
 # vendored third-party download and scratch archives
 three-viewport-gizmo-main/
 cd_ph2.zip
+
+# mkdocs build output
+site/
