@@ -1,0 +1,337 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.ArcSED.ArcSED",
+ "gh_guid": "9d2583dd-6cf5-497c-8c40-c9a290598396",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "half_circle",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": -2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "expect": {
+    "arc": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": 1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": 1.0,
+         "y": 0.0,
+         "z": 0.0
+        }
+       },
+       "radius": 2.0,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 3.141592653589793
+       }
+      }
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "tilted_direction",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 1,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "expect": {
+    "arc": {
+     "{0}": [
+      {
+       "type": "Arc",
+       "plane": {
+        "type": "Plane",
+        "origin": {
+         "type": "Point3d",
+         "x": 1.0,
+         "y": -1.0,
+         "z": 0.0
+        },
+        "normal": {
+         "type": "Vector3d",
+         "x": 0.0,
+         "y": 0.0,
+         "z": -1.0
+        },
+        "x_axis": {
+         "type": "Vector3d",
+         "x": -0.7071067811865476,
+         "y": 0.7071067811865476,
+         "z": 0.0
+        }
+       },
+       "radius": 1.414213562373095,
+       "angle": {
+        "type": "Interval",
+        "start": 0.0,
+        "end": 1.5707963267948966
+       }
+      }
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 1.0,
+        "y": -1.0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": -0.7071067811865476,
+        "y": 0.7071067811865476,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      1.414213562373095
+     ]
+    }
+   }
+  },
+  {
+   "name": "direction_along_chord_gives_line",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "expect": {
+    "arc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": -0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      Infinity
+     ]
+    }
+   }
+  },
+  {
+   "name": "zero_direction_gives_line",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "expect": {
+    "arc": {
+     "{0}": [
+      {
+       "type": "Line",
+       "start": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "end": {
+        "type": "Point3d",
+        "x": 2,
+        "y": 0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "plane": {
+     "{0}": [
+      {
+       "type": "Plane",
+       "origin": {
+        "type": "Point3d",
+        "x": 0,
+        "y": 0,
+        "z": 0.0
+       },
+       "normal": {
+        "type": "Vector3d",
+        "x": 0.0,
+        "y": -0.0,
+        "z": 1.0
+       },
+       "x_axis": {
+        "type": "Vector3d",
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+       }
+      }
+     ]
+    },
+    "radius": {
+     "{0}": [
+      Infinity
+     ]
+    }
+   }
+  }
+ ]
+}

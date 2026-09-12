@@ -1,0 +1,361 @@
+{
+ "component": "pyhopper.Components.Curve.Division.PerpFrames.PerpFrames",
+ "gh_guid": "983c7600-980c-44da-bc53-c804067f667f",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "line_aligned",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": 2
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "line_unaligned",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": 1,
+    "align": false
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "vertical_line",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 3
+     }
+    },
+    "count": 1
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "circle_eight_aligned",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "count": 8
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "circle_four_unaligned",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "count": 4,
+    "align": false
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "polyline_aligned",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ]
+    },
+    "count": 2
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "helix_aligned",
+   "inputs": {
+    "curve": {
+     "type": "NurbsCurve",
+     "control_points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 2
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 4
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 5
+      }
+     ],
+     "weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "knots": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3
+     ],
+     "degree": 3
+    },
+    "count": 4
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "helix_unaligned",
+   "inputs": {
+    "curve": {
+     "type": "NurbsCurve",
+     "control_points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 1
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 2
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 3
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 4
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 5
+      }
+     ],
+     "weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "knots": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3
+     ],
+     "degree": 3
+    },
+    "count": 4,
+    "align": false
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "zero_count_is_empty",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 4,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": 0
+   },
+   "compare": [
+    "Frames",
+    "Parameters"
+   ]
+  }
+ ]
+}

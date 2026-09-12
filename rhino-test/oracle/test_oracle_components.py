@@ -11,6 +11,9 @@ Fixture options (all optional):
 
 - ``mode``: ``exact`` (paths and values within ``tolerance``) or ``structural``
   (paths and item counts only);
+- ``reparametrize``: input names whose curves are mapped to the [0, 1] domain on
+  both sides (pyhopper's Reparametrize port op, Grasshopper's Reparameterize
+  flag) so parameter outputs compare;
 - ``paths``: ``"exact"`` (default) or ``"simplified"`` — compare simplified
   trees when pyhopper's list-output rule places items differently from
   Grasshopper's ``{path;iteration}``;
@@ -33,6 +36,7 @@ import unittest
 from pathlib import Path as FilePath
 from typing import Any
 
+from oracle.gh_headless import output_key
 from oracle.support import REPO_ROOT, requires_rhino
 
 if str(REPO_ROOT) not in sys.path:
@@ -42,6 +46,7 @@ from tests.support.components import decode_input, resolve_component, run_compon
 from tests.support.trees import items_close  # noqa: E402
 
 from pyhopper.Core.DataTree import DataTree  # noqa: E402
+from pyhopper.Utils.Curves import reparametrize_tree  # noqa: E402
 
 CASES_DIR = FilePath(__file__).resolve().parent / "cases"
 DUMP = REPO_ROOT / "rhino-test" / "gh_core_components_r8.json"
@@ -90,8 +95,7 @@ def _make_test(fixture_path: FilePath):
         record = self.dump.get(fixture["gh_guid"])
         if record is None or record.get("inputs") is None:
             self.skipTest("parameter container or unknown Grasshopper component")
-        if fixture.get("reparametrize"):
-            self.skipTest("curve reparametrisation is not wired into the headless runner yet")
+        reparametrized = list(fixture.get("reparametrize") or [])
         component_cls = resolve_component(fixture["component"])
         gh_output_names = [port["name"] for port in record["outputs"]]
         pyhopper_output_names = [param.name for param in component_cls.outputs]
@@ -108,6 +112,11 @@ def _make_test(fixture_path: FilePath):
                 if skip:
                     self.skipTest(f"documented deviation: {skip}")
                 kwargs = {name: decode_input(spec) for name, spec in case.get("inputs", {}).items()}
+                for name in reparametrized:
+                    if name in kwargs:
+                        # the same [0, 1] domain on both sides: pyhopper's Reparametrize port op here,
+                        # Grasshopper's Reparameterize flag (a domain reset) in the runner
+                        kwargs[name] = reparametrize_tree(DataTree.coerce(kwargs[name]))
                 ours = run_component(component_cls, settings=case.get("settings") or None, **kwargs)
                 gh_inputs: dict[int, DataTree] = {}
                 for name, value in kwargs.items():
@@ -121,10 +130,14 @@ def _make_test(fixture_path: FilePath):
                             gh_inputs[index + offset] = DataTree.coerce(stream)
                     else:
                         gh_inputs[index] = DataTree.coerce(value)
-                theirs, messages = solve_component(fixture["gh_guid"], gh_inputs, drop_nulls=drop_nulls)
-                for gh_name in case.get("compare", gh_output_names):
-                    self.assertIn(gh_name, gh_output_names, f"{gh_name} is not an output of {record['name']}")
-                    our_name = pyhopper_output_names[gh_output_names.index(gh_name)]
+                reparametrize_indices = tuple(gh_input_names.index(name) for name in reparametrized if name in gh_input_names)
+                theirs, messages = solve_component(fixture["gh_guid"], gh_inputs, drop_nulls=drop_nulls, reparametrize=reparametrize_indices)
+                compare = case.get("compare") or [output_key(gh_output_names, index) for index in range(len(gh_output_names))]
+                for gh_name in compare:
+                    keys = [output_key(gh_output_names, index) for index in range(len(gh_output_names))]
+                    self.assertIn(gh_name, keys, f"{gh_name} is not an output of {record['name']} ({keys})")
+                    position = keys.index(gh_name)
+                    our_name = pyhopper_output_names[position]
                     mine, gh = ours[our_name], theirs[gh_name]
                     if simplified:
                         mine, gh = mine.simplify(), gh.simplify()

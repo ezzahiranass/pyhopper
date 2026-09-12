@@ -1,0 +1,121 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.ArcSED.ArcSED",
+ "gh_guid": "9d2583dd-6cf5-497c-8c40-c9a290598396",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "half_circle",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": -2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  },
+  {
+   "name": "tilted_direction",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 1,
+     "y": 1,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  },
+  {
+   "name": "direction_along_chord_gives_line",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  },
+  {
+   "name": "zero_direction_gives_line",
+   "inputs": {
+    "start": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "end": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "direction": {
+     "type": "Vector3d",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  }
+ ]
+}

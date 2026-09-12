@@ -1,0 +1,137 @@
+{
+ "component": "pyhopper.Components.Curve.Division.DivideCurve.DivideCurve",
+ "gh_guid": "2162e72e-72fc-4bf8-9459-d4d82fa8aa14",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [
+  "curve"
+ ],
+ "cases": [
+  {
+   "name": "line_four_segments",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 10,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": 4
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "circle_closed_yields_count_points",
+   "inputs": {
+    "curve": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    },
+    "count": 4
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "polyline_kinks_add_the_vertices",
+   "inputs": {
+    "curve": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 3,
+       "z": 0
+      }
+     ]
+    },
+    "count": 2,
+    "kinks": true
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  },
+  {
+   "name": "two_branches_of_counts_sub_branch",
+   "inputs": {
+    "curve": {
+     "type": "Line",
+     "start": {
+      "type": "Point3d",
+      "x": 0,
+      "y": 0,
+      "z": 0
+     },
+     "end": {
+      "type": "Point3d",
+      "x": 1,
+      "y": 0,
+      "z": 0
+     }
+    },
+    "count": [
+     1,
+     2
+    ]
+   },
+   "compare": [
+    "Points",
+    "Tangents",
+    "Parameters"
+   ]
+  }
+ ]
+}

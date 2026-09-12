@@ -1,0 +1,233 @@
+{
+ "component": "pyhopper.Components.Curve.Analysis.PolygonCenter.PolygonCenter",
+ "gh_guid": "59e94548-cefd-4774-b3de-48142fc783fb",
+ "tolerance": 1e-09,
+ "oracle": {
+  "mode": "exact",
+  "reparametrize": []
+ },
+ "cases": [
+  {
+   "name": "closed_square",
+   "inputs": {
+    "polyline": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 2,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "expect": {
+    "center_v": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "center_e": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "center_a": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.0,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "open_polyline_has_no_area_centre",
+   "inputs": {
+    "polyline": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 2,
+       "y": 2,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "expect": {
+    "center_v": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.3333333333333333,
+       "y": 0.6666666666666666,
+       "z": 0.0
+      }
+     ]
+    },
+    "center_e": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.5,
+       "y": 0.5,
+       "z": 0.0
+      }
+     ]
+    },
+    "center_a": {
+     "{0}": []
+    }
+   }
+  },
+  {
+   "name": "triangle",
+   "inputs": {
+    "polyline": {
+     "type": "Polyline",
+     "points": [
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 4,
+       "y": 0,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 3,
+       "z": 0
+      },
+      {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      }
+     ]
+    }
+   },
+   "expect": {
+    "center_v": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.3333333333333333,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "center_e": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.5,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    },
+    "center_a": {
+     "{0}": [
+      {
+       "type": "Point3d",
+       "x": 1.3333333333333333,
+       "y": 1.0,
+       "z": 0.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "not_a_polyline_raises",
+   "inputs": {
+    "polyline": {
+     "type": "Circle",
+     "plane": {
+      "type": "Plane",
+      "origin": {
+       "type": "Point3d",
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "normal": {
+       "type": "Vector3d",
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "x_axis": {
+       "type": "Vector3d",
+       "x": 1,
+       "y": 0,
+       "z": 0
+      }
+     },
+     "radius": 2.0
+    }
+   },
+   "raises": "TypeError"
+  }
+ ]
+}

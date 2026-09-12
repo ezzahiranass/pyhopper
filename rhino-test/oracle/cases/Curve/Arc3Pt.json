@@ -1,0 +1,121 @@
+{
+ "component": "pyhopper.Components.Curve.Primitive.Arc3Pt.Arc3Pt",
+ "gh_guid": "9fa1b081-b1c7-4a12-a163-0aa8da9ff6c4",
+ "mode": "exact",
+ "tolerance": 1e-06,
+ "reparametrize": [],
+ "cases": [
+  {
+   "name": "counter_clockwise",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 2,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": -2,
+     "y": 0,
+     "z": 0.0
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  },
+  {
+   "name": "clockwise_flips_normal",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": -2,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 2,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  },
+  {
+   "name": "three_d",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 1,
+     "z": 1
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": -1,
+     "y": 0,
+     "z": 2
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  },
+  {
+   "name": "collinear_gives_line",
+   "inputs": {
+    "point_a": {
+     "type": "Point3d",
+     "x": 0,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_b": {
+     "type": "Point3d",
+     "x": 1,
+     "y": 0,
+     "z": 0.0
+    },
+    "point_c": {
+     "type": "Point3d",
+     "x": 2,
+     "y": 0,
+     "z": 0.0
+    }
+   },
+   "compare": [
+    "Arc",
+    "Plane",
+    "Radius"
+   ]
+  }
+ ]
+}
