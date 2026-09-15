@@ -2,41 +2,6 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "api",
-      "runtimeExecutable": "D:/Apps/pyhopper/.venv/Scripts/python.exe",
-      "runtimeArgs": [
-        "-m",
-        "uvicorn",
-        "--app-dir",
-        "pyhopper-web/api",
-        "app:app",
-        "--reload",
-        "--reload-dir",
-        "pyhopper-web/api",
-        "--reload-dir",
-        "pyhopper",
-        "--host",
-        "127.0.0.1",
-        "--port",
-        "8000"
-      ],
-      "port": 8000
-    },
-    {
-      "name": "web",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "pyhopper-web",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3001"
-      ],
-      "port": 3001
-    },
-    {
       "name": "docs",
       "runtimeExecutable": "D:/Apps/pyhopper/.venv/Scripts/python.exe",
       "runtimeArgs": [

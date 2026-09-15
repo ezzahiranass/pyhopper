@@ -1,4 +1,4 @@
-# Repo-wide check: unit tests -> API tests -> strict docs build -> optional Rhino 8 oracle suite.
+# Repo-wide check: unit tests -> strict docs build -> optional Rhino 8 oracle suite.
 # Usage: .\scripts\check.ps1        (set $env:RHINO_ORACLE = "1" to include the oracle suite)
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
@@ -6,10 +6,6 @@ $py = Join-Path $root ".venv\Scripts\python.exe"
 
 Write-Host "== unit tests (tests/)"
 & $py -m unittest discover -s (Join-Path $root "tests") -t $root -v
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-Write-Host "== API tests (pyhopper-web/api/test_*.py)"
-& $py -m unittest discover -s (Join-Path $root "pyhopper-web\api") -p "test_*.py" -v
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "== docs (mkdocs build --strict)"

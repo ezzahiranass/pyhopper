@@ -1,8 +1,0 @@
-[
-  {
-    "origin": ["http://localhost:3000", "http://localhost:3001", "https://archibot-eb7be.web.app", "https://archibot-eb7be.firebaseapp.com"],
-    "method": ["GET", "HEAD"],
-    "responseHeader": ["Content-Type", "Content-Disposition", "Content-Length"],
-    "maxAgeSeconds": 3600
-  }
-]

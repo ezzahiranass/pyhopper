@@ -9,3 +9,14 @@ cd_ph2.zip
 
 # mkdocs build output
 site/
+
+# packaging / docs output
+*.egg-info/
+# local scratch (the owner's archive of retired folders and probe leftovers)
+archive/
+_tmp_*.glb
+log.txt
+run_docs.txt
+# Claude Code personal settings (launch.json stays tracked)
+.claude/settings.json
+.claude/settings.local.json

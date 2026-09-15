@@ -4,6 +4,8 @@ pyhopper - Declarative parametric 3D modeling in Python.
 A Grasshopper-inspired framework with DataTree-based data flow.
 """
 
+__version__ = "0.1.0"  # keep in step with pyproject.toml; products pin this as a git-subtree tag
+
 # Core data model
 from .Core import (
     Path, Branch, DataTree, MatchRule,

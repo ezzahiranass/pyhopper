@@ -1,7 +1,0 @@
-{
-  "slug": "accountant",
-  "title": "Accountant",
-  "description": "Tracks budgets, cost questions, and financial framing for project and studio decisions.",
-  "tools": ["web_search", "view_company_info"]
-}
-

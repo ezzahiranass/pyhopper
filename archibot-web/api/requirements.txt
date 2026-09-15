@@ -1,9 +1,0 @@
-flask
-flask-cors
-firebase-admin
-langgraph>=0.2
-langchain-openai>=0.3
-openai>=2.21.0
-python-dotenv
-colorama
-py-staticmaps

@@ -1,6 +1,0 @@
-{
-  "slug": "administrative_assistant",
-  "title": "Administrative Assistant",
-  "description": "Handles coordination, logistics, and studio support tasks with access to team context and messaging across channels and groups.",
-  "tools": ["view_company_info", "send_message", "web_search"]
-}

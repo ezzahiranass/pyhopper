@@ -1,8 +1,8 @@
 site_name: pyhopper
 site_description: Declarative parametric 3D modeling in Python — a Grasshopper-inspired framework.
 site_url: https://pyhopper.dev
-repo_url: https://github.com/your-org/pyhopper
-repo_name: pyhopper
+repo_url: https://github.com/ezzahiranass/pyhopper
+repo_name: ezzahiranass/pyhopper
 
 theme:
   name: material

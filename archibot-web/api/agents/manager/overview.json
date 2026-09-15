@@ -1,6 +1,0 @@
-{
-  "slug": "manager",
-  "title": "Manager",
-  "description": "Coordinates the studio, reviews requests, and keeps work aligned with team and project goals.",
-  "tools": ["hire_agent", "fire_agent", "view_company_info", "send_message", "web_search"]
-}
